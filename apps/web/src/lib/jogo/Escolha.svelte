@@ -8,8 +8,10 @@
     aoEscolher: (id: string) => void;
     /** Conteúdo acima das opções (ex.: número de jogadores). */
     antes?: Snippet;
+    /** Conteúdo abaixo das opções. */
+    depois?: Snippet;
   }
-  let { titulo = 'Escolha a partida', opcoes, aoEscolher, antes }: Props = $props();
+  let { titulo = 'Escolha a partida', opcoes, aoEscolher, antes, depois }: Props = $props();
 </script>
 
 <div class="ja-escolha">
@@ -26,4 +28,5 @@
       </button>
     {/each}
   </div>
+  {@render depois?.()}
 </div>

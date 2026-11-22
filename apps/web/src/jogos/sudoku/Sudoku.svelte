@@ -13,17 +13,7 @@
 
   const ID = 'sudoku';
   const s = new Sessao<Quebra, Estado>(ID);
-  const MODOS: { id: string; titulo: string; regras: Regra[] }[] = [
-    { id: 'classico', titulo: 'Clássico', regras: [] },
-    { id: 'diagonais', titulo: 'Diagonais', regras: ['diagonais'] },
-    { id: 'anti-rei', titulo: 'Anti-rei', regras: ['anti-rei'] },
-    { id: 'anti-cavalo', titulo: 'Anti-cavalo', regras: ['anti-cavalo'] },
-    { id: 'nao-consecutivo', titulo: 'Não consecutivo', regras: ['nao-consecutivo'] },
-    { id: 'killer', titulo: 'Killer', regras: ['killer'] },
-    { id: 'diagonais-anti-rei', titulo: 'Diagonais + anti-rei', regras: ['diagonais', 'anti-rei'] },
-    { id: 'killer-diagonais', titulo: 'Killer + diagonais', regras: ['killer', 'diagonais'] },
-    { id: 'anti-cavalo-nao-consecutivo', titulo: 'Anti-cavalo + não consecutivo', regras: ['anti-cavalo', 'nao-consecutivo'] },
-  ];
+  const TODAS: Regra[] = ['diagonais', 'anti-rei', 'anti-cavalo', 'nao-consecutivo', 'killer', 'kropki', 'xv', 'par-impar', 'termometro'];
   const DIFS: { id: Dificuldade; nome: string }[] = [
     { id: 'facil', nome: 'Fácil' }, { id: 'medio', nome: 'Médio' }, { id: 'dificil', nome: 'Difícil' },
   ];
@@ -34,10 +24,16 @@
   /** Dígito "pressionado" no teclado: destaca os iguais no tabuleiro. */
   let ativo = $state(0);
   let folhaNotas = $state(false);
+  /** Regras marcadas na escolha. */
+  let marcadas = $state<Regra[]>([]);
+  /** Dígito travado (tocar e segurar no teclado): cada casa tocada recebe o número ou a nota. */
+  let travado = $state<{ d: number; notas: boolean } | null>(null);
+  let segurou = false;
+  let temporizador: ReturnType<typeof setTimeout> | undefined;
 
   const q = $derived(s.quebra);
   const e = $derived(s.estado);
-  const erros = $derived(q && e ? conflitos(q.regras, e.grade, q.gaiolas) : new Set<number>());
+  const erros = $derived(q && e ? conflitos(q.regras, e.grade, q) : new Set<number>());
   const completos = $derived.by(() => {
     const c = new Set<number>();
     if (!e) return c;
@@ -48,6 +44,7 @@
     'Preencha a grade com os dígitos de 1 a 9: cada linha, coluna e caixa 3 × 3 tem todos eles, sem repetir.',
     ...(q?.regras ?? []).map((r) => `${NOMES_REGRAS[r].nome}: ${NOMES_REGRAS[r].descricao}`),
     'Toque numa casa e depois num dígito. O teclado da esquerda escreve o número; o da direita, as notas (anotações pequenas).',
+    'Toque e segure um dígito do teclado para travá-lo: a partir daí, cada casa tocada recebe esse número (ou ganha e perde essa nota). Toque de novo no dígito travado para soltar.',
     'O dígito tocado fica destacado no tabuleiro. Dígitos que quebram uma regra ficam sublinhados, e o contador de erros sobe quando um número não é o da solução.',
     'O botão de notas preenche as anotações de todas as casas vazias: só os candidatos possíveis ou de 1 a 9.',
   ]);
@@ -61,21 +58,28 @@
   }
   const editavel = $derived(!!q && !!e && selecionada >= 0 && !q.dadas[selecionada] && !s.terminou);
 
-  function escolher(idModo: string) {
-    void salvarPreferencias(ID, { dificuldade });
-    const m = MODOS.find((x) => x.id === idModo)!;
+  function escolher(id: string) {
+    const regras: Regra[] = id === 'classico' ? [] : TODAS.filter((r) => marcadas.includes(r));
+    void salvarPreferencias(ID, { dificuldade, marcadas: [...marcadas] });
     const nomeDif = DIFS.find((d) => d.id === dificuldade)!.nome;
+    const nome = regras.length ? regras.map((r) => NOMES_REGRAS[r].nome).join(' + ') : 'Clássico';
     selecionada = -1;
     ativo = 0;
-    void s.comecar(`${idModo}-${dificuldade}`, `${m.titulo}, ${nomeDif}`, async () => {
-      const quebra = await gerarNoFundo<Quebra>('sudoku', { regras: m.regras, dificuldade, semente: sementeNova(), prazo: 5000 });
+    travado = null;
+    void s.comecar(`${regras.length ? regras.join('+') : 'classico'}-${dificuldade}`, `${nome}, ${nomeDif}`, async () => {
+      const quebra = await gerarNoFundo<Quebra>('sudoku', { regras, dificuldade, semente: sementeNova(), prazo: 5000 });
       return { quebra, estado: { grade: quebra.dadas.slice(), notas: new Array(81).fill(0), erros: 0 } };
     });
   }
 
-  function escrever(d: number) {
+  function alternarRegra(r: Regra) {
+    marcadas = marcadas.includes(r) ? marcadas.filter((x) => x !== r) : [...marcadas, r];
+  }
+
+  function escrever(d: number, casa = selecionada) {
     ativo = d;
-    if (!editavel || !q || !e) return;
+    if (!q || !e || casa < 0 || q.dadas[casa] || s.terminou) return;
+    selecionada = casa;
     const grade = [...e.grade], notas = [...e.notas];
     let erros = e.erros;
     if (grade[selecionada] === d) grade[selecionada] = 0;
@@ -90,11 +94,11 @@
     if (grade.every((v, i) => v === q.solucao[i])) void s.terminar('vitoria');
   }
 
-  function anotar(d: number) {
+  function anotar(d: number, casa = selecionada) {
     ativo = d;
-    if (!editavel || !e || e.grade[selecionada]) return;
+    if (!q || !e || casa < 0 || q.dadas[casa] || e.grade[casa] || s.terminou) return;
     const notas = [...e.notas];
-    notas[selecionada] ^= 1 << d;
+    notas[casa] ^= 1 << d;
     s.mudar({ ...e, notas });
   }
 
@@ -109,15 +113,46 @@
   function preencherNotas(soCandidatos: boolean) {
     folhaNotas = false;
     if (!q || !e || s.terminou) return;
-    const cand = soCandidatos ? candidatos(q.regras, e.grade, q.gaiolas) : null;
+    const cand = soCandidatos ? candidatos(q.regras, e.grade, q) : null;
     const notas = e.grade.map((v, i) => (v ? 0 : cand ? cand[i] : 0x3fe));
     s.mudar({ ...e, notas });
   }
 
   function tocarCasa(i: number) {
     selecionada = i;
+    if (travado) {
+      if (travado.notas) anotar(travado.d, i);
+      else escrever(travado.d, i);
+      ativo = travado.d;
+      return;
+    }
     const v = e?.grade[i];
     if (v) ativo = v;
+  }
+
+  // Teclas: toque curto escreve; tocar e segurar trava o dígito.
+  function pressionarTecla(d: number, notas: boolean) {
+    segurou = false;
+    clearTimeout(temporizador);
+    temporizador = setTimeout(() => {
+      segurou = true;
+      travado = travado && travado.d === d && travado.notas === notas ? null : { d, notas };
+      ativo = d;
+      vibrar(30);
+    }, 420);
+  }
+  function soltarTecla() {
+    clearTimeout(temporizador);
+  }
+  function tocarTecla(d: number, notas: boolean) {
+    if (segurou) { segurou = false; return; }
+    if (travado) {
+      travado = travado.d === d && travado.notas === notas ? null : { d, notas };
+      ativo = d;
+      return;
+    }
+    if (notas) anotar(d);
+    else escrever(d);
   }
 
   function aoTecla(ev: KeyboardEvent) {
@@ -156,28 +191,43 @@
     return m;
   });
 
-  const opcoes = MODOS.map((m) => ({
-    id: m.id,
-    titulo: m.titulo,
-    descricao: m.regras.length ? m.regras.map((r) => NOMES_REGRAS[r].descricao).join(' ') : 'As regras de sempre.',
-  }));
+  const opcoes = [{ id: 'classico', titulo: 'Sudoku clássico', descricao: 'Linha, coluna e caixa sem repetir. Começa direto.' }];
+
+  // Desenho das pistas: pontos, termômetros e marcas de par e ímpar.
+  const centroCasa = (c: number): [number, number] => [coluna(c) + 0.5, linha(c) + 0.5];
 
   onMount(async () => {
-    dificuldade = (await lerPreferencias(ID, { dificuldade: 'medio' as Dificuldade })).dificuldade;
+    const pref = await lerPreferencias(ID, { dificuldade: 'medio' as Dificuldade, marcadas: [] as Regra[] });
+    dificuldade = pref.dificuldade;
+    marcadas = (pref.marcadas ?? []).filter((r) => TODAS.includes(r));
     await s.carregar();
   });
-  onDestroy(() => s.destruir());
+  onDestroy(() => { clearTimeout(temporizador); s.destruir(); });
 </script>
 
 <svelte:window onkeydown={aoTecla} />
 
-<Casca sessao={s} titulo="Sudoku" {comoJogar} {opcoes} aoEscolher={escolher} tituloEscolha="Escolha as regras" semDesfazer>
+<Casca sessao={s} titulo="Sudoku" {comoJogar} {opcoes} aoEscolher={escolher} tituloEscolha="Nova partida" semDesfazer>
   {#snippet antesDaEscolha()}
     <div class="segmentado ja-segmentado-largo" role="group" aria-label="Dificuldade">
       {#each DIFS as d (d.id)}
         <button type="button" aria-pressed={dificuldade === d.id} onclick={() => (dificuldade = d.id)}>{d.nome}</button>
       {/each}
     </div>
+  {/snippet}
+  {#snippet depoisDaEscolha()}
+    <h3 class="ja-escolha-subtitulo">Ou combine regras</h3>
+    <div class="ja-regras-lista">
+      {#each TODAS as r (r)}
+        <label class="ja-regra">
+          <span class="escolha"><input type="checkbox" checked={marcadas.includes(r)} onchange={() => alternarRegra(r)} /></span>
+          <span class="linha-texto"><span class="linha-titulo">{NOMES_REGRAS[r].nome}</span><span class="linha-descricao">{NOMES_REGRAS[r].descricao}</span></span>
+        </label>
+      {/each}
+    </div>
+    <button class="botao botao-principal ja-botao-largo" type="button" disabled={!marcadas.length} onclick={() => escolher('combinado')}>
+      <Icone nome="player-play" /><span>{marcadas.length ? `Começar com ${marcadas.length} ${marcadas.length === 1 ? 'regra' : 'regras'}` : 'Marque uma ou mais regras'}</span>
+    </button>
   {/snippet}
   {#snippet faixa()}
     {#if e}<span class="ja-placar-item"><Icone nome="alert-triangle" /><span class="sr-only">Erros:</span><span class="ja-numero">{e.erros}</span></span>{/if}
@@ -193,7 +243,7 @@
             class="ja-sudoku-casa"
             data-selecionada={selecionada === i || undefined}
             data-relacionada={relacionada(i) || undefined}
-            data-mesmo={(v && ativo === v && selecionada !== i) || undefined}
+            data-mesmo={(v && ativo === v) || undefined}
             data-dada={dada || undefined}
             data-erro={(!dada && erros.has(i)) || undefined}
             data-soma={soma !== undefined || undefined}
@@ -216,7 +266,29 @@
           {#if q.regras.includes('diagonais')}
             <path d="M0 0L9 9M9 0L0 9" class="ja-sudoku-diagonal" />
           {/if}
+          {#each q.termometros ?? [] as t, k (k)}
+            {@const [bx, by] = centroCasa(t[0])}
+            <g class="ja-sudoku-termo">
+              <circle cx={bx} cy={by} r="0.36" />
+              <polyline points={t.map((c) => centroCasa(c).join(',')).join(' ')} />
+            </g>
+          {/each}
+          {#each q.paridade ?? [] as [c, p] (c)}
+            {@const [x, y] = centroCasa(c)}
+            {#if p === 1}<circle class="ja-sudoku-paridade" cx={x} cy={y} r="0.4" />{:else}<rect class="ja-sudoku-paridade" x={x - 0.38} y={y - 0.38} width="0.76" height="0.76" rx="0.08" />{/if}
+          {/each}
           {#each linhasGaiolas as d, k (k)}<path {d} class="ja-sudoku-gaiola" />{/each}
+          {#each q.pontos ?? [] as p, k (k)}
+            {@const [ax, ay] = centroCasa(p.a)}
+            {@const [bx, by] = centroCasa(p.b)}
+            {@const x = (ax + bx) / 2}
+            {@const y = (ay + by) / 2}
+            {#if p.tipo === 'branco' || p.tipo === 'preto'}
+              <circle class="ja-sudoku-kropki" data-tipo={p.tipo} cx={x} cy={y} r="0.13" />
+            {:else}
+              <g class="ja-sudoku-xv"><rect x={x - 0.16} y={y - 0.16} width="0.32" height="0.32" rx="0.06" /><text {x} y={y + 0.01}>{p.tipo.toUpperCase()}</text></g>
+            {/if}
+          {/each}
         </svg>
       </div>
     </div>
@@ -232,13 +304,15 @@
         <div class="ja-sudoku-teclado" role="group" aria-label="Números">
           <span class="ja-sudoku-teclado-rotulo">Números</span>
           {#each DIGITOS as d (d)}
-            <button class="botao ja-tecla" type="button" aria-pressed={ativo === d} data-completo={completos.has(d) || undefined} onclick={() => escrever(d)}>{d}</button>
+            <button class="botao ja-tecla" type="button" aria-pressed={ativo === d} data-travado={(travado && !travado.notas && travado.d === d) || undefined} data-completo={completos.has(d) || undefined}
+              onpointerdown={() => pressionarTecla(d, false)} onpointerup={soltarTecla} onpointerleave={soltarTecla} oncontextmenu={(ev) => ev.preventDefault()} onclick={() => tocarTecla(d, false)}>{d}</button>
           {/each}
         </div>
         <div class="ja-sudoku-teclado ja-sudoku-teclado-notas" role="group" aria-label="Notas">
           <span class="ja-sudoku-teclado-rotulo"><Icone nome="pencil" pequeno />Notas</span>
           {#each DIGITOS as d (d)}
-            <button class="botao ja-tecla" type="button" aria-pressed={ativo === d} aria-label="Nota {d}" data-completo={completos.has(d) || undefined} onclick={() => anotar(d)}><span data-pos={d}>{d}</span></button>
+            <button class="botao ja-tecla" type="button" aria-pressed={ativo === d} aria-label="Nota {d}" data-travado={(travado && travado.notas && travado.d === d) || undefined} data-completo={completos.has(d) || undefined}
+              onpointerdown={() => pressionarTecla(d, true)} onpointerup={soltarTecla} onpointerleave={soltarTecla} oncontextmenu={(ev) => ev.preventDefault()} onclick={() => tocarTecla(d, true)}><span data-pos={d}>{d}</span></button>
           {/each}
         </div>
       </div>

@@ -2,9 +2,9 @@ import { describe, expect, it } from 'vitest';
 import { conflitos, contarSolucoes, gerarSudoku, type Regra } from './index.ts';
 
 function valida(regras: Regra[], q: ReturnType<typeof gerarSudoku>) {
-  expect(conflitos(regras, q.solucao, q.gaiolas).size).toBe(0);
+  expect(conflitos(regras, q.solucao, q).size).toBe(0);
   for (let i = 0; i < 81; i++) if (q.dadas[i]) expect(q.dadas[i]).toBe(q.solucao[i]);
-  expect(contarSolucoes(regras.filter((r) => r !== 'killer'), q.dadas, q.gaiolas)).toBe(1);
+  expect(contarSolucoes(regras, q.dadas, q)).toBe(1);
 }
 
 describe('sudoku', () => {
@@ -25,6 +25,18 @@ describe('sudoku', () => {
     expect(q.gaiolas.length).toBeGreaterThan(15);
     for (const g of q.gaiolas) expect(g.casas.reduce((s, c) => s + q.solucao[c], 0)).toBe(g.soma);
     valida(['killer'], q);
+  }, 30000);
+  it('gera com pistas de Kropki, XV, par e ímpar e termômetro, e tudo junto', () => {
+    for (const regras of [['kropki'], ['xv'], ['par-impar'], ['termometro'], ['killer', 'kropki', 'xv', 'par-impar', 'termometro', 'diagonais', 'anti-rei']] as Regra[][]) {
+      const t = Date.now();
+      const q = gerarSudoku({ regras, dificuldade: 'dificil', semente: regras.join('+'), prazo: 4000 });
+      valida(regras, q);
+      if (regras.includes('termometro')) for (const th of q.termometros!) for (let k = 1; k < th.length; k++) expect(q.solucao[th[k]]).toBeGreaterThan(q.solucao[th[k - 1]]);
+      console.log(regras.join('+'), Date.now() - t, 'ms', q.dadas.filter(Boolean).length, 'dadas');
+    }
+  }, 60000);
+  it('avisa quando a combinação é impossível', () => {
+    expect(() => gerarSudoku({ regras: ['diagonais', 'anti-rei', 'anti-cavalo', 'nao-consecutivo'], dificuldade: 'facil', semente: 'x', prazo: 2000 })).toThrow(/Não foi possível/);
   }, 30000);
   it('acusa conflitos', () => {
     const g = new Array(81).fill(0);

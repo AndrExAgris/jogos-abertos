@@ -173,7 +173,7 @@ body { overscroll-behavior: none; }
 /* Teclado numérico dos puzzles */
 .ja-teclado { display: flex; flex-direction: column; gap: var(--e-2); padding-inline: var(--grade-margem-compacta); max-width: 480px; width: 100%; margin-inline: auto; box-sizing: border-box; }
 .ja-teclado-digitos { display: grid; grid-template-columns: repeat(var(--ja-teclas), minmax(0, 1fr)); gap: var(--e-1); }
-.ja-tecla { min-width: 0; padding: 0; height: 48px; font: 600 20px/1 var(--font-interface); justify-content: center; }
+.ja-tecla { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; touch-action: manipulation; min-width: 0; padding: 0; height: 48px; font: 600 20px/1 var(--font-interface); justify-content: center; }
 .ja-teclado-acoes { display: flex; gap: var(--e-2); }
 .ja-teclado-acoes .botao { flex: 1; justify-content: center; min-width: 0; padding-inline: var(--e-1); gap: var(--e-1); }
 .ja-teclado-acoes .botao span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
@@ -210,11 +210,11 @@ body { overscroll-behavior: none; }
 }
 .ja-sudoku-casa:nth-child(9n) { border-right: 0; }
 .ja-sudoku-casa:nth-child(n + 73) { border-bottom: 0; }
-.ja-sudoku-casa[data-bd] { border-right: 2px solid var(--secundaria); }
-.ja-sudoku-casa[data-bb] { border-bottom: 2px solid var(--secundaria); }
+.ja-sudoku-casa[data-bd] { border-right: 2px solid color-mix(in oklab, var(--texto) 88%, transparent); }
+.ja-sudoku-casa[data-bb] { border-bottom: 2px solid color-mix(in oklab, var(--texto) 88%, transparent); }
 .ja-sudoku-casa[data-relacionada] { background: var(--superficie); }
-.ja-sudoku-casa[data-mesmo] { background: var(--superficie-elevada); }
-.ja-sudoku-casa[data-mesmo] .ja-sudoku-valor { font-weight: 600; }
+.ja-sudoku-casa[data-mesmo] { background: color-mix(in oklab, var(--secundaria) 30%, var(--fundo)); }
+.ja-sudoku-casa[data-mesmo] .ja-sudoku-valor { color: var(--texto); font-weight: 700; }
 .ja-sudoku-casa[data-selecionada] { background: var(--primaria-fundo); box-shadow: inset 0 0 0 2px var(--primaria-texto); }
 .ja-sudoku-casa[data-dada] { color: var(--texto); font-weight: 500; }
 .ja-sudoku-casa[data-erro] .ja-sudoku-valor { color: var(--erro-texto); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
@@ -222,11 +222,25 @@ body { overscroll-behavior: none; }
 .ja-sudoku-notas { position: absolute; inset: 1px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: repeat(3, minmax(0, 1fr)); font: 500 calc(var(--lado) / 9 * 0.25) / 1 var(--font-interface); color: var(--texto-2); }
 .ja-sudoku-casa[data-soma] .ja-sudoku-notas { inset: calc(var(--lado) / 9 * 0.2) 1px 1px calc(var(--lado) / 9 * 0.12); }
 .ja-sudoku-notas span { display: grid; place-items: center; min-width: 0; min-height: 0; overflow: hidden; }
-.ja-sudoku-notas span[data-ativa] { color: var(--primaria-texto); font-weight: 700; }
+.ja-sudoku-notas span[data-ativa] { color: var(--texto); font-weight: 800; background: color-mix(in oklab, var(--secundaria) 45%, transparent); border-radius: 3px; }
 .ja-sudoku-soma { position: absolute; top: 2px; left: 3px; font: 600 calc(var(--lado) / 9 * 0.2) / 1 var(--font-interface); color: var(--texto-2); z-index: 1; pointer-events: none; }
 .ja-sudoku-sobre { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 .ja-sudoku-diagonal { stroke: var(--texto-2); stroke-width: 0.03; opacity: 0.5; fill: none; }
 .ja-sudoku-gaiola { stroke: var(--texto-2); stroke-width: 0.025; stroke-dasharray: 0.08 0.06; fill: none; }
+.ja-sudoku-termo { stroke: color-mix(in oklab, var(--texto-2) 38%, transparent); fill: color-mix(in oklab, var(--texto-2) 38%, transparent); }
+.ja-sudoku-termo polyline { stroke-width: 0.3; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+.ja-sudoku-termo circle { stroke: none; }
+.ja-sudoku-paridade { fill: color-mix(in oklab, var(--texto-2) 16%, transparent); stroke: color-mix(in oklab, var(--texto-2) 55%, transparent); stroke-width: 0.03; }
+.ja-sudoku-kropki { stroke: var(--ja-preta); stroke-width: 0.035; fill: var(--ja-branca); }
+.ja-sudoku-kropki[data-tipo="preto"] { fill: var(--ja-preta); stroke: var(--ja-branca); }
+.ja-sudoku-xv rect { fill: var(--fundo); stroke: none; }
+.ja-sudoku-xv text { font: 700 0.28px/1 var(--font-interface); fill: var(--texto); text-anchor: middle; dominant-baseline: middle; }
+.ja-sudoku-teclado .ja-tecla[data-travado] { background: var(--primaria); color: var(--primaria-sobre); box-shadow: inset 0 0 0 2px var(--primaria-texto); }
+.ja-escolha-subtitulo { margin: var(--e-4) 0 0; font: 600 15px/20px var(--font-interface); color: var(--texto-2); }
+.ja-regras-lista { display: grid; gap: 1px; background: var(--borda); border: 1px solid var(--borda); border-radius: var(--raio); overflow: hidden; }
+.ja-regra { display: flex; align-items: center; gap: var(--e-3); padding: var(--e-3); background: var(--superficie-sutil, var(--fundo)); cursor: pointer; }
+.ja-regra:has(input:checked) { background: color-mix(in oklab, var(--primaria) 10%, var(--fundo)); }
+.ja-botao-largo { width: 100%; justify-content: center; }
 .ja-sudoku-controles { display: flex; flex-direction: column; gap: var(--e-3); padding-inline: var(--grade-margem-compacta); width: 100%; max-width: 520px; margin-inline: auto; box-sizing: border-box; }
 .ja-sudoku-acoes { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--e-2); }
 .ja-sudoku-acoes .botao { justify-content: center; }

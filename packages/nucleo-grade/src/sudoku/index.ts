@@ -8,7 +8,9 @@
  */
 import { criarAleatorio, type Aleatorio } from '@ja/contrato';
 
-export type Regra = 'diagonais' | 'anti-rei' | 'anti-cavalo' | 'nao-consecutivo' | 'killer';
+export type Regra = 'diagonais' | 'anti-rei' | 'anti-cavalo' | 'nao-consecutivo' | 'killer' | 'kropki' | 'xv' | 'par-impar' | 'termometro';
+/** Regras que só existem por pistas desenhadas (não mudam a solução). */
+export const REGRAS_PISTA: Regra[] = ['killer', 'kropki', 'xv', 'par-impar', 'termometro'];
 export type Dificuldade = 'facil' | 'medio' | 'dificil';
 
 export interface Gaiola {
@@ -16,12 +18,47 @@ export interface Gaiola {
   soma: number;
 }
 
-export interface Quebra {
+/** Ponto entre duas casas vizinhas: Kropki (branco: consecutivos; preto: dobro) ou XV (somam 10 ou 5). */
+export interface Ponto {
+  a: number;
+  b: number;
+  tipo: 'branco' | 'preto' | 'x' | 'v';
+}
+
+/** Pistas desenhadas na grade. */
+export interface Pistas {
+  gaiolas?: Gaiola[];
+  pontos?: Ponto[];
+  /** Termômetros: do bulbo à ponta, sempre crescente. */
+  termometros?: number[][];
+  /** Casas marcadas: 1 = ímpar (círculo), 2 = par (quadrado). */
+  paridade?: [number, 1 | 2][];
+}
+
+export interface Quebra extends Pistas {
   regras: Regra[];
   dadas: number[];
   solucao: number[];
   gaiolas: Gaiola[];
   dificuldade: Dificuldade;
+}
+
+type Par = { a: number; b: number; tipo: Ponto['tipo'] | 'menor' };
+
+function normalizar(p: Pistas | Gaiola[] | undefined): Pistas {
+  if (!p) return {};
+  return Array.isArray(p) ? { gaiolas: p } : p;
+}
+
+/** Dígitos de b compatíveis com o dígito d em a (para o par). */
+function compativeis(tipo: Par['tipo'], d: number, ladoA: boolean): number {
+  switch (tipo) {
+    case 'branco': return (d > 1 ? bit(d - 1) : 0) | (d < 9 ? bit(d + 1) : 0);
+    case 'preto': return (d * 2 <= 9 ? bit(d * 2) : 0) | (d % 2 === 0 ? bit(d / 2) : 0);
+    case 'x': return d !== 5 ? bit(10 - d) : 0;
+    case 'v': return d < 5 ? bit(5 - d) : 0;
+    case 'menor': return ladoA ? TODOS & ~((bit(d + 1)) - 1) : (bit(d) - 1) & TODOS;
+  }
 }
 
 const TODOS = 0x3fe; // bits 1..9
@@ -78,15 +115,27 @@ interface Modelo {
   naoConsecutivo: boolean;
   gaiolas: Gaiola[];
   gaiolaDe: Int16Array;
+  pares: Par[];
+  /** Máscara inicial de cada casa (par ou ímpar). */
+  inicial: Int32Array;
 }
 
-function modelo(regras: Regra[], gaiolas: Gaiola[] = []): Modelo {
+const IMPARES = bit(1) | bit(3) | bit(5) | bit(7) | bit(9);
+const PARES = bit(2) | bit(4) | bit(6) | bit(8);
+
+function modelo(regras: Regra[], pistasOuGaiolas: Pistas | Gaiola[] = []): Modelo {
+  const pistas = normalizar(pistasOuGaiolas);
+  const gaiolas = pistas.gaiolas ?? [];
+  const pares: Par[] = [...(pistas.pontos ?? [])];
+  for (const t of pistas.termometros ?? []) for (let k = 0; k + 1 < t.length; k++) pares.push({ a: t[k], b: t[k + 1], tipo: 'menor' });
+  const inicial = new Int32Array(81).fill(TODOS);
+  for (const [c, p] of pistas.paridade ?? []) inicial[c] = p === 1 ? IMPARES : PARES;
   const gaiolaDe = new Int16Array(81).fill(-1);
   gaiolas.forEach((g, k) => g.casas.forEach((c) => (gaiolaDe[c] = k)));
   // No killer, os dígitos de uma gaiola não se repetem.
   const vizinhos = montarVizinhos(regras);
   for (const g of gaiolas) for (const a of g.casas) for (const b of g.casas) if (a !== b && !vizinhos[a].includes(b)) vizinhos[a].push(b);
-  return { vizinhos, naoConsecutivo: regras.includes('nao-consecutivo'), gaiolas, gaiolaDe };
+  return { vizinhos, naoConsecutivo: regras.includes('nao-consecutivo'), gaiolas, gaiolaDe, pares, inicial };
 }
 
 /** Somas possíveis de k dígitos distintos dentro de uma máscara. */
@@ -111,7 +160,7 @@ class Solucionador {
   constructor(private m: Modelo) {}
 
   carregar(dadas: number[]): boolean {
-    this.cand.fill(TODOS);
+    this.cand.set(this.m.inicial);
     this.valor.fill(0);
     for (let i = 0; i < 81; i++) if (dadas[i] && !this.colocar(i, dadas[i])) return false;
     return this.propagar();
@@ -152,6 +201,24 @@ class Solucionador {
             if (!this.colocar(i, menorDigito(c))) return false;
             mudou = true;
           }
+        }
+      }
+      for (const p of this.m.pares) {
+        const ca = this.cand[p.a], cb = this.cand[p.b];
+        let podeB = 0, podeA = 0;
+        for (let d = 1; d <= 9; d++) {
+          if (ca & bit(d)) podeB |= compativeis(p.tipo, d, true);
+          if (cb & bit(d)) podeA |= compativeis(p.tipo, d, false);
+        }
+        const na = ca & podeA, nb = cb & podeB;
+        if (!na || !nb) return false;
+        if (na !== ca) {
+          if (this.valor[p.a]) return false;
+          this.cand[p.a] = na; mudou = true;
+        }
+        if (nb !== cb) {
+          if (this.valor[p.b]) return false;
+          this.cand[p.b] = nb; mudou = true;
         }
       }
       for (const g of this.m.gaiolas) {
@@ -218,13 +285,13 @@ class Solucionador {
   }
 }
 
-export function contarSolucoes(regras: Regra[], dadas: number[], gaiolas: Gaiola[] = [], limite = 2): number {
+export function contarSolucoes(regras: Regra[], dadas: number[], gaiolas: Pistas | Gaiola[] = [], limite = 2): number {
   const s = new Solucionador(modelo(regras, gaiolas));
   if (!s.carregar(dadas)) return 0;
   return s.contar(limite);
 }
 
-export function resolver(regras: Regra[], dadas: number[], gaiolas: Gaiola[] = []): number[] | null {
+export function resolver(regras: Regra[], dadas: number[], gaiolas: Pistas | Gaiola[] = []): number[] | null {
   const s = new Solucionador(modelo(regras, gaiolas));
   if (!s.carregar(dadas)) return null;
   const saida = new Array<number>(81).fill(0);
@@ -235,7 +302,7 @@ export function resolver(regras: Regra[], dadas: number[], gaiolas: Gaiola[] = [
  * Nota de dificuldade por técnicas humanas: só singles (fácil), singles e
  * pares/bloqueios (médio), ou mais que isso (difícil).
  */
-export function notaDificuldade(regras: Regra[], dadas: number[], gaiolas: Gaiola[] = []): Dificuldade {
+export function notaDificuldade(regras: Regra[], dadas: number[], gaiolas: Pistas | Gaiola[] = []): Dificuldade {
   const m = modelo(regras, gaiolas);
   const unidades: number[][] = [];
   for (let k = 0; k < 9; k++) {
@@ -322,6 +389,55 @@ function gerarGaiolas(solucao: number[], a: Aleatorio): Gaiola[] {
   return gaiolas.filter((g) => g.length).map((casas) => ({ casas, soma: casas.reduce((s, c) => s + solucao[c], 0) }));
 }
 
+/** Pontos Kropki ou XV coerentes com a solução, entre casas vizinhas. */
+function gerarPontos(solucao: number[], regras: Regra[], a: Aleatorio): Ponto[] {
+  const res: Ponto[] = [];
+  for (let i = 0; i < 81; i++) {
+    for (const j of [i + 1, i + 9]) {
+      if (j >= 81 || (j === i + 1 && i % 9 === 8)) continue;
+      const x = solucao[i], y = solucao[j];
+      const opcoes: Ponto['tipo'][] = [];
+      if (regras.includes('kropki')) {
+        if (Math.abs(x - y) === 1) opcoes.push('branco');
+        if (x === 2 * y || y === 2 * x) opcoes.push('preto');
+      }
+      if (regras.includes('xv')) {
+        if (x + y === 10) opcoes.push('x');
+        if (x + y === 5) opcoes.push('v');
+      }
+      if (opcoes.length && a.inteiro(100) < 70) res.push({ a: i, b: j, tipo: opcoes[a.inteiro(opcoes.length)] });
+    }
+  }
+  return res;
+}
+
+/** Termômetros: caminhos de casas vizinhas (até na diagonal) com dígitos crescentes. */
+function gerarTermometros(solucao: number[], a: Aleatorio): number[][] {
+  const usado = new Uint8Array(81);
+  const res: number[][] = [];
+  const viz = (i: number) => {
+    const r = Math.floor(i / 9), c = i % 9, v: number[] = [];
+    for (let dr = -1; dr <= 1; dr++) for (let dc = -1; dc <= 1; dc++) {
+      const nr = r + dr, nc = c + dc;
+      if ((dr || dc) && nr >= 0 && nr < 9 && nc >= 0 && nc < 9) v.push(nr * 9 + nc);
+    }
+    return v;
+  };
+  for (let tent = 0; tent < 200 && res.length < 5; tent++) {
+    let atual = a.inteiro(81);
+    if (usado[atual] || solucao[atual] > 4) continue;
+    const t = [atual];
+    while (t.length < 7) {
+      const prox = viz(atual).filter((v) => !usado[v] && !t.includes(v) && solucao[v] > solucao[atual] && solucao[v] - solucao[atual] <= 3);
+      if (!prox.length) break;
+      atual = prox[a.inteiro(prox.length)];
+      t.push(atual);
+    }
+    if (t.length >= 3) { t.forEach((c) => (usado[c] = 1)); res.push(t); }
+  }
+  return res;
+}
+
 export interface PedidoSudoku {
   regras: Regra[];
   dificuldade: Dificuldade;
@@ -329,6 +445,8 @@ export interface PedidoSudoku {
   /** Tempo máximo em ms. */
   prazo?: number;
 }
+
+export const ERRO_IMPOSSIVEL = 'Não foi possível montar um puzzle com essas regras. Tire uma ou mais e tente de novo.';
 
 /**
  * Gera um Sudoku com solução única. A dificuldade pedida é perseguida
@@ -339,23 +457,32 @@ export function gerarSudoku(p: PedidoSudoku): Quebra {
   const a = criarAleatorio(p.semente);
   const fim = Date.now() + (p.prazo ?? 4000);
   const killer = p.regras.includes('killer');
-  const globais = p.regras.filter((r) => r !== 'killer');
+  const comPistas = p.regras.some((r) => REGRAS_PISTA.includes(r));
+  const globais = p.regras.filter((r) => !REGRAS_PISTA.includes(r));
 
   for (let tentativa = 0; ; tentativa++) {
     // 1. Solução completa que respeita as regras globais.
     const vazio = new Array<number>(81).fill(0);
     const s = new Solucionador(modelo(globais));
-    if (!s.carregar(vazio)) throw new Error('Combinação de regras sem solução.');
+    if (!s.carregar(vazio)) throw new Error(ERRO_IMPOSSIVEL);
     const solucao = new Array<number>(81).fill(0);
     try {
-      if (!s.contar(1, a, solucao, Date.now() + 1500)) throw new Error('Combinação de regras sem solução.');
+      if (!s.contar(1, a, solucao, Date.now() + 2500)) throw new Error(ERRO_IMPOSSIVEL);
     } catch (e) {
-      if ((e as Error).message === 'prazo') throw new Error('Combinação de regras sem solução.', { cause: e });
+      if ((e as Error).message === 'prazo') throw new Error(ERRO_IMPOSSIVEL, { cause: e });
       throw e;
     }
 
-    const gaiolas = killer ? gerarGaiolas(solucao, a) : [];
-    const m = modelo(globais, gaiolas);
+    // 2. Pistas desenhadas, coerentes com a solução.
+    const pistas: Pistas = {
+      gaiolas: killer ? gerarGaiolas(solucao, a) : [],
+      pontos: p.regras.includes('kropki') || p.regras.includes('xv') ? gerarPontos(solucao, p.regras, a) : [],
+      termometros: p.regras.includes('termometro') ? gerarTermometros(solucao, a) : [],
+      paridade: p.regras.includes('par-impar')
+        ? a.embaralhar(Array.from({ length: 81 }, (_, i) => i)).slice(0, 14).map((c) => [c, solucao[c] % 2 ? 1 : 2] as [number, 1 | 2])
+        : [],
+    };
+    const m = modelo(p.regras, pistas);
     const unica = (dadas: number[]) => {
       const sol = new Solucionador(m);
       if (!sol.carregar(dadas)) return false;
@@ -365,10 +492,11 @@ export function gerarSudoku(p: PedidoSudoku): Quebra {
         return false;
       }
     };
+    const nota = (dadas: number[]) => notaDificuldade(p.regras, dadas, pistas);
 
-    // 2. Tira dígitos (em pares simétricos) enquanto a solução continuar única.
+    // 3. Tira dígitos (em pares simétricos) enquanto a solução continuar única.
     const dadas = solucao.slice();
-    const alvoMinimo = p.dificuldade === 'facil' ? (killer ? 20 : 36) : p.dificuldade === 'medio' ? (killer ? 8 : 30) : 0;
+    const alvoMinimo = p.dificuldade === 'facil' ? (comPistas ? 20 : 36) : p.dificuldade === 'medio' ? (comPistas ? 8 : 30) : 0;
     const ordem = a.embaralhar(Array.from({ length: 41 }, (_, i) => i));
     let restam = 81;
     for (const i of ordem) {
@@ -379,35 +507,46 @@ export function gerarSudoku(p: PedidoSudoku): Quebra {
       dadas[i] = 0; dadas[j] = 0;
       if (unica(dadas)) {
         restam -= i === j ? 1 : 2;
-        const passou = p.dificuldade === 'facil' ? notaDificuldade(globais, dadas, gaiolas) !== 'facil'
-          : p.dificuldade === 'medio' ? notaDificuldade(globais, dadas, gaiolas) === 'dificil'
+        const passou = p.dificuldade === 'facil' ? nota(dadas) !== 'facil'
+          : p.dificuldade === 'medio' ? nota(dadas) === 'dificil'
           : false;
         if (passou) { dadas[i] = vi; dadas[j] = vj; restam += i === j ? 1 : 2; }
       } else {
         dadas[i] = vi; dadas[j] = vj;
       }
     }
-    const nota = notaDificuldade(globais, dadas, gaiolas);
-    const aceita = p.dificuldade === 'facil' ? nota === 'facil'
-      : p.dificuldade === 'medio' ? nota === 'medio'
-      : nota === 'dificil';
+    if (!unica(dadas)) {
+      // Raro: o prazo estourou no meio. Volta ao resolvido.
+      if (Date.now() > fim + 4000) throw new Error(ERRO_IMPOSSIVEL);
+      continue;
+    }
+    const n = nota(dadas);
+    const aceita = p.dificuldade === 'facil' ? n === 'facil'
+      : p.dificuldade === 'medio' ? n === 'medio'
+      : n === 'dificil';
     if (aceita || Date.now() > fim || tentativa > 30) {
-      return { regras: p.regras, dadas, solucao, gaiolas, dificuldade: nota };
+      return { regras: p.regras, dadas, solucao, dificuldade: n, ...pistas, gaiolas: pistas.gaiolas ?? [] };
     }
   }
 }
 
 /** Casas em conflito com alguma regra (para marcar erro), dada a grade atual. */
-export function conflitos(regras: Regra[], grade: number[], gaiolas: Gaiola[] = []): Set<number> {
-  const m = modelo(regras.filter((r) => r !== 'killer'), gaiolas);
+export function conflitos(regras: Regra[], grade: number[], pistasOuGaiolas: Pistas | Gaiola[] = []): Set<number> {
+  const pistas = normalizar(pistasOuGaiolas);
+  const m = modelo(regras, pistas);
   const erro = new Set<number>();
   for (let i = 0; i < 81; i++) {
     const d = grade[i];
     if (!d) continue;
+    if (!(m.inicial[i] & bit(d))) erro.add(i);
     for (const v of m.vizinhos[i]) if (grade[v] === d) { erro.add(i); erro.add(v); }
     if (m.naoConsecutivo) for (const v of ortogonais(i)) if (grade[v] && Math.abs(grade[v] - d) === 1) { erro.add(i); erro.add(v); }
   }
-  for (const g of gaiolas) {
+  for (const p of m.pares) {
+    const x = grade[p.a], y = grade[p.b];
+    if (x && y && !(compativeis(p.tipo, x, true) & bit(y))) { erro.add(p.a); erro.add(p.b); }
+  }
+  for (const g of m.gaiolas) {
     const vals = g.casas.map((c) => grade[c]);
     const soma = vals.reduce((s, v) => s + v, 0);
     if (soma > g.soma || (vals.every((v) => v) && soma !== g.soma)) g.casas.forEach((c) => grade[c] && erro.add(c));
@@ -416,16 +555,21 @@ export function conflitos(regras: Regra[], grade: number[], gaiolas: Gaiola[] = 
 }
 
 /** Candidatos (bits 1..9) de cada casa vazia, só pelo que já está na grade. */
-export function candidatos(regras: Regra[], grade: number[], gaiolas: Gaiola[] = []): number[] {
-  const m = modelo(regras.filter((r) => r !== 'killer'), gaiolas);
+export function candidatos(regras: Regra[], grade: number[], pistasOuGaiolas: Pistas | Gaiola[] = []): number[] {
+  const pistas = normalizar(pistasOuGaiolas);
+  const m = modelo(regras, pistas);
   const res = new Array<number>(81).fill(0);
   const gaiolaDe = new Map<number, Gaiola>();
-  for (const g of gaiolas) for (const c of g.casas) gaiolaDe.set(c, g);
+  for (const g of m.gaiolas) for (const c of g.casas) gaiolaDe.set(c, g);
   for (let i = 0; i < 81; i++) {
     if (grade[i]) continue;
-    let mask = TODOS;
+    let mask = m.inicial[i];
     for (const v of m.vizinhos[i]) if (grade[v]) mask &= ~bit(grade[v]);
     if (m.naoConsecutivo) for (const v of ortogonais(i)) if (grade[v]) mask &= ~(bit(grade[v] - 1) | bit(grade[v] + 1));
+    for (const p of m.pares) {
+      if (p.a === i && grade[p.b]) { let ok = 0; for (let d = 1; d <= 9; d++) if (compativeis(p.tipo, d, true) & bit(grade[p.b])) ok |= bit(d); mask &= ok; }
+      if (p.b === i && grade[p.a]) mask &= compativeis(p.tipo, grade[p.a], true);
+    }
     const g = gaiolaDe.get(i);
     if (g) {
       let soma = 0, vazias = 0;
@@ -443,4 +587,8 @@ export const NOMES_REGRAS: Record<Regra, { nome: string; descricao: string }> = 
   'anti-cavalo': { nome: 'Anti-cavalo', descricao: 'Casas a um salto de cavalo do xadrez não têm o mesmo dígito.' },
   'nao-consecutivo': { nome: 'Não consecutivo', descricao: 'Casas lado a lado nunca têm dígitos seguidos (como 4 e 5).' },
   killer: { nome: 'Killer', descricao: 'As gaiolas tracejadas somam o número do canto, sem repetir dígitos.' },
+  kropki: { nome: 'Kropki', descricao: 'Bolinha branca: as duas casas têm dígitos seguidos. Bolinha preta: um é o dobro do outro.' },
+  xv: { nome: 'XV', descricao: 'X entre duas casas: elas somam 10. V: somam 5.' },
+  'par-impar': { nome: 'Par e ímpar', descricao: 'Casa com círculo tem dígito ímpar; com quadrado, par.' },
+  termometro: { nome: 'Termômetro', descricao: 'Os dígitos sobem do bulbo (bola) até a ponta do termômetro.' },
 };

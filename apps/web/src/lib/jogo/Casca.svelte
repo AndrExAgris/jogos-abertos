@@ -18,6 +18,7 @@
     aoEscolher: (id: string) => void;
     tituloEscolha?: string;
     antesDaEscolha?: Snippet;
+    depoisDaEscolha?: Snippet;
     /** Texto do fim de jogo; o padrão mostra o tempo. */
     textoFim?: string;
     tituloFim?: string;
@@ -32,7 +33,7 @@
     children: Snippet;
   }
   let {
-    sessao, titulo, comoJogar, opcoes, aoEscolher, tituloEscolha, antesDaEscolha, textoFim, tituloFim,
+    sessao, titulo, comoJogar, opcoes, aoEscolher, tituloEscolha, antesDaEscolha, depoisDaEscolha, textoFim, tituloFim,
     semDesfazer = false, semRelogio = false, faixa, centro, rodape, children,
   }: Props = $props();
   let ajuda = $state(false);
@@ -42,7 +43,7 @@
   {#if sessao.fase === 'retomar' && sessao.pendente}
     <Retomar descricao={sessao.pendente.nomeVariante} tempo={semRelogio ? undefined : sessao.pendente.tempo} aoContinuar={() => sessao.continuar()} aoNova={() => sessao.nova()} />
   {:else if sessao.fase === 'escolha'}
-    <Escolha titulo={tituloEscolha} {opcoes} {aoEscolher}>
+    <Escolha titulo={tituloEscolha} {opcoes} {aoEscolher} depois={depoisDaEscolha}>
       {#snippet antes()}
         {@render antesDaEscolha?.()}
         {#if sessao.erro}

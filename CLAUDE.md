@@ -26,40 +26,12 @@ Uso pessoal, código aberto sob GPL-3.0.
 | Android | Capacitor 8 (minSdk 24, target SDK 36). APK universal, sem divisão por ABI |
 | Servidor | Só arquivos estáticos: nginx em Docker, com docker-compose e Makefile |
 | Progresso | Salvo no aparelho (IndexedDB), com exportar e importar em arquivo |
-| Backend | Nenhum na v1 |
+| Backend | Nenhum. Site estático no GitHub Pages (push na main) e no Docker do André |
 | Escopo da v1 | Versão básica de todos os jogos do catálogo; ajustes vêm com o tempo |
-| Jogos para 2 | Só 2 jogadores no mesmo aparelho na v1; IA fica para depois |
+| Jogos 2+ | No mesmo aparelho, passando a vez; computador (fácil, médio, difícil) nos que têm IA |
 | Configurações por jogo | Decididas com o André durante o desenvolvimento: pergunte antes de inventar |
 
 Nunca usar: cruzadas de jornal ou revista, quadros de filmes, imagens ou dados sem licença aberta, assets de CDN.
-
-## Primeira sessão: o que fazer agora
-
-Monte a base e um jogo de ponta a ponta. Não implemente o catálogo inteiro ainda. Ao terminar cada passo, marque na seção "Estado atual" no fim deste arquivo.
-
-1. **Git e GitHub**: `git init`, branch `main`, criar o repositório `AndrExAgris/jogos-abertos` com `gh` (perguntar ao André se público ou privado antes de criar; o padrão sugerido é público, por causa do Obtainium).
-2. **Arquivos de raiz**: `LICENSE` com o texto completo da GPL-3.0, `README.md` em português (o que é, como rodar o site, como instalar o APK pelo Obtainium), `CREDITS.md` (tabela: item, autor, licença, link), `.gitignore` (Node, Android/Gradle, Docker, `*.keystore`, `*.jks`, `.env`), `.editorconfig`.
-3. **Monorepo** com pnpm workspaces na estrutura da seção Arquitetura.
-4. **Open Design**: copiar para `packages/ui/open-design/` os arquivos `tokens.css`, `components/bundle.css` e a pasta `fonts/` inteira (com as licenças em `assets/Licencas/`), sem editar. O André baixou e descompactou o Open Design dentro da pasta `Code`, ao lado desta pasta (provavelmente `../OpenDesign` ou nome parecido). Procure lá; se não achar, pergunte o caminho. Leia o `README.md` do Open Design e siga as regras dele.
-5. **App web** (`apps/web`): Svelte + Vite, PWA instalável com service worker que coloca em cache todos os assets (o app tem que abrir sem internet). Tela inicial com a lista de jogos por grupo, tela de configurações (tema só muda aqui), salvamento em IndexedDB com exportar e importar.
-6. **Docker**: `docker/Dockerfile` multi-stage (build com Node + pnpm, serve com nginx), `docker/nginx.conf` com fallback para SPA e cache correto do service worker, `docker-compose.yml` na raiz.
-7. **Makefile** na raiz, com estes alvos (é o padrão dos projetos do André):
-   - `up`: sobe o container (build se necessário)
-   - `down`: para e remove o container
-   - `restart`: down + up
-   - `clean`: remove container, imagem e volumes do projeto
-   - `update`: `git pull` + rebuild + up
-   - `logs`: segue os logs
-   - `status`: mostra o estado do container
-   - Extras úteis: `dev` (servidor de desenvolvimento), `test`, `apk` (build local do APK de debug)
-8. **Android** (Capacitor 8 dentro de `apps/web`): projeto `android/` versionado, `appId` `io.github.andrexagris.jogosabertos`, nome do app "Jogos Abertos".
-9. **CI no GitHub Actions**:
-   - `ci.yml`: em cada push e PR, lint, typecheck, testes dos núcleos e build web.
-   - `release.yml`: ao criar uma tag `vX.Y.Z`, gerar o APK de release assinado e anexar ao release do GitHub com nome estável `jogos-abertos-vX.Y.Z.apk`. O `versionCode` cresce a cada release (derivar da tag). A chave de assinatura vem dos secrets do repositório (`ANDROID_KEYSTORE_BASE64`, `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS`, `ANDROID_KEY_PASSWORD`).
-   - Explique ao André, passo a passo, como gerar a keystore uma única vez com `keytool`, guardar um backup fora do repositório e cadastrar os secrets. Sem a mesma chave sempre, o Android não aceita atualização e o Obtainium para de funcionar.
-10. **Primeiro jogo completo: Minas** (primeira jogada sempre segura, sem precisar chutar), para validar núcleo, interface, salvamento, PWA, Docker e APK.
-11. **Protótipo de medição**: usar o gerador do Mines do Simon Tatham (compilar o C para WebAssembly ou portar para TypeScript) e registrar no README o tempo de geração. Esse caminho define como os outros geradores do Tatham serão usados.
-12. Primeiro release `v0.1.0` para o André testar a instalação pelo Obtainium nos dois celulares.
 
 ## Arquitetura
 
@@ -156,11 +128,11 @@ Implemente motor por motor; o primeiro jogo de cada grupo destrava os outros. 1P
 | Estado | Resta Um (tabuleiros fixos, sem gerador), Water Sort, Desbloqueio (Rush Hour/Klotski), Setas (plano e cubo), Desembaraço | Gerar embaralhando a partir do resolvido |
 | Tabuleiro 2P | Connect 4, Trilha, Damas (regra brasileira), Reversi, Xadrez, Go (9×9, 13×13, 19×19), Ludo (2 a 4), Jogo Real de Ur, Sinuca 8 bolas | Sem IA na v1 |
 
-**Trivia**: estilo do jogo de tabuleiro Quest, sem tabuleiro. Aparecem as 6 categorias (Mundo, Artes e Entretenimento, Sociedade, Ciência e Tecnologia, Esporte e Lazer, Variedades); o jogador escolhe uma e sai uma pergunta dela. Antes de responder, aposta quantos pontos quer ganhar ou perder. Cinema e TV fica dentro de Artes e Entretenimento, com poucas perguntas abstratas sobre arte. Brasil pode ser uma sétima categoria opcional. Modos: 1P (recorde) e 2P ou mais (alternando).
+**Trivia**: aparecem as 6 categorias (Mundo, Artes e Entretenimento, Sociedade, Ciência e Tecnologia, Esporte e Lazer, Variedades); o jogador escolhe uma e sai uma pergunta dela. Cada acerto vale 1 ponto; 3 erros encerram (sem aposta, sem categoria Brasil). Modos: 1P (recorde) e 2P ou mais (alternando). Cada pergunta tem nota de dificuldade de 1 a 5 (`tools/dados/dificuldade.mjs`), usada no Rumo ao Milhão.
 
 **Filme por pistas**: adivinhar o filme com até 6 pistas reveladas aos poucos (ano, gênero, país, diretor, elenco principal, prêmio), com autocompletar a partir da lista de filmes do banco.
 
-Depois da v1 (só se o André pedir): Nonograma, Kakuro, KenKen, Takuzu, Futoshiki, Slitherlink, Nurikabe, Hitori, Charada de Einstein, 2048, 24, Quebra-cabeça de 15, Caça-palavras, Soletra, Contexto, Mapa mudo, Truco, Copas, Farkle, Lights Out, Mahjong, Sokoban, Torre de Hanói, Jogo da velha supremo, Mancala, Pontinhos, Gomoku, Batalha naval e IA para os jogos de 2.
+Já entraram depois da v1: Nonograma, Charada de Einstein, Apague as Luzes, Batalha Naval, Jogo da Memória, Sequência de Cores, Rumo ao Milhão e Quem Sou Eu. Ideias para depois (só se o André pedir): Kakuro, KenKen, Takuzu, Futoshiki, Slitherlink, Nurikabe, Hitori, 2048, 24, Quebra-cabeça de 15, Caça-palavras, Soletra, Contexto, Mapa mudo, Truco, Copas, Farkle, Mahjong, Sokoban, Torre de Hanói, Jogo da velha supremo, Mancala, Pontinhos e Gomoku.
 
 ## Motores e geradores
 
@@ -307,45 +279,12 @@ A cada marco: testes dos núcleos passando, APK gerado no CI e um release para o
 
 ## Estado atual
 
-- [ ] Marco 1: base do projeto (em andamento)
-  - [x] 1. Git e repositório público https://github.com/AndrExAgris/jogos-abertos (criado em 22/11/2026); CI passando
-  - [x] 2. Arquivos de raiz (LICENSE, README, CREDITS, .gitignore, .editorconfig, .dockerignore)
-  - [x] 3. Monorepo pnpm (`apps/web`, `packages/contrato`, `packages/ui`, `packages/nucleo-grade`, `tools/icones`)
-  - [x] 4. Open Design copiado para `packages/ui/open-design/` (tokens, bundle, open-design.js, fontes, licenças); ícones Tabler usados em `packages/ui/icones/`
-  - [x] 5. App web: início por grupo, recordes, Mais/Configurações (Aparência primeiro), IndexedDB com exportar e importar, PWA com tudo em cache
-  - [x] 6. Docker (Dockerfile, nginx.conf, docker-compose.yml). `make up` testado em 22/11/2026: imagem de 64 MB, container saudável, cache correto e site abrindo offline
-  - [x] 7. Makefile
-  - [x] 8. Capacitor 8 com `android/` versionado, ícones e splash próprios. APK compila no CI (sem Android SDK local)
-  - [x] 9. CI (`ci.yml`, `release.yml`); keystore explicada no README
-  - [x] 10. Minas completo (Fácil, Médio, Difícil, personalizado; primeira jogada segura, sem chute)
-  - [x] 11. Gerador do Mines portado para TypeScript e medido (README): Difícil em ~3 ms, sem Web Worker
-  - [x] 12. Release `v0.1.0` publicado em 22/11/2026 (APK assinado, 4,8 MB). Falta o André testar a instalação pelo Obtainium nos dois celulares
-
-- [ ] Leva grande (pedida em 22/11/2026): versão inicial de todos os jogos + correções do Campo Minado. O André deu autonomia total nesta iteração e quer uma rodada grande de críticas depois
-  - [x] Infra comum: `lib/jogo/` (Sessao, Casca, TelaJogo, Escolha, Fim, Dialogo, Jogadores, Teclado, Relogio reativo, Web Worker de geradores em `trabalhador.ts`)
-  - [x] Campo Minado: escolha ao abrir, faixa (bandeiras, relógio, Como jogar), toque = bandeira e segurar = abrir, zoom com pinça e botões, relógio corrigido
-  - [x] Tela inicial em grade de quadrados (registro em `apps/web/src/jogos/registro.ts`)
-  - [x] Grade: Sudoku (clássico, diagonais, anti-rei, anti-cavalo, não consecutivo, killer e combinações), Akari, Tendas, Pontes, Rainhas, Mosaico, Ligue os Números
-  - [x] Números: Conta Certa
-  - [x] Mover e encaixar: Resta Um, Separe as Cores, Hora do Rush, Setas (só plano), Desembaraço
-  - [x] Tabuleiro para dois: Quatro em Linha, Trilha, Damas, Reversi, Xadrez, Go, Ludo, Jogo Real de Ur, Sinuca
-  - [x] Cartas: Paciência, Spider, FreeCell, Pirâmide, TriPeaks, Golf, Vinte e Um
-  - [x] Dados: General, Dado Mentiroso
-  - [x] Dados abertos + jogos: palavras (Termo, Roda de Letras, Palavras Cruzadas), Wikidata (Perguntas por Categoria, Adivinhe o Filme), países (7 jogos de geografia). Scripts em `tools/dados/` (cache em `tools/dados/.cache/`, fora do git)
-  - [x] Releases v0.2.0 (parcial) e v0.3.0 (catálogo completo, 44 jogos) em 22/11/2026
-
-- [x] Rodada de correções 1 (pedida em 22/11/2026), release v0.4.0
-  - [x] Padrão de tela: reiniciar na barra; faixa com informação à esquerda, relógio no centro e "?" à direita; ações abaixo do tabuleiro (`lib/jogo/Faixa.svelte`, `Casca`)
-  - [x] Navegação: Recordes à esquerda, Jogos no meio; início com grupos recolhíveis que lembram o estado e a rolagem; ao abrir jogo com partida salva, pergunta continuar ou nova (`Retomar.svelte`)
-  - [x] Bugs: notas do Sudoku deslocando a linha; somas do killer; bolas gigantes nas Pontes (anel de foco e destaque de toque do Android em SVG)
-  - [x] Sumplete (novo), Sudoku (dois teclados, refazer, preencher notas, destaque do dígito, contador de erros, linhas finas e caixas na cor secundária), Rainhas (coroa no 1º toque, divisas simples), Ligue (paleta ampla sorteada), Conta Certa (contornos, dica de um passo), Separe (sem números, visual de líquido), Hora do Rush virou Desbloqueio, Setas (linhas longas com curvas e animação), Termo (verde e amarelo, lista de palpites ampliada para 15.772, escrever em qualquer casa), Roda (arrastar o dedo), Cruzadas (grade densa 5, 7 e 9, indicador de verificação), mapa com zoom, Descobre Bandeiras progressivo (2, 4, 6 opções), verso clássico das cartas e mesa de feltro, celular deitado sem navegação lateral (Spider em duas colunas), General com duas tabelas
-
-- [x] Rodada de correções 2 (pedida em 22/11/2026, antes de amigos testarem), release v0.5.0
-  - [x] Ajustes: Minas (aviso de toque curto), Sudoku (regras combináveis à vontade, Kropki, XV, par e ímpar, termômetro, dígito travado ao segurar, destaque de números e notas, divisórias brancas), Pontes por arrasto, Separe (tubo completo fecha), Setas mais rápidas e sem bloqueio, Desembaraço (toque maior), Termo (teclado no meio do espaço livre), Roda (toque tira letra; banco revisado pelo Wikcionário), Perguntas (sem aposta, 3 vidas, sem categoria Brasil), Contorno e Capital (ponto cardeal no lugar da porcentagem), Paciência (aviso de sem saída), General e Mentiroso (dados embaixo, animação), Sinuca (branca embaixo, cores oficiais)
-  - [x] Jogos novos: Rumo ao Milhão, Batalha Naval, Quem Sou Eu, Charada de Einstein, Nonograma, Apague as Luzes, Jogo da Memória, Sequência de Cores (53 jogos)
-  - [x] Computador (fácil, médio, difícil) em Quatro em Linha, Damas, Xadrez, Reversi, Trilha, Ur, Batalha Naval, General e Mentiroso (`nucleo-tabuleiro/ia`, worker `ia`)
-  - [x] Teclado do app em todos os jogos com digitação (`TecladoLetras`, `CampoTeclado`); avisos curtos (`lib/aviso.svelte.ts`)
-  - [x] Ícone do cubo mágico; miniaturas desenhadas de cada jogo no início (`jogos/Miniatura.svelte`); categoria "Jogos 2+"; animações de entrada e toque
+- Marco 1 (base) concluído em 22/11/2026: repositório público, monorepo, PWA, Docker, Capacitor, CI com release do APK, Minas. Gerador do Mines portado para TypeScript (~3 ms no Difícil, sem Web Worker); os outros geradores do Tatham seguem o mesmo caminho.
+- Catálogo inteiro implementado (53 jogos) e três rodadas de correções pedidas pelo André (releases v0.3.0 a v0.6.0, todas em 22/11/2026).
+- Infra comum em `apps/web/src/lib/jogo/`: Sessao, Casca (faixa, fim de jogo preso ao pé da tela, rodapé), Escolha, Jogadores (com "pensando"), Status (linha de aviso com altura reservada), TecladoLetras e CampoTeclado (teclado do app, colado no fundo), computador (`computador.svelte.ts`, worker `ia`), avisos curtos.
+- Regras de layout pedidas pelo André: nada interativo atrás da barra do sistema (`--ja-seguro-baixo`); teclado sempre colado no fundo; mensagens não empurram o tabuleiro (linha reservada ou cartão preso ao pé da tela).
+- Site público: https://andrexagris.github.io/jogos-abertos/ (GitHub Pages).
+- Falta: o André testar com amigos e trazer a próxima rodada de críticas.
 
 Pendências para avaliar depois (pedidas pelo André, fora desta rodada):
 - Mahjong (paciência de pares, o "Mahjong Solitaire"): funciona bem no celular e no site; regras simples (tirar pares livres). Precisa de peças desenhadas em SVG próprio e de gerador que garanta solução (montar a pilha de trás para frente). Esforço médio.
@@ -362,8 +301,11 @@ Decisões provisórias, a confirmar com o André:
 - "Tele" era o Sumplete: entrou no catálogo com esse nome (3×3 a 9×9, solução única)
 - Termo usa verde (sucesso) e amarelo (aviso), como no jogo original, a pedido do André
 - General: tabela "Seguida maior" (Seguida 40, Quadra 35, Full 30) como padrão e a clássica (Seguida 20, Full 30, Quadra 40) como opção; as fontes divergem
-- Show do Milhão genérico entrou como "Rumo ao Milhão" (o nome do programa é marca); ajudas próprias: eliminar duas, plateia e pular (duas vezes); prêmios garantidos em R$ 10 mil e R$ 100 mil
+- Show do Milhão genérico entrou como "Rumo ao Milhão" (o nome do programa é marca). Regra do programa: parar a qualquer momento leva o acumulado; errar leva a metade (sem patamares garantidos). Seis ajudas, uma vez cada: pular (3 vezes), eliminar com dado de 4 lados (0 a 3 erradas), plateia, universitários (3 palpites, costumam concordar), assistente virtual (dá a resposta) e segunda chance (escolha do Claude). Dificuldade sobe de 1 a 5 a cada três perguntas
 - Perguntas sobre o Brasil: geografia foi para Mundo (junto com as capitais do mundo) e presidentes para Sociedade
-- Batalha Naval: frota 5, 4, 3, 3 e 2, sem encostar, um tiro por vez; posição sorteada (com "sortear de novo")
+- Batalha Naval: frota 5, 4, 3, 3 e 2, sem encostar; posição escolhida à mão (ou sorteada); quem acerta atira de novo até errar
+- Quem Sou Eu: dois modos, Rápido (cartas com tempo) e Perguntas (sem tempo, sim ou não; o app só sorteia). Só nomes, sem imagens (direitos e tamanho)
+- Dado Mentiroso: modos com e sem coringa; contra o computador, quando a pessoa perde todos os dados o jogo acaba na hora
+- Sudoku: só fica destacado o que foi escolhido (o número ou a nota); com dígito travado, arrastar aplica ou apaga; casas proibidas em cinza incluem as regras extras
 - Nomes em português: Campo Minado, Rainhas (Queens), Conta Certa (Alvo), Separe as Cores (Water Sort), Desbloqueio (Rush Hour, só blocos), Quatro em Linha, Vinte e Um (Blackjack); jogos de geografia com nomes descritivos
 - Cores de peças (Separe as Cores, Ludo, bolas da Sinuca, regiões das Rainhas): paleta de destaque definida só em `.ja-cor-N` no app.css, sempre com número ou forma; pedras de Go e tabuleiro de xadrez com preto e branco fixos (`--ja-preta`, `--ja-branca`)

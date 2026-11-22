@@ -9,8 +9,7 @@
   },
   "scripts": {
     "test": "vitest run --passWithNoTests",
-    "typecheck": "tsc --noEmit",
-    "medir": "vitest bench --run"
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@ja/contrato": "workspace:*"

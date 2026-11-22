@@ -71,9 +71,12 @@ minus
 mountain
 movie
 palette
+pencil
+plant
 player-pause
 player-skip-forward
 plus
+point
 puzzle
 refresh
 rosette
@@ -91,6 +94,7 @@ target
 tent
 test-pipe
 trash
+tree
 triangle
 trophy
 upload

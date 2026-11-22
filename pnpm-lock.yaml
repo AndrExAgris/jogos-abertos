@@ -50,9 +50,33 @@ importers:
       '@ja/contrato':
         specifier: workspace:*
         version: link:../../packages/contrato
+      '@ja/geo':
+        specifier: workspace:*
+        version: link:../../packages/geo
+      '@ja/nucleo-cartas':
+        specifier: workspace:*
+        version: link:../../packages/nucleo-cartas
+      '@ja/nucleo-dados':
+        specifier: workspace:*
+        version: link:../../packages/nucleo-dados
+      '@ja/nucleo-estado':
+        specifier: workspace:*
+        version: link:../../packages/nucleo-estado
       '@ja/nucleo-grade':
         specifier: workspace:*
         version: link:../../packages/nucleo-grade
+      '@ja/nucleo-numeros':
+        specifier: workspace:*
+        version: link:../../packages/nucleo-numeros
+      '@ja/nucleo-palavras':
+        specifier: workspace:*
+        version: link:../../packages/nucleo-palavras
+      '@ja/nucleo-tabuleiro':
+        specifier: workspace:*
+        version: link:../../packages/nucleo-tabuleiro
+      '@ja/nucleo-trivia':
+        specifier: workspace:*
+        version: link:../../packages/nucleo-trivia
       '@ja/ui':
         specifier: workspace:*
         version: link:../../packages/ui
@@ -90,7 +114,55 @@ importers:
 
   packages/contrato: {}
 
+  packages/geo:
+    dependencies:
+      '@ja/contrato':
+        specifier: workspace:*
+        version: link:../contrato
+
+  packages/nucleo-cartas:
+    dependencies:
+      '@ja/contrato':
+        specifier: workspace:*
+        version: link:../contrato
+
+  packages/nucleo-dados:
+    dependencies:
+      '@ja/contrato':
+        specifier: workspace:*
+        version: link:../contrato
+
+  packages/nucleo-estado:
+    dependencies:
+      '@ja/contrato':
+        specifier: workspace:*
+        version: link:../contrato
+
   packages/nucleo-grade:
+    dependencies:
+      '@ja/contrato':
+        specifier: workspace:*
+        version: link:../contrato
+
+  packages/nucleo-numeros:
+    dependencies:
+      '@ja/contrato':
+        specifier: workspace:*
+        version: link:../contrato
+
+  packages/nucleo-palavras:
+    dependencies:
+      '@ja/contrato':
+        specifier: workspace:*
+        version: link:../contrato
+
+  packages/nucleo-tabuleiro:
+    dependencies:
+      '@ja/contrato':
+        specifier: workspace:*
+        version: link:../contrato
+
+  packages/nucleo-trivia:
     dependencies:
       '@ja/contrato':
         specifier: workspace:*

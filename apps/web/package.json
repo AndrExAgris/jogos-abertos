@@ -29,7 +29,15 @@
     "@capacitor/filesystem": "^8.1.5",
     "@capacitor/share": "^8.0.3",
     "@ja/contrato": "workspace:*",
+    "@ja/geo": "workspace:*",
+    "@ja/nucleo-cartas": "workspace:*",
+    "@ja/nucleo-dados": "workspace:*",
+    "@ja/nucleo-estado": "workspace:*",
     "@ja/nucleo-grade": "workspace:*",
+    "@ja/nucleo-numeros": "workspace:*",
+    "@ja/nucleo-palavras": "workspace:*",
+    "@ja/nucleo-tabuleiro": "workspace:*",
+    "@ja/nucleo-trivia": "workspace:*",
     "@ja/ui": "workspace:*"
   }
 }

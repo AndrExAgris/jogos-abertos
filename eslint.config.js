@@ -20,6 +20,8 @@ export default ts.config(
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
       // O SVG dos ícones vem de arquivos do próprio repositório.
       'svelte/no-at-html-tags': 'off',
+      // Os Set e Map dos jogos são temporários locais; o estado é sempre trocado inteiro.
+      'svelte/prefer-svelte-reactivity': 'off',
     },
   },
 );

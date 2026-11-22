@@ -172,3 +172,149 @@ body { overscroll-behavior: none; }
 .ja-zoom-area .ja-minas { margin-inline: auto; }
 .ja-zoom-botoes { position: absolute; right: var(--grade-margem-compacta); bottom: var(--e-3); display: flex; gap: var(--e-2); }
 .ja-zoom-botoes .botao { background: var(--superficie-elevada); }
+
+/* Teclado numérico dos puzzles */
+.ja-teclado { display: flex; flex-direction: column; gap: var(--e-2); padding-inline: var(--grade-margem-compacta); max-width: 480px; width: 100%; margin-inline: auto; box-sizing: border-box; }
+.ja-teclado-digitos { display: grid; grid-template-columns: repeat(var(--ja-teclas), minmax(0, 1fr)); gap: var(--e-1); }
+.ja-tecla { min-width: 0; padding: 0; height: 48px; font: 600 20px/1 var(--font-interface); justify-content: center; }
+.ja-teclado-acoes { display: flex; gap: var(--e-2); }
+.ja-teclado-acoes .botao { flex: 1; justify-content: center; min-width: 0; padding-inline: var(--e-1); gap: var(--e-1); }
+.ja-teclado-acoes .botao span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ja-teclado-acoes .botao[aria-pressed="true"] { background: var(--primaria-fundo); color: var(--primaria-texto); }
+
+/* Sudoku */
+.ja-sudoku {
+  --lado: min(calc(100vw - 2 * var(--grade-margem-compacta)), 460px);
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  width: var(--lado);
+  height: var(--lado);
+  border: 2px solid var(--texto-2);
+  border-radius: var(--raio-indicador);
+  overflow: hidden;
+  background: var(--fundo);
+  user-select: none;
+}
+.ja-sudoku-casa {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-right: 1px solid var(--borda);
+  border-bottom: 1px solid var(--borda);
+  background: var(--fundo);
+  color: var(--primaria-texto);
+  font: 500 calc(var(--lado) / 9 * 0.55) / 1 var(--font-interface);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.ja-sudoku-casa[data-bd] { border-right: 2px solid var(--texto-2); }
+.ja-sudoku-casa[data-bb] { border-bottom: 2px solid var(--texto-2); }
+.ja-sudoku-casa[data-relacionada] { background: var(--superficie); }
+.ja-sudoku-casa[data-mesmo] { background: var(--superficie-elevada); }
+.ja-sudoku-casa[data-selecionada] { background: var(--primaria-fundo); box-shadow: inset 0 0 0 2px var(--primaria-texto); }
+.ja-sudoku-casa[data-dada] { color: var(--texto); font-weight: 700; }
+.ja-sudoku-casa[data-erro] .ja-sudoku-valor { color: var(--erro-texto); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.ja-sudoku-casa:focus-visible { outline: none; box-shadow: inset 0 0 0 3px color-mix(in oklab, var(--foco) 55%, transparent); }
+.ja-sudoku-notas { display: grid; grid-template-columns: repeat(3, 1fr); width: 100%; height: 100%; padding: 2px; box-sizing: border-box; font: 500 calc(var(--lado) / 9 * 0.24) / 1 var(--font-interface); color: var(--texto-2); }
+.ja-sudoku-notas span { display: grid; place-items: center; }
+.ja-sudoku-soma { position: absolute; top: 3px; left: 4px; font: 600 calc(var(--lado) / 9 * 0.2) / 1 var(--font-interface); color: var(--texto-2); z-index: 1; }
+.ja-sudoku-sobre { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.ja-sudoku-diagonal { stroke: var(--texto-2); stroke-width: 0.03; opacity: 0.6; fill: none; }
+.ja-sudoku-gaiola { stroke: var(--texto-2); stroke-width: 0.025; stroke-dasharray: 0.08 0.06; fill: none; }
+
+/* Grades genéricas dos puzzles */
+.ja-grade {
+  --lado-max: min(calc(100vw - 2 * var(--grade-margem-compacta)), 520px);
+  --casa: min(calc(var(--lado-max) / var(--ja-colunas)), 52px);
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(var(--ja-colunas), var(--casa));
+  grid-auto-rows: var(--casa);
+  gap: 1px;
+  background: var(--borda);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio-indicador);
+  user-select: none;
+  -webkit-user-select: none;
+}
+.ja-grade-casa {
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: var(--fundo);
+  color: var(--texto);
+  font: 600 calc(var(--casa) * 0.48) / 1 var(--font-interface);
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.ja-grade-casa .icone { width: calc(var(--casa) * 0.6); height: calc(var(--casa) * 0.6); }
+.ja-grade-casa:focus-visible { outline: none; box-shadow: inset 0 0 0 3px color-mix(in oklab, var(--foco) 55%, transparent); }
+.ja-icone-primaria { color: var(--primaria-texto); display: grid; }
+.ja-icone-texto { color: var(--texto); display: grid; }
+.ja-erro-icone { color: var(--erro-texto); }
+.ja-marca-ponto { width: 6px; height: 6px; border-radius: var(--raio-total); background: var(--texto-2); }
+.ja-marca-x { color: var(--texto-2); display: grid; }
+
+/* Akari */
+.ja-grade-casa[data-acesa] { background: color-mix(in oklab, var(--primaria) 22%, var(--fundo)); }
+.ja-parede { background: var(--texto); color: var(--fundo); cursor: default; }
+.ja-parede[data-erro] { text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 3px; color: var(--erro); }
+
+/* Tendas */
+.ja-grade-bordas { background: transparent; border-color: transparent; gap: 1px; }
+.ja-grade-bordas > .ja-grade-casa { box-shadow: 0 0 0 1px var(--borda); }
+.ja-borda-numero { display: grid; place-items: center; color: var(--texto); font: 600 calc(var(--casa) * 0.42) / 1 var(--font-interface); }
+.ja-borda-numero[data-ok] { color: var(--texto-2); }
+.ja-borda-numero[data-erro] { color: var(--erro-texto); text-decoration: underline; }
+.ja-arvore { color: var(--secundaria-texto); cursor: default; }
+.ja-grade-casa[data-grama] { background: var(--superficie); }
+
+/* Pontes */
+.ja-pontes { width: min(calc(100vw - 2 * var(--grade-margem-compacta)), 520px); height: auto; max-height: 70dvh; touch-action: manipulation; }
+.ja-ponte { stroke: var(--texto); stroke-width: 0.07; stroke-linecap: round; }
+.ja-ponte-guia { stroke: var(--primaria-texto); stroke-width: 0.04; stroke-dasharray: 0.12 0.1; opacity: 0.7; }
+.ja-ilha { cursor: pointer; }
+.ja-ilha circle { fill: var(--superficie-elevada); stroke: var(--borda-controle); stroke-width: 0.05; }
+.ja-ilha text { fill: var(--texto); font: 600 0.46px var(--font-interface); text-anchor: middle; dominant-baseline: middle; }
+.ja-ilha[data-completa] circle { fill: var(--superficie); }
+.ja-ilha[data-completa] text { fill: var(--texto-2); }
+.ja-ilha[data-erro] text { fill: var(--erro-texto); text-decoration: underline; }
+.ja-ilha[data-selecionada] circle { fill: var(--primaria-fundo); stroke: var(--primaria-texto); stroke-width: 0.08; }
+.ja-ilha:focus-visible { outline: none; }
+.ja-ilha:focus-visible circle { stroke: var(--foco); stroke-width: 0.1; }
+
+/* Rainhas: regiões com bordas grossas e tons das cores do sistema */
+.ja-rainhas .ja-grade-casa[data-bt] { border-top: 3px solid var(--texto); }
+.ja-rainhas .ja-grade-casa[data-bb] { border-bottom: 3px solid var(--texto); }
+.ja-rainhas .ja-grade-casa[data-bl] { border-left: 3px solid var(--texto); }
+.ja-rainhas .ja-grade-casa[data-br] { border-right: 3px solid var(--texto); }
+.ja-rainhas .ja-grade-casa[data-regiao="0"] { background: color-mix(in oklab, var(--primaria) 34%, var(--fundo)); }
+.ja-rainhas .ja-grade-casa[data-regiao="1"] { background: color-mix(in oklab, var(--secundaria) 34%, var(--fundo)); }
+.ja-rainhas .ja-grade-casa[data-regiao="2"] { background: var(--superficie-elevada); }
+.ja-rainhas .ja-grade-casa[data-regiao="3"] { background: color-mix(in oklab, var(--primaria) 14%, var(--fundo)); }
+.ja-rainhas .ja-grade-casa[data-regiao="4"] { background: color-mix(in oklab, var(--secundaria) 14%, var(--fundo)); }
+.ja-rainhas .ja-grade-casa[data-regiao="5"] { background: var(--fundo); }
+.ja-rainhas .ja-grade-casa[data-regiao="6"] { background: color-mix(in oklab, var(--primaria) 22%, var(--secundaria) 22%); }
+.ja-rainhas .ja-grade-casa[data-regiao="7"] { background: color-mix(in oklab, var(--texto) 22%, var(--fundo)); }
+.ja-rainhas .ja-grade-casa[data-regiao="8"] { background: color-mix(in oklab, var(--secundaria) 55%, var(--fundo)); }
+
+/* Mosaico */
+.ja-mosaico-casa[data-pintada] { background: var(--texto); color: var(--fundo); }
+.ja-mosaico-casa[data-certa] { color: var(--texto-2); }
+.ja-mosaico-casa[data-pintada][data-certa] { color: color-mix(in oklab, var(--fundo) 60%, var(--texto)); }
+.ja-mosaico-casa[data-erro] { color: var(--erro-texto); text-decoration: underline; }
+
+/* Ligue os Números */
+.ja-ligue { touch-action: none; }
+.ja-ligue .ja-grade-casa { cursor: crosshair; }
+.ja-ligue .ja-grade-casa[data-ocupada] { background: color-mix(in oklab, var(--primaria) 12%, var(--fundo)); }
+.ja-ligue-ponta { position: relative; z-index: 2; display: grid; place-items: center; width: 74%; height: 74%; border-radius: var(--raio-total); background: var(--superficie-elevada); border: 2px solid var(--primaria-texto); font-size: calc(var(--casa) * 0.42); }
+.ja-ligue-ponta[data-completa] { background: var(--primaria); color: var(--primaria-sobre); border-color: var(--primaria); }
+.ja-ligue-linhas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+.ja-ligue-caminho { fill: none; stroke: var(--primaria-texto); stroke-width: 0.28; stroke-linecap: round; stroke-linejoin: round; opacity: 0.75; }
+.ja-ligue-caminho[data-completo] { opacity: 1; stroke: var(--primaria); }

@@ -1,12 +1,7 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
   import { Icone } from '@ja/ui';
-
-  export interface Opcao {
-    id: string;
-    titulo: string;
-    descricao?: string;
-  }
+  import type { Opcao } from './tipos.ts';
   interface Props {
     titulo?: string;
     opcoes: Opcao[];

@@ -27,6 +27,13 @@ export const GRUPOS: GrupoJogos[] = [
   {
     id: 'grade', nome: 'Quebra-cabeças de grade', jogos: [
       j('minas', 'Campo Minado', 'Abra as casas sem explodir', 'bomb', '1', () => import('./minas/Minas.svelte')),
+      j('sudoku', 'Sudoku', 'Clássico, killer e regras combinadas', 'grid-3x3', '1', () => import('./sudoku/Sudoku.svelte')),
+      j('akari', 'Akari', 'Ilumine a grade com lâmpadas', 'bulb', '1', () => import('./akari/Akari.svelte')),
+      j('tendas', 'Tendas', 'Uma tenda ao lado de cada árvore', 'tent', '1', () => import('./tendas/Tendas.svelte')),
+      j('pontes', 'Pontes', 'Ligue as ilhas com pontes', 'building-bridge-2', '1', () => import('./pontes/Pontes.svelte')),
+      j('rainhas', 'Rainhas', 'Uma coroa por linha, coluna e região', 'crown', '1', () => import('./rainhas/Rainhas.svelte')),
+      j('mosaico', 'Mosaico', 'Pinte as casas pelas pistas', 'layout-grid', '1', () => import('./mosaico/Mosaico.svelte')),
+      j('ligue', 'Ligue os Números', 'Ligue os pares e preencha a grade', 'route', '1', () => import('./ligue/Ligue.svelte')),
     ],
   },
 ];

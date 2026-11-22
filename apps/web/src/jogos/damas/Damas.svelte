@@ -4,6 +4,7 @@
   import { contarDamas, jogarDamas, lancesDamas, novasDamas, type EstadoDamas } from '@ja/nucleo-tabuleiro/damas';
   import Casca from '../../lib/jogo/Casca.svelte';
   import Jogadores from '../../lib/jogo/Jogadores.svelte';
+  import Status from '../../lib/jogo/Status.svelte';
   import { Sessao } from '../../lib/jogo/sessao.svelte.ts';
   import { usarComputador } from '../../lib/jogo/computador.svelte.ts';
   import { nivelDoId, opcoesIA, type NivelIA } from '../../lib/jogo/ia.ts';
@@ -49,8 +50,8 @@
 
 <Casca sessao={s} titulo="Damas" comoJogar={COMO} opcoes={OPCOES} aoEscolher={comecar} aoDesfazer={pc.desfazer} tituloEscolha="Quem joga?" tituloFim={s.estado ? (ia ? (s.estado.vencedor === 1 ? 'Você venceu!' : 'O computador venceu.') : `Jogador ${s.estado.vencedor} venceu!`) : ''} textoFim="" semRelogio>
   {#if s.estado}
-    <Jogadores {nomes} vez={s.terminou ? -1 : s.estado.vez - 1} pontos={contagem} />
-    {#if lances[0]?.capturadas.length && !s.terminou}<p class="ja-dica">Captura obrigatória ({lances[0].capturadas.length} {lances[0].capturadas.length > 1 ? 'peças' : 'peça'}).</p>{/if}
+    <Jogadores {nomes} vez={s.terminou ? -1 : s.estado.vez - 1} pontos={contagem} pensando={pc.pensando} />
+    <Status texto={lances[0]?.capturadas.length && !s.terminou ? `Captura obrigatória (${lances[0].capturadas.length} ${lances[0].capturadas.length > 1 ? 'peças' : 'peça'}).` : ''} />
     <div class="ja-centro">
       <div class="ja-tab ja-tab-grade" style="--ja-colunas:8">
         {#each s.estado.casas as c, i (i)}

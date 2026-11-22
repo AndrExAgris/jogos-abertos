@@ -4,6 +4,7 @@
   import { sementeNova } from '@ja/contrato';
   import { apostar, dobrar, novoVinte, parar, pedir, pontos, type EstadoVinte } from '@ja/nucleo-cartas/vinte-e-um';
   import Casca from '../../lib/jogo/Casca.svelte';
+  import Status from '../../lib/jogo/Status.svelte';
   import { Sessao } from '../../lib/jogo/sessao.svelte.ts';
   import Carta from './Carta.svelte';
 
@@ -38,7 +39,7 @@
         <span class="ui-medio">Você {e.jogador.length ? `· ${pontos(e.jogador)}` : ''} {e.aposta && e.fase !== 'apostando' ? `· aposta ${e.aposta}` : ''}</span>
         <div class="ja-mesa-linha">{#each e.jogador as c, k (k)}<Carta carta={c} />{/each}</div>
       </div>
-      {#if e.fase === 'fim'}<p class="ja-dica">{RESULTADO[e.resultado]}</p>{/if}
+      <Status texto={e.fase === 'fim' ? RESULTADO[e.resultado] : ''} />
       {#if !s.terminou}
         {#if e.fase === 'jogando'}
           <div class="ja-botoes">

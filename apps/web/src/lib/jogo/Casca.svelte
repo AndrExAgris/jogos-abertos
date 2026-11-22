@@ -61,14 +61,6 @@
         {#if faixa}{@render faixa()}{:else}<span class="ja-faixa-texto">{sessao.nomeVariante}</span>{/if}
       {/snippet}
     </Faixa>
-    {#if sessao.terminou}
-      <Fim
-        tipo={sessao.terminou}
-        titulo={tituloFim ?? (sessao.terminou === 'vitoria' ? (sessao.recorde ? 'Novo recorde!' : 'Resolvido!') : 'Não foi dessa vez')}
-        texto={textoFim ?? (semRelogio ? undefined : `Tempo: ${formatarTempo(sessao.relogio.ms)}.`)}
-        aoNova={() => sessao.nova()}
-      />
-    {/if}
     {@render children()}
     {#if !semDesfazer || rodape}
       <div class="ja-rodape-jogo">
@@ -77,6 +69,15 @@
         {/if}
         {@render rodape?.()}
       </div>
+    {/if}
+    <!-- Fim de jogo: cartão preso ao pé da tela, sem empurrar o tabuleiro. -->
+    {#if sessao.terminou}
+      <Fim
+        tipo={sessao.terminou}
+        titulo={tituloFim ?? (sessao.terminou === 'vitoria' ? (sessao.recorde ? 'Novo recorde!' : 'Resolvido!') : 'Não foi dessa vez')}
+        texto={textoFim ?? (semRelogio ? undefined : `Tempo: ${formatarTempo(sessao.relogio.ms)}.`)}
+        aoNova={() => sessao.nova()}
+      />
     {/if}
   {/if}
 </TelaJogo>

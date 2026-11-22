@@ -3,6 +3,7 @@
   import { ALTURA, CACAPA, CACAPAS, LARGURA, RAIO, arbitrar, novaSinuca, passo, podePorBranca, tacada, type Bola, type EstadoSinuca, type Eventos } from '@ja/nucleo-tabuleiro/sinuca';
   import Casca from '../../lib/jogo/Casca.svelte';
   import Jogadores from '../../lib/jogo/Jogadores.svelte';
+  import Status from '../../lib/jogo/Status.svelte';
   import { Sessao } from '../../lib/jogo/sessao.svelte.ts';
   import { layout } from '../../lib/layout.svelte.ts';
 
@@ -83,7 +84,7 @@
   {#if s.estado}
     {@const e = s.estado}
     <Jogadores nomes={['Jogador 1', 'Jogador 2']} vez={s.terminou ? -1 : e.vez} pontos={[grupoTxt(e.grupos[0]), grupoTxt(e.grupos[1])]} />
-    {#if e.bolaNaMao && !s.terminou}<p class="ja-dica">Toque na mesa para pôr a bola branca.</p>{/if}
+    <Status texto={e.bolaNaMao && !s.terminou ? 'Toque na mesa para pôr a bola branca.' : ''} />
     <div class="ja-centro">
       <svg
         class="ja-sinuca"

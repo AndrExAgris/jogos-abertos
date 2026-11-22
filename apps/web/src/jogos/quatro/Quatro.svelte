@@ -38,7 +38,7 @@
 
 <Casca sessao={s} titulo="Quatro em Linha" comoJogar={COMO} opcoes={OPCOES} aoEscolher={comecar} aoDesfazer={pc.desfazer} tituloEscolha="Quem joga?" tituloFim={fim} textoFim="" semRelogio>
   {#if s.estado}
-    <Jogadores {nomes} vez={s.terminou ? -1 : s.estado.vez - 1} />
+    <Jogadores {nomes} vez={s.terminou ? -1 : s.estado.vez - 1} pensando={pc.pensando} />
     <div class="ja-centro">
       <div class="ja-tab ja-tab-grade ja-quatro" style="--ja-colunas:{COLUNAS};--ja-linhas:{LINHAS}">
         {#each s.estado.casas as c, i (i)}

@@ -3,6 +3,7 @@
   import { corDe, emXeque, jogarXadrez, lancesXadrez, novoXadrez, type EstadoXadrez, type Lance } from '@ja/nucleo-tabuleiro/xadrez';
   import Casca from '../../lib/jogo/Casca.svelte';
   import Jogadores from '../../lib/jogo/Jogadores.svelte';
+  import Status from '../../lib/jogo/Status.svelte';
   import Dialogo from '../../lib/jogo/Dialogo.svelte';
   import { Sessao } from '../../lib/jogo/sessao.svelte.ts';
   import { usarComputador } from '../../lib/jogo/computador.svelte.ts';
@@ -62,8 +63,8 @@
     <button class="botao botao-terciario" type="button" onclick={() => (virar = !virar)}><span>Girar tabuleiro</span></button>
   {/snippet}
   {#if s.estado}
-    <Jogadores nomes={ia ? ['Você (brancas)', 'Computador'] : ['Brancas', 'Pretas']} vez={s.terminou ? -1 : s.estado.vez === 'b' ? 0 : 1} />
-    {#if xeque >= 0}<p class="ja-dica">Xeque!</p>{:else if pc.pensando}<p class="ja-dica">O computador está pensando…</p>{/if}
+    <Jogadores nomes={ia ? ['Você (brancas)', 'Computador'] : ['Brancas', 'Pretas']} vez={s.terminou ? -1 : s.estado.vez === 'b' ? 0 : 1} pensando={pc.pensando} />
+    <Status texto={xeque >= 0 && !s.terminou ? 'Xeque!' : ''} />
     <div class="ja-centro">
       <div class="ja-tab ja-tab-grade ja-xadrez" style="--ja-colunas:8">
         {#each ordem as i (i)}

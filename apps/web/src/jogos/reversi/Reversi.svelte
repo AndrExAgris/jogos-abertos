@@ -41,7 +41,7 @@
 
 <Casca sessao={s} titulo="Reversi" comoJogar={COMO} opcoes={OPCOES} aoEscolher={comecar} aoDesfazer={pc.desfazer} tituloEscolha="Quem joga?" tituloFim={fim} textoFim="" semRelogio>
   {#if s.estado}
-    <Jogadores {nomes} vez={s.terminou ? -1 : s.estado.vez - 1} pontos={placar} />
+    <Jogadores {nomes} vez={s.terminou ? -1 : s.estado.vez - 1} pontos={placar} pensando={pc.pensando} />
     <div class="ja-centro">
       <div class="ja-tab ja-tab-grade" style="--ja-colunas:8">
         {#each s.estado.casas as c, i (i)}

@@ -53,6 +53,8 @@
           </tbody>
         </table>
       </div>
+    {:else if !s.terminou}
+      <p class="ja-dica">Chute um país: cada palpite mostra o que ele tem em comum com o país secreto (continente, hemisfério, população, área, litoral e distância).</p>
     {/if}
   {/if}
 </Casca>

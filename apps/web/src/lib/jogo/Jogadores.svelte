@@ -7,8 +7,10 @@
     nomes: string[];
     vez: number;
     pontos?: (number | string)[];
+    /** O jogador da vez (computador) está pensando: mostra reticências animadas no lugar, sem mexer no layout. */
+    pensando?: boolean;
   }
-  let { nomes, vez, pontos }: Props = $props();
+  let { nomes, vez, pontos, pensando = false }: Props = $props();
 </script>
 
 <div class="ja-jogadores" data-muitos={nomes.length > 2 || undefined} role="status" aria-live="polite">
@@ -16,6 +18,7 @@
     <div class="ja-jogador" data-jogador={i + 1} aria-current={vez === i ? 'true' : undefined}>
       <span class="ja-jogador-marca" aria-hidden="true"></span>
       <span class="ja-jogador-nome">{nome}</span>
+      {#if pensando && vez === i}<span class="ja-pensando" aria-label="pensando"><span></span><span></span><span></span></span>{/if}
       {#if pontos}<span class="ja-jogador-pontos numeros-tabulares">{pontos[i]}</span>{/if}
       {#if vez === i}<span class="sr-only">, é a vez</span>{/if}
     </div>

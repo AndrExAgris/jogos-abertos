@@ -4,6 +4,7 @@
   import { FIM, ROSETAS, casaUr, lancarUr, moverUr, movimentosUr, novoUr, type EstadoUr } from '@ja/nucleo-tabuleiro/ur';
   import Casca from '../../lib/jogo/Casca.svelte';
   import Jogadores from '../../lib/jogo/Jogadores.svelte';
+  import Status from '../../lib/jogo/Status.svelte';
   import { Sessao } from '../../lib/jogo/sessao.svelte.ts';
   import { iaUr } from '@ja/nucleo-tabuleiro/ia';
   import { agendar, nivelDoId, opcoesIA, type NivelIA } from '../../lib/jogo/ia.ts';
@@ -65,7 +66,7 @@
 <Casca sessao={s} titulo="Jogo Real de Ur" comoJogar={COMO} opcoes={OPCOES} aoEscolher={comecar} tituloEscolha="Quem joga?" tituloFim={s.estado ? (ia ? (s.estado.vencedor === 0 ? 'Você venceu!' : 'O computador venceu.') : `Jogador ${(s.estado.vencedor ?? 0) + 1} venceu!`) : ''} textoFim="" semRelogio>
   {#if s.estado}
     {@const e = s.estado}
-    <Jogadores {nomes} vez={s.terminou ? -1 : e.vez} pontos={[0, 1].map((j) => `${e.pecas[j].filter((p) => p === FIM).length}/7`)} />
+    <Jogadores {nomes} vez={s.terminou ? -1 : e.vez} pensando={vezPC} pontos={[0, 1].map((j) => `${e.pecas[j].filter((p) => p === FIM).length}/7`)} />
     {#each [1, 0] as j (j)}
       {@const fora = e.pecas[j].map((p, k) => ({ p, k })).filter((x) => x.p === 0)}
       <div class="ja-ur-fora" aria-label="Peças fora do jogador {j + 1}">
@@ -98,6 +99,6 @@
       {#each dados as d, i (i)}<span class="ja-ur-dado" data-um={d || undefined}>{d}</span>{/each}
       <button class="botao botao-primario" type="button" disabled={e.dado !== null || !!s.terminou || vezPC} onclick={() => lancar()}><Icone nome="dice" /><span>{e.dado !== null ? `Saiu ${e.dado}: mova uma peça` : 'Lançar dados'}</span></button>
     </div>
-    {#if e.dado !== null}<p class="ja-dica">Toque numa peça destacada para mover.</p>{/if}
+    <Status texto={e.dado !== null && !s.terminou ? 'Toque numa peça destacada para mover.' : ''} />
   {/if}
 </Casca>

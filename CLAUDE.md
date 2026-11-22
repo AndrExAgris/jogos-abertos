@@ -321,8 +321,24 @@ A cada marco: testes dos núcleos passando, APK gerado no CI e um release para o
   - [x] 11. Gerador do Mines portado para TypeScript e medido (README): Difícil em ~3 ms, sem Web Worker
   - [x] 12. Release `v0.1.0` publicado em 22/11/2026 (APK assinado, 4,8 MB). Falta o André testar a instalação pelo Obtainium nos dois celulares
 
+- [ ] Leva grande (pedida em 22/11/2026): versão inicial de todos os jogos + correções do Campo Minado. O André deu autonomia total nesta iteração e quer uma rodada grande de críticas depois
+  - [x] Infra comum: `lib/jogo/` (Sessao, Casca, TelaJogo, Escolha, Fim, Dialogo, Jogadores, Teclado, Relogio reativo, Web Worker de geradores em `trabalhador.ts`)
+  - [x] Campo Minado: escolha ao abrir, faixa (bandeiras, relógio, Como jogar), toque = bandeira e segurar = abrir, zoom com pinça e botões, relógio corrigido
+  - [x] Tela inicial em grade de quadrados (registro em `apps/web/src/jogos/registro.ts`)
+  - [x] Grade: Sudoku (clássico, diagonais, anti-rei, anti-cavalo, não consecutivo, killer e combinações), Akari, Tendas, Pontes, Rainhas, Mosaico, Ligue os Números
+  - [x] Números: Conta Certa
+  - [x] Mover e encaixar: Resta Um, Separe as Cores, Hora do Rush, Setas (só plano), Desembaraço
+  - [x] Tabuleiro para dois: Quatro em Linha, Trilha, Damas, Reversi, Xadrez, Go, Ludo, Jogo Real de Ur, Sinuca
+  - [ ] Cartas: Paciência, Spider, FreeCell, Pirâmide, TriPeaks, Golf, Vinte e Um
+  - [ ] Dados: General, Dado Mentiroso
+  - [ ] Dados abertos + jogos: palavras (Termo, Roda de Letras, Palavras Cruzadas), Wikidata (Perguntas, Adivinhe o Filme), países (7 jogos de geografia)
+  - [ ] Release v0.2.0
+
 Decisões tomadas com o André:
 - Minas: 3 níveis (9×9/10, 16×16/40, 30×16/99, em pé 16×30 no celular na vertical) + personalizado (lados de 5 a 40)
 
 Decisões provisórias, a confirmar com o André:
 - Minas sem desfazer; trocar de nível no meio descarta a partida sem contar derrota; números em cor neutra (sem as cores clássicas por número)
+- "Tele" (Sumplete) saiu do catálogo, a pedido do André; falta saber o que era (talvez Tango, dos jogos do LinkedIn)
+- Nomes em português: Campo Minado, Rainhas (Queens), Conta Certa (Alvo), Separe as Cores (Water Sort), Hora do Rush, Quatro em Linha, Vinte e Um (Blackjack); jogos de geografia com nomes descritivos
+- Cores de peças (Separe as Cores, Ludo, bolas da Sinuca, regiões das Rainhas): paleta de destaque definida só em `.ja-cor-N` no app.css, sempre com número ou forma; pedras de Go e tabuleiro de xadrez com preto e branco fixos (`--ja-preta`, `--ja-branca`)

@@ -3,12 +3,13 @@
   import { sementeNova } from '@ja/contrato';
   import { NAIPES } from '@ja/nucleo-cartas/baralho';
   import {
-    comprar, destinoAutomatico, mover, novaPaciencia, podeTerminarSozinho, terminarSozinho, venceu,
+    comprar, destinoAutomatico, mover, novaPaciencia, podeTerminarSozinho, semSaida, terminarSozinho, venceu,
     type EstadoPaciencia, type Local,
   } from '@ja/nucleo-cartas/paciencia';
   import Casca from '../../lib/jogo/Casca.svelte';
   import { Sessao } from '../../lib/jogo/sessao.svelte.ts';
   import { vibrar } from '../../lib/jogo/partida.ts';
+  import { Icone } from '@ja/ui';
   import Carta from './Carta.svelte';
   import { alturaColuna, deslocamentos } from './pilha.ts';
 
@@ -23,6 +24,7 @@
     'Toque numa carta para ela ir sozinha ao melhor lugar. Se não houver, ela fica selecionada: toque depois na coluna de destino. Toque no monte para virar cartas.',
   ];
   let sel = $state<Local | null>(null);
+  const travada = $derived(!!s.estado && !s.terminou && semSaida(s.estado));
 
   function aplicar(n: EstadoPaciencia | null) {
     if (!n) return false;
@@ -55,6 +57,17 @@
 <Casca sessao={s} titulo="Paciência" comoJogar={COMO} opcoes={OPCOES} aoEscolher={(id) => s.comecar(id, OPCOES.find((o) => o.id === id)!.titulo, () => ({ quebra: { virar: Number(id) }, estado: novaPaciencia(sementeNova(), Number(id) as 1 | 3) }))} tituloEscolha="Como virar o monte?">
   {#if s.estado}
     {@const e = s.estado}
+    {#if travada}
+      <div class="aviso ja-aviso-jogo" data-tipo="aviso" role="alert">
+        <Icone nome="alert-triangle" />
+        <div><p class="aviso-titulo">Não dá mais para ganhar</p><p>Nenhuma jogada ajuda daqui em diante. Desfaça algumas jogadas ou desista.</p>
+          <div class="ja-botoes ja-botoes-aviso">
+            <button class="botao" type="button" disabled={!s.podeDesfazer} onclick={() => s.desfazer()}><Icone nome="arrow-back-up" /><span>Desfazer</span></button>
+            <button class="botao" type="button" onclick={() => s.terminar('derrota')}><Icone nome="flag" /><span>Desistir</span></button>
+          </div>
+        </div>
+      </div>
+    {/if}
     <div class="ja-mesa" style="--cols:7">
       <div class="ja-mesa-linha">
         <Carta carta={e.estoque.length ? e.estoque[e.estoque.length - 1] : null} vazia="↻" rotulo={e.estoque.length ? `Monte, ${e.estoque.length} cartas` : 'Virar o descarte de volta'} aoTocar={() => !s.terminou && s.mudar(comprar(e))} />

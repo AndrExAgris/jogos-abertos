@@ -86,3 +86,59 @@ export function marcar(e: EstadoGeneral, j: Jogada): EstadoGeneral {
 }
 
 export const total = (t: Partial<Record<Jogada, number>>) => Object.values(t).reduce((s, v) => s + (v ?? 0), 0);
+
+export type NivelIA = 'facil' | 'medio' | 'dificil';
+export type JogadaGeneral = { tipo: 'lancar'; guardados: boolean[] } | { tipo: 'marcar'; jogada: Jogada };
+
+/** Quanto vale, em média, deixar a jogada aberta para depois (para não gastar General à toa). */
+function reserva(j: Jogada, regra: RegraGeneral): number {
+  const v = VALORES_REGRA[regra];
+  const tabela: Record<Jogada, number> = { '1': 2, '2': 5, '3': 8, '4': 11, '5': 14, '6': 17, seguida: v.seguida * 0.42, full: v.full * 0.45, quadra: v.quadra * 0.32, general: 12 };
+  return tabela[j];
+}
+
+function melhorMarca(dados: number[], abertas: Jogada[], deBoca: boolean, regra: RegraGeneral): { jogada: Jogada; valor: number } {
+  let melhor = { jogada: abertas[0], valor: -Infinity };
+  for (const j of abertas) {
+    const valor = pontosJogada(dados, j, deBoca, regra) - reserva(j, regra);
+    if (valor > melhor.valor) melhor = { jogada: j, valor };
+  }
+  return melhor;
+}
+
+/**
+ * Jogada do computador no General. Fácil: guarda a face que mais aparece e
+ * marca o que der mais pontos na hora. Médio e difícil: testam por simulação
+ * quais dados guardar e quando parar, pesando o valor de deixar jogadas abertas.
+ */
+export function jogadaGeneralIA(e: EstadoGeneral, nivel: NivelIA, rnd: () => number = Math.random): JogadaGeneral {
+  const regra = e.regra ?? 'classica';
+  const nenhum = [false, false, false, false, false];
+  if (e.lancamentos === 0) return { tipo: 'lancar', guardados: nenhum };
+  const abertas = JOGADAS.filter((j) => e.tabelas[e.vez][j] === undefined);
+  const agora = melhorMarca(e.dados, abertas, e.lancamentos === 1, regra);
+  if (nivel === 'facil') {
+    const maisPontos = abertas.reduce((a, j) => (pontosJogada(e.dados, j, e.lancamentos === 1, regra) > pontosJogada(e.dados, a, e.lancamentos === 1, regra) ? j : a), abertas[0]);
+    if (e.lancamentos >= 3 || pontosJogada(e.dados, maisPontos, e.lancamentos === 1, regra) >= 20) return { tipo: 'marcar', jogada: maisPontos };
+    const cont = [0, 0, 0, 0, 0, 0, 0];
+    e.dados.forEach((d) => cont[d]++);
+    const face = cont.indexOf(Math.max(...cont));
+    return { tipo: 'lancar', guardados: e.dados.map((d) => d === face) };
+  }
+  if (e.lancamentos >= 3) return { tipo: 'marcar', jogada: agora.jogada };
+  const sims = nivel === 'dificil' ? 160 : 50;
+  let melhor = { valor: agora.valor, guardados: null as boolean[] | null };
+  for (let m = 0; m < 31; m++) {
+    const guardados = e.dados.map((_, i) => !!(m & (1 << i)));
+    let soma = 0;
+    for (let k = 0; k < sims; k++) {
+      const dados = e.dados.map((d, i) => (guardados[i] ? d : 1 + Math.floor(rnd() * 6)));
+      soma += melhorMarca(dados, abertas, false, regra).valor;
+    }
+    // Com dois lançamentos sobrando, a média subestima: dá um bônus pequeno.
+    const media = soma / sims + (e.lancamentos === 1 ? (nivel === 'dificil' ? 2.5 : 1.5) : 0);
+    if (media > melhor.valor) melhor = { valor: media, guardados };
+  }
+  if (!melhor.guardados) return { tipo: 'marcar', jogada: agora.jogada };
+  return { tipo: 'lancar', guardados: melhor.guardados };
+}

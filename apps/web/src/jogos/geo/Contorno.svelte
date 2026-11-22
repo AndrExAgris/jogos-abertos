@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onDestroy, onMount } from 'svelte';
   import { sementeNova } from '@ja/contrato';
-  import { caixa, caminhoSvg, distanciaCentros, pais, proximidade, rumo, seta, sortearPais, type Pais } from '@ja/geo/paises';
+  import { caixa, caminhoSvg, distanciaCentros, pais, cardeal, rumo, seta, sortearPais, type Pais } from '@ja/geo/paises';
   import Casca from '../../lib/jogo/Casca.svelte';
   import { Sessao } from '../../lib/jogo/sessao.svelte.ts';
   import CampoPais from './CampoPais.svelte';
@@ -11,7 +11,7 @@
   const s = new Sessao<{ segredo: string }, Estado>('pais-contorno');
   const COMO = [
     'Que país tem esse formato? Você tem seis palpites.',
-    'Cada palpite errado mostra a distância até o país certo, a direção e a proximidade em porcentagem.',
+    'Cada palpite errado mostra a distância até o país certo, a direção e o ponto cardeal (norte, nordeste...).',
   ];
   const seg = $derived(s.quebra ? pais(s.quebra.segredo) : null);
   // A projeção estica a largura longe do equador; compensa pelo cosseno da latitude.
@@ -55,7 +55,7 @@
         <div class="ja-palpite" data-certo={id === seg.id || undefined}>
           <span class="ja-palpite-nome">{pais(id).nome}</span>
           {#if id === seg.id}<span class="ja-palpite-valor">certo!</span>
-          {:else}<span class="ja-palpite-valor">{km.toLocaleString('pt-BR')} km · {proximidade(km)}%</span><span class="ja-seta">{seta(rumo(pais(id).latlon, seg.latlon))}</span>{/if}
+          {:else}<span class="ja-palpite-valor">{km.toLocaleString('pt-BR')} km</span><span class="ja-rumo"><span class="ja-seta" aria-hidden="true">{seta(rumo(pais(id).latlon, seg.latlon))}</span>{cardeal(rumo(pais(id).latlon, seg.latlon))}</span>{/if}
         </div>
       {/each}
     </div>

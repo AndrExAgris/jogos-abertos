@@ -237,7 +237,7 @@ body { overscroll-behavior: none; }
 .ja-sudoku-xv text { font: 700 0.28px/1 var(--font-interface); fill: var(--texto); text-anchor: middle; dominant-baseline: middle; }
 .ja-sudoku-teclado .ja-tecla[data-travado] { background: var(--primaria); color: var(--primaria-sobre); box-shadow: inset 0 0 0 2px var(--primaria-texto); }
 .ja-escolha-subtitulo { margin: var(--e-4) 0 0; font: 600 15px/20px var(--font-interface); color: var(--texto-2); }
-.ja-regras-lista { display: grid; gap: 1px; background: var(--borda); border: 1px solid var(--borda); border-radius: var(--raio); overflow: hidden; }
+.ja-regras-lista { display: grid; gap: 1px; background: var(--borda); border: 1px solid var(--borda); border-radius: var(--raio-controle); overflow: hidden; }
 .ja-regra { display: flex; align-items: center; gap: var(--e-3); padding: var(--e-3); background: var(--superficie-sutil, var(--fundo)); cursor: pointer; }
 .ja-regra:has(input:checked) { background: color-mix(in oklab, var(--primaria) 10%, var(--fundo)); }
 .ja-botao-largo { width: 100%; justify-content: center; }
@@ -594,7 +594,7 @@ body { overscroll-behavior: none; }
 .ja-campo-linha { display: flex; gap: var(--e-2); }
 .ja-campo-linha .entrada { flex: 1; min-width: 0; }
 .ja-sugestoes .linha-config { min-height: 44px; }
-.ja-campo-falso { position: relative; display: flex; align-items: center; min-height: 48px; padding: 0 44px 0 var(--e-3); border: 1.5px solid var(--borda-controle); border-radius: var(--raio); background: var(--fundo); font: 500 17px/24px var(--font-interface); color: var(--texto); overflow: hidden; white-space: nowrap; }
+.ja-campo-falso { position: relative; display: flex; align-items: center; min-height: 48px; padding: 0 44px 0 var(--e-3); border: 1.5px solid var(--borda-controle); border-radius: var(--raio-controle); background: var(--fundo); font: 500 17px/24px var(--font-interface); color: var(--texto); overflow: hidden; white-space: nowrap; }
 .campo[data-estado="erro"] .ja-campo-falso { border-color: var(--erro); }
 .ja-campo-falso-dica { color: var(--texto-desabilitado); font-weight: 400; }
 .ja-campo-falso[data-vazio] .ja-cursor { order: -1; }
@@ -786,3 +786,56 @@ svg, svg * { -webkit-tap-highlight-color: transparent; }
   .ja-mesa { --carta-l: min(calc((100vw - 2 * var(--grade-margem-compacta) - (var(--cols) - 1) * 4px) / var(--cols)), 64px, calc((100dvh - 110px) / 4)); max-width: none; }
 }
 .ja-seta-saindo { pointer-events: none; }
+
+/* Perguntas: vidas e categorias */
+.ja-vidas { display: inline-flex; gap: 2px; color: var(--erro-texto); }
+.ja-vida[data-perdida] { color: var(--texto-desabilitado); }
+.ja-vida .icone { width: 22px; height: 22px; }
+.ja-categorias { display: grid; grid-template-columns: 1fr 1fr; gap: var(--e-2); padding-inline: var(--grade-margem-compacta); max-width: 520px; margin-inline: auto; width: 100%; box-sizing: border-box; }
+.ja-categoria { flex-direction: column; height: auto; min-height: 92px; padding: var(--e-3); gap: var(--e-2); justify-content: center; text-align: center; white-space: normal; line-height: 18px; }
+.ja-categoria .icone { width: 28px; height: 28px; color: var(--secundaria-texto); }
+.ja-rumo { display: inline-flex; align-items: center; gap: 6px; font: 500 14px/20px var(--font-interface); color: var(--texto-2); white-space: nowrap; }
+.ja-aviso-jogo { margin-inline: var(--grade-margem-compacta); animation: ja-surgir 0.25s var(--curva); }
+.ja-botoes-aviso { justify-content: flex-start; padding: 0; margin-top: var(--e-2); }
+@keyframes ja-surgir { from { opacity: 0; transform: translateY(-6px); } }
+
+/* Dados: giro rápido ao lançar */
+.ja-dado[data-rolando] { animation: ja-dado-rolar 0.38s cubic-bezier(.2,.8,.3,1.2); }
+@keyframes ja-dado-rolar {
+  0% { transform: translateY(-18px) rotate(var(--giro)) scale(0.85); opacity: 0.4; }
+  60% { transform: translateY(2px) rotate(calc(var(--giro) * -0.1)) scale(1.04); opacity: 1; }
+  100% { transform: none; }
+}
+@media (prefers-reduced-motion: reduce) { .ja-dado[data-rolando] { animation: none; } }
+.ja-dados-grandes .ja-dado { --d: min(60px, calc((100vw - 2 * var(--grade-margem-compacta) - 4 * var(--e-2)) / 5)); }
+.ja-dados-base { margin-top: auto; display: flex; flex-direction: column; gap: var(--e-3); padding: var(--e-2) var(--grade-margem-compacta) 0; width: 100%; max-width: 520px; margin-inline: auto; box-sizing: border-box; }
+.ja-dados-base .ja-dados-linha { padding-inline: 0; }
+.ja-dica-curta { font-size: 13px; line-height: 18px; min-height: 18px; padding: 0; }
+.ja-botao-alto { min-height: 52px; font-size: 16px; }
+
+/* General: cartela em grade */
+.ja-cartela { display: grid; grid-template-columns: 1fr 1fr; grid-auto-flow: column; grid-template-rows: repeat(5, auto); gap: 6px; padding-inline: var(--grade-margem-compacta); width: 100%; max-width: 520px; margin-inline: auto; box-sizing: border-box; }
+.ja-cartela-casa { display: flex; align-items: center; justify-content: space-between; gap: var(--e-2); min-height: 46px; padding: 0 var(--e-3); border: var(--borda-fina) solid var(--borda); border-radius: var(--raio-controle); background: var(--superficie); color: var(--texto); font: 500 14px/18px var(--font-interface); cursor: pointer; text-align: left; transition: background var(--duracao-rapida) var(--curva), transform var(--duracao-rapida) var(--curva); -webkit-tap-highlight-color: transparent; }
+.ja-cartela-casa:not(:disabled):active { transform: scale(0.97); }
+.ja-cartela-casa:disabled { cursor: default; }
+.ja-cartela-casa:not(:disabled) { background: var(--superficie-elevada); border-color: var(--borda-controle); box-shadow: var(--sombra-relevo); }
+.ja-cartela-casa[data-feito] { background: transparent; color: var(--texto-2); }
+.ja-cartela-casa[data-feito] .ja-cartela-valor { color: var(--texto); }
+.ja-cartela-valor { font: 700 17px/1 var(--font-interface); color: var(--texto-desabilitado); }
+.ja-cartela-casa .ja-previa { color: var(--primaria-texto); }
+.ja-cartela-casa[data-zero] .ja-previa { color: var(--texto-desabilitado); }
+.ja-cartela-total { display: flex; justify-content: space-between; align-items: baseline; padding: var(--e-1) calc(var(--grade-margem-compacta) + var(--e-3)); width: 100%; max-width: 520px; margin-inline: auto; box-sizing: border-box; font: 600 16px/1 var(--font-interface); color: var(--texto-2); }
+.ja-cartela-total .numeros-tabulares { font: 700 30px/1 var(--font-interface); color: var(--texto); }
+
+/* Dado Mentiroso */
+.ja-mentiroso-aposta { display: flex; flex-direction: column; align-items: center; gap: var(--e-1); padding: var(--e-3); margin-inline: var(--grade-margem-compacta); border-radius: var(--raio-painel); background: var(--superficie); border: var(--borda-fina) solid var(--borda); text-align: center; }
+.ja-mentiroso-valor { display: inline-flex; align-items: center; gap: var(--e-2); font: 600 22px/1 var(--font-interface); color: var(--texto-2); }
+.ja-mentiroso-valor .ja-dado { --d: 44px; }
+.ja-numero-grande { font: 700 40px/1 var(--font-interface); color: var(--texto); font-variant-numeric: tabular-nums; }
+.ja-acoes-dados { display: grid; grid-template-columns: 1fr 1.6fr; gap: var(--e-2); }
+.ja-acoes-dados .botao { justify-content: center; }
+.ja-revelacao-nome { min-width: 34px; }
+.ja-jogadores[data-muitos] .ja-jogador { flex-wrap: wrap; row-gap: 0; padding: var(--e-1) var(--e-2); }
+.ja-jogadores[data-muitos] .ja-jogador-pontos { flex-basis: 100%; padding-left: calc(12px + var(--e-2)); font: 500 12px/16px var(--font-interface); color: var(--texto-2); }
+.ja-jogador { transition: background var(--duracao) var(--curva), border-color var(--duracao) var(--curva), transform var(--duracao) var(--curva); }
+.ja-jogador[aria-current="true"] { transform: translateY(-1px); box-shadow: var(--sombra-relevo); }

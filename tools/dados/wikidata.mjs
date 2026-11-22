@@ -165,13 +165,13 @@ async function perguntas(listaFilmes) {
   const nobel = (await talvez('nobel', `SELECT ?pLabel ?premioLabel WHERE { ?premio wdt:P279 wd:Q7191 . ?p wdt:P166 ?premio ; wikibase:sitelinks ?l . FILTER(?l >= 100) ${ROTULO} }`)).filter((l) => bom(l.pLabel) && bom(l.premioLabel));
   P.push(...montar('Variedades', nobel.map((l) => ({ ...l, area: l.premioLabel.replace(/^Prémio |^Prêmio /, 'Prêmio ') })), (l) => `${l.pLabel} ganhou qual prêmio?`, 'area', 'pLabel'));
   const estados = (await talvez('estados', `SELECT ?eLabel ?capLabel WHERE { ?e wdt:P31 wd:Q485258 ; wdt:P36 ?cap . ${ROTULO} }`)).filter((l) => bom(l.eLabel) && bom(l.capLabel));
-  P.push(...montar('Brasil', estados, (l) => `Qual é a capital deste estado: ${l.eLabel}?`, 'capLabel', 'eLabel'));
-  P.push(...montar('Brasil', estados.map((l) => ({ ...l, e2: l.eLabel })), (l) => `${l.capLabel} é a capital de qual estado?`, 'e2', 'capLabel'));
+  P.push(...montar('Mundo', estados, (l) => `Qual é a capital deste estado: ${l.eLabel}?`, 'capLabel', 'eLabel'));
+  P.push(...montar('Mundo', estados.map((l) => ({ ...l, e2: l.eLabel })), (l) => `${l.capLabel} é a capital de qual estado?`, 'e2', 'capLabel'));
   const cidades = (await talvez('cidades', `SELECT ?cLabel ?eLabel WHERE { ?c wdt:P31 wd:Q3184121 ; wdt:P1082 ?pop ; wdt:P131 ?e . ?e wdt:P31 wd:Q485258 . FILTER(?pop >= 300000) ${ROTULO} }`)).filter((l) => bom(l.cLabel) && bom(l.eLabel));
-  P.push(...montar('Brasil', cidades, (l) => `Em que estado fica a cidade de ${l.cLabel}?`, 'eLabel', 'cLabel'));
+  P.push(...montar('Mundo', cidades, (l) => `Em que estado fica a cidade de ${l.cLabel}?`, 'eLabel', 'cLabel'));
   const presidentes = (await talvez('presidentes', `SELECT ?pLabel ?inicio WHERE { ?p p:P39 ?st . ?st ps:P39 wd:Q4254005 ; pq:P580 ?inicio . ${ROTULO} }`)).filter((l) => bom(l.pLabel));
   const pres = presidentes.map((l) => ({ p: l.pLabel, ano: l.inicio.slice(0, 4) })).filter((l) => Number(l.ano) >= 1930);
-  P.push(...montar('Brasil', pres, (l) => `Quem tomou posse como presidente do Brasil em ${l.ano}?`, 'p', 'ano'));
+  P.push(...montar('Sociedade', pres, (l) => `Quem tomou posse como presidente do Brasil em ${l.ano}?`, 'p', 'ano'));
 
   const final = sortearErradas(P);
   const porCategoria = {};

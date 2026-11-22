@@ -116,3 +116,5 @@ x
 zoom-in
 zoom-out
 zoom-reset
+flask
+ball-football

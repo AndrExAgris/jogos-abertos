@@ -150,3 +150,6 @@ export function caixa(id: string): [number, number, number, number] {
 
 export const SETAS = ['↑', '↗', '→', '↘', '↓', '↙', '←', '↖'];
 export const seta = (graus: number) => SETAS[Math.round(graus / 45) % 8];
+const CARDEAIS = ['Norte', 'Nordeste', 'Leste', 'Sudeste', 'Sul', 'Sudoeste', 'Oeste', 'Noroeste'];
+/** Ponto cardeal (ou colateral) do rumo em graus. */
+export const cardeal = (graus: number) => CARDEAIS[Math.round(graus / 45) % 8];

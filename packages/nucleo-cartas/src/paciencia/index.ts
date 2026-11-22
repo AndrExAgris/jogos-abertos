@@ -104,3 +104,53 @@ export function terminarSozinho(e: EstadoPaciencia): EstadoPaciencia {
   }
   return atual;
 }
+
+/** Cartas que chegam ao topo do descarte virando o monte sem fazer outras jogadas. */
+export function acessiveisNoMonte(e: EstadoPaciencia): Carta[] {
+  const vistas: Carta[] = [];
+  let atual = e;
+  if (atual.descarte.length) vistas.push(atual.descarte[atual.descarte.length - 1]);
+  const total = e.estoque.length + e.descarte.length;
+  // Duas voltas completas bastam: depois disso a sequência se repete.
+  for (let k = 0; k < total * 2 + 4; k++) {
+    atual = comprar(atual);
+    if (atual.descarte.length) vistas.push(atual.descarte[atual.descarte.length - 1]);
+  }
+  const unicas = new Map<string, Carta>();
+  for (const c of vistas) unicas.set(`${c.n}${c.v}`, c);
+  return [...unicas.values()];
+}
+
+/**
+ * Sem saída: nenhuma jogada que ajude (carta para a fundação, carta do monte
+ * para uma coluna, ou mover cartas abrindo uma carta virada ou liberando algo).
+ * É conservador: só diz "sem saída" quando não sobra nada útil.
+ */
+export function semSaida(e: EstadoPaciencia): boolean {
+  if (venceu(e)) return false;
+  const monte = acessiveisNoMonte(e);
+  // 1. Monte para fundação ou coluna.
+  for (const c of monte) {
+    if (e.fundacoes.some((f) => podeNaFundacao(f, c))) return false;
+    if (e.colunas.some((col) => podeNaColuna(col, c))) return false;
+  }
+  for (let i = 0; i < 7; i++) {
+    const col = e.colunas[i];
+    if (!col.length) continue;
+    // 2. Topo da coluna para a fundação.
+    if (e.fundacoes.some((f) => podeNaFundacao(f, col[col.length - 1]))) return false;
+    for (let k = 0; k < col.length; k++) {
+      if (!col[k].aberta) continue;
+      for (let j = 0; j < 7; j++) {
+        if (j === i || !podeNaColuna(e.colunas[j], col[k])) continue;
+        // 3. Mover cartas: útil se abre uma virada, esvazia a coluna para um Rei, ou libera a de baixo.
+        if (k === 0) { if (e.colunas[j].length) return false; continue; }
+        const baixo = col[k - 1];
+        if (!baixo.aberta) return false;
+        if (e.fundacoes.some((f) => podeNaFundacao(f, baixo))) return false;
+        if (monte.some((c) => podeNaColuna([baixo], c))) return false;
+      }
+    }
+  }
+  return true;
+}

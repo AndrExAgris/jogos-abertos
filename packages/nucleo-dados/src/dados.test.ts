@@ -43,3 +43,42 @@ describe('dado mentiroso', () => {
     expect(e.dados[1]).toHaveLength(4);
   });
 });
+
+import { jogadaGeneralIA, lancar as lancarG, marcar as marcarG, novoGeneral as novoG, guardar as guardarG, total as totalG } from './general/index.ts';
+import { jogadaIA, novoMentiroso as novoM, apostar as apostarM, duvidar as duvidarM } from './mentiroso/index.ts';
+describe('IA dos dados', () => {
+  it('General: difícil faz mais pontos que fácil, em média', () => {
+    const jogar = (nivel: 'facil' | 'dificil', semente: number) => {
+      let x = semente;
+      const rnd = () => { x = (x * 1103515245 + 12345) % 2147483648; return x / 2147483648; };
+      let e = novoG(1, 'seguida40');
+      for (let passos = 0; passos < 200 && !e.fim; passos++) {
+        const j = jogadaGeneralIA(e, nivel, rnd);
+        if (j.tipo === 'marcar') e = marcarG(e, j.jogada);
+        else {
+          if (e.lancamentos > 0) e.dados.forEach((_, i) => { if (e.guardados[i] !== j.guardados[i]) e = guardarG(e, i); });
+          e = lancarG(e, () => 1 + Math.floor(rnd() * 6));
+        }
+      }
+      expect(e.fim).toBe(true);
+      return totalG(e.tabelas[0]);
+    };
+    let f = 0, d = 0;
+    for (let k = 1; k <= 12; k++) { f += jogar('facil', k); d += jogar('dificil', k); }
+    expect(d).toBeGreaterThan(f);
+  }, 30000);
+  it('Mentiroso: computador sempre faz jogada válida e a partida termina', () => {
+    let x = 7;
+    const rnd = () => { x = (x * 1103515245 + 12345) % 2147483648; return x / 2147483648; };
+    const sorteio = () => 1 + Math.floor(rnd() * 6);
+    let e = novoM(3, sorteio);
+    for (let passos = 0; passos < 2000 && e.vencedor === null; passos++) {
+      const j = jogadaIA(e, (['facil', 'medio', 'dificil'] as const)[e.vez], rnd);
+      const antes = e;
+      e = j.tipo === 'duvidar' ? duvidarM(e, sorteio) : apostarM(e, j.quantidade, j.face);
+      if (j.tipo === 'duvidar' && !antes.aposta) throw new Error('duvidou sem aposta');
+      expect(e).not.toBe(antes);
+    }
+    expect(e.vencedor).not.toBeNull();
+  });
+});

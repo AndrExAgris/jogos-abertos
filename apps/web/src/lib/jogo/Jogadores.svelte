@@ -11,7 +11,7 @@
   let { nomes, vez, pontos }: Props = $props();
 </script>
 
-<div class="ja-jogadores" role="status" aria-live="polite">
+<div class="ja-jogadores" data-muitos={nomes.length > 2 || undefined} role="status" aria-live="polite">
   {#each nomes as nome, i (i)}
     <div class="ja-jogador" data-jogador={i + 1} aria-current={vez === i ? 'true' : undefined}>
       <span class="ja-jogador-marca" aria-hidden="true"></span>

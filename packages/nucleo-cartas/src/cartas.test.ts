@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { baralho } from './baralho/index.ts';
-import { comprar, destinoAutomatico, novaPaciencia, venceu } from './paciencia/index.ts';
+import { comprar, destinoAutomatico, novaPaciencia, semSaida, venceu, type EstadoPaciencia } from './paciencia/index.ts';
 import { distribuir, moverSpider, novoSpider, movel } from './spider/index.ts';
 import { maxMovel, novoFreecell } from './freecell/index.ts';
 import { comprarPiramide, livre, novaPiramide, tirar } from './piramide/index.ts';
@@ -86,5 +86,21 @@ describe('vinte e um', () => {
     e = parar(e);
     expect(e.fase).toBe('fim');
     expect([80, 90, 100, 105, 110, 115].includes(e.fichas) || e.fichas >= 90).toBe(true);
+  });
+});
+
+describe('paciência sem saída', () => {
+  it('início normal tem saída; mesa travada não', () => {
+    let travadas = 0;
+    for (let k = 0; k < 40; k++) if (semSaida(novaPaciencia(`p${k}`, 3))) travadas++;
+    expect(travadas).toBeLessThan(10);
+    const c = (n: number, v: number, aberta = true) => ({ n, v, aberta });
+    const e: EstadoPaciencia = {
+      estoque: [], descarte: [c(1, 5)], fundacoes: [[], [], [], []],
+      colunas: [[c(0, 2, false), c(1, 9)], [c(3, 3, false), c(0, 9)], [], [], [], [], []],
+      virar: 3, passadas: 0,
+    };
+    // Coluna vazia aceita Rei, mas não há Rei; nada vai para a fundação.
+    expect(semSaida(e)).toBe(true);
   });
 });

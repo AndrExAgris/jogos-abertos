@@ -35,6 +35,16 @@ describe('dado mentiroso', () => {
     expect(apostaValida(e, 3, 5)).toBe(true);
     expect(contar([[1, 3], [3, 2]], 3)).toBe(3);
   });
+  it('sem coringa: vale apostar no 1 e o 1 não conta para outras faces', () => {
+    let e = novoMentiroso(2, () => 1, false);
+    expect(apostaValida(e, 1, 1)).toBe(true);
+    e = apostar(e, 2, 3);
+    e = duvidar(e, () => 2); // só há 1: ninguém tem 3
+    expect(e.revelacao!.total).toBe(0);
+    expect(e.revelacao!.perdeu).toBe(0);
+    expect(e.coringa).toBe(false);
+    expect(contar([[1, 3], [3, 2]], 3, false)).toBe(2);
+  });
   it('quem erra perde um dado', () => {
     let e = novoMentiroso(2, () => 3);
     e = apostar(e, 8, 3); // há 10 trios: aposta certa
@@ -71,7 +81,8 @@ describe('IA dos dados', () => {
     let x = 7;
     const rnd = () => { x = (x * 1103515245 + 12345) % 2147483648; return x / 2147483648; };
     const sorteio = () => 1 + Math.floor(rnd() * 6);
-    let e = novoM(3, sorteio);
+    for (const coringa of [true, false]) {
+    let e = novoM(3, sorteio, coringa);
     for (let passos = 0; passos < 2000 && e.vencedor === null; passos++) {
       const j = jogadaIA(e, (['facil', 'medio', 'dificil'] as const)[e.vez], rnd);
       const antes = e;
@@ -80,5 +91,6 @@ describe('IA dos dados', () => {
       expect(e).not.toBe(antes);
     }
     expect(e.vencedor).not.toBeNull();
+    }
   });
 });

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { CATEGORIAS, aleatorioDaRodada, quantasNaCategoria, sortearPergunta } from './perguntas/index.ts';
+import { CATEGORIAS, aleatorioDaRodada, quantasNaCategoria, sortearNivel, sortearPergunta } from './perguntas/index.ts';
 import { FILMES, pistas, sortearFilme, sugerirFilmes } from './filme/index.ts';
 
 describe('perguntas', () => {
@@ -8,6 +8,13 @@ describe('perguntas', () => {
     const q = sortearPergunta('Mundo', [], aleatorioDaRodada('x', 1))!;
     expect(q.opcoes).toContain(q.r);
     expect(new Set(q.opcoes).size).toBe(4);
+  });
+  it('sorteia pela dificuldade e nenhuma resposta vem quebrada', () => {
+    for (let d = 1; d <= 5; d++) {
+      const q = sortearNivel(d, [], aleatorioDaRodada('n', d))!;
+      expect(q.d).toBe(d);
+      expect(q.opcoes.join(' ')).not.toMatch(/https?:/);
+    }
   });
 });
 

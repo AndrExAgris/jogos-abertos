@@ -3,6 +3,7 @@
 //  - data/conhecimento/perguntas.json: perguntas de múltipla escolha por categoria
 // Uso: node tools/dados/wikidata.mjs
 import { mkdir, writeFile } from 'node:fs/promises';
+import { anotar } from './dificuldade.mjs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -192,6 +193,6 @@ if (existsSync(arqFilmes) && !process.argv.includes('--filmes')) {
   await writeFile(arqFilmes, JSON.stringify(listaFilmes));
 }
 console.log(listaFilmes.length, 'filmes completos');
-const lista = await perguntas(listaFilmes);
+const lista = anotar(await perguntas(listaFilmes));
 await writeFile(join(saida, 'perguntas.json'), JSON.stringify(lista));
 console.log(lista.length, 'perguntas');

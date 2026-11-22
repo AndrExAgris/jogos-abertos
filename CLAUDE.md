@@ -329,7 +329,7 @@ A cada marco: testes dos núcleos passando, APK gerado no CI e um release para o
   - [x] Números: Conta Certa
   - [x] Mover e encaixar: Resta Um, Separe as Cores, Hora do Rush, Setas (só plano), Desembaraço
   - [x] Tabuleiro para dois: Quatro em Linha, Trilha, Damas, Reversi, Xadrez, Go, Ludo, Jogo Real de Ur, Sinuca
-  - [ ] Cartas: Paciência, Spider, FreeCell, Pirâmide, TriPeaks, Golf, Vinte e Um
+  - [~] Cartas (núcleo e testes prontos; falta a tela, só existe `jogos/cartas/Carta.svelte`): Paciência, Spider, FreeCell, Pirâmide, TriPeaks, Golf, Vinte e Um
   - [ ] Dados: General, Dado Mentiroso
   - [ ] Dados abertos + jogos: palavras (Termo, Roda de Letras, Palavras Cruzadas), Wikidata (Perguntas, Adivinhe o Filme), países (7 jogos de geografia)
   - [ ] Release v0.2.0

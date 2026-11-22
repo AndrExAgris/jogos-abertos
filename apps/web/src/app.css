@@ -481,3 +481,36 @@ body { overscroll-behavior: none; }
 .ja-xadrez .ja-tab-casa[data-selecionada] { background: color-mix(in oklab, var(--primaria) 45%, var(--ja-branca)); box-shadow: inset 0 0 0 2px var(--primaria); }
 .ja-xadrez .ja-tab-casa[data-xeque] { background: color-mix(in oklab, var(--erro) 55%, var(--ja-branca)); }
 .ja-xadrez .ja-alvo-ponto { background: color-mix(in oklab, var(--ja-preta) 35%, transparent); }
+
+/* Cartas: face clara fixa, naipes vermelhos e pretos, como cartas de verdade. */
+:root { --ja-vermelha: #c4302b; }
+.ja-mesa { --cols: 7; --carta-l: min(calc((100vw - 2 * var(--grade-margem-compacta) - (var(--cols) - 1) * 4px) / var(--cols)), 76px); --carta-a: calc(var(--carta-l) * 1.42); padding-inline: var(--grade-margem-compacta); display: flex; flex-direction: column; gap: var(--e-3); max-width: calc(var(--cols) * 80px + 32px); margin-inline: auto; width: 100%; box-sizing: border-box; }
+.ja-mesa-linha { display: flex; gap: 4px; align-items: flex-start; }
+.ja-mesa-colunas { display: grid; grid-template-columns: repeat(var(--cols), var(--carta-l)); gap: 4px; align-items: start; }
+.ja-pilha-col { position: relative; min-height: var(--carta-a); }
+.ja-pilha-col > .ja-carta { position: absolute; left: 0; }
+.ja-espaco { flex: 1; }
+.ja-carta {
+  position: relative;
+  width: var(--carta-l);
+  height: var(--carta-a);
+  padding: 0;
+  border-radius: calc(var(--carta-l) * 0.1);
+  border: 1px solid color-mix(in oklab, var(--ja-preta) 30%, transparent);
+  background: repeating-linear-gradient(45deg, color-mix(in oklab, var(--primaria) 70%, var(--ja-preta)) 0 4px, color-mix(in oklab, var(--primaria) 85%, var(--ja-preta)) 4px 8px);
+  box-shadow: var(--sombra-relevo);
+  color: var(--ja-preta);
+  cursor: pointer;
+  flex: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.ja-carta[data-aberta] { background: var(--ja-branca); }
+.ja-carta[data-vermelha] { color: var(--ja-vermelha); }
+.ja-carta[data-selecionada] { box-shadow: 0 0 0 3px var(--primaria-texto); z-index: 5; }
+.ja-carta[data-bloqueada] { filter: brightness(0.82); }
+.ja-carta:focus-visible { outline: none; box-shadow: 0 0 0 3px color-mix(in oklab, var(--foco) 55%, transparent); }
+.ja-carta-vazia { background: transparent; border: 2px dashed var(--borda-controle); box-shadow: none; color: var(--texto-2); font: 600 calc(var(--carta-l) * 0.32) / 1 var(--font-interface); }
+.ja-carta-canto { position: absolute; top: 2px; left: 3px; display: flex; flex-direction: column; align-items: center; font: 700 calc(var(--carta-l) * 0.3) / 1 var(--font-interface); letter-spacing: -0.04em; }
+.ja-carta-canto span { font-size: calc(var(--carta-l) * 0.26); line-height: 1.05; }
+.ja-carta-centro { position: absolute; right: 4px; bottom: 2px; font-size: calc(var(--carta-l) * 0.5); line-height: 1; }
+.ja-contador { font: 600 13px/1 var(--font-interface); color: var(--texto-2); align-self: center; }

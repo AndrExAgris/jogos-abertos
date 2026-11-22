@@ -51,6 +51,13 @@ export const GRUPOS: GrupoJogos[] = [
     ],
   },
   {
+    id: 'palavras', nome: 'Palavras', jogos: [
+      j('termo', 'Termo', 'A palavra em seis tentativas, com Dueto e Quarteto', 'abc', '1', () => import('./palavras/Termo.svelte')),
+      j('roda', 'Roda de Letras', 'Forme palavras com as letras da roda', 'letter-case', '1', () => import('./palavras/Roda.svelte')),
+      j('cruzadas', 'Palavras Cruzadas', 'Grade livre com dicas curtas', 'keyboard', '1', () => import('./palavras/Cruzadas.svelte')),
+    ],
+  },
+  {
     id: 'geografia', nome: 'Geografia', jogos: [
       j('pais-distancia', 'País pela Distância', 'Ache o país secreto pelo mapa de calor', 'world', '1', () => import('./geo/Distancia.svelte')),
       j('capital-distancia', 'Capital pela Distância', 'Ache a capital pela distância e direção', 'map-pin', '1', () => import('./geo/Capital.svelte')),

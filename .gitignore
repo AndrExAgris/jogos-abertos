@@ -33,3 +33,4 @@ docker-data/
 # Sistema
 .DS_Store
 Thumbs.db
+tools/dados/.cache/

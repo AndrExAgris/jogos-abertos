@@ -140,7 +140,17 @@ describe('sinuca', () => {
 });
 
 import { iaDamas, iaQuatro, iaReversi, iaTrilha, iaXadrez } from './ia/index.ts';
-import { atirar, derrotado, posicionar, tiroIA, type Mar } from './naval/index.ts';
+import { atirar, colocar as colocarNavio, derrotado, faltam, posicionar, tiroIA, type Mar } from './naval/index.ts';
+describe('batalha naval', () => {
+  it('posiciona à mão sem encostar e sem sair da grade', () => {
+    let n = colocarNavio([], 5, 0, true)!;
+    expect(n[0].casas).toEqual([0, 1, 2, 3, 4]);
+    expect(colocarNavio(n, 4, 10, true)).toBeNull(); // encosta embaixo
+    expect(colocarNavio(n, 4, 8, true)).toBeNull(); // sai da grade
+    n = colocarNavio(n, 4, 20, false)!;
+    expect(faltam(n)).toEqual([3, 3, 2]);
+  });
+});
 describe('computador', () => {
   it('Quatro em Linha: difícil vence o fácil', () => {
     let vit = 0;

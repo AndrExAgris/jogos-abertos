@@ -1,6 +1,6 @@
 /*
  * Batalha Naval: grade 10 × 10, frota de 5 navios (5, 4, 3, 3 e 2 casas),
- * sem encostar uns nos outros. Cada jogador atira uma vez por vez; acertar
+ * sem encostar uns nos outros. Quem acerta atira de novo, até errar; acertar
  * todas as casas de um navio afunda. Vence quem afundar a frota do outro.
  */
 import { criarAleatorio } from '@ja/contrato';
@@ -43,6 +43,29 @@ export function posicionar(semente: string): Navio[] {
     }
     if (ok) return navios;
   }
+}
+
+/** Casas de um navio de tamanho `t` a partir de `origem` (canto de cima ou da esquerda), ou null se sai da grade. */
+export function casasDoNavio(t: number, origem: number, horizontal: boolean): number[] | null {
+  const x = origem % LADO, y = Math.floor(origem / LADO);
+  if (horizontal ? x + t > LADO : y + t > LADO) return null;
+  return Array.from({ length: t }, (_, k) => (horizontal ? origem + k : origem + k * LADO));
+}
+
+/** Põe um navio na frota, se couber sem encostar nos outros. */
+export function colocar(navios: Navio[], t: number, origem: number, horizontal: boolean): Navio[] | null {
+  const casas = casasDoNavio(t, origem, horizontal);
+  if (!casas) return null;
+  const ocupado = new Set(navios.flatMap((n) => n.casas));
+  if (casas.some((c) => vizinhas8(c).some((v) => ocupado.has(v)))) return null;
+  return [...navios, { casas }];
+}
+
+/** Tamanhos da frota que ainda faltam posicionar, do maior para o menor. */
+export function faltam(navios: Navio[]): number[] {
+  const resto = [...FROTA];
+  for (const n of navios) { const k = resto.indexOf(n.casas.length); if (k >= 0) resto.splice(k, 1); }
+  return resto;
 }
 
 export const navioEm = (m: Mar, i: number) => m.navios.find((n) => n.casas.includes(i));

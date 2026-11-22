@@ -2,7 +2,8 @@
   import { onDestroy, onMount } from 'svelte';
   import { Icone } from '@ja/ui';
   import { sementeNova } from '@ja/contrato';
-  import { LADO, NOMES_NAVIOS, afundado, atirar, derrotado, navioEm, posicionar, tiroIA, type Mar, type Resultado } from '@ja/nucleo-tabuleiro/naval';
+  import { LADO, NOMES_NAVIOS, afundado, atirar, casasDoNavio, colocar, derrotado, faltam, navioEm, posicionar, tiroIA, type Mar, type Resultado } from '@ja/nucleo-tabuleiro/naval';
+  import Status from '../../lib/jogo/Status.svelte';
   import Casca from '../../lib/jogo/Casca.svelte';
   import Jogadores from '../../lib/jogo/Jogadores.svelte';
   import { Sessao } from '../../lib/jogo/sessao.svelte.ts';
@@ -22,7 +23,8 @@
   const OPCOES = [...opcoesIA(), { id: '2', titulo: 'Dois jogadores', descricao: 'Passando o aparelho a cada tiro' }];
   const COMO = [
     'Cada um tem uma frota escondida numa grade 10 × 10: porta-aviões (5 casas), encouraçado (4), dois cruzadores (3) e submarino (2). Os navios nunca se encostam.',
-    'Na sua vez, toque numa casa do mar do outro para atirar: água, acerto ou afundou (todas as casas do navio atingidas). Vence quem afundar a frota inteira primeiro.',
+    'Antes de começar, posicione a frota: escolha o navio, a direção (deitado ou em pé) e toque na casa onde ele começa. Tocar num navio já posto tira ele do lugar. Se preferir, sorteie as posições.',
+    'Na sua vez, toque numa casa do mar do outro para atirar: água, acerto ou afundou (todas as casas do navio atingidas). Quem acerta atira de novo, até errar. Vence quem afundar a frota inteira primeiro.',
     'A dois, passe o aparelho a cada tiro; a frota de cada um só aparece quando a pessoa confirma que é a vez dela.',
   ];
   const ia = $derived(s.quebra?.ia);
@@ -33,14 +35,47 @@
     const nivel = nivelDoId(id);
     void s.comecar(id, OPCOES.find((o) => o.id === id)!.titulo, () => ({
       quebra: { modo: id, ia: nivel },
-      estado: { mares: [{ navios: posicionar(sementeNova()), tiros: [] }, { navios: posicionar(sementeNova()), tiros: [] }], vez: 0, fase: 'posicionar', ultimo: null, vencedor: null },
+      // A frota de quem joga começa vazia (posição à mão); a do computador já vem sorteada.
+      estado: { mares: [{ navios: [], tiros: [] }, { navios: nivel ? posicionar(sementeNova()) : [], tiros: [] }], vez: 0, fase: 'posicionar', ultimo: null, vencedor: null },
     }));
+    escolhido = 0;
+  }
+  /** Posicionar: índice do tamanho escolhido na lista dos que faltam e a direção. */
+  let escolhido = $state(0);
+  let deitado = $state(true);
+  function mudarFrota(navios: Mar['navios']) {
+    const e = s.estado;
+    if (!e) return;
+    const mares = [...e.mares] as [Mar, Mar];
+    mares[e.vez] = { navios, tiros: [] };
+    s.mudar({ ...e, mares }, false);
+    escolhido = Math.min(escolhido, Math.max(0, faltam(navios).length - 1));
+  }
+  function tocarPosicionar(i: number) {
+    const e = s.estado;
+    if (!e) return;
+    const navios = e.mares[e.vez].navios;
+    const ja = navios.find((n) => n.casas.includes(i));
+    if (ja) {
+      // Tira o navio do lugar e deixa ele escolhido, na mesma direção.
+      const resto = navios.filter((n) => n !== ja);
+      deitado = ja.casas.length < 2 || ja.casas[1] - ja.casas[0] === 1;
+      mudarFrota(resto);
+      escolhido = Math.max(0, faltam(resto).indexOf(ja.casas.length));
+      return;
+    }
+    const t = faltam(navios)[escolhido];
+    if (!t) return;
+    // Perto da borda, o navio encosta nela em vez de sair da grade.
+    const x = i % LADO, y = Math.floor(i / LADO);
+    const origem = casasDoNavio(t, i, deitado) ? i : deitado ? y * LADO + (LADO - t) : (LADO - t) * LADO + x;
+    const novo = colocar(navios, t, origem, deitado);
+    if (!novo) { avisar('Não cabe aí: os navios não podem se encostar.'); vibrar(40); return; }
+    vibrar(15);
+    mudarFrota(novo);
   }
   function sortear() {
-    if (!s.estado) return;
-    const mares = [...s.estado.mares] as [Mar, Mar];
-    mares[s.estado.vez] = { navios: posicionar(sementeNova()), tiros: [] };
-    s.mudar({ ...s.estado, mares }, false);
+    mudarFrota(posicionar(sementeNova()));
   }
   function pronto() {
     const e = s.estado;
@@ -54,23 +89,23 @@
     if (!s.estado) return;
     s.mudar({ ...s.estado, fase: posicionando2 ? 'posicionar' : 'jogar' }, false);
   }
-  const NOME_RES: Record<Resultado, string> = { agua: 'Água.', acerto: 'Acertou!', afundou: 'Afundou' };
+  /** Errou o tiro e espera a vez passar. */
+  const esperando = (e: Estado) => e.ultimo?.de === e.vez && e.ultimo.resultado === 'agua';
   function tiro(i: number, peloComputador = false) {
     const e = s.estado;
-    if (!e || e.fase !== 'jogar' || s.terminou || e.ultimo?.de === e.vez || (ia && e.vez === 1 && !peloComputador)) return;
+    if (!e || e.fase !== 'jogar' || s.terminou || esperando(e) || (ia && e.vez === 1 && !peloComputador)) return;
     const alvo = outro(e.vez);
     const r = atirar(e.mares[alvo], i);
     if (!r) return;
     const mares = [...e.mares] as [Mar, Mar];
     mares[alvo] = r.mar;
     vibrar(r.resultado === 'agua' ? 10 : 60);
-    const navio = navioEm(r.mar, i);
-    avisar(r.resultado === 'afundou' ? `${nomes[e.vez]}: afundou o ${NOMES_NAVIOS[navio!.casas.length].toLowerCase()}!` : `${nomes[e.vez]}: ${NOME_RES[r.resultado].toLowerCase()}`, r.resultado === 'agua' ? 'info' : 'sucesso', 1600);
     const venceu = derrotado(r.mar);
     const n: Estado = { ...e, mares, ultimo: { de: e.vez, i, resultado: r.resultado }, vencedor: venceu ? e.vez : null };
     s.mudar(n, false);
     if (venceu) { void s.terminar(ia && e.vez === 1 ? 'derrota' : 'vitoria'); return; }
-    // Passa a vez depois de dar tempo de ver o resultado.
+    // Acertou: atira de novo. Errou: a vez passa depois de dar tempo de ver.
+    if (r.resultado !== 'agua') return;
     trocar = agendar(() => {
       if (!s.estado || s.terminou) return;
       s.mudar({ ...s.estado, vez: alvo, fase: ia ? 'jogar' : 'passar' }, false);
@@ -80,7 +115,7 @@
   // Vez do computador.
   $effect(() => {
     const e = s.estado;
-    if (!e || !ia || e.vez !== 1 || e.fase !== 'jogar' || s.terminou || e.ultimo?.de === 1) return;
+    if (!e || !ia || e.vez !== 1 || e.fase !== 'jogar' || s.terminou || esperando(e)) return;
     const nivel = ia;
     return agendar(() => tiro(tiroIA($state.snapshot(e.mares[0]) as Mar, nivel), true), 650);
   });
@@ -115,13 +150,27 @@
   tituloFim={s.estado?.vencedor != null ? (ia ? (s.estado.vencedor === 0 ? 'Você venceu!' : 'O computador venceu.') : `${nomes[s.estado.vencedor]} venceu!`) : ''} textoFim="">
   {#if s.estado && meuMar && vistaInimiga}
     {@const e = s.estado}
-    <Jogadores {nomes} vez={s.terminou || e.fase !== 'jogar' ? -1 : e.vez} pontos={[0, 1].map((j) => `${restam(e.mares[j])}/5`)} />
+    <Jogadores {nomes} vez={s.terminou || e.fase !== 'jogar' ? -1 : e.vez} pensando={!!ia && e.vez === 1 && e.fase === 'jogar' && !s.terminou} pontos={e.fase === 'posicionar' ? undefined : [0, 1].map((j) => `${restam(e.mares[j])}/5`)} />
     {#if e.fase === 'posicionar'}
-      <p class="ja-dica">{ia ? 'Sua frota' : `Frota do ${nomes[e.vez]}`}: sorteie até gostar da posição.</p>
-      <div class="ja-centro">{@render grade(e.mares[e.vez], true, null, false)}</div>
+      {@const lista = faltam(e.mares[e.vez].navios)}
+      <Status texto={lista.length ? `${ia ? 'Sua frota' : `Frota do ${nomes[e.vez]}`}: toque onde o navio começa.` : 'Frota pronta. Toque num navio para mudar de lugar.'} />
+      <div class="ja-centro">{@render grade(e.mares[e.vez], true, tocarPosicionar, false)}</div>
+      <div class="ja-naval-doca">
+        <div class="ja-naval-navios" role="group" aria-label="Navios que faltam">
+          {#each lista as t, k (k)}
+            <button type="button" class="ja-naval-peca" aria-pressed={escolhido === k} aria-label="{NOMES_NAVIOS[t]}, {t} casas" onclick={() => (escolhido = k)}>
+              {#each { length: t } as _, c (c)}<span></span>{/each}
+            </button>
+          {:else}
+            <span class="ja-dica">Todos os navios no mar.</span>
+          {/each}
+        </div>
+        <button class="botao" type="button" disabled={!lista.length} onclick={() => (deitado = !deitado)} aria-label="Girar o navio"><Icone nome="rotate-clockwise" /><span>{deitado ? 'Deitado' : 'Em pé'}</span></button>
+      </div>
       <div class="ja-botoes">
-        <button class="botao" type="button" onclick={sortear}><Icone nome="refresh" /><span>Sortear de novo</span></button>
-        <button class="botao botao-primario" type="button" onclick={pronto}><Icone nome="check" /><span>Pronto</span></button>
+        <button class="botao" type="button" onclick={sortear}><Icone nome="dice" /><span>Sortear</span></button>
+        <button class="botao" type="button" disabled={!e.mares[e.vez].navios.length} onclick={() => mudarFrota([])}><Icone nome="eraser" /><span>Limpar</span></button>
+        <button class="botao botao-primario" type="button" disabled={lista.length > 0} onclick={pronto}><Icone nome="check" /><span>Pronto</span></button>
       </div>
     {:else if e.fase === 'passar'}
       <div class="ja-passar">
@@ -131,9 +180,9 @@
         <button class="botao botao-primario ja-botao-alto" type="button" onclick={souEu}><span>Sou o {nomes[e.vez]}</span></button>
       </div>
     {:else}
-      <p class="ja-dica">{s.terminou ? '' : ia && e.vez === 1 ? 'O computador está mirando…' : e.ultimo?.de === e.vez ? 'Passando a vez…' : 'Toque no mar do adversário para atirar.'}</p>
+      <Status texto={s.terminou ? '' : ia && e.vez === 1 ? 'Vez do computador.' : esperando(e) ? 'Água. A vez vai passar.' : e.ultimo?.de === e.vez ? (e.ultimo.resultado === 'afundou' ? 'Afundou! Atire de novo.' : 'Acertou! Atire de novo.') : 'Toque no mar do adversário para atirar.'} />
       <div class="ja-centro">{@render grade(ia ? e.mares[1] : vistaInimiga, !!s.terminou, ia && e.vez === 1 ? null : (i) => tiro(i), false)}</div>
-      <p class="ja-dica ja-dica-curta">{ia ? 'Sua frota' : 'Sua frota'}</p>
+      <p class="ja-dica ja-dica-curta">Sua frota</p>
       <div class="ja-centro">{@render grade(meuMar, true, null, true)}</div>
     {/if}
   {/if}

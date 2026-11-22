@@ -5,17 +5,25 @@
   import Jogadores from '../../lib/jogo/Jogadores.svelte';
   import Dialogo from '../../lib/jogo/Dialogo.svelte';
   import { Sessao } from '../../lib/jogo/sessao.svelte.ts';
+  import { usarComputador } from '../../lib/jogo/computador.svelte.ts';
+  import { nivelDoId, opcoesIA, NOMES_NIVEL, type NivelIA } from '../../lib/jogo/ia.ts';
 
   const imagens = import.meta.glob('../../../../../packages/ui/pecas/cburnett/*.svg', { query: '?url', import: 'default', eager: true }) as Record<string, string>;
   const img = (p: string) => imagens[Object.keys(imagens).find((k) => k.endsWith(`/${p === p.toUpperCase() ? 'w' : 'b'}${p.toUpperCase()}.svg`))!];
   const NOMES: Record<string, string> = { k: 'rei', q: 'dama', r: 'torre', b: 'bispo', n: 'cavalo', p: 'peão' };
 
-  const s = new Sessao<{ modo: string }, EstadoXadrez>('xadrez', { semRelogio: true, semEstatisticas: true });
+  const s = new Sessao<{ modo: string; ia?: NivelIA }, EstadoXadrez>('xadrez', { semRelogio: true, semEstatisticas: true });
   const COMO = [
     'Dois jogadores no mesmo aparelho; as brancas começam. Toque numa peça e depois na casa de destino; os pontos mostram os lances possíveis.',
     'Valem todas as regras: roque (mova o rei duas casas), en passant, promoção do peão, xeque-mate, afogamento, material insuficiente e 50 lances sem captura nem lance de peão.',
   ];
   let selecionada = $state(-1);
+  const OPCOES = [...opcoesIA('Você de brancas contra o computador'), { id: '2', titulo: 'Dois jogadores', descricao: 'No mesmo aparelho' }];
+  const ia = $derived(s.quebra?.ia);
+  const pc = usarComputador<EstadoXadrez, Lance>({ jogo: 'xadrez', sessao: s, vez: (e) => e.vez === 'p', aplicar: (l) => jogar(l), atraso: 300 });
+  function comecar(id: string) {
+    void s.comecar(id, OPCOES.find((o) => o.id === id)!.titulo, () => ({ quebra: { modo: id, ia: nivelDoId(id) }, estado: novoXadrez() }));
+  }
   let promocao = $state<Lance[] | null>(null);
   let virar = $state(false);
   const lances = $derived(s.estado ? lancesXadrez(s.estado) : []);
@@ -25,7 +33,7 @@
   const textoFim = $derived.by(() => {
     const f = s.estado?.fim;
     if (!f) return '';
-    if (f.tipo === 'mate') return `Xeque-mate: ${f.vencedor === 'b' ? 'brancas' : 'pretas'} venceram!`;
+    if (f.tipo === 'mate') return ia ? (f.vencedor === 'b' ? 'Xeque-mate: você venceu!' : 'Xeque-mate: o computador venceu.') : `Xeque-mate: ${f.vencedor === 'b' ? 'brancas' : 'pretas'} venceram!`;
     return { afogamento: 'Empate por afogamento.', material: 'Empate: material insuficiente.', '50 lances': 'Empate pela regra dos 50 lances.' }[f.tipo];
   });
 
@@ -34,10 +42,10 @@
     const n = jogarXadrez(s.estado, l);
     selecionada = -1;
     s.mudar(n);
-    if (n.fim) void s.terminar(n.fim.vencedor ? 'vitoria' : 'empate');
+    if (n.fim) void s.terminar(!n.fim.vencedor ? 'empate' : ia && n.fim.vencedor === 'p' ? 'derrota' : 'vitoria');
   }
   function tocar(i: number) {
-    if (!s.estado || s.terminou) return;
+    if (!s.estado || s.terminou || (ia && s.estado.vez === 'p')) return;
     if (corDe(s.estado.casas[i]) === s.estado.vez) { selecionada = selecionada === i ? -1 : i; return; }
     const ls = destinos.filter((l) => l.para === i);
     if (!ls.length) { selecionada = -1; return; }
@@ -49,13 +57,13 @@
   onDestroy(() => s.destruir());
 </script>
 
-<Casca sessao={s} titulo="Xadrez" comoJogar={COMO} opcoes={[{ id: '2', titulo: 'Dois jogadores', descricao: 'No mesmo aparelho' }]} aoEscolher={(id) => s.comecar(id, '2 jogadores', () => ({ quebra: { modo: id }, estado: novoXadrez() }))} tituloFim={textoFim} textoFim="" semRelogio>
+<Casca sessao={s} titulo="Xadrez" comoJogar={COMO} opcoes={OPCOES} aoEscolher={comecar} aoDesfazer={pc.desfazer} tituloEscolha="Quem joga?" tituloFim={textoFim} textoFim="" semRelogio>
   {#snippet rodape()}
     <button class="botao botao-terciario" type="button" onclick={() => (virar = !virar)}><span>Girar tabuleiro</span></button>
   {/snippet}
   {#if s.estado}
-    <Jogadores nomes={['Brancas', 'Pretas']} vez={s.terminou ? -1 : s.estado.vez === 'b' ? 0 : 1} />
-    {#if xeque >= 0}<p class="ja-dica">Xeque!</p>{/if}
+    <Jogadores nomes={ia ? ['Você (brancas)', `Computador (${NOMES_NIVEL[ia].toLowerCase()})`] : ['Brancas', 'Pretas']} vez={s.terminou ? -1 : s.estado.vez === 'b' ? 0 : 1} />
+    {#if xeque >= 0}<p class="ja-dica">Xeque!</p>{:else if pc.pensando}<p class="ja-dica">O computador está pensando…</p>{/if}
     <div class="ja-centro">
       <div class="ja-tab ja-tab-grade ja-xadrez" style="--ja-colunas:8">
         {#each ordem as i (i)}

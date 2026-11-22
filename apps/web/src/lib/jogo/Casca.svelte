@@ -23,6 +23,8 @@
     textoFim?: string;
     tituloFim?: string;
     semDesfazer?: boolean;
+    /** Desfazer próprio (ex.: contra o computador, volta dois lances). */
+    aoDesfazer?: () => void;
     semRelogio?: boolean;
     /** Informação à esquerda da faixa (o padrão é o nome da variante). */
     faixa?: Snippet;
@@ -34,7 +36,7 @@
   }
   let {
     sessao, titulo, comoJogar, opcoes, aoEscolher, tituloEscolha, antesDaEscolha, depoisDaEscolha, textoFim, tituloFim,
-    semDesfazer = false, semRelogio = false, faixa, centro, rodape, children,
+    semDesfazer = false, aoDesfazer, semRelogio = false, faixa, centro, rodape, children,
   }: Props = $props();
   let ajuda = $state(false);
 </script>
@@ -71,7 +73,7 @@
     {#if !semDesfazer || rodape}
       <div class="ja-rodape-jogo">
         {#if !semDesfazer}
-          <button class="botao" type="button" disabled={!sessao.podeDesfazer || !!sessao.terminou} onclick={() => sessao.desfazer()}><Icone nome="arrow-back-up" /><span>Desfazer</span></button>
+          <button class="botao" type="button" disabled={!sessao.podeDesfazer || !!sessao.terminou} onclick={() => (aoDesfazer ? aoDesfazer() : sessao.desfazer())}><Icone nome="arrow-back-up" /><span>Desfazer</span></button>
         {/if}
         {@render rodape?.()}
       </div>

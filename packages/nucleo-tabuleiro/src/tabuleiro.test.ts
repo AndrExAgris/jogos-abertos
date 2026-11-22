@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { novoQuatro, soltar } from './quatro/index.ts';
 import { jogarReversi, lancesReversi, novoReversi, placarReversi } from './reversi/index.ts';
-import { colocar, fase, novaTrilha, remover, removiveis } from './trilha/index.ts';
+import { colocar, fase, moverTrilha as moverTrilhaT, novaTrilha, remover, removiveis } from './trilha/index.ts';
 import { jogarDamas, lancesDamas, novasDamas, type EstadoDamas } from './damas/index.ts';
 import { jogarXadrez, lancesXadrez, novoXadrez, type EstadoXadrez } from './xadrez/index.ts';
 import { jogarGo, novoGo, passarGo, pontuacaoGo } from './go/index.ts';
@@ -136,5 +136,52 @@ describe('sinuca', () => {
     expect(ev.primeiroToque).not.toBeNull();
     e = arbitrar(e, ev);
     expect(e.vencedor === null || e.vencedor >= 0).toBe(true);
+  });
+});
+
+import { iaDamas, iaQuatro, iaReversi, iaTrilha, iaXadrez } from './ia/index.ts';
+import { atirar, derrotado, posicionar, tiroIA, type Mar } from './naval/index.ts';
+describe('computador', () => {
+  it('Quatro em Linha: difícil vence o fácil', () => {
+    let vit = 0;
+    for (let k = 0; k < 4; k++) {
+      let e = novoQuatro();
+      while (!e.vencedor) e = soltar(e, e.vez === 1 ? iaQuatro(e, 'dificil') : iaQuatro(e, 'facil'));
+      if (e.vencedor === 1) vit++;
+    }
+    expect(vit).toBeGreaterThanOrEqual(3);
+  }, 60000);
+  it('Quatro em Linha: bloqueia a vitória imediata', () => {
+    let e = novoQuatro();
+    for (const c of [0, 6, 1, 6, 2]) e = soltar(e, c); // jogador 1 ameaça na coluna 3
+    expect(iaQuatro(e, 'medio')).toBe(3);
+  });
+  it('Reversi, Damas, Xadrez e Trilha: partidas inteiras com lances válidos', () => {
+    let r = novoReversi();
+    for (let k = 0; k < 80 && !r.fim; k++) r = jogarReversi(r, iaReversi(r, k % 2 ? 'medio' : 'facil'));
+    expect(r.fim).toBe(true);
+    let d = novasDamas();
+    for (let k = 0; k < 150 && !d.vencedor; k++) d = jogarDamas(d, iaDamas(d, k % 2 ? 'medio' : 'facil'));
+    let x = novoXadrez();
+    const t = Date.now();
+    for (let k = 0; k < 20 && !x.fim; k++) x = jogarXadrez(x, iaXadrez(x, 'dificil'));
+    console.log('xadrez difícil: 20 lances em', Date.now() - t, 'ms');
+    let tr = novaTrilha();
+    for (let k = 0; k < 200 && !tr.vencedor; k++) {
+      const l = iaTrilha(tr, 'medio');
+      tr = l.tipo === 'colocar' ? colocar(tr, l.i) : l.tipo === 'remover' ? remover(tr, l.i) : moverTrilhaT(tr, l.de, l.para);
+    }
+    expect(tr.casas.length).toBe(24);
+  }, 120000);
+  it('Batalha Naval: frota sem encostar e computador termina', () => {
+    const navios = posicionar('n');
+    expect(navios.map((n) => n.casas.length)).toEqual([5, 4, 3, 3, 2]);
+    for (const nivel of ['facil', 'medio', 'dificil'] as const) {
+      let m: Mar = { navios: posicionar(nivel), tiros: [] };
+      let tiros = 0;
+      while (!derrotado(m)) { m = atirar(m, tiroIA(m, nivel))!.mar; tiros++; }
+      console.log('naval', nivel, tiros, 'tiros');
+      expect(tiros).toBeLessThanOrEqual(100);
+    }
   });
 });

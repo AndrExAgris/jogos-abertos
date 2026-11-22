@@ -15,6 +15,9 @@ const geradores: Record<string, () => Promise<Gerador>> = {
   separe: async () => (await import('@ja/nucleo-estado/separe')).gerarSepare as Gerador,
   rush: async () => (await import('@ja/nucleo-estado/rush')).gerarRush as Gerador,
   cruzadaDensa: async () => (await import('@ja/nucleo-palavras/cruzadas')).gerarCruzadaDensa as Gerador,
+  nonograma: async () => (await import('@ja/nucleo-grade/nonograma')).gerarNonograma as Gerador,
+  charada: async () => (await import('@ja/nucleo-grade/charada')).gerarCharada as Gerador,
+  ia: async () => (await import('@ja/nucleo-tabuleiro/ia')).jogarIA as Gerador,
   sumplete: async () => (await import('@ja/nucleo-grade/sumplete')).gerarSumplete as Gerador,
 };
 

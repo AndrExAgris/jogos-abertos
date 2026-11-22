@@ -84,3 +84,37 @@ describe('Sumplete', async () => {
     }
   });
 });
+
+import { apagadas, gerarLuzes, tocarLuz } from './luzes/index.ts';
+import { gerarNonograma, pistas, resolverLinha, resolverPorLinhas } from './nonograma/index.ts';
+describe('luzes e nonograma', () => {
+  it('luzes: tocar duas vezes desfaz; gerado tem luz acesa', () => {
+    const q = gerarLuzes(5, 'l');
+    expect(apagadas(q.acesas)).toBe(false);
+    expect(tocarLuz(tocarLuz(q.acesas, 5, 7), 5, 7)).toEqual(q.acesas);
+  });
+  it('nonograma: linha e geração com solução por dedução', () => {
+    expect(pistas([true, true, false, true])).toEqual([2, 1]);
+    expect(resolverLinha([3], [-1, -1, -1, -1])).toEqual([-1, 1, 1, -1]);
+    expect(resolverLinha([2, 1], [-1, -1, -1, -1])).toEqual([1, 1, 0, 1]);
+    for (const [w, h] of [[5, 5], [10, 10], [15, 15]]) {
+      const t = Date.now();
+      const q = gerarNonograma(w, h, `n${w}`);
+      const r = resolverPorLinhas(w, h, q.linhas, q.colunas)!;
+      expect(r.map((v) => v === 1)).toEqual(q.solucao);
+      console.log('nonograma', w, Date.now() - t, 'ms');
+    }
+  }, 30000);
+});
+
+import { contarSolucoes as contarCharada, gerarCharada, textoDica } from './charada/index.ts';
+describe('charada', () => {
+  it('gera com solução única em 3, 4 e 5 casas', () => {
+    for (const [n, c] of [[3, 3], [4, 4], [5, 5]]) {
+      const t = Date.now();
+      const q = gerarCharada(n, c, `ch${n}`);
+      expect(contarCharada(n, c, q.dicas)).toBe(1);
+      console.log('charada', n, Date.now() - t, 'ms', q.dicas.length, 'dicas;', textoDica(q, q.dicas[0]));
+    }
+  }, 60000);
+});

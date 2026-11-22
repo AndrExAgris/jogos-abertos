@@ -5,6 +5,7 @@
   import { GRUPOS } from '../jogos/registro.ts';
   import { ir } from '../lib/rotas.svelte.ts';
   import { inicio } from '../lib/inicio.svelte.ts';
+  import Miniatura from '../jogos/Miniatura.svelte';
 
   function alternar(id: string) {
     inicio.abertos = inicio.abertos.includes(id) ? inicio.abertos.filter((g) => g !== id) : [...inicio.abertos, id];
@@ -43,8 +44,8 @@
         <div class="ja-grade-jogos" id="g-{grupo.id}">
           {#each grupo.jogos as jogo (jogo.id)}
             <button class="ja-quadro-jogo" type="button" onclick={() => abrir(jogo.id)} disabled={!jogo.carregar}>
+              <span class="ja-quadro-icone"><Miniatura id={jogo.id} icone={jogo.icone} /></span>
               <span class="ja-quadro-nome">{jogo.nome}</span>
-              <span class="ja-quadro-icone"><Icone nome={jogo.icone} /></span>
               <span class="ja-quadro-descricao">{jogo.carregar ? jogo.descricao : 'Em breve'}</span>
             </button>
           {/each}

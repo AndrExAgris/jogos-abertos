@@ -963,3 +963,90 @@ svg, svg * { -webkit-tap-highlight-color: transparent; }
 .ja-milhao-ajudas { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: var(--e-2); padding-inline: var(--grade-margem-compacta); max-width: 520px; margin-inline: auto; width: 100%; box-sizing: border-box; }
 .ja-milhao-ajudas .botao { justify-content: center; min-width: 0; padding-inline: 6px; }
 .ja-milhao-ajudas .botao-terciario { grid-column: 1 / -1; }
+
+/* Miniaturas dos jogos (tela inicial) */
+.ja-miniatura { width: 100%; height: 100%; overflow: visible; }
+.ja-miniatura text { font-family: var(--font-interface); text-anchor: middle; dominant-baseline: central; }
+.m-casa { fill: var(--superficie-elevada); stroke: var(--borda-controle); stroke-width: 0.8; }
+.m-casa-aberta { fill: var(--fundo); stroke: var(--borda); stroke-width: 0.8; }
+.m-casa-vazia { fill: none; stroke: var(--borda-controle); stroke-width: 1.2; }
+.m-cheia { fill: var(--texto); }
+.m-fundo-claro { fill: var(--ja-branca); }
+.m-fundo-escuro { fill: var(--fundo); }
+.m-num { font-size: 11px; font-weight: 700; fill: var(--texto); }
+.m-num-p { font-size: 8px; font-weight: 700; fill: var(--texto); }
+.m-mini { font-size: 6px; font-weight: 700; fill: var(--texto-2); }
+.m-letra { font-size: 8px; font-weight: 800; fill: var(--texto); text-transform: uppercase; }
+.m-letra-p { font-size: 6.5px; font-weight: 800; fill: var(--ja-preta); }
+.m-riscado { fill: var(--texto-desabilitado); text-decoration: line-through; }
+.m-pri { fill: var(--primaria); } .m-sec { fill: var(--secundaria); }
+.m-pri-t { fill: var(--primaria-texto); } .m-sec-t { fill: var(--secundaria-texto); } .m-info-t { fill: var(--info-texto); }
+.m-sobre-t { fill: var(--primaria-sobre); } .m-escuro-t { fill: var(--ja-preta); } .m-branca-t { fill: var(--ja-branca); }
+.m-suc { fill: var(--sucesso); } .m-aviso { fill: var(--aviso); } .m-info { fill: var(--info); } .m-erro-c { fill: var(--erro); }
+.m-apagada { opacity: 0.45; }
+.m-preta { fill: var(--texto); } .m-preta-fixa { fill: var(--ja-preta); } .m-branca-fixa { fill: var(--ja-branca); }
+.m-borda-peca { stroke: var(--ja-preta); stroke-width: 1.4; stroke-linejoin: round; }
+.m-texto-c { fill: var(--texto); }
+.m-traco { stroke: var(--texto); stroke-width: 2; stroke-linecap: round; fill: none; }
+.m-traco-preto { stroke: var(--ja-preta); stroke-width: 2; stroke-linecap: round; fill: none; }
+.m-traco-fundo { stroke: var(--fundo); stroke-width: 2; stroke-linecap: round; fill: none; }
+.m-traco-preto.m-traco-preto { stroke: var(--texto); }
+.m-bandeira { stroke: var(--erro); stroke-width: 2.4; fill: var(--erro); stroke-linejoin: round; }
+.m-grade-fina { stroke: color-mix(in oklab, var(--ja-preta) 25%, transparent); stroke-width: 0.6; }
+.m-grade-grossa { stroke: var(--ja-preta); stroke-width: 1.4; }
+.m-luz { fill: color-mix(in oklab, var(--aviso) 35%, var(--superficie-elevada)); stroke: var(--borda-controle); stroke-width: 0.8; }
+.m-grama { fill: color-mix(in oklab, var(--sucesso) 30%, var(--fundo)); }
+.m-tronco { fill: var(--bronze); }
+.m-ponte { stroke: var(--texto); stroke-width: 2.5; fill: none; }
+.m-ilha { fill: var(--superficie-elevada); stroke: var(--borda-controle); stroke-width: 1.5; }
+.m-reg0 { fill: color-mix(in oklab, var(--laranja) 45%, var(--fundo)); } .m-reg1 { fill: color-mix(in oklab, var(--teal) 45%, var(--fundo)); }
+.m-reg2 { fill: color-mix(in oklab, var(--roxo) 45%, var(--fundo)); } .m-reg3 { fill: color-mix(in oklab, var(--lima) 45%, var(--fundo)); }
+.m-reg0, .m-reg1, .m-reg2, .m-reg3 { stroke: var(--fundo); stroke-width: 0.8; }
+.m-cor-a { --c: var(--laranja); } .m-cor-b { --c: var(--teal); } .m-cor-c { --c: var(--roxo); }
+rect.m-cor-a, rect.m-cor-b, rect.m-cor-c, circle.m-cor-a, circle.m-cor-b, circle.m-cor-c { fill: var(--c); }
+.m-caminho { stroke: var(--c); stroke-width: 5; stroke-linecap: round; stroke-linejoin: round; fill: none; opacity: 0.7; }
+.m-seta { stroke: var(--c); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+.m-acesa { fill: var(--aviso); filter: drop-shadow(0 0 3px color-mix(in oklab, var(--aviso) 70%, transparent)); }
+.m-ficha { fill: var(--superficie-elevada); stroke: var(--borda-controle); stroke-width: 1; }
+.m-verso { fill: color-mix(in oklab, var(--erro) 70%, #3a0d12); stroke: var(--ja-branca); stroke-width: 1.4; }
+.m-carta { fill: var(--ja-branca); stroke: color-mix(in oklab, var(--ja-preta) 30%, transparent); stroke-width: 0.8; }
+.m-carta-txt { font-size: 7px; font-weight: 800; fill: var(--ja-preta); }
+.m-carta-txt.m-vermelho { fill: #c62828; }
+.m-pino { fill: var(--primaria); } .m-buraco { fill: var(--fundo); stroke: var(--borda-controle); stroke-width: 0.8; }
+.m-tubo { stroke: color-mix(in oklab, var(--texto) 60%, transparent); stroke-width: 2; fill: none; }
+.m-bloco { fill: color-mix(in oklab, var(--secundaria) 50%, var(--superficie-elevada)); }
+.m-aresta { stroke: var(--erro); stroke-width: 1.8; opacity: 0.75; }
+.m-no { fill: var(--texto); stroke: var(--fundo); stroke-width: 1.5; }
+.m-mar { fill: color-mix(in oklab, var(--info) 30%, var(--fundo)); }
+.m-terra { fill: color-mix(in oklab, var(--sucesso) 45%, var(--fundo)); }
+.m-quente { fill: var(--erro); } .m-morno { fill: var(--aviso); } .m-frio { fill: color-mix(in oklab, var(--aviso) 40%, var(--sucesso)); }
+.m-tampa { fill: var(--superficie-elevada); stroke: var(--borda-controle); stroke-width: 0.8; }
+.m-rota { stroke: var(--primaria); stroke-width: 2.5; stroke-dasharray: 3 3; fill: none; stroke-linecap: round; }
+.m-lupa { fill: none; stroke: var(--texto); stroke-width: 4; } .m-cabo { stroke: var(--texto); stroke-width: 6; stroke-linecap: round; }
+.m-pernas { stroke: var(--ja-preta); stroke-width: 1.4; stroke-linecap: round; fill: none; }
+.m-celula { fill: none; stroke: var(--borda-controle); stroke-width: 1.2; stroke-dasharray: 2 2; }
+.m-montanha { stroke: var(--texto-2); stroke-width: 2; fill: none; stroke-linejoin: round; }
+.m-casa-clara { fill: color-mix(in oklab, var(--bronze) 30%, var(--ja-branca)); } .m-casa-escura { fill: color-mix(in oklab, var(--bronze) 70%, var(--ja-preta)); }
+.m-feltro { fill: color-mix(in oklab, var(--sucesso) 38%, #0b2116); } .m-grade-feltro { stroke: color-mix(in oklab, black 35%, transparent); stroke-width: 0.8; }
+.m-linha { fill: none; stroke: var(--texto-2); stroke-width: 1.6; }
+.m-grade-mar { stroke: color-mix(in oklab, var(--info) 40%, transparent); stroke-width: 0.6; }
+.m-navio { fill: color-mix(in oklab, var(--texto-2) 70%, var(--fundo)); }
+.m-tiro { stroke: var(--erro); stroke-width: 2.4; stroke-linecap: round; } .m-pingo { fill: color-mix(in oklab, var(--info) 70%, white); }
+.m-dado { fill: var(--ja-branca); stroke: color-mix(in oklab, var(--ja-preta) 25%, transparent); stroke-width: 0.8; }
+.m-dado + circle, .ja-miniatura .m-dado ~ circle.m-preta { fill: var(--ja-preta); }
+.m-copo { fill: color-mix(in oklab, var(--bronze) 60%, var(--fundo)); }
+.m-pele { fill: color-mix(in oklab, var(--aviso) 45%, var(--bronze)); }
+.m-celular { fill: var(--secundaria); stroke: var(--texto); stroke-width: 1.2; }
+.m-madeira { fill: color-mix(in oklab, var(--bronze) 55%, #2a1608); }
+.m-grade-go { stroke: color-mix(in oklab, var(--ja-preta) 70%, transparent); stroke-width: 0.8; }
+.m-casa-ur { fill: color-mix(in oklab, var(--bronze) 35%, var(--superficie-elevada)); stroke: var(--fundo); stroke-width: 0.6; }
+.m-bola-c1 { fill: color-mix(in oklab, var(--aviso) 82%, black); } .m-bola-c2 { fill: color-mix(in oklab, var(--indigo) 70%, black); } .m-bola-c3 { fill: color-mix(in oklab, var(--erro) 78%, black); }
+.m-bola-c5 { fill: color-mix(in oklab, var(--laranja) 85%, black); } .m-bola-c6 { fill: color-mix(in oklab, var(--sucesso) 55%, black); } .m-bola-c8 { fill: var(--ja-preta); }
+.m-pri-escuro { fill: color-mix(in oklab, var(--primaria) 75%, black); }
+.ja-quadro-jogo { grid-template-rows: 1fr auto auto; padding: var(--e-3) var(--e-2) var(--e-3); gap: 6px; transition: transform 0.15s var(--curva), box-shadow 0.15s var(--curva); }
+.ja-quadro-jogo:not(:disabled):active { transform: scale(0.97); }
+.ja-quadro-icone { width: min(82px, 62%); height: auto; aspect-ratio: 1; background: transparent; color: var(--primaria-texto); }
+.ja-quadro-icone > .icone { width: 60%; height: 60%; margin: auto; }
+.ja-quadro-nome { line-height: 18px; }
+.ja-quadro-descricao { min-height: 32px; }
+.ja-quadro-icone .ja-miniatura { filter: drop-shadow(0 1px 1px color-mix(in oklab, black 25%, transparent)); }

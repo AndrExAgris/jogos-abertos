@@ -10,6 +10,7 @@
   import Sobre from './telas/Sobre.svelte';
   import NaoEncontrada from './telas/NaoEncontrada.svelte';
   import Carregar from './jogos/Carregar.svelte';
+  import Avisos from './lib/Avisos.svelte';
 
   type Area = 'jogos' | 'recordes' | 'mais';
 
@@ -73,3 +74,5 @@
     {/if}
   </div>
 {/if}
+
+<Avisos />

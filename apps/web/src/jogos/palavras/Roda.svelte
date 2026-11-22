@@ -16,7 +16,7 @@
   ];
   const COMO = [
     'Forme as palavras escondidas usando as letras da roda. Cada letra vale uma vez por palavra; as palavras têm de 3 letras até o tamanho da roda.',
-    'Encoste o dedo na primeira letra e arraste pelas outras, sem soltar; ao soltar, a palavra é enviada. Voltar o dedo para a letra anterior desfaz a última. Também dá para tocar letra por letra e usar "Enviar".',
+    'Encoste o dedo na primeira letra e arraste pelas outras, sem soltar; ao soltar, a palavra é enviada. Voltar o dedo para a letra anterior desfaz a última. Também dá para tocar letra por letra e usar "Enviar"; tocar de novo numa letra escolhida tira ela da palavra.',
     'Palavras que existem mas não estão escondidas contam como bônus.',
     'Embaralhar troca a ordem das letras; Dica mostra uma letra de uma palavra que falta.',
   ];
@@ -60,6 +60,8 @@
   let arrastando = $state(false);
   let dedo = $state<[number, number] | null>(null);
   let tamanhoAntes = 0;
+  /** Tocou numa letra já escolhida: se não arrastar, ela sai da palavra. */
+  let removerAoSoltar = -1;
   const posLetra = (i: number, n: number): [number, number] => {
     const ang = (2 * Math.PI * i) / n - Math.PI / 2;
     return [50 + raio * Math.cos(ang), 50 + raio * Math.sin(ang)];
@@ -85,6 +87,7 @@
     roda!.setPointerCapture(e.pointerId);
     arrastando = true;
     tamanhoAntes = atual.length;
+    removerAoSoltar = atual.includes(i) ? i : -1;
     if (!atual.includes(i)) { atual = [...atual, i]; vibrar(8); }
     dedo = p;
   }
@@ -95,12 +98,19 @@
     const j = letraEm(p);
     if (j < 0) return;
     if (atual.length >= 2 && j === atual[atual.length - 2]) { atual = atual.slice(0, -1); vibrar(8); }
-    else if (!atual.includes(j)) { atual = [...atual, j]; vibrar(8); }
+    else if (!atual.includes(j)) { atual = [...atual, j]; vibrar(8); removerAoSoltar = -1; }
   }
   function aoSoltar() {
     if (!arrastando) return;
     arrastando = false;
     dedo = null;
+    if (removerAoSoltar >= 0 && atual.length === tamanhoAntes) {
+      const r = removerAoSoltar;
+      removerAoSoltar = -1;
+      atual = atual.filter((x) => x !== r);
+      vibrar(8);
+      return;
+    }
     // Arrastou por várias letras: envia. Só tocou numa letra: continua no modo de toque.
     if (atual.length - tamanhoAntes >= 2 || (tamanhoAntes === 0 && atual.length >= 3)) {
       if (palavra.length >= 3) enviar(); else atual = [];

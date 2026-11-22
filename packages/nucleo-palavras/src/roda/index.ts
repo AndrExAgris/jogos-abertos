@@ -7,6 +7,7 @@ import dados from '../../../../data/palavras/roda.json';
 
 const COMUNS = dados.comuns as string[];
 const COMUNS_SET = new Set(COMUNS);
+const BONUS = new Set((dados as { bonus?: string[] }).bonus ?? []);
 
 const contagem = (p: string) => { const c: Record<string, number> = {}; for (const l of p) c[l] = (c[l] ?? 0) + 1; return c; };
 export function cabe(palavra: string, letras: string): boolean {
@@ -31,4 +32,4 @@ export function gerarRoda(tamanho: 5 | 6 | 7, semente: string, maxPalavras = 12)
 }
 
 /** Palavra que vale bônus (existe, mas não está na lista escondida). */
-export const palavraExiste = (p: string) => COMUNS_SET.has(p);
+export const palavraExiste = (p: string) => COMUNS_SET.has(p) || BONUS.has(p);

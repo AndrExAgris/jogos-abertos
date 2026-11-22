@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { avisar } from '../../lib/aviso.svelte.ts';
   import { onDestroy, onMount } from 'svelte';
   import { Icone } from '@ja/ui';
   import { sementeNova } from '@ja/contrato';
@@ -37,7 +38,6 @@
   let recorde = $state(false);
   let ajuda = $state(false);
   let folhaPersonalizado = $state(false);
-  let avisoPrimeira = $state(false);
   let campos = $state({ largura: 12, altura: 12, minas: 20 });
   const erroCampos = $derived(validarConfig(campos));
 
@@ -135,7 +135,7 @@
   function marcar(i: number) {
     if (!estado) return;
     if (!comecou) {
-      avisoPrimeira = true;
+      avisar('Toque e segure para abrir uma casa');
       return;
     }
     // Tocar num número aberto abre as vizinhas, quando as bandeiras batem.
@@ -357,12 +357,6 @@
   {/if}
 </TelaJogo>
 
-<Dialogo bind:aberto={avisoPrimeira} titulo="Segure para abrir">
-  <p>A primeira jogada é abrir uma casa: segure o dedo sobre qualquer casa. Tocar marca bandeira.</p>
-  {#snippet acoes()}
-    <button class="botao botao-primario" type="button" onclick={() => (avisoPrimeira = false)}><span>Entendi</span></button>
-  {/snippet}
-</Dialogo>
 
 <Dialogo bind:aberto={folhaPersonalizado} titulo="Tabuleiro personalizado" folha>
   <form class="ja-form" onsubmit={confirmarPersonalizado}>

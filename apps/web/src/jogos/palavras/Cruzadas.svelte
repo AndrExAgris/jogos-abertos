@@ -4,6 +4,7 @@
   import { sementeNova } from '@ja/contrato';
   import { gerarCruzada, solucaoCruzada, type Cruzada, type Entrada } from '@ja/nucleo-palavras/cruzadas';
   import Casca from '../../lib/jogo/Casca.svelte';
+  import TecladoLetras from '../../lib/jogo/TecladoLetras.svelte';
   import { gerarNoFundo } from '../../lib/jogo/gerar.ts';
   import { Sessao } from '../../lib/jogo/sessao.svelte.ts';
 
@@ -35,7 +36,6 @@
     'Toque numa casa para escolher a palavra (toque de novo para trocar entre horizontal e vertical) e digite no teclado. A dica da palavra escolhida aparece acima do teclado.',
     'Verificar marca as letras erradas enquanto estiver ligado (aparece "Verificando" no alto). As grades densas, no estilo de jornal, têm casas pretas e quase toda letra pertence a duas palavras. As dicas vêm do Wikcionário (CC BY-SA).',
   ];
-  const TECLAS = ['qwertyuiop', 'asdfghjkl', 'zxcvbnm'];
   let sel = $state<{ x: number; y: number; horizontal: boolean } | null>(null);
   const sol = $derived(s.quebra ? solucaoCruzada(s.quebra) : new Map<string, string>());
   const entradaAtual = $derived.by((): Entrada | null => {
@@ -120,14 +120,7 @@
       <p class="ja-cruz-dica"><strong>{entradaAtual.numero} {entradaAtual.horizontal ? 'horizontal' : 'vertical'} ({entradaAtual.palavra.length}):</strong> {entradaAtual.dica}</p>
     {/if}
     {#if !s.terminou}
-      <div class="ja-teclado-letras">
-        {#each TECLAS as linha, li (li)}
-          <div class="ja-teclado-linha">
-            {#each linha as l (l)}<button class="botao ja-tecla-letra" type="button" onclick={() => digitar(l)}>{l}</button>{/each}
-            {#if li === 2}<button class="botao ja-tecla-letra ja-tecla-larga" type="button" aria-label="Apagar" onclick={() => digitar('apagar')}><Icone nome="backspace" /></button>{/if}
-          </div>
-        {/each}
-      </div>
+      <TecladoLetras aoTecla={digitar} comEnviar={false} fisico={false} />
     {/if}
     <details class="ja-cruz-lista">
       <summary>Todas as dicas</summary>

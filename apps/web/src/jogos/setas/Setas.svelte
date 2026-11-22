@@ -21,10 +21,11 @@
   ];
 
   /** Seta saindo (animação): caminho completo e quanto já andou. */
-  let saindo = $state<{ seta: Seta; pontos: [number, number][]; andou: number } | null>(null);
+  let saindo = $state<{ seta: Seta; pontos: [number, number][]; andou: number }[]>([]);
   let tremendo = $state(-1);
   let culpada = $state(-1);
   let quadro = 0;
+  let ativas = new Set<number>();
 
   function escolher(id: string) {
     const n = Number(id);
@@ -65,7 +66,7 @@
   }
 
   function tocar(seta: Seta) {
-    if (!s.estado || s.terminou || saindo) return;
+    if (!s.estado || s.terminou) return;
     const g = s.estado.setas;
     const b = bloqueio(g, seta.id);
     if (b >= 0) {
@@ -84,17 +85,21 @@
     const pontos: [number, number][] = [...corpo, [fim[0] + dx * fora, fim[1] + dy * fora]];
     const novo = tirar(g, seta.id);
     s.mudar({ ...s.estado, setas: novo });
-    saindo = { seta, pontos, andou: 0 };
+    const item = { seta, pontos, andou: 0 };
+    saindo.push(item);
     const inicio = performance.now();
-    const duracao = 220 + fora * 45;
+    const duracao = 140 + fora * 16;
+    const id = seta.id;
+    ativas.add(id);
     const passo = (t: number) => {
-      if (!saindo) return;
       const k = Math.min(1, (t - inicio) / duracao);
-      saindo.andou = fora * k * k;
-      if (k < 1) quadro = requestAnimationFrame(passo);
+      const x = saindo.find((v) => v.seta.id === id);
+      if (x) x.andou = fora * (k * (0.35 + 0.65 * k));
+      if (k < 1) requestAnimationFrame(passo);
       else {
-        saindo = null;
-        if (vazio(novo)) void s.terminar('vitoria');
+        ativas.delete(id);
+        saindo = saindo.filter((v) => v.seta.id !== id);
+        if (s.estado && vazio(s.estado.setas) && !saindo.length) void s.terminar('vitoria');
       }
     };
     quadro = requestAnimationFrame(passo);
@@ -107,7 +112,7 @@
   }
 
   onMount(() => s.carregar());
-  onDestroy(() => { cancelAnimationFrame(quadro); s.destruir(); });
+  onDestroy(() => { cancelAnimationFrame(quadro); ativas = new Set(); s.destruir(); });
 </script>
 
 <Casca sessao={s} titulo="Setas" comoJogar={COMO} opcoes={OPCOES} aoEscolher={escolher} tituloEscolha="Escolha o tamanho" textoFim={s.estado ? `${s.estado.erros} ${s.estado.erros === 1 ? 'erro' : 'erros'}.` : undefined}>
@@ -137,16 +142,16 @@
             <polygon class="ja-seta-ponta" points={ponta(p[p.length - 1], seta.dir)} />
           </g>
         {/each}
-        {#if saindo}
-          {@const L = comprimento(saindo.seta.corpo.map((c) => centro(g, c)))}
-          {@const t = trecho(saindo.pontos, saindo.andou, saindo.andou + L + 0.0001)}
+        {#each saindo as sa (sa.seta.id)}
+          {@const L = comprimento(sa.seta.corpo.map((c) => centro(g, c)))}
+          {@const t = trecho(sa.pontos, sa.andou, sa.andou + L + 0.0001)}
           {#if t.length > 1}
-            <g class="ja-seta-linha ja-paleta-{cor(saindo.seta.id)}" aria-hidden="true">
+            <g class="ja-seta-linha ja-seta-saindo ja-paleta-{cor(sa.seta.id)}" aria-hidden="true">
               <polyline class="ja-seta-corpo" points={pts(t)} />
-              <polygon class="ja-seta-ponta" points={ponta(t[t.length - 1], saindo.seta.dir)} />
+              <polygon class="ja-seta-ponta" points={ponta(t[t.length - 1], sa.seta.dir)} />
             </g>
           {/if}
-        {/if}
+        {/each}
       </svg>
     </div>
   {/if}

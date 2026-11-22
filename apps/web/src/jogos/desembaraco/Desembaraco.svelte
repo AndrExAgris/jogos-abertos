@@ -35,9 +35,14 @@
     const r = svg!.getBoundingClientRect();
     return { x: Math.max(0.02, Math.min(0.98, (e.clientX - r.left) / r.width)), y: Math.max(0.02, Math.min(0.98, (e.clientY - r.top) / r.height)) };
   }
-  function inicio(e: PointerEvent, i: number) {
-    if (s.terminou) return;
-    (e.currentTarget as Element).setPointerCapture(e.pointerId);
+  /** Toque no tabuleiro: pega o ponto mais perto do dedo, com folga generosa. */
+  function inicio(e: PointerEvent) {
+    if (s.terminou || !s.estado) return;
+    const c = paraCoordenada(e);
+    let i = -1, menor = 0.075;
+    s.estado.forEach((p, k) => { const d = Math.hypot(p.x - c.x, p.y - c.y); if (d < menor) { menor = d; i = k; } });
+    if (i < 0) return;
+    svg!.setPointerCapture(e.pointerId);
     arrastando = i;
     pontosTemp = [...(s.estado ?? [])];
   }
@@ -64,7 +69,7 @@
   {#snippet faixa()}<span class="ja-placar-item"><span class="ja-numero">{cruz.size}</span> linhas cruzando</span>{/snippet}
   {#if grafo}
     <div class="ja-centro">
-      <svg class="ja-desembaraco" viewBox="0 0 1 1" bind:this={svg} role="application" aria-label="Pontos e linhas para desembaraçar">
+      <svg class="ja-desembaraco" viewBox="0 0 1 1" bind:this={svg} role="application" aria-label="Pontos e linhas para desembaraçar" onpointerdown={inicio} onpointermove={mexer} onpointerup={soltar} onpointercancel={soltar}>
         {#each grafo.arestas as [a, b], k (k)}
           <line class="ja-aresta" data-cruza={cruz.has(k) || undefined} x1={pontos[a].x} y1={pontos[a].y} x2={pontos[b].x} y2={pontos[b].y} />
         {/each}
@@ -74,14 +79,7 @@
             data-arrastando={arrastando === i || undefined}
             cx={p.x}
             cy={p.y}
-            r="0.028"
-            role="button"
-            tabindex="-1"
-            aria-label="Ponto {i + 1}"
-            onpointerdown={(e) => inicio(e, i)}
-            onpointermove={mexer}
-            onpointerup={soltar}
-            onpointercancel={soltar}
+            r={arrastando === i ? 0.036 : 0.03}
           />
         {/each}
       </svg>

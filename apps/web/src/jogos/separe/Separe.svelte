@@ -17,7 +17,7 @@
   const COMO = [
     'Separe as cores: no fim, cada tubo tem uma cor só.',
     'Toque num tubo e depois em outro para despejar a camada de cima. Só dá para despejar num tubo vazio ou com a mesma cor em cima, e cada tubo leva quatro camadas.',
-    'As camadas também têm um número, para quem distingue mal as cores.',
+    'Tubo cheio com uma cor só fica fechado e não mexe mais.',
   ];
 
   let origem = $state(-1);
@@ -31,8 +31,10 @@
     }));
   }
 
+  const fechado = (t: number[]) => t.length === CAPACIDADE && t.every((c) => c === t[0]);
+
   function tocar(i: number) {
-    if (!s.estado || s.terminou) return;
+    if (!s.estado || s.terminou || fechado(s.estado[i])) return;
     if (origem < 0) { if (s.estado[i].length) origem = i; return; }
     if (origem === i) { origem = -1; return; }
     if (!podeDespejar(s.estado, origem, i)) { vibrar(60); origem = s.estado[i].length ? i : -1; return; }
@@ -50,7 +52,7 @@
   {#if s.estado}
     <div class="ja-tubos">
       {#each s.estado as tubo, i (i)}
-        <button type="button" class="ja-tubo" data-selecionado={origem === i || undefined} aria-label="Tubo {i + 1}: {tubo.length ? tubo.map((c) => c + 1).join(', ') : 'vazio'}" onclick={() => tocar(i)}>
+        <button type="button" class="ja-tubo" data-selecionado={origem === i || undefined} data-fechado={fechado(tubo) || undefined} disabled={fechado(tubo)} aria-label="Tubo {i + 1}: {tubo.length ? tubo.map((c) => c + 1).join(', ') : 'vazio'}" onclick={() => tocar(i)}>
           {#each Array(CAPACIDADE) as _, k (k)}
             {@const c = tubo[CAPACIDADE - 1 - k]}
             {#if c !== undefined}

@@ -4,6 +4,7 @@
   import { sementeNova } from '@ja/contrato';
   import { FILMES, pistas, semAcento, sortearFilme, sugerirFilmes } from '@ja/nucleo-trivia/filme';
   import Casca from '../../lib/jogo/Casca.svelte';
+  import CampoTeclado from '../../lib/jogo/CampoTeclado.svelte';
   import { Sessao } from '../../lib/jogo/sessao.svelte.ts';
   import { vibrar } from '../../lib/jogo/partida.ts';
 
@@ -21,7 +22,7 @@
   let texto = $state('');
   const filme = $derived(s.quebra ? FILMES[s.quebra.filme] : null);
   const reveladas = $derived(s.terminou ? MAX : Math.min(MAX, 1 + (s.estado?.palpites.length ?? 0) + (s.estado?.puladas ?? 0)));
-  const sugestoes = $derived(sugerirFilmes(texto).filter((i) => !s.estado?.palpites.includes(i)));
+  const sugestoes = $derived(sugerirFilmes(texto).filter((i) => !s.estado?.palpites.includes(i)).slice(0, 5).map((i) => ({ id: i, titulo: FILMES[i].titulo, sub: String(FILMES[i].ano) })));
 
   function tentar(i: number) {
     if (!s.estado || !filme || s.terminou) return;
@@ -53,19 +54,9 @@
       {/each}
     </div>
     {#if !s.terminou}
-      <div class="ja-campo-pais">
-        <div class="ja-campo-linha">
-          <input class="entrada" autocomplete="off" placeholder="Digite parte do título" aria-label="Título do filme" bind:value={texto} />
-          <button class="botao" type="button" onclick={pular}><Icone nome="eye" /><span>Mais uma pista</span></button>
-        </div>
-        {#if sugestoes.length}
-          <div class="lista-config ja-sugestoes">
-            {#each sugestoes as i (i)}
-              <button class="linha-config" type="button" onclick={() => tentar(i)}><span class="linha-texto"><span class="linha-titulo">{FILMES[i].titulo}</span></span></button>
-            {/each}
-          </div>
-        {/if}
-      </div>
+      <CampoTeclado bind:texto rotulo="Título do filme" dica="Digite parte do título" {sugestoes} aoEscolher={(id) => tentar(Number(id))}>
+        {#snippet extra()}<button class="botao" type="button" onclick={pular}><Icone nome="eye" /><span>Pista</span></button>{/snippet}
+      </CampoTeclado>
     {/if}
     {#if s.estado.palpites.length}
       <div class="ja-palpites">

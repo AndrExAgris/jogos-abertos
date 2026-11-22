@@ -109,15 +109,29 @@ for (const p of porFrequencia) {
 // Palpites: tudo que alguma das fontes conhece (lista do pythonprobr, teclado do Android e Wikcionário com flexões).
 const palpites = [...new Set([...validas, ...freq.keys(), ...formasWikt].map(sem).filter((n) => n.length === 5 && /^[a-z]+$/.test(n)))].sort();
 
-// Roda de Letras: palavras comuns de 3 a 7 letras (sem acento) e as válidas para bônus.
+// Roda de Letras: só palavras que o Wikcionário reconhece como português (lema ou flexão)
+// e que aparecem com frequência no teclado do Android. Isso tira estrangeirismos ("air"),
+// siglas e restos de acento ("grã" virando "gra").
+// Estrangeirismos e formas antigas que passam pelos filtros acima.
+const NAO_RODA = new Set('top web bit set box del pop van chi step error enter dous oiro pero ater are mor sub mui gay hit off age big boy mix rap rex skin disk twist dino node pier pure mine rose ride sikh sufi naif vodu tofu tuna luge file cupe fuba ileo icar ande esto unto inda geis does baus bane sape lute pule tino tora lioz godo jeje elfa saba sama emas alar atar bufo edil orou ouca icou rabi rija saio tola velo diol ergo gude neva codon siglo libro lucha bello error enter haras getas mixer twist menir morfo poiso tinga umbro vacum azimo rifte cabal carte gabar logra pence plane apena etc des per der dum hip pro una min use qui dai nus ups qua jus num'.split(' '));
+const naWikt = (p) => lemas.has(p) || formasWikt.has(p);
+const okRoda = (p) => naWikt(p) && !ruins.has(p) && !BLOQUEADAS.has(sem(p)) && /^[a-zà-üç]+$/.test(p);
+const porFreqRoda = [...freq.entries()].filter(([p]) => okRoda(p)).sort((a, b) => b[1] - a[1]);
 const comuns = [];
 const vistasR = new Set();
-for (const p of porFrequencia.slice(0, 40000)) {
+for (const [p, f] of porFreqRoda) {
   const n = sem(p);
   if (n.length < 3 || n.length > 7 || vistasR.has(n) || !/^[a-z]+$/.test(n)) continue;
+  // Palavra escondida: comum; lema só se a lista do pythonprobr também tiver (corta estrangeirismos);
+  // sem k, w e y; com três letras, só palavras bem comuns e sem acento.
+  if (f < 70 || /[kwy]/.test(n) || NAO_RODA.has(n)) continue;
+  if (lemas.has(p) && !validas.has(p)) continue;
+  if (n.length === 3 && (f < 90 || n !== p || !lemas.has(p))) continue;
   vistasR.add(n);
   comuns.push(n);
 }
+// Bônus: qualquer palavra do Wikcionário (com flexões) que o teclado do Android também conhece.
+const bonus = [...new Set(porFreqRoda.filter(([, f]) => f >= 40).map(([p]) => sem(p)).filter((n) => n.length >= 3 && n.length <= 7 && /^[a-z]+$/.test(n) && !vistasR.has(n)))].sort();
 
 // Cruzadas: palavras com dica, ordenadas por frequência (as comuns primeiro).
 const comDica = [];
@@ -132,6 +146,6 @@ for (const p of porFrequencia) {
 
 await mkdir(saida, { recursive: true });
 await writeFile(join(saida, 'termo.json'), JSON.stringify({ respostas, palpites }));
-await writeFile(join(saida, 'roda.json'), JSON.stringify({ comuns }));
+await writeFile(join(saida, 'roda.json'), JSON.stringify({ comuns, bonus }));
 await writeFile(join(saida, 'dicas-cc-by-sa.json'), JSON.stringify(comDica));
-console.log(`Termo: ${respostas.length} respostas, ${palpites.length} palpites. Roda: ${comuns.length} comuns. Cruzadas: ${comDica.length} palavras com dica.`);
+console.log(`Termo: ${respostas.length} respostas, ${palpites.length} palpites. Roda: ${comuns.length} comuns, ${bonus.length} bônus. Cruzadas: ${comDica.length} palavras com dica.`);

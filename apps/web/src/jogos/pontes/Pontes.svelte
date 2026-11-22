@@ -18,7 +18,8 @@
   const COMO = [
     'Ligue as ilhas com pontes retas, na horizontal ou na vertical. Entre duas ilhas cabem até duas pontes.',
     'Cada ilha tem exatamente o número de pontes que mostra. Pontes não se cruzam, e no fim todas as ilhas ficam ligadas entre si.',
-    'Toque numa ilha e depois numa vizinha para pôr uma ponte; repita para pôr a segunda; mais uma vez para tirar.',
+    'Arraste o dedo de uma ilha até a vizinha para pôr uma ponte; repita para pôr a segunda; mais uma vez para tirar as duas.',
+    'Também dá para tocar numa ilha e depois na vizinha.',
   ];
 
   let selecionada = $state(-1);
@@ -33,18 +34,72 @@
     selecionada = -1;
   }
 
-  function tocarIlha(i: number) {
-    if (!s.quebra || s.terminou) return;
-    if (selecionada < 0 || selecionada === i) { selecionada = selecionada === i ? -1 : i; return; }
-    if (!viz[selecionada].includes(i)) { selecionada = i; return; }
-    const k = chave(selecionada, i);
+  /** Põe, dobra ou tira a ponte entre a e b. */
+  function ligar(a: number, b: number) {
+    if (!s.quebra || s.terminou || !viz[a].includes(b)) return;
+    const k = chave(a, b);
     const atual = pontes[k] ?? 0;
     const novo = (atual + 1) % 3;
-    if (novo > 0 && atual === 0 && cruza(s.quebra, pontes, selecionada, i)) { vibrar(60); return; }
+    if (novo > 0 && atual === 0 && cruza(s.quebra, pontes, a, b)) { vibrar(60); return; }
     const p = { ...pontes };
     if (novo) p[k] = novo; else delete p[k];
     s.mudar({ pontes: p });
     if (resolvido(s.quebra, p)) void s.terminar('vitoria');
+  }
+
+  function tocarIlha(i: number) {
+    if (!s.quebra || s.terminou) return;
+    if (selecionada < 0 || selecionada === i) { selecionada = selecionada === i ? -1 : i; return; }
+    if (!viz[selecionada].includes(i)) { selecionada = i; return; }
+    ligar(selecionada, i);
+    selecionada = -1;
+  }
+
+  // --- Arrastar de uma ilha a outra ---
+  let svg = $state<SVGSVGElement>();
+  let arrasto = $state<{ de: number; x: number; y: number; alvo: number; moveu: boolean } | null>(null);
+
+  function ponto(e: PointerEvent): [number, number] {
+    const m = svg!.getScreenCTM()!.inverse();
+    const p = new DOMPoint(e.clientX, e.clientY).matrixTransform(m);
+    return [p.x, p.y];
+  }
+  /** Vizinha na direção do dedo (a mais próxima do dedo entre as alcançáveis). */
+  function alvoEm(de: number, x: number, y: number): number {
+    const q = s.quebra!;
+    const A = q.ilhas[de];
+    const dx = x - A.x, dy = y - A.y;
+    if (Math.hypot(dx, dy) < 0.5) return -1;
+    let melhor = -1, menor = Infinity;
+    for (const v of viz[de]) {
+      const B = q.ilhas[v];
+      const horizontal = B.y === A.y;
+      // Só vale se o dedo foi mais na direção da vizinha.
+      if (horizontal ? Math.abs(dx) < Math.abs(dy) || Math.sign(dx) !== Math.sign(B.x - A.x) : Math.abs(dy) < Math.abs(dx) || Math.sign(dy) !== Math.sign(B.y - A.y)) continue;
+      const d = Math.hypot(B.x - x, B.y - y);
+      if (d < menor) { menor = d; melhor = v; }
+    }
+    return melhor;
+  }
+  function aoPressionar(e: PointerEvent, i: number) {
+    if (!s.quebra || s.terminou) return;
+    e.preventDefault();
+    svg!.setPointerCapture(e.pointerId);
+    const [x, y] = ponto(e);
+    arrasto = { de: i, x, y, alvo: -1, moveu: false };
+  }
+  function aoMover(e: PointerEvent) {
+    if (!arrasto) return;
+    const [x, y] = ponto(e);
+    const A = s.quebra!.ilhas[arrasto.de];
+    arrasto = { ...arrasto, x, y, alvo: alvoEm(arrasto.de, x, y), moveu: arrasto.moveu || Math.hypot(x - A.x, y - A.y) > 0.45 };
+  }
+  function aoSoltar() {
+    if (!arrasto) return;
+    const { de, alvo, moveu } = arrasto;
+    arrasto = null;
+    if (!moveu) { tocarIlha(de); return; }
+    if (alvo >= 0) { ligar(de, alvo); selecionada = -1; }
   }
 
   onMount(() => s.carregar());
@@ -55,7 +110,7 @@
   {#if s.quebra}
     {@const q = s.quebra}
     <div class="ja-centro">
-      <svg class="ja-pontes" viewBox="-0.6 -0.6 {q.largura + 0.2} {q.altura + 0.2}" role="group" aria-label="Ilhas">
+      <svg bind:this={svg} class="ja-pontes" onpointermove={aoMover} onpointerup={aoSoltar} onpointercancel={() => (arrasto = null)} viewBox="-0.6 -0.6 {q.largura + 0.2} {q.altura + 0.2}" role="group" aria-label="Ilhas">
         {#each Object.entries(pontes) as [k, n] (k)}
           {@const [a, b] = k.split('-').map(Number)}
           {@const A = q.ilhas[a]}
@@ -73,17 +128,25 @@
             <line class="ja-ponte-guia" x1={q.ilhas[selecionada].x} y1={q.ilhas[selecionada].y} x2={q.ilhas[v].x} y2={q.ilhas[v].y} />
           {/each}
         {/if}
+        {#if arrasto?.moveu}
+          {@const A = q.ilhas[arrasto.de]}
+          {#if arrasto.alvo >= 0}
+            <line class="ja-ponte-arrasto" x1={A.x} y1={A.y} x2={q.ilhas[arrasto.alvo].x} y2={q.ilhas[arrasto.alvo].y} />
+          {:else}
+            <line class="ja-ponte-guia" x1={A.x} y1={A.y} x2={arrasto.x} y2={arrasto.y} />
+          {/if}
+        {/if}
         {#each q.ilhas as il, i (i)}
           {@const g = grau(pontes, i)}
           <g
             class="ja-ilha"
-            data-selecionada={selecionada === i || undefined}
+            data-selecionada={selecionada === i || arrasto?.de === i || arrasto?.alvo === i || undefined}
             data-completa={g === il.n || undefined}
             data-erro={g > il.n || undefined}
             role="button"
             tabindex="-1"
             aria-label="Ilha {il.n}, {g} pontes"
-            onclick={() => tocarIlha(i)}
+            onpointerdown={(e) => aoPressionar(e, i)}
             onkeydown={(e) => (e.key === 'Enter' || e.key === ' ') && tocarIlha(i)}
           >
             <circle cx={il.x} cy={il.y} r="0.42" />

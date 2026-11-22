@@ -1,9 +1,9 @@
 <script lang="ts">
   import { onDestroy, onMount } from 'svelte';
-  import { Icone } from '@ja/ui';
   import { sementeNova } from '@ja/contrato';
   import { MODOS, avaliar, marcasDoTeclado, palavraValida, sortearRespostas, type Marca, type Modo } from '@ja/nucleo-palavras/termo';
   import Casca from '../../lib/jogo/Casca.svelte';
+  import TecladoLetras from '../../lib/jogo/TecladoLetras.svelte';
   import { Sessao } from '../../lib/jogo/sessao.svelte.ts';
   import { vibrar } from '../../lib/jogo/partida.ts';
 
@@ -21,7 +21,6 @@
     'Toque numa casa da linha atual para escrever nela, em qualquer ordem.',
     'Acentos e cedilha não contam: são preenchidos sozinhos. No Dueto e no Quarteto, cada palpite vale para todas as palavras.',
   ];
-  const TECLAS = ['qwertyuiop', 'asdfghjkl', 'zxcvbnm'];
   const sem = (p: string) => p.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
 
   const respostas = $derived(s.quebra?.respostas ?? []);
@@ -69,12 +68,6 @@
     if (!s.estado || s.terminou) return;
     s.mudar({ ...s.estado, atual: casas(s.estado).join(''), cursor: k }, false);
   }
-  function aoTeclado(ev: KeyboardEvent) {
-    if (ev.ctrlKey || ev.metaKey || ev.altKey) return;
-    if (ev.key === 'Enter') tecla('enviar');
-    else if (ev.key === 'Backspace') tecla('apagar');
-    else if (/^[a-zA-Zçáéíóúâêôãõà]$/.test(ev.key)) tecla(sem(ev.key) === 'c' && ev.key === 'ç' ? 'c' : sem(ev.key));
-  }
   /** Marca da tecla somando as palavras ainda não resolvidas. */
   function marcaTecla(l: string): Marca | undefined {
     if (!s.estado) return;
@@ -91,8 +84,6 @@
   onMount(() => s.carregar());
   onDestroy(() => s.destruir());
 </script>
-
-<svelte:window onkeydown={aoTeclado} />
 
 <Casca sessao={s} titulo="Termo" comoJogar={COMO} opcoes={OPCOES} aoEscolher={(id) => s.comecar(id, OPCOES.find((o) => o.id === id)!.titulo, () => ({ quebra: { modo: id as Modo, respostas: sortearRespostas(id as Modo, sementeNova()) }, estado: { palpites: [], atual: '     ', cursor: 0 } }))} semDesfazer tituloFim={s.terminou === 'vitoria' ? (s.recorde ? 'Novo recorde!' : 'Acertou!') : 'Não foi dessa vez'} textoFim={`${respostas.length > 1 ? 'As palavras eram' : 'A palavra era'}: ${respostas.join(', ').toUpperCase()}.`}>
   {#snippet faixa()}{#if s.estado}<span class="ja-placar-item"><span class="ja-numero">{s.estado.palpites.length}</span> / {limite}</span>{/if}{/snippet}
@@ -118,15 +109,7 @@
       {/each}
     </div>
     {#if !s.terminou}
-      <div class="ja-teclado-letras">
-        {#each TECLAS as linha, li (li)}
-          <div class="ja-teclado-linha">
-            {#if li === 2}<button class="botao ja-tecla-letra ja-tecla-larga" type="button" aria-label="Apagar" onclick={() => tecla('apagar')}><Icone nome="backspace" /></button>{/if}
-            {#each linha as l (l)}<button class="botao ja-tecla-letra" type="button" data-marca={marcaTecla(l)} onclick={() => tecla(l)}>{l}</button>{/each}
-            {#if li === 2}<button class="botao botao-primario ja-tecla-letra ja-tecla-larga" type="button" aria-label="Enviar" onclick={() => tecla('enviar')}><Icone nome="corner-down-left" /></button>{/if}
-          </div>
-        {/each}
-      </div>
+      <TecladoLetras aoTecla={tecla} marca={marcaTecla} />
     {/if}
   {/if}
 </Casca>

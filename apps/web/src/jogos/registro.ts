@@ -62,6 +62,12 @@ export const GRUPOS: GrupoJogos[] = [
     ],
   },
   {
+    id: 'dados', nome: 'Dados', jogos: [
+      j('general', 'General', 'Cinco dados, dez jogadas', 'dice-5', '1-4', () => import('./dados/General.svelte')),
+      j('mentiroso', 'Dado Mentiroso', 'Aposte e blefe com dados escondidos', 'mask', '2-4', () => import('./dados/Mentiroso.svelte')),
+    ],
+  },
+  {
     id: 'tabuleiro', nome: 'Tabuleiro para dois', jogos: [
       j('quatro', 'Quatro em Linha', 'Alinhe quatro peças primeiro', 'circles', '2', () => import('./quatro/Quatro.svelte')),
       j('trilha', 'Trilha', 'Forme moinhos e tire peças', 'square-dot', '2', () => import('./trilha/Trilha.svelte')),

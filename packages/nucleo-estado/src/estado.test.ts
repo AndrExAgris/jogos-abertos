@@ -43,13 +43,18 @@ describe('hora do rush', () => {
 
 describe('setas', () => {
   it('a ordem inversa sempre resolve', () => {
-    let s = gerarSetas(6, 8, 0.7, 'x');
-    for (let passos = 0; passos < 100 && !vazio(s); passos++) {
-      const i = s.setas.findIndex((d, k) => d >= 0 && caminhoLivre(s, k));
-      expect(i).toBeGreaterThanOrEqual(0);
-      s = tirar(s, i);
+    for (const sem of ['x', 'y', 'z']) {
+      let s = gerarSetas(8, 11, 8, sem);
+      const ocupadas = s.setas.reduce((n, x) => n + x.corpo.length, 0);
+      expect(ocupadas).toBeGreaterThan(8 * 11 * 0.7);
+      expect(s.setas.every((x) => x.corpo.length >= 2)).toBe(true);
+      for (let passos = 0; passos < 200 && !vazio(s); passos++) {
+        const livre = s.setas.find((x) => caminhoLivre(s, x.id));
+        expect(livre).toBeDefined();
+        s = tirar(s, livre!.id);
+      }
+      expect(vazio(s)).toBe(true);
     }
-    expect(vazio(s)).toBe(true);
   });
 });
 

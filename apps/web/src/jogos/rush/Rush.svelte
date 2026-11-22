@@ -16,9 +16,9 @@
   ];
   const FAIXAS: Record<string, [number, number]> = { facil: [4, 8], medio: [9, 16], dificil: [17, 26], expert: [27, 60] };
   const COMO = [
-    'Tire o carro destacado pela saída à direita.',
-    'Arraste os veículos: os deitados andam para os lados, os em pé para cima e para baixo. Ninguém passa por cima de ninguém.',
-    'O número de movimentos mínimo aparece no alto; tente igualar.',
+    'Leve o bloco destacado até a saída à direita.',
+    'Arraste os blocos: os deitados andam para os lados, os em pé para cima e para baixo. Nenhum bloco passa por cima de outro.',
+    'O número mínimo de movimentos aparece no alto; tente igualar.',
   ];
 
   let tabuleiro = $state<HTMLDivElement>();
@@ -63,7 +63,7 @@
 
 <Casca
   sessao={s}
-  titulo="Hora do Rush"
+  titulo="Desbloqueio"
   comoJogar={COMO}
   opcoes={OPCOES}
   aoEscolher={escolher}
@@ -85,7 +85,7 @@
             data-alvo={k === 0 || undefined}
             data-arrastando={arrasto?.k === k || undefined}
             style="left:calc(({v.x} + {v.horizontal ? d : 0}) * 100% / {LADO});top:calc(({v.y} + {v.horizontal ? 0 : d}) * 100% / {LADO});width:calc({v.horizontal ? v.tam : 1} * 100% / {LADO});height:calc({v.horizontal ? 1 : v.tam} * 100% / {LADO})"
-            aria-label="{k === 0 ? 'Carro destacado' : v.tam === 3 ? 'Caminhão' : 'Carro'} {v.horizontal ? 'deitado' : 'em pé'}"
+            aria-label="{k === 0 ? 'Bloco destacado' : v.tam === 3 ? 'Bloco longo' : 'Bloco'} {v.horizontal ? 'deitado' : 'em pé'}"
             onpointerdown={(e) => inicio(e, k)}
             onpointermove={mexer}
             onpointerup={soltar}

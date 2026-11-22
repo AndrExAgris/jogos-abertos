@@ -48,7 +48,7 @@
 <Casca sessao={s} titulo="Spider" comoJogar={COMO} opcoes={OPCOES} aoEscolher={(id) => s.comecar(id, OPCOES.find((o) => o.id === id)!.titulo, () => ({ quebra: { naipes: Number(id) }, estado: novoSpider(sementeNova(), Number(id) as 1 | 2 | 4) }))} tituloEscolha="Com quantos naipes?">
   {#if s.estado}
     {@const e = s.estado}
-    <div class="ja-mesa" style="--cols:10">
+    <div class="ja-mesa ja-mesa-spider" style="--cols:10">
       <div class="ja-mesa-linha">
         <Carta carta={e.estoque.length ? e.estoque[0] : null} vazia="" rotulo="Monte, {e.estoque.length / 10} distribuições" aoTocar={dar} />
         <span class="ja-contador">{e.estoque.length / 10} no monte</span>

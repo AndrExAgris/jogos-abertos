@@ -16,7 +16,8 @@
   ];
   const COMO = [
     'Forme as palavras escondidas usando as letras da roda. Cada letra vale uma vez por palavra; as palavras têm de 3 letras até o tamanho da roda.',
-    'Toque nas letras em ordem e depois em "Enviar". Palavras que existem mas não estão escondidas contam como bônus.',
+    'Encoste o dedo na primeira letra e arraste pelas outras, sem soltar; ao soltar, a palavra é enviada. Voltar o dedo para a letra anterior desfaz a última. Também dá para tocar letra por letra e usar "Enviar".',
+    'Palavras que existem mas não estão escondidas contam como bônus.',
     'Embaralhar troca a ordem das letras; Dica mostra uma letra de uma palavra que falta.',
   ];
   let atual = $state<number[]>([]);
@@ -53,7 +54,58 @@
     for (const f of faltam) { const n = Math.min(resto, f.length - 1); if (f === p) return i < n; resto -= n; if (resto <= 0) return false; }
     return false;
   }
-  const raio = 38;
+  const raio = 36;
+  // --- Arrastar o dedo pelas letras ---
+  let roda = $state<HTMLDivElement>();
+  let arrastando = $state(false);
+  let dedo = $state<[number, number] | null>(null);
+  let tamanhoAntes = 0;
+  const posLetra = (i: number, n: number): [number, number] => {
+    const ang = (2 * Math.PI * i) / n - Math.PI / 2;
+    return [50 + raio * Math.cos(ang), 50 + raio * Math.sin(ang)];
+  };
+  function emPorcento(e: PointerEvent): [number, number] {
+    const r = roda!.getBoundingClientRect();
+    return [((e.clientX - r.left) / r.width) * 100, ((e.clientY - r.top) / r.height) * 100];
+  }
+  function letraEm(p: [number, number]): number {
+    const n = s.estado!.letras.length;
+    for (let i = 0; i < n; i++) {
+      const [x, y] = posLetra(i, n);
+      if (Math.hypot(p[0] - x, p[1] - y) < 13) return i;
+    }
+    return -1;
+  }
+  function aoPressionar(e: PointerEvent) {
+    if (!s.estado || s.terminou) return;
+    const p = emPorcento(e);
+    const i = letraEm(p);
+    if (i < 0) return;
+    e.preventDefault();
+    roda!.setPointerCapture(e.pointerId);
+    arrastando = true;
+    tamanhoAntes = atual.length;
+    if (!atual.includes(i)) { atual = [...atual, i]; vibrar(8); }
+    dedo = p;
+  }
+  function aoMover(e: PointerEvent) {
+    if (!arrastando) return;
+    const p = emPorcento(e);
+    dedo = p;
+    const j = letraEm(p);
+    if (j < 0) return;
+    if (atual.length >= 2 && j === atual[atual.length - 2]) { atual = atual.slice(0, -1); vibrar(8); }
+    else if (!atual.includes(j)) { atual = [...atual, j]; vibrar(8); }
+  }
+  function aoSoltar() {
+    if (!arrastando) return;
+    arrastando = false;
+    dedo = null;
+    // Arrastou por várias letras: envia. Só tocou numa letra: continua no modo de toque.
+    if (atual.length - tamanhoAntes >= 2 || (tamanhoAntes === 0 && atual.length >= 3)) {
+      if (palavra.length >= 3) enviar(); else atual = [];
+    }
+  }
   onMount(() => s.carregar());
   onDestroy(() => s.destruir());
 </script>
@@ -71,10 +123,24 @@
     </div>
     <div class="ja-roda-atual" aria-live="polite">{palavra.toUpperCase() || ' '}</div>
     <div class="ja-centro">
-      <div class="ja-roda">
+      <div
+        class="ja-roda"
+        bind:this={roda}
+        role="application"
+        aria-label="Roda de letras: arraste o dedo pelas letras"
+        onpointerdown={aoPressionar}
+        onpointermove={aoMover}
+        onpointerup={aoSoltar}
+        onpointercancel={aoSoltar}
+      >
+        <svg class="ja-roda-linhas" viewBox="0 0 100 100" aria-hidden="true">
+          {#if atual.length}
+            <polyline points={[...atual.map((i) => posLetra(i, e.letras.length)), ...(dedo ? [dedo] : [])].map(([x, y]) => `${x},${y}`).join(' ')} />
+          {/if}
+        </svg>
         {#each e.letras as l, i (i)}
-          {@const ang = (2 * Math.PI * i) / e.letras.length - Math.PI / 2}
-          <button type="button" class="ja-roda-letra" data-usada={atual.includes(i) || undefined} style="left:calc(50% + {raio * Math.cos(ang)}% - 26px);top:calc(50% + {raio * Math.sin(ang)}% - 26px)" onclick={() => !atual.includes(i) && (atual = [...atual, i])}>{l}</button>
+          {@const [x, y] = posLetra(i, e.letras.length)}
+          <button type="button" class="ja-roda-letra" data-usada={atual.includes(i) || undefined} style="left:{x}%;top:{y}%" tabindex="-1" aria-hidden="true">{l}</button>
         {/each}
       </div>
     </div>

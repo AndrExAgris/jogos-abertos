@@ -50,7 +50,7 @@
 </script>
 
 <Casca sessao={s} titulo="Xadrez" comoJogar={COMO} opcoes={[{ id: '2', titulo: 'Dois jogadores', descricao: 'No mesmo aparelho' }]} aoEscolher={(id) => s.comecar(id, '2 jogadores', () => ({ quebra: { modo: id }, estado: novoXadrez() }))} tituloFim={textoFim} textoFim="" semRelogio>
-  {#snippet faixa()}
+  {#snippet rodape()}
     <button class="botao botao-terciario" type="button" onclick={() => (virar = !virar)}><span>Girar tabuleiro</span></button>
   {/snippet}
   {#if s.estado}

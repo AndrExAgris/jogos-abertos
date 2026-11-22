@@ -10,6 +10,8 @@ describe('general', () => {
     expect(pontosJogada([6, 6, 6, 6, 6], 'general', true)).toBe(100);
     expect(pontosJogada([6, 6, 1, 2, 6], '6', false)).toBe(18);
     expect(pontosJogada([1, 2, 3, 4, 6], 'seguida', false)).toBe(0);
+    expect(pontosJogada([2, 3, 4, 5, 6], 'seguida', false, 'seguida40')).toBe(40);
+    expect(pontosJogada([4, 4, 4, 4, 1], 'quadra', true, 'seguida40')).toBe(40);
   });
   it('três lançamentos, guarda dados e passa a vez ao marcar', () => {
     let k = 0;

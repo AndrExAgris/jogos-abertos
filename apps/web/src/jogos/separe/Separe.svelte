@@ -54,7 +54,7 @@
           {#each Array(CAPACIDADE) as _, k (k)}
             {@const c = tubo[CAPACIDADE - 1 - k]}
             {#if c !== undefined}
-              <span class="ja-camada ja-cor-{c}">{c + 1}</span>
+              <span class="ja-camada ja-cor-{c}" data-topo={k === CAPACIDADE - tubo.length || undefined}></span>
             {:else}
               <span class="ja-camada-vazia"></span>
             {/if}

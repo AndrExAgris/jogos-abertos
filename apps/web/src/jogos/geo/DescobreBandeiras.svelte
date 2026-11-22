@@ -15,16 +15,19 @@
     { id: 'todos', titulo: 'O mundo todo', descricao: '10 bandeiras de qualquer país' },
     { id: 'maratona', titulo: 'Maratona', descricao: '30 bandeiras de qualquer país' },
   ];
-  const COMO = ['De que país é a bandeira? Escolha uma das quatro opções. No fim, veja quantas acertou.'];
+  const COMO = ['De que país é a bandeira? Escolha uma das opções. As duas primeiras têm 2 opções, da 3ª à 5ª são 4, e da 6ª em diante, 6. No fim, veja quantas acertou.'];
 
   function montar(modo: string, semente: string): Rodada[] {
     const a = criarAleatorio(semente);
     const base = modo === 'facil' ? PAISES.filter((p) => p.populacao > 20_000_000) : PAISES;
     const n = modo === 'maratona' ? 30 : 10;
-    return a.embaralhar([...base]).slice(0, n).map((p) => {
+    return a.embaralhar([...base]).slice(0, n).map((p, k) => {
+      // Dificuldade progressiva: 2 opções nas duas primeiras, 4 da 3ª à 5ª e 6 da 6ª em diante.
+      const quantas = k < 2 ? 2 : k < 5 ? 4 : 6;
       // Opções erradas de preferência da mesma região, para não ficar fácil demais.
       const mesma = a.embaralhar(PAISES.filter((q) => q.id !== p.id && q.regiao === p.regiao));
-      const erradas = mesma.slice(0, 3).map((q) => q.id);
+      const outras = a.embaralhar(PAISES.filter((q) => q.id !== p.id && q.regiao !== p.regiao));
+      const erradas = [...mesma, ...outras].slice(0, quantas - 1).map((q) => q.id);
       return { certo: p.id, opcoes: a.embaralhar([p.id, ...erradas]) };
     });
   }

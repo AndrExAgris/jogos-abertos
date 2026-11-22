@@ -64,6 +64,7 @@ console.log(freq.size, 'palavras com frequência');
 
 // 3. Wikcionário: lemas (sentidos que não são "forma de"), etiquetas ruins e uma definição curta.
 const lemas = new Set();
+const formasWikt = new Set(); // todas as palavras e flexões do Wikcionário (para aceitar palpites)
 const ruins = new Set();
 const dicas = new Map();
 const entrada = createReadStream(arqWikt).pipe(createGunzip());
@@ -72,6 +73,8 @@ for await (const linha of createInterface({ input: Readable.from(entrada) })) {
   const d = JSON.parse(linha);
   const p = d.word;
   if (!p || !soLetras(p) || p !== p.toLowerCase()) continue;
+  formasWikt.add(p);
+  for (const f of d.forms ?? []) if (f.form && soLetras(f.form) && f.form === f.form.toLowerCase()) formasWikt.add(f.form);
   if (!['noun', 'verb', 'adj', 'adv', 'num'].includes(d.pos)) continue;
   for (const s of d.senses ?? []) {
     const tags = [...(s.tags ?? []), ...(s.raw_tags ?? [])].map((t) => t.toLowerCase());
@@ -103,7 +106,8 @@ for (const p of porFrequencia) {
   respostas.push(p);
   if (respostas.length >= 2500) break;
 }
-const palpites = [...new Set([...validas].map(sem).filter((n) => n.length === 5 && /^[a-z]+$/.test(n)))].sort();
+// Palpites: tudo que alguma das fontes conhece (lista do pythonprobr, teclado do Android e Wikcionário com flexões).
+const palpites = [...new Set([...validas, ...freq.keys(), ...formasWikt].map(sem).filter((n) => n.length === 5 && /^[a-z]+$/.test(n)))].sort();
 
 // Roda de Letras: palavras comuns de 3 a 7 letras (sem acento) e as válidas para bônus.
 const comuns = [];

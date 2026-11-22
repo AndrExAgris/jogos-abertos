@@ -334,11 +334,19 @@ A cada marco: testes dos núcleos passando, APK gerado no CI e um release para o
   - [x] Dados abertos + jogos: palavras (Termo, Roda de Letras, Palavras Cruzadas), Wikidata (Perguntas por Categoria, Adivinhe o Filme), países (7 jogos de geografia). Scripts em `tools/dados/` (cache em `tools/dados/.cache/`, fora do git)
   - [x] Releases v0.2.0 (parcial) e v0.3.0 (catálogo completo, 44 jogos) em 22/11/2026
 
+- [x] Rodada de correções 1 (pedida em 22/11/2026), release v0.4.0
+  - [x] Padrão de tela: reiniciar na barra; faixa com informação à esquerda, relógio no centro e "?" à direita; ações abaixo do tabuleiro (`lib/jogo/Faixa.svelte`, `Casca`)
+  - [x] Navegação: Recordes à esquerda, Jogos no meio; início com grupos recolhíveis que lembram o estado e a rolagem; ao abrir jogo com partida salva, pergunta continuar ou nova (`Retomar.svelte`)
+  - [x] Bugs: notas do Sudoku deslocando a linha; somas do killer; bolas gigantes nas Pontes (anel de foco e destaque de toque do Android em SVG)
+  - [x] Sumplete (novo), Sudoku (dois teclados, refazer, preencher notas, destaque do dígito, contador de erros, linhas finas e caixas na cor secundária), Rainhas (coroa no 1º toque, divisas simples), Ligue (paleta ampla sorteada), Conta Certa (contornos, dica de um passo), Separe (sem números, visual de líquido), Hora do Rush virou Desbloqueio, Setas (linhas longas com curvas e animação), Termo (verde e amarelo, lista de palpites ampliada para 15.772, escrever em qualquer casa), Roda (arrastar o dedo), Cruzadas (grade densa 5, 7 e 9, indicador de verificação), mapa com zoom, Descobre Bandeiras progressivo (2, 4, 6 opções), verso clássico das cartas e mesa de feltro, celular deitado sem navegação lateral (Spider em duas colunas), General com duas tabelas
+
 Decisões tomadas com o André:
 - Minas: 3 níveis (9×9/10, 16×16/40, 30×16/99, em pé 16×30 no celular na vertical) + personalizado (lados de 5 a 40)
 
 Decisões provisórias, a confirmar com o André:
 - Minas sem desfazer; trocar de nível no meio descarta a partida sem contar derrota; números em cor neutra (sem as cores clássicas por número)
-- "Tele" (Sumplete) saiu do catálogo, a pedido do André; falta saber o que era (talvez Tango, dos jogos do LinkedIn)
-- Nomes em português: Campo Minado, Rainhas (Queens), Conta Certa (Alvo), Separe as Cores (Water Sort), Hora do Rush, Quatro em Linha, Vinte e Um (Blackjack); jogos de geografia com nomes descritivos
+- "Tele" era o Sumplete: entrou no catálogo com esse nome (3×3 a 9×9, solução única)
+- Termo usa verde (sucesso) e amarelo (aviso), como no jogo original, a pedido do André
+- General: tabela "Seguida maior" (Seguida 40, Quadra 35, Full 30) como padrão e a clássica (Seguida 20, Full 30, Quadra 40) como opção; as fontes divergem
+- Nomes em português: Campo Minado, Rainhas (Queens), Conta Certa (Alvo), Separe as Cores (Water Sort), Desbloqueio (Rush Hour, só blocos), Quatro em Linha, Vinte e Um (Blackjack); jogos de geografia com nomes descritivos
 - Cores de peças (Separe as Cores, Ludo, bolas da Sinuca, regiões das Rainhas): paleta de destaque definida só em `.ja-cor-N` no app.css, sempre com número ou forma; pedras de Go e tabuleiro de xadrez com preto e branco fixos (`--ja-preta`, `--ja-branca`)

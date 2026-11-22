@@ -13,7 +13,7 @@
   const COMO = [
     'Ponha uma coroa em cada linha, em cada coluna e em cada região (as áreas separadas pelas bordas grossas).',
     'Duas coroas nunca se encostam, nem na diagonal.',
-    'Toque numa casa para marcar um X; toque de novo para pôr a coroa; mais uma vez para limpar.',
+    'Toque numa casa para pôr a coroa; toque de novo para trocar por um X (lugar sem coroa); mais uma vez para limpar.',
   ];
 
   const coroas = $derived(new Set(s.estado?.coroas ?? []));
@@ -31,23 +31,26 @@
   function tocar(i: number) {
     if (!s.quebra || s.terminou) return;
     const c = new Set(coroas), m = new Set(marcas);
-    if (m.has(i)) { m.delete(i); c.add(i); }
-    else if (c.has(i)) c.delete(i);
-    else m.add(i);
+    if (c.has(i)) { c.delete(i); m.add(i); }
+    else if (m.has(i)) m.delete(i);
+    else c.add(i);
     s.mudar({ coroas: [...c], marcas: [...m] });
     if (analisarRainhas(s.quebra, c).resolvido) void s.terminar('vitoria');
   }
 
-  // Bordas grossas entre regiões diferentes.
-  function bordas(q: QuebraRainhas, i: number) {
-    const n = q.n, x = i % n, y = Math.floor(i / n), r = q.regioes[i];
-    return {
-      t: y === 0 || q.regioes[i - n] !== r,
-      b: y === n - 1 || q.regioes[i + n] !== r,
-      l: x === 0 || q.regioes[i - 1] !== r,
-      rr: x === n - 1 || q.regioes[i + 1] !== r,
-    };
-  }
+  // Linhas simples entre regiões diferentes, desenhadas por cima da grade.
+  const divisas = $derived.by(() => {
+    const q = s.quebra;
+    if (!q) return '';
+    const n = q.n;
+    let d = '';
+    for (let i = 0; i < n * n; i++) {
+      const x = i % n, y = Math.floor(i / n), r = q.regioes[i];
+      if (x < n - 1 && q.regioes[i + 1] !== r) d += `M${x + 1} ${y}V${y + 1}`;
+      if (y < n - 1 && q.regioes[i + n] !== r) d += `M${x} ${y + 1}H${x + 1}`;
+    }
+    return d;
+  });
 
   onMount(() => s.carregar());
   onDestroy(() => s.destruir());
@@ -59,15 +62,10 @@
     <div class="ja-centro">
       <div class="ja-grade ja-rainhas" style="--ja-colunas:{q.n}">
         {#each q.regioes as r, i (i)}
-          {@const b = bordas(q, i)}
           <button
             type="button"
-            class="ja-grade-casa"
+            class="ja-grade-casa ja-cor-{r}"
             data-regiao={r}
-            data-bt={b.t || undefined}
-            data-bb={b.b || undefined}
-            data-bl={b.l || undefined}
-            data-br={b.rr || undefined}
             aria-label="Linha {Math.floor(i / q.n) + 1}, coluna {(i % q.n) + 1}, região {r + 1}{coroas.has(i) ? ', coroa' : marcas.has(i) ? ', marcada' : ''}"
             onclick={() => tocar(i)}
           >
@@ -78,6 +76,7 @@
             {/if}
           </button>
         {/each}
+        <svg class="ja-rainhas-divisas" viewBox="0 0 {q.n} {q.n}" preserveAspectRatio="none" aria-hidden="true"><path d={divisas} /></svg>
       </div>
     </div>
   {/if}

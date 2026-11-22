@@ -4,6 +4,7 @@ alphabet-latin
 arrow-back-up
 arrow-big-right
 arrow-down
+arrow-forward-up
 arrow-left
 arrow-right
 arrows-move
@@ -12,6 +13,7 @@ backspace
 ball-bowling
 baseline-density-medium
 bomb
+brain
 brand-github
 brightness-half
 building-arch
@@ -20,9 +22,11 @@ bulb
 car
 cards
 check
+checks
 chess
 chess-knight
 chess-queen
+chevron-down
 chevron-left
 chevron-right
 circle
@@ -34,6 +38,7 @@ circles
 clock
 color-swatch
 contrast
+corner-down-left
 crown
 device-gamepad-2
 diamond
@@ -42,6 +47,7 @@ dice-3
 dice-5
 dots
 download
+eraser
 eye
 eye-off
 flag
@@ -74,6 +80,7 @@ palette
 pencil
 plant
 player-pause
+player-play
 player-skip-forward
 plus
 point
@@ -90,6 +97,7 @@ sparkles
 spider
 square
 square-dot
+sum
 target
 tent
 test-pipe
@@ -101,8 +109,10 @@ upload
 user
 users
 vector-triangle
+wand
 world
 world-search
 x
 zoom-in
 zoom-out
+zoom-reset

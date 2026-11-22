@@ -14,6 +14,8 @@ const geradores: Record<string, () => Promise<Gerador>> = {
   conta: async () => (await import('@ja/nucleo-numeros/conta')).gerarConta as Gerador,
   separe: async () => (await import('@ja/nucleo-estado/separe')).gerarSepare as Gerador,
   rush: async () => (await import('@ja/nucleo-estado/rush')).gerarRush as Gerador,
+  cruzadaDensa: async () => (await import('@ja/nucleo-palavras/cruzadas')).gerarCruzadaDensa as Gerador,
+  sumplete: async () => (await import('@ja/nucleo-grade/sumplete')).gerarSumplete as Gerador,
 };
 
 self.onmessage = async (e: MessageEvent<{ id: number; nome: string; args: unknown }>) => {

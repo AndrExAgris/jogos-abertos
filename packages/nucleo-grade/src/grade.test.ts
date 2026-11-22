@@ -71,3 +71,16 @@ describe('ligue', () => {
     }
   });
 });
+
+describe('Sumplete', async () => {
+  const { gerarSumplete, contarSolucoes, resolvido } = await import('./sumplete/index.ts');
+  it('gera grades com solução única e rápida', () => {
+    for (const n of [3, 4, 5, 6, 7, 8]) {
+      const t = performance.now();
+      const q = gerarSumplete(n, `s${n}`);
+      expect(contarSolucoes(n, q.numeros, q.alvoLinhas, q.alvoColunas)).toBe(1);
+      expect(resolvido(q, q.solucao.map((v) => (v ? 0 : 1)))).toBe(true);
+      expect(performance.now() - t).toBeLessThan(3000);
+    }
+  });
+});

@@ -8,25 +8,18 @@
     titulo: string;
     /** Parágrafos do "Como jogar". */
     comoJogar: string[];
-    /** Botão de nova partida na barra superior. */
+    /** Botão de reiniciar (nova partida) no canto direito da barra superior. */
     aoNova?: () => void;
-    /** Esconde o botão "Como jogar" da barra (o jogo o põe em outro lugar). */
-    semAjudaNaBarra?: boolean;
     ajudaAberta?: boolean;
     children: Snippet;
   }
-  let { titulo, comoJogar, aoNova, semAjudaNaBarra = false, ajudaAberta = $bindable(false), children }: Props = $props();
+  let { titulo, comoJogar, aoNova, ajudaAberta = $bindable(false), children }: Props = $props();
 </script>
 
 <Tela {titulo} voltarPara="/" livre>
   {#snippet acoes()}
-    {#if !semAjudaNaBarra}
-      <button class="botao botao-terciario botao-icone" type="button" aria-label="Como jogar" title="Como jogar" onclick={() => (ajudaAberta = true)}>
-        <Icone nome="help-circle" />
-      </button>
-    {/if}
     {#if aoNova}
-      <button class="botao botao-terciario botao-icone" type="button" aria-label="Nova partida" title="Nova partida" onclick={aoNova}>
+      <button class="botao botao-terciario botao-icone" type="button" aria-label="Reiniciar partida" title="Reiniciar partida" onclick={aoNova}>
         <Icone nome="refresh" />
       </button>
     {/if}

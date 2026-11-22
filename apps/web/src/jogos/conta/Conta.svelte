@@ -19,15 +19,15 @@
   const COMO = [
     'Use os seis números e as quatro operações para chegar exatamente ao alvo.',
     'Toque num número, numa operação e em outro número: o resultado entra no lugar dos dois. Cada número vale uma vez; não precisa usar todos.',
-    'Só valem resultados inteiros e positivos. Se travar, "Ver uma solução" mostra um caminho.',
+    'Só valem resultados inteiros e positivos. Se travar, a dica mostra só a próxima conta de um caminho que funciona.',
   ];
 
   let primeira = $state<number | null>(null);
   let op = $state<Op | null>(null);
-  let solucao = $state<string[] | null>(null);
+  let dica = $state<{ titulo: string; texto: string } | null>(null);
 
   function escolher(id: string) {
-    solucao = null;
+    dica = null;
     void s.comecar(id, OPCOES.find((o) => o.id === id)!.titulo, async () => {
       const r = await gerarNoFundo<Rodada>('conta', [sementeNova(), Number(id)]);
       return { quebra: r, estado: { fichas: r.numeros.map((valor, id) => ({ id, valor })), contas: [], proximoId: 6 } };
@@ -46,14 +46,26 @@
     fichas.push(nova);
     s.mudar({ fichas, contas: [...s.estado.contas, `${a.valor} ${op} ${f.valor} = ${r}`], proximoId: s.estado.proximoId + 1 });
     primeira = nova.id;
+    dica = null;
     op = null;
     if (r === s.quebra!.alvo) void s.terminar('vitoria');
   }
 
-  function verSolucao() {
-    if (!s.quebra) return;
-    const r = resolverConta(s.quebra.numeros, s.quebra.alvo);
-    solucao = r.passos.map((p) => `${p.a} ${p.op} ${p.b} = ${p.r}`);
+  /** Mostra só a próxima conta de um caminho que chega ao alvo a partir dos números atuais. */
+  function pedirDica() {
+    if (!s.quebra || !s.estado) return;
+    const alvo = s.quebra.alvo;
+    const daqui = resolverConta(s.estado.fichas.map((f) => f.valor), alvo);
+    if (daqui.valor === alvo && daqui.passos.length) {
+      const p = daqui.passos[0];
+      dica = { titulo: s.estado.contas.length ? 'Sua próxima conta' : 'Sua primeira conta', texto: `${p.a} ${p.op} ${p.b} = ${p.r}` };
+      return;
+    }
+    const doInicio = resolverConta(s.quebra.numeros, alvo);
+    const p = doInicio.passos[0];
+    dica = doInicio.valor === alvo && p
+      ? { titulo: 'Daqui não chega ao alvo', texto: `Desfaça as contas. Do começo, a primeira conta é ${p.a} ${p.op} ${p.b} = ${p.r}.` }
+      : { titulo: 'Sem caminho exato', texto: `O mais perto possível é ${doInicio.valor}.` };
   }
 
   onMount(() => s.carregar());
@@ -61,6 +73,9 @@
 </script>
 
 <Casca sessao={s} titulo="Conta Certa" comoJogar={COMO} opcoes={OPCOES} aoEscolher={escolher} tituloEscolha="Quantos números grandes (25, 50, 75, 100)?">
+  {#snippet rodape()}
+    {#if !s.terminou}<button class="botao" type="button" onclick={pedirDica}><Icone nome="bulb" /><span>Dica</span></button>{/if}
+  {/snippet}
   {#if s.quebra && s.estado}
     <div class="ja-conta">
       <div class="ja-conta-alvo"><span class="ui-pequeno texto-2">Alvo</span><span class="ja-conta-numero">{s.quebra.alvo}</span></div>
@@ -77,10 +92,8 @@
       {#if s.estado.contas.length}
         <ol class="ja-conta-contas">{#each s.estado.contas as c, i (i)}<li>{c}</li>{/each}</ol>
       {/if}
-      {#if solucao}
-        <div class="aviso" role="status"><Icone nome="bulb" /><div><p class="aviso-titulo">Uma solução</p><p>{solucao.join(' · ')}</p></div></div>
-      {:else if !s.terminou}
-        <div class="ja-centro"><button class="botao botao-terciario" type="button" onclick={verSolucao}><Icone nome="eye" /><span>Ver uma solução</span></button></div>
+      {#if dica}
+        <div class="aviso" role="status"><Icone nome="bulb" /><div><p class="aviso-titulo">{dica.titulo}</p><p>{dica.texto}</p></div></div>
       {/if}
     </div>
   {/if}

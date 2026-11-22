@@ -20,6 +20,8 @@ Código, dados e recursos de terceiros usados no Jogos Abertos. Cada item vem co
 | Frequência das palavras (dicionário do teclado, `pt_BR_wordlist.combined`) | The Android Open Source Project | Apache 2.0 | https://android.googlesource.com/platform/packages/inputmethods/LatinIME/ |
 | Dicas das cruzadas (`data/palavras/dicas-cc-by-sa.json`) | Colaboradores do Wikcionário, via Wiktextract/kaikki.org | CC BY-SA 4.0 | https://pt.wiktionary.org |
 
+O verso das cartas (`apps/web/src/assets/verso-carta.svg`) é desenho próprio do projeto, sob GPL-3.0.
+
 Os textos das licenças das fontes e dos ícones estão em `packages/ui/open-design/licencas/` e `packages/ui/icones/LICENSE`. O aviso de copyright do Simon Tatham está no topo de `packages/nucleo-grade/src/minas/gerador.ts`.
 
 Bibliotecas usadas no build e no app (Svelte, Vite, Capacitor, Workbox e outras) vêm pelo npm, cada uma com sua licença no próprio pacote; todas são MIT, Apache 2.0, BSD ou ISC.

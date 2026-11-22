@@ -30,8 +30,16 @@
     const n = Number(id);
     void s.comecar(id, `${n} × ${n}`, async () => {
       const q = await gerarNoFundo<QuebraLigue>('ligue', [n, sementeNova()]);
-      return { quebra: { n: q.n, pontas: q.pontas }, estado: { caminhos: {} } };
+      // Cores sorteadas da paleta ampla, uma por número.
+      const cores = Array.from({ length: PALETA }, (_, k) => k).sort(() => Math.random() - 0.5);
+      return { quebra: { n: q.n, pontas: q.pontas, cores }, estado: { caminhos: {} } };
     });
+  }
+
+  const PALETA = 15;
+  function cor(num: number): number {
+    const c = (s.quebra as (QuebraLigue & { cores?: number[] }) | null)?.cores;
+    return c ? c[(num - 1) % c.length] : (num - 1) % PALETA;
   }
 
   function casaEm(x: number, y: number): number {
@@ -129,15 +137,15 @@
         onpointercancel={fim}
       >
         {#each q.pontas as p, i (i)}
-          <div class="ja-grade-casa" data-casa={i} data-ocupada={dono.has(i) || undefined}>
-            {#if p}<span class="ja-ligue-ponta" data-completa={(caminhos[p] && completo(p, caminhos[p])) || undefined}>{p}</span>{/if}
+          <div class="ja-grade-casa ja-paleta-{dono.has(i) ? cor(dono.get(i)!) : 0}" data-casa={i} data-ocupada={dono.has(i) || undefined}>
+            {#if p}<span class="ja-ligue-ponta ja-paleta-{cor(p)}" data-completa={(caminhos[p] && completo(p, caminhos[p])) || undefined}>{p}</span>{/if}
           </div>
         {/each}
         <svg class="ja-ligue-linhas" viewBox="0 0 {q.n} {q.n}" aria-hidden="true">
           {#each Object.entries(caminhos) as [num, c] (num)}
             {#if c.length > 1}
               <polyline
-                class="ja-ligue-caminho"
+                class="ja-ligue-caminho ja-paleta-{cor(Number(num))}"
                 data-completo={completo(Number(num), c) || undefined}
                 points={c.map((i) => `${centro(i).x},${centro(i).y}`).join(' ')}
               />

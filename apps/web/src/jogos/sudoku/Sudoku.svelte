@@ -2,19 +2,17 @@
   import { onDestroy, onMount } from 'svelte';
   import { Icone } from '@ja/ui';
   import { sementeNova } from '@ja/contrato';
-  import { NOMES_REGRAS, conflitos, type Dificuldade, type Quebra, type Regra } from '@ja/nucleo-grade/sudoku';
-  import TelaJogo from '../../lib/jogo/TelaJogo.svelte';
-  import Escolha from '../../lib/jogo/Escolha.svelte';
-  import Fim from '../../lib/jogo/Fim.svelte';
-  import Teclado from '../../lib/jogo/Teclado.svelte';
-  import { Relogio } from '../../lib/jogo/relogio.svelte.ts';
+  import { NOMES_REGRAS, candidatos, conflitos, type Dificuldade, type Quebra, type Regra } from '@ja/nucleo-grade/sudoku';
+  import Casca from '../../lib/jogo/Casca.svelte';
+  import Dialogo from '../../lib/jogo/Dialogo.svelte';
+  import { Sessao } from '../../lib/jogo/sessao.svelte.ts';
   import { gerarNoFundo } from '../../lib/jogo/gerar.ts';
-  import { apagarPartida, lerPartida, lerPreferencias, salvarPartida, salvarPreferencias, vibrar } from '../../lib/jogo/partida.ts';
-  import { formatarTempo, registrarPartida } from '../../lib/estatisticas.ts';
+  import { lerPreferencias, salvarPreferencias, vibrar } from '../../lib/jogo/partida.ts';
 
-  interface Salvo { quebra: Quebra; grade: number[]; notas: number[]; tempo: number; modo: string }
+  interface Estado { grade: number[]; notas: number[]; erros: number }
 
   const ID = 'sudoku';
+  const s = new Sessao<Quebra, Estado>(ID);
   const MODOS: { id: string; titulo: string; regras: Regra[] }[] = [
     { id: 'classico', titulo: 'Clássico', regras: [] },
     { id: 'diagonais', titulo: 'Diagonais', regras: ['diagonais'] },
@@ -29,153 +27,120 @@
   const DIFS: { id: Dificuldade; nome: string }[] = [
     { id: 'facil', nome: 'Fácil' }, { id: 'medio', nome: 'Médio' }, { id: 'dificil', nome: 'Difícil' },
   ];
+  const DIGITOS = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-  let fase = $state<'carregando' | 'escolha' | 'gerando' | 'jogo'>('carregando');
   let dificuldade = $state<Dificuldade>('medio');
-  let modo = $state('classico');
-  let quebra = $state<Quebra | null>(null);
-  let grade = $state<number[]>([]);
-  let notas = $state<number[]>([]);
   let selecionada = $state(-1);
-  let modoNotas = $state(false);
-  let historico: { grade: number[]; notas: number[] }[] = [];
-  let podeDesfazer = $state(false);
-  let erroGerar = $state('');
-  let venceu = $state(false);
-  let recorde = $state(false);
-  const relogio = new Relogio();
+  /** Dígito "pressionado" no teclado: destaca os iguais no tabuleiro. */
+  let ativo = $state(0);
+  let folhaNotas = $state(false);
 
-  const regrasGlobais = $derived(quebra ? quebra.regras.filter((r) => r !== 'killer') : []);
-  const erros = $derived(quebra ? conflitos(regrasGlobais, grade, quebra.gaiolas) : new Set<number>());
+  const q = $derived(s.quebra);
+  const e = $derived(s.estado);
+  const erros = $derived(q && e ? conflitos(q.regras, e.grade, q.gaiolas) : new Set<number>());
   const completos = $derived.by(() => {
-    const s = new Set<number>();
-    for (let d = 1; d <= 9; d++) if (grade.filter((v) => v === d).length >= 9) s.add(d);
-    return s;
+    const c = new Set<number>();
+    if (!e) return c;
+    for (const d of DIGITOS) if (e.grade.filter((v) => v === d).length >= 9) c.add(d);
+    return c;
   });
   const comoJogar = $derived([
     'Preencha a grade com os dígitos de 1 a 9: cada linha, coluna e caixa 3 × 3 tem todos eles, sem repetir.',
-    ...(quebra?.regras ?? MODOS.find((m) => m.id === modo)?.regras ?? []).map((r) => `${NOMES_REGRAS[r].nome}: ${NOMES_REGRAS[r].descricao}`),
-    'Toque numa casa e depois no dígito. Com as notas ligadas, os dígitos viram anotações pequenas. Dígitos repetidos ficam sublinhados.',
+    ...(q?.regras ?? []).map((r) => `${NOMES_REGRAS[r].nome}: ${NOMES_REGRAS[r].descricao}`),
+    'Toque numa casa e depois num dígito. O teclado da esquerda escreve o número; o da direita, as notas (anotações pequenas).',
+    'O dígito tocado fica destacado no tabuleiro. Dígitos que quebram uma regra ficam sublinhados, e o contador de erros sobe quando um número não é o da solução.',
+    'O botão de notas preenche as anotações de todas as casas vazias: só os candidatos possíveis ou de 1 a 9.',
   ]);
 
-  function linha(i: number) { return Math.floor(i / 9); }
-  function coluna(i: number) { return i % 9; }
-  function caixa(i: number) { return Math.floor(linha(i) / 3) * 3 + Math.floor(coluna(i) / 3); }
+  const linha = (i: number) => Math.floor(i / 9);
+  const coluna = (i: number) => i % 9;
+  const caixa = (i: number) => Math.floor(linha(i) / 3) * 3 + Math.floor(coluna(i) / 3);
   function relacionada(i: number) {
     if (selecionada < 0 || i === selecionada) return false;
     return linha(i) === linha(selecionada) || coluna(i) === coluna(selecionada) || caixa(i) === caixa(selecionada);
   }
+  const editavel = $derived(!!q && !!e && selecionada >= 0 && !q.dadas[selecionada] && !s.terminou);
 
-  async function comecar(idModo: string) {
-    modo = idModo;
+  function escolher(idModo: string) {
     void salvarPreferencias(ID, { dificuldade });
-    fase = 'gerando';
-    erroGerar = '';
-    const regras = MODOS.find((m) => m.id === idModo)!.regras;
-    try {
-      const q = await gerarNoFundo<Quebra>('sudoku', { regras, dificuldade, semente: sementeNova(), prazo: 5000 });
-      quebra = q;
-      grade = q.dadas.slice();
-      notas = new Array(81).fill(0);
-      historico = [];
-      podeDesfazer = false;
-      selecionada = -1;
-      venceu = false;
-      recorde = false;
-      relogio.zerar();
-      relogio.iniciar();
-      fase = 'jogo';
-      void salvar();
-    } catch (e) {
-      erroGerar = (e as Error).message;
-      fase = 'escolha';
+    const m = MODOS.find((x) => x.id === idModo)!;
+    const nomeDif = DIFS.find((d) => d.id === dificuldade)!.nome;
+    selecionada = -1;
+    ativo = 0;
+    void s.comecar(`${idModo}-${dificuldade}`, `${m.titulo}, ${nomeDif}`, async () => {
+      const quebra = await gerarNoFundo<Quebra>('sudoku', { regras: m.regras, dificuldade, semente: sementeNova(), prazo: 5000 });
+      return { quebra, estado: { grade: quebra.dadas.slice(), notas: new Array(81).fill(0), erros: 0 } };
+    });
+  }
+
+  function escrever(d: number) {
+    ativo = d;
+    if (!editavel || !q || !e) return;
+    const grade = [...e.grade], notas = [...e.notas];
+    let erros = e.erros;
+    if (grade[selecionada] === d) grade[selecionada] = 0;
+    else {
+      grade[selecionada] = d;
+      notas[selecionada] = 0;
+      if (q.solucao[selecionada] !== d) { erros++; vibrar(40); }
+      // Tira a nota desse dígito dos vizinhos de linha, coluna e caixa.
+      for (let i = 0; i < 81; i++) if (relacionada(i)) notas[i] &= ~(1 << d);
     }
+    s.mudar({ grade, notas, erros });
+    if (grade.every((v, i) => v === q.solucao[i])) void s.terminar('vitoria');
   }
 
-  function salvar() {
-    if (!quebra || venceu) return;
-    return salvarPartida<Salvo>(ID, { quebra: $state.snapshot(quebra) as Quebra, grade: [...grade], notas: [...notas], tempo: relogio.ms, modo });
-  }
-
-  function guardarHistorico() {
-    historico.push({ grade: [...grade], notas: [...notas] });
-    if (historico.length > 200) historico.shift();
-    podeDesfazer = true;
-  }
-
-  function digitar(d: number) {
-    if (!quebra || venceu || selecionada < 0 || quebra.dadas[selecionada]) return;
-    guardarHistorico();
-    if (modoNotas) {
-      if (grade[selecionada]) return;
-      notas[selecionada] ^= 1 << d;
-    } else {
-      grade[selecionada] = grade[selecionada] === d ? 0 : d;
-      if (grade[selecionada]) {
-        // Tira a nota desse dígito dos vizinhos de linha, coluna e caixa.
-        for (let i = 0; i < 81; i++) if (relacionada(i)) notas[i] &= ~(1 << d);
-      }
-      verificar();
-    }
-    void salvar();
+  function anotar(d: number) {
+    ativo = d;
+    if (!editavel || !e || e.grade[selecionada]) return;
+    const notas = [...e.notas];
+    notas[selecionada] ^= 1 << d;
+    s.mudar({ ...e, notas });
   }
 
   function apagar() {
-    if (!quebra || venceu || selecionada < 0 || quebra.dadas[selecionada]) return;
-    guardarHistorico();
+    if (!editavel || !e || (!e.grade[selecionada] && !e.notas[selecionada])) return;
+    const grade = [...e.grade], notas = [...e.notas];
     grade[selecionada] = 0;
     notas[selecionada] = 0;
-    void salvar();
+    s.mudar({ ...e, grade, notas });
   }
 
-  function desfazer() {
-    const h = historico.pop();
-    if (!h) return;
-    grade = h.grade;
-    notas = h.notas;
-    podeDesfazer = historico.length > 0;
-    void salvar();
+  function preencherNotas(soCandidatos: boolean) {
+    folhaNotas = false;
+    if (!q || !e || s.terminou) return;
+    const cand = soCandidatos ? candidatos(q.regras, e.grade, q.gaiolas) : null;
+    const notas = e.grade.map((v, i) => (v ? 0 : cand ? cand[i] : 0x3fe));
+    s.mudar({ ...e, notas });
   }
 
-  async function verificar() {
-    if (!quebra || grade.some((v, i) => v !== quebra!.solucao[i])) return;
-    venceu = true;
-    relogio.parar();
-    vibrar([30, 60, 30]);
-    await apagarPartida(ID);
-    const nomeModo = MODOS.find((m) => m.id === modo)?.titulo ?? modo;
-    const nomeDif = DIFS.find((d) => d.id === dificuldade)?.nome ?? '';
-    recorde = await registrarPartida(ID, `${modo}-${dificuldade}`, true, relogio.ms, `${nomeModo}, ${nomeDif}`);
+  function tocarCasa(i: number) {
+    selecionada = i;
+    const v = e?.grade[i];
+    if (v) ativo = v;
   }
 
-  function aoTecla(e: KeyboardEvent) {
-    if (fase !== 'jogo') return;
-    if (/^[1-9]$/.test(e.key)) { digitar(Number(e.key)); return; }
-    if (e.key === 'Backspace' || e.key === 'Delete' || e.key === '0') { apagar(); return; }
-    if (e.key === 'n' || e.key === 'N') { modoNotas = !modoNotas; return; }
-    if (e.ctrlKey && e.key === 'z') { desfazer(); return; }
+  function aoTecla(ev: KeyboardEvent) {
+    if (s.fase !== 'jogo') return;
+    if (/^[1-9]$/.test(ev.key)) { if (ev.shiftKey || ev.altKey) anotar(Number(ev.key)); else escrever(Number(ev.key)); return; }
+    if (ev.key === 'Backspace' || ev.key === 'Delete' || ev.key === '0') { apagar(); return; }
+    if ((ev.ctrlKey || ev.metaKey) && ev.key === 'z') { s.desfazer(); return; }
+    if ((ev.ctrlKey || ev.metaKey) && ev.key === 'y') { s.refazer(); return; }
     const mov: Record<string, number> = { ArrowLeft: -1, ArrowRight: 1, ArrowUp: -9, ArrowDown: 9 };
-    if (mov[e.key] !== undefined) {
-      e.preventDefault();
-      const n = (selecionada < 0 ? 40 : selecionada) + mov[e.key];
-      if (n >= 0 && n < 81) selecionada = n;
+    if (mov[ev.key] !== undefined) {
+      ev.preventDefault();
+      const n = (selecionada < 0 ? 40 : selecionada) + mov[ev.key];
+      if (n >= 0 && n < 81) tocarCasa(n);
     }
-  }
-
-  function novaPartida() {
-    relogio.zerar();
-    quebra = null;
-    void apagarPartida(ID);
-    fase = 'escolha';
   }
 
   // Bordas das gaiolas do killer: segmentos internos (recuados) entre casas de gaiolas diferentes.
   const linhasGaiolas = $derived.by(() => {
-    if (!quebra?.gaiolas.length) return [];
+    if (!q?.gaiolas.length) return [];
     const dono = new Array(81).fill(-1);
-    quebra.gaiolas.forEach((g, k) => g.casas.forEach((c) => (dono[c] = k)));
+    q.gaiolas.forEach((g, k) => g.casas.forEach((c) => (dono[c] = k)));
     const L: string[] = [];
-    const r = 0.1;
+    const r = 0.08;
     for (let i = 0; i < 81; i++) {
       const x = coluna(i), y = linha(i), d = dono[i];
       if (y === 0 || dono[i - 9] !== d) L.push(`M${x + r} ${y + r}H${x + 1 - r}`);
@@ -187,7 +152,7 @@
   });
   const somaNaCasa = $derived.by(() => {
     const m = new Map<number, number>();
-    for (const g of quebra?.gaiolas ?? []) m.set(Math.min(...g.casas), g.soma);
+    for (const g of q?.gaiolas ?? []) m.set(Math.min(...g.casas), g.soma);
     return m;
   });
 
@@ -198,89 +163,99 @@
   }));
 
   onMount(async () => {
-    const p = await lerPreferencias(ID, { dificuldade: 'medio' as Dificuldade });
-    dificuldade = p.dificuldade;
-    const s = await lerPartida<Salvo>(ID);
-    if (s) {
-      quebra = s.quebra;
-      grade = s.grade;
-      notas = s.notas;
-      modo = s.modo;
-      relogio.zerar(s.tempo);
-      relogio.iniciar();
-      fase = 'jogo';
-      return;
-    }
-    fase = 'escolha';
+    dificuldade = (await lerPreferencias(ID, { dificuldade: 'medio' as Dificuldade })).dificuldade;
+    await s.carregar();
   });
-  onDestroy(() => {
-    relogio.parar();
-    void salvar();
-    relogio.destruir();
-  });
+  onDestroy(() => s.destruir());
 </script>
 
 <svelte:window onkeydown={aoTecla} />
 
-<TelaJogo titulo="Sudoku" {comoJogar} aoNova={fase === 'jogo' ? novaPartida : undefined}>
-  {#if fase === 'escolha'}
-    <Escolha titulo="Escolha as regras" {opcoes} aoEscolher={comecar}>
-      {#snippet antes()}
-        <div class="segmentado ja-segmentado-largo" role="group" aria-label="Dificuldade">
-          {#each DIFS as d (d.id)}
-            <button type="button" aria-pressed={dificuldade === d.id} onclick={() => (dificuldade = d.id)}>{d.nome}</button>
-          {/each}
-        </div>
-        {#if erroGerar}
-          <div class="aviso" data-tipo="erro" role="alert"><Icone nome="alert-triangle" /><div><p class="aviso-titulo">Não deu para gerar</p><p>{erroGerar} Tente outra combinação.</p></div></div>
-        {/if}
-      {/snippet}
-    </Escolha>
-  {:else if fase === 'gerando'}
-    <p class="ja-dica" aria-busy="true">Gerando um Sudoku com solução única…</p>
-  {:else if fase === 'jogo' && quebra}
-    <div class="ja-faixa">
-      <span class="etiqueta" data-cor="secundaria">{MODOS.find((m) => m.id === modo)?.titulo}</span>
-      <span class="ja-placar-item"><Icone nome="clock" /><span class="ja-numero">{formatarTempo(relogio.ms)}</span></span>
+<Casca sessao={s} titulo="Sudoku" {comoJogar} {opcoes} aoEscolher={escolher} tituloEscolha="Escolha as regras" semDesfazer>
+  {#snippet antesDaEscolha()}
+    <div class="segmentado ja-segmentado-largo" role="group" aria-label="Dificuldade">
+      {#each DIFS as d (d.id)}
+        <button type="button" aria-pressed={dificuldade === d.id} onclick={() => (dificuldade = d.id)}>{d.nome}</button>
+      {/each}
     </div>
-    {#if venceu}
-      <Fim tipo="vitoria" titulo={recorde ? 'Novo recorde!' : 'Sudoku resolvido!'} texto={`Tempo: ${formatarTempo(relogio.ms)}.`} aoNova={novaPartida} />
-    {/if}
+  {/snippet}
+  {#snippet faixa()}
+    {#if e}<span class="ja-placar-item"><Icone nome="alert-triangle" /><span class="sr-only">Erros:</span><span class="ja-numero">{e.erros}</span></span>{/if}
+  {/snippet}
+  {#if q && e}
     <div class="ja-centro">
       <div class="ja-sudoku" role="grid" aria-label="Grade do Sudoku">
-        {#each grade as v, i (i)}
-          {@const dada = quebra.dadas[i] > 0}
+        {#each e.grade as v, i (i)}
+          {@const dada = q.dadas[i] > 0}
+          {@const soma = somaNaCasa.get(i)}
           <button
             type="button"
             class="ja-sudoku-casa"
             data-selecionada={selecionada === i || undefined}
             data-relacionada={relacionada(i) || undefined}
-            data-mesmo={(v && selecionada >= 0 && grade[selecionada] === v && selecionada !== i) || undefined}
+            data-mesmo={(v && ativo === v && selecionada !== i) || undefined}
             data-dada={dada || undefined}
             data-erro={(!dada && erros.has(i)) || undefined}
+            data-soma={soma !== undefined || undefined}
             data-bd={(coluna(i) % 3 === 2 && coluna(i) < 8) || undefined}
             data-bb={(linha(i) % 3 === 2 && linha(i) < 8) || undefined}
             aria-label="Linha {linha(i) + 1}, coluna {coluna(i) + 1}{v ? `, ${v}` : ', vazia'}"
-            onclick={() => (selecionada = i)}
+            onclick={() => tocarCasa(i)}
           >
-            {#if somaNaCasa.has(i)}<span class="ja-sudoku-soma">{somaNaCasa.get(i)}</span>{/if}
+            {#if soma !== undefined}<span class="ja-sudoku-soma">{soma}</span>{/if}
             {#if v}
               <span class="ja-sudoku-valor">{v}</span>
-            {:else if notas[i]}
+            {:else if e.notas[i]}
               <span class="ja-sudoku-notas">
-                {#each [1, 2, 3, 4, 5, 6, 7, 8, 9] as d (d)}<span>{notas[i] & (1 << d) ? d : ''}</span>{/each}
+                {#each DIGITOS as d (d)}<span data-ativa={(ativo === d && e.notas[i] & (1 << d)) || undefined}>{e.notas[i] & (1 << d) ? d : ''}</span>{/each}
               </span>
             {/if}
           </button>
         {/each}
         <svg class="ja-sudoku-sobre" viewBox="0 0 9 9" aria-hidden="true">
-          {#if quebra.regras.includes('diagonais')}
+          {#if q.regras.includes('diagonais')}
             <path d="M0 0L9 9M9 0L0 9" class="ja-sudoku-diagonal" />
           {/if}
           {#each linhasGaiolas as d, k (k)}<path {d} class="ja-sudoku-gaiola" />{/each}
         </svg>
       </div>
     </div>
-    <Teclado digitos={[1, 2, 3, 4, 5, 6, 7, 8, 9]} {completos} bind:notas={modoNotas} aoDigito={digitar} aoApagar={apagar} aoDesfazer={desfazer} {podeDesfazer} />
+
+    <div class="ja-sudoku-controles">
+      <div class="ja-sudoku-acoes">
+        <button class="botao" type="button" disabled={!s.podeDesfazer || !!s.terminou} onclick={() => s.desfazer()} aria-label="Desfazer" title="Desfazer"><Icone nome="arrow-back-up" /></button>
+        <button class="botao" type="button" disabled={!editavel} onclick={apagar} aria-label="Apagar a casa" title="Apagar a casa"><Icone nome="eraser" /></button>
+        <button class="botao" type="button" disabled={!s.podeRefazer || !!s.terminou} onclick={() => s.refazer()} aria-label="Refazer" title="Refazer"><Icone nome="arrow-forward-up" /></button>
+        <button class="botao" type="button" disabled={!!s.terminou} onclick={() => (folhaNotas = true)} aria-label="Preencher notas" title="Preencher notas"><Icone nome="wand" /></button>
+      </div>
+      <div class="ja-sudoku-teclados">
+        <div class="ja-sudoku-teclado" role="group" aria-label="Números">
+          <span class="ja-sudoku-teclado-rotulo">Números</span>
+          {#each DIGITOS as d (d)}
+            <button class="botao ja-tecla" type="button" aria-pressed={ativo === d} data-completo={completos.has(d) || undefined} onclick={() => escrever(d)}>{d}</button>
+          {/each}
+        </div>
+        <div class="ja-sudoku-teclado ja-sudoku-teclado-notas" role="group" aria-label="Notas">
+          <span class="ja-sudoku-teclado-rotulo"><Icone nome="pencil" pequeno />Notas</span>
+          {#each DIGITOS as d (d)}
+            <button class="botao ja-tecla" type="button" aria-pressed={ativo === d} aria-label="Nota {d}" data-completo={completos.has(d) || undefined} onclick={() => anotar(d)}><span data-pos={d}>{d}</span></button>
+          {/each}
+        </div>
+      </div>
+    </div>
   {/if}
-</TelaJogo>
+</Casca>
+
+<Dialogo bind:aberto={folhaNotas} titulo="Preencher notas" folha>
+  <p>As notas atuais das casas vazias serão trocadas. Dá para desfazer.</p>
+  <div class="lista-config">
+    <button class="linha-config" type="button" onclick={() => preencherNotas(true)}>
+      <span class="linha-texto"><span class="linha-titulo">Só os candidatos possíveis</span><span class="linha-descricao">Pelos números que já estão na grade</span></span>
+      <Icone nome="chevron-right" classe="linha-seta" />
+    </button>
+    <button class="linha-config" type="button" onclick={() => preencherNotas(false)}>
+      <span class="linha-texto"><span class="linha-titulo">De 1 a 9 em todas</span><span class="linha-descricao">Para você ir riscando</span></span>
+      <Icone nome="chevron-right" classe="linha-seta" />
+    </button>
+  </div>
+</Dialogo>

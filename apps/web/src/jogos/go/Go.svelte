@@ -38,7 +38,7 @@
 </script>
 
 <Casca sessao={s} titulo="Go" comoJogar={COMO} opcoes={OPCOES} aoEscolher={(id) => s.comecar(id, `${id} × ${id}`, () => ({ quebra: { lado: Number(id) }, estado: novoGo(Number(id)) }))} tituloFim={textoFim} textoFim="" semRelogio tituloEscolha="Escolha o tamanho">
-  {#snippet faixa()}
+  {#snippet rodape()}
     <button class="botao" type="button" disabled={!!s.terminou} onclick={passar}><span>Passar</span></button>
   {/snippet}
   {#if s.estado && pontos}

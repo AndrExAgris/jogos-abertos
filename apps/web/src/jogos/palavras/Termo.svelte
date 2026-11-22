@@ -7,7 +7,8 @@
   import { Sessao } from '../../lib/jogo/sessao.svelte.ts';
   import { vibrar } from '../../lib/jogo/partida.ts';
 
-  interface Estado { palpites: string[]; atual: string }
+  /** `atual` tem sempre 5 posições (espaço = vazia); `cursor` é a casa onde a próxima letra entra. */
+  interface Estado { palpites: string[]; atual: string; cursor?: number }
   const s = new Sessao<{ modo: Modo; respostas: string[] }, Estado>('termo');
   const OPCOES = [
     { id: 'termo', titulo: 'Termo', descricao: 'Uma palavra, seis tentativas' },
@@ -16,7 +17,8 @@
   ];
   const COMO = [
     'Descubra a palavra de cinco letras. Cada palpite precisa ser uma palavra que existe.',
-    'Depois de cada palpite, as letras mudam: destacada e cheia é letra certa no lugar certo; com contorno é letra que existe em outro lugar; apagada não existe na palavra.',
+    'Depois de cada palpite, as letras mudam de cor: verde é letra certa no lugar certo; amarelo é letra que existe em outro lugar; apagada não existe na palavra.',
+    'Toque numa casa da linha atual para escrever nela, em qualquer ordem.',
     'Acentos e cedilha não contam: são preenchidos sozinhos. No Dueto e no Quarteto, cada palpite vale para todas as palavras.',
   ];
   const TECLAS = ['qwertyuiop', 'asdfghjkl', 'zxcvbnm'];
@@ -31,19 +33,41 @@
     if (acertou) void s.terminar('vitoria');
     else if (e.palpites.length >= limite) void s.terminar('derrota');
   }
+  const VAZIA = '     ';
+  const casas = (e: Estado) => (e.atual + VAZIA).slice(0, 5).split('');
+  const cursorDe = (e: Estado) => e.cursor ?? Math.min(e.atual.trimEnd().length, 5);
+  function proximaVazia(c: string[], depois: number): number {
+    for (let k = depois; k < 5; k++) if (c[k] === ' ') return k;
+    for (let k = 0; k < depois; k++) if (c[k] === ' ') return k;
+    return 5;
+  }
   function tecla(l: string) {
     if (!s.estado || s.terminou) return;
     const e = s.estado;
-    if (l === 'apagar') { s.mudar({ ...e, atual: e.atual.slice(0, -1) }, false); return; }
+    const c = casas(e);
+    let cur = cursorDe(e);
+    if (l === 'apagar') {
+      if (cur < 5 && c[cur] !== ' ') c[cur] = ' ';
+      else if (cur > 0) { cur--; c[cur] = ' '; }
+      s.mudar({ ...e, atual: c.join(''), cursor: cur }, false);
+      return;
+    }
     if (l === 'enviar') {
-      if (e.atual.length < 5) { vibrar(60); window.OpenDesign.toast({ texto: 'A palavra tem cinco letras.' }); return; }
-      if (!palavraValida(e.atual)) { vibrar(80); window.OpenDesign.toast({ texto: 'Essa palavra não está na lista.' }); return; }
-      const n = { palpites: [...e.palpites, e.atual], atual: '' };
+      const palavra = c.join('');
+      if (palavra.includes(' ')) { vibrar(60); window.OpenDesign.toast({ texto: 'A palavra tem cinco letras.' }); return; }
+      if (!palavraValida(palavra)) { vibrar(80); window.OpenDesign.toast({ texto: 'Essa palavra não está na lista.' }); return; }
+      const n = { palpites: [...e.palpites, palavra], atual: VAZIA, cursor: 0 };
       s.mudar(n, false);
       terminarSePreciso(n);
       return;
     }
-    if (e.atual.length < 5) s.mudar({ ...e, atual: e.atual + l }, false);
+    if (cur >= 5) return;
+    c[cur] = l;
+    s.mudar({ ...e, atual: c.join(''), cursor: proximaVazia(c, cur + 1) }, false);
+  }
+  function irPara(k: number) {
+    if (!s.estado || s.terminou) return;
+    s.mudar({ ...s.estado, atual: casas(s.estado).join(''), cursor: k }, false);
   }
   function aoTeclado(ev: KeyboardEvent) {
     if (ev.ctrlKey || ev.metaKey || ev.altKey) return;
@@ -70,7 +94,7 @@
 
 <svelte:window onkeydown={aoTeclado} />
 
-<Casca sessao={s} titulo="Termo" comoJogar={COMO} opcoes={OPCOES} aoEscolher={(id) => s.comecar(id, OPCOES.find((o) => o.id === id)!.titulo, () => ({ quebra: { modo: id as Modo, respostas: sortearRespostas(id as Modo, sementeNova()) }, estado: { palpites: [], atual: '' } }))} semDesfazer tituloFim={s.terminou === 'vitoria' ? (s.recorde ? 'Novo recorde!' : 'Acertou!') : 'Não foi dessa vez'} textoFim={`${respostas.length > 1 ? 'As palavras eram' : 'A palavra era'}: ${respostas.join(', ').toUpperCase()}.`}>
+<Casca sessao={s} titulo="Termo" comoJogar={COMO} opcoes={OPCOES} aoEscolher={(id) => s.comecar(id, OPCOES.find((o) => o.id === id)!.titulo, () => ({ quebra: { modo: id as Modo, respostas: sortearRespostas(id as Modo, sementeNova()) }, estado: { palpites: [], atual: '     ', cursor: 0 } }))} semDesfazer tituloFim={s.terminou === 'vitoria' ? (s.recorde ? 'Novo recorde!' : 'Acertou!') : 'Não foi dessa vez'} textoFim={`${respostas.length > 1 ? 'As palavras eram' : 'A palavra era'}: ${respostas.join(', ').toUpperCase()}.`}>
   {#snippet faixa()}{#if s.estado}<span class="ja-placar-item"><span class="ja-numero">{s.estado.palpites.length}</span> / {limite}</span>{/if}{/snippet}
   {#if s.estado && s.quebra}
     {@const e = s.estado}
@@ -78,11 +102,16 @@
       {#each respostas as r, k (k)}
         <div class="ja-termo" aria-label="Palavra {k + 1}">
           {#each Array(limite) as _, li (li)}
-            {@const palpite = li < e.palpites.length && (resolvidas[k] < 0 || li <= resolvidas[k]) ? e.palpites[li] : li === e.palpites.length && resolvidas[k] < 0 && !s.terminou ? e.atual : ''}
+            {@const linhaAtual = li === e.palpites.length && resolvidas[k] < 0 && !s.terminou}
+            {@const palpite = li < e.palpites.length && (resolvidas[k] < 0 || li <= resolvidas[k]) ? e.palpites[li] : linhaAtual ? casas(e).join('') : ''}
             {@const marcas = li < e.palpites.length && (resolvidas[k] < 0 || li <= resolvidas[k]) ? avaliar(e.palpites[li], r) : null}
             {#each Array(5) as __, ci (ci)}
               {@const letra = marcas && marcas.every((m) => m === 'certa') ? r[ci] : (palpite[ci] ?? '')}
-              <span class="ja-termo-letra" data-marca={marcas?.[ci]} data-atual={!marcas && li === e.palpites.length || undefined}>{letra}</span>
+              {#if linhaAtual}
+                <button type="button" class="ja-termo-letra" data-atual data-cursor={cursorDe(e) === ci || undefined} aria-label="Casa {ci + 1}{letra.trim() ? `, ${letra}` : ', vazia'}" onclick={() => irPara(ci)}>{letra.trim()}</button>
+              {:else}
+                <span class="ja-termo-letra" data-marca={marcas?.[ci]}>{letra}</span>
+              {/if}
             {/each}
           {/each}
         </div>
@@ -94,7 +123,7 @@
           <div class="ja-teclado-linha">
             {#if li === 2}<button class="botao ja-tecla-letra ja-tecla-larga" type="button" aria-label="Apagar" onclick={() => tecla('apagar')}><Icone nome="backspace" /></button>{/if}
             {#each linha as l (l)}<button class="botao ja-tecla-letra" type="button" data-marca={marcaTecla(l)} onclick={() => tecla(l)}>{l}</button>{/each}
-            {#if li === 2}<button class="botao botao-primario ja-tecla-letra ja-tecla-larga" type="button" onclick={() => tecla('enviar')}><span>Enviar</span></button>{/if}
+            {#if li === 2}<button class="botao botao-primario ja-tecla-letra ja-tecla-larga" type="button" aria-label="Enviar" onclick={() => tecla('enviar')}><Icone nome="corner-down-left" /></button>{/if}
           </div>
         {/each}
       </div>

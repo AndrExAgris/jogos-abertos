@@ -3,6 +3,8 @@
   import { Icone } from '@ja/ui';
   import TelaJogo from './TelaJogo.svelte';
   import Escolha from './Escolha.svelte';
+  import Faixa from './Faixa.svelte';
+  import Retomar from './Retomar.svelte';
   import type { Opcao } from './tipos.ts';
   import Fim from './Fim.svelte';
   import type { Sessao } from './sessao.svelte.ts';
@@ -21,18 +23,25 @@
     tituloFim?: string;
     semDesfazer?: boolean;
     semRelogio?: boolean;
-    /** Conteúdo extra na faixa (à esquerda do relógio). */
+    /** Informação à esquerda da faixa (o padrão é o nome da variante). */
     faixa?: Snippet;
+    /** Centro da faixa, para jogos sem relógio (placar, vez etc.). */
+    centro?: Snippet;
+    /** Botões e opções abaixo do tabuleiro, ao lado do desfazer. */
+    rodape?: Snippet;
     children: Snippet;
   }
   let {
     sessao, titulo, comoJogar, opcoes, aoEscolher, tituloEscolha, antesDaEscolha, textoFim, tituloFim,
-    semDesfazer = false, semRelogio = false, faixa, children,
+    semDesfazer = false, semRelogio = false, faixa, centro, rodape, children,
   }: Props = $props();
+  let ajuda = $state(false);
 </script>
 
-<TelaJogo {titulo} {comoJogar} aoNova={sessao.fase === 'jogo' ? () => sessao.nova() : undefined}>
-  {#if sessao.fase === 'escolha'}
+<TelaJogo {titulo} {comoJogar} bind:ajudaAberta={ajuda} aoNova={sessao.fase === 'jogo' ? () => sessao.nova() : undefined}>
+  {#if sessao.fase === 'retomar' && sessao.pendente}
+    <Retomar descricao={sessao.pendente.nomeVariante} tempo={semRelogio ? undefined : sessao.pendente.tempo} aoContinuar={() => sessao.continuar()} aoNova={() => sessao.nova()} />
+  {:else if sessao.fase === 'escolha'}
     <Escolha titulo={tituloEscolha} {opcoes} {aoEscolher}>
       {#snippet antes()}
         {@render antesDaEscolha?.()}
@@ -44,16 +53,11 @@
   {:else if sessao.fase === 'gerando'}
     <p class="ja-dica" aria-busy="true">Montando a partida…</p>
   {:else if sessao.fase === 'jogo'}
-    <div class="ja-faixa">
-      <span class="etiqueta" data-cor="secundaria">{sessao.nomeVariante}</span>
-      {@render faixa?.()}
-      {#if !semRelogio}
-        <span class="ja-placar-item"><Icone nome="clock" /><span class="sr-only">Tempo:</span><span class="ja-numero">{formatarTempo(sessao.relogio.ms)}</span></span>
-      {/if}
-      {#if !semDesfazer}
-        <button class="botao botao-icone" type="button" aria-label="Desfazer" title="Desfazer" disabled={!sessao.podeDesfazer || !!sessao.terminou} onclick={() => sessao.desfazer()}><Icone nome="arrow-back-up" /></button>
-      {/if}
-    </div>
+    <Faixa tempo={semRelogio ? undefined : sessao.relogio.ms} aoAjuda={() => (ajuda = true)} {centro}>
+      {#snippet esquerda()}
+        {#if faixa}{@render faixa()}{:else}<span class="ja-faixa-texto">{sessao.nomeVariante}</span>{/if}
+      {/snippet}
+    </Faixa>
     {#if sessao.terminou}
       <Fim
         tipo={sessao.terminou}
@@ -63,5 +67,13 @@
       />
     {/if}
     {@render children()}
+    {#if !semDesfazer || rodape}
+      <div class="ja-rodape-jogo">
+        {#if !semDesfazer}
+          <button class="botao" type="button" disabled={!sessao.podeDesfazer || !!sessao.terminou} onclick={() => sessao.desfazer()}><Icone nome="arrow-back-up" /><span>Desfazer</span></button>
+        {/if}
+        {@render rodape?.()}
+      </div>
+    {/if}
   {/if}
 </TelaJogo>

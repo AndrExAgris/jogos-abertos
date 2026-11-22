@@ -415,6 +415,28 @@ export function conflitos(regras: Regra[], grade: number[], gaiolas: Gaiola[] = 
   return erro;
 }
 
+/** Candidatos (bits 1..9) de cada casa vazia, só pelo que já está na grade. */
+export function candidatos(regras: Regra[], grade: number[], gaiolas: Gaiola[] = []): number[] {
+  const m = modelo(regras.filter((r) => r !== 'killer'), gaiolas);
+  const res = new Array<number>(81).fill(0);
+  const gaiolaDe = new Map<number, Gaiola>();
+  for (const g of gaiolas) for (const c of g.casas) gaiolaDe.set(c, g);
+  for (let i = 0; i < 81; i++) {
+    if (grade[i]) continue;
+    let mask = TODOS;
+    for (const v of m.vizinhos[i]) if (grade[v]) mask &= ~bit(grade[v]);
+    if (m.naoConsecutivo) for (const v of ortogonais(i)) if (grade[v]) mask &= ~(bit(grade[v] - 1) | bit(grade[v] + 1));
+    const g = gaiolaDe.get(i);
+    if (g) {
+      let soma = 0, vazias = 0;
+      for (const c of g.casas) { if (grade[c]) { soma += grade[c]; mask &= ~bit(grade[c]); } else vazias++; }
+      for (let d = 1; d <= 9; d++) if (soma + d > g.soma || (vazias === 1 && soma + d !== g.soma)) mask &= ~bit(d);
+    }
+    res[i] = mask & TODOS;
+  }
+  return res;
+}
+
 export const NOMES_REGRAS: Record<Regra, { nome: string; descricao: string }> = {
   diagonais: { nome: 'Diagonais', descricao: 'As duas diagonais principais também não repetem dígitos.' },
   'anti-rei': { nome: 'Anti-rei', descricao: 'Casas que se tocam, até na diagonal, não têm o mesmo dígito.' },

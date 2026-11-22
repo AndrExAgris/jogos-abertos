@@ -64,7 +64,7 @@
     {#key rota.caminho}{#if idJogo}<Carregar id={idJogo} />{:else}<Componente />{/if}{/key}
     {#if !atual.subtela}
       <nav class="nav-inferior" aria-label="Principal">
-        {#each [...areas, { id: 'mais' as Area, nome: 'Mais', caminho: '/mais', icone: 'dots' }] as a (a.id)}
+        {#each [areas[1], areas[0], { id: 'mais' as Area, nome: 'Mais', caminho: '/mais', icone: 'dots' }] as a (a.id)}
           <a href="#{a.caminho}" aria-current={atual.area === a.id ? 'page' : undefined} onclick={(e) => navegar(e, a.caminho)}>
             <span class="marca-icone"><Icone nome={a.icone} classe="icone-repouso" /><Icone nome={a.icone} preenchido classe="icone-ativo" /></span>{a.nome}
           </a>

@@ -8,14 +8,14 @@ Código aberto sob a licença [GPL-3.0](LICENSE). Créditos de terceiros em [CRE
 
 ## Jogos
 
-Versão inicial de todo o catálogo (44 jogos), para testar e ajustar:
+Versão inicial de todo o catálogo (45 jogos), para testar e ajustar:
 
 | Grupo | Jogos |
 | --- | --- |
-| Quebra-cabeças de grade | Campo Minado, Sudoku (clássico, killer e regras combinadas), Akari, Tendas, Pontes, Rainhas, Mosaico, Ligue os Números |
+| Quebra-cabeças de grade | Campo Minado, Sudoku (clássico, killer e regras combinadas), Akari, Tendas, Pontes, Rainhas, Mosaico, Sumplete, Ligue os Números |
 | Números | Conta Certa |
-| Mover e encaixar | Resta Um, Separe as Cores, Hora do Rush, Setas, Desembaraço |
-| Palavras | Termo (com Dueto e Quarteto), Roda de Letras, Palavras Cruzadas |
+| Mover e encaixar | Resta Um, Separe as Cores, Desbloqueio, Setas, Desembaraço |
+| Palavras | Termo (com Dueto e Quarteto), Roda de Letras, Palavras Cruzadas (layout livre e grade densa) |
 | Conhecimento | Perguntas por Categoria, Adivinhe o Filme |
 | Geografia | País pela Distância, Capital pela Distância, País pelo Contorno, Bandeira Revelada, Descobre Bandeiras, Viagem pelas Fronteiras, País pelas Pistas |
 | Cartas | Paciência, Paciência Spider, FreeCell, Pirâmide, TriPeaks, Golf, Vinte e Um |

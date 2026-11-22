@@ -16,7 +16,7 @@ interface Salvo<Q, E> {
 }
 
 export class Sessao<Q, E> {
-  fase = $state<'carregando' | 'escolha' | 'gerando' | 'jogo'>('carregando');
+  fase = $state<'carregando' | 'retomar' | 'escolha' | 'gerando' | 'jogo'>('carregando');
   quebra = $state<Q | null>(null);
   estado = $state<E | null>(null);
   variante = $state('');
@@ -25,8 +25,13 @@ export class Sessao<Q, E> {
   recorde = $state(false);
   erro = $state('');
   podeDesfazer = $state(false);
+  podeRefazer = $state(false);
   relogio = new Relogio();
   private historico: E[] = [];
+  private futuro: E[] = [];
+  /** Partida guardada, esperando a pessoa escolher entre continuar e começar outra. */
+  pendente = $state<{ nomeVariante: string; tempo: number } | null>(null);
+  private salvo: Salvo<Q, E> | null = null;
 
   constructor(private id: string, private opcoes: { semRelogio?: boolean; semEstatisticas?: boolean; pontuacao?: (e: E) => number } = {}) {
     document.addEventListener('visibilitychange', this.aoEsconder);
@@ -35,20 +40,33 @@ export class Sessao<Q, E> {
   async carregar(): Promise<boolean> {
     const s = await lerPartida<Salvo<Q, E>>(this.id);
     if (s) {
-      this.quebra = s.quebra;
-      this.estado = s.estado;
-      this.variante = s.variante;
-      this.nomeVariante = s.nomeVariante;
-      this.historico = s.historico ?? [];
-      this.podeDesfazer = this.historico.length > 0;
-      this.terminou = null;
-      this.relogio.zerar(s.tempo);
-      if (!this.opcoes.semRelogio) this.relogio.iniciar();
-      this.fase = 'jogo';
+      this.salvo = s;
+      this.pendente = { nomeVariante: s.nomeVariante, tempo: s.tempo };
+      this.fase = 'retomar';
       return true;
     }
     this.fase = 'escolha';
     return false;
+  }
+
+  /** Continua a partida guardada. */
+  continuar() {
+    const s = this.salvo;
+    if (!s) return;
+    this.salvo = null;
+    this.pendente = null;
+    this.quebra = s.quebra;
+    this.estado = s.estado;
+    this.variante = s.variante;
+    this.nomeVariante = s.nomeVariante;
+    this.historico = s.historico ?? [];
+    this.futuro = [];
+    this.podeDesfazer = this.historico.length > 0;
+    this.podeRefazer = false;
+    this.terminou = null;
+    this.relogio.zerar(s.tempo);
+    if (!this.opcoes.semRelogio) this.relogio.iniciar();
+    this.fase = 'jogo';
   }
 
   /** Gera (talvez no Web Worker) e começa a partida. */
@@ -62,7 +80,9 @@ export class Sessao<Q, E> {
       this.variante = variante;
       this.nomeVariante = nomeVariante;
       this.historico = [];
+      this.futuro = [];
       this.podeDesfazer = false;
+      this.podeRefazer = false;
       this.terminou = null;
       this.recorde = false;
       this.relogio.zerar();
@@ -82,6 +102,8 @@ export class Sessao<Q, E> {
       this.historico.push($state.snapshot(this.estado) as E);
       if (this.historico.length > 300) this.historico.shift();
       this.podeDesfazer = true;
+      this.futuro = [];
+      this.podeRefazer = false;
     }
     this.estado = novo;
     void this.salvar();
@@ -90,8 +112,20 @@ export class Sessao<Q, E> {
   desfazer() {
     const anterior = this.historico.pop();
     if (anterior === undefined || this.terminou) return;
+    if (this.estado) this.futuro.push($state.snapshot(this.estado) as E);
     this.estado = anterior;
     this.podeDesfazer = this.historico.length > 0;
+    this.podeRefazer = this.futuro.length > 0;
+    void this.salvar();
+  }
+
+  refazer() {
+    const proximo = this.futuro.pop();
+    if (proximo === undefined || this.terminou) return;
+    if (this.estado) this.historico.push($state.snapshot(this.estado) as E);
+    this.estado = proximo;
+    this.podeDesfazer = true;
+    this.podeRefazer = this.futuro.length > 0;
     void this.salvar();
   }
 
@@ -107,6 +141,8 @@ export class Sessao<Q, E> {
   }
 
   nova() {
+    this.salvo = null;
+    this.pendente = null;
     this.relogio.zerar();
     this.quebra = null;
     this.estado = null;

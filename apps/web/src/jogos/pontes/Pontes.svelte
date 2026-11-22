@@ -81,7 +81,7 @@
             data-completa={g === il.n || undefined}
             data-erro={g > il.n || undefined}
             role="button"
-            tabindex="0"
+            tabindex="-1"
             aria-label="Ilha {il.n}, {g} pontes"
             onclick={() => tocarIlha(i)}
             onkeydown={(e) => (e.key === 'Enter' || e.key === ' ') && tocarIlha(i)}

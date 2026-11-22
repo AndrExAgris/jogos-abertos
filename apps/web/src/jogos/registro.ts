@@ -15,6 +15,7 @@ export interface ItemJogo {
 export interface GrupoJogos {
   id: string;
   nome: string;
+  icone: string;
   jogos: ItemJogo[];
 }
 
@@ -25,7 +26,7 @@ const j = (
 
 export const GRUPOS: GrupoJogos[] = [
   {
-    id: 'grade', nome: 'Quebra-cabeças de grade', jogos: [
+    id: 'grade', icone: 'puzzle', nome: 'Quebra-cabeças de grade', jogos: [
       j('minas', 'Campo Minado', 'Abra as casas sem explodir', 'bomb', '1', () => import('./minas/Minas.svelte')),
       j('sudoku', 'Sudoku', 'Clássico, killer e regras combinadas', 'grid-3x3', '1', () => import('./sudoku/Sudoku.svelte')),
       j('akari', 'Akari', 'Ilumine a grade com lâmpadas', 'bulb', '1', () => import('./akari/Akari.svelte')),
@@ -33,38 +34,39 @@ export const GRUPOS: GrupoJogos[] = [
       j('pontes', 'Pontes', 'Ligue as ilhas com pontes', 'building-bridge-2', '1', () => import('./pontes/Pontes.svelte')),
       j('rainhas', 'Rainhas', 'Uma coroa por linha, coluna e região', 'crown', '1', () => import('./rainhas/Rainhas.svelte')),
       j('mosaico', 'Mosaico', 'Pinte as casas pelas pistas', 'layout-grid', '1', () => import('./mosaico/Mosaico.svelte')),
+      j('sumplete', 'Sumplete', 'Apague números até as somas baterem', 'sum', '1', () => import('./sumplete/Sumplete.svelte')),
       j('ligue', 'Ligue os Números', 'Ligue os pares e preencha a grade', 'route', '1', () => import('./ligue/Ligue.svelte')),
     ],
   },
   {
-    id: 'numeros', nome: 'Números', jogos: [
+    id: 'numeros', icone: 'math-symbols', nome: 'Números', jogos: [
       j('conta', 'Conta Certa', 'Chegue ao alvo com seis números', 'math-symbols', '1', () => import('./conta/Conta.svelte')),
     ],
   },
   {
-    id: 'mover', nome: 'Mover e encaixar', jogos: [
+    id: 'mover', icone: 'arrows-move', nome: 'Mover e encaixar', jogos: [
       j('resta-um', 'Resta Um', 'Pule as peças até sobrar uma', 'circle-dot', '1', () => import('./resta-um/RestaUm.svelte')),
       j('separe', 'Separe as Cores', 'Uma cor em cada tubo', 'test-pipe', '1', () => import('./separe/Separe.svelte')),
-      j('rush', 'Hora do Rush', 'Abra caminho para o carro sair', 'car', '1', () => import('./rush/Rush.svelte')),
+      j('rush', 'Desbloqueio', 'Deslize os blocos e liberte a peça', 'arrows-move', '1', () => import('./rush/Rush.svelte')),
       j('setas', 'Setas', 'Tire as setas na ordem certa', 'arrow-big-right', '1', () => import('./setas/Setas.svelte')),
       j('desembaraco', 'Desembaraço', 'Arraste até nenhuma linha cruzar', 'vector-triangle', '1', () => import('./desembaraco/Desembaraco.svelte')),
     ],
   },
   {
-    id: 'palavras', nome: 'Palavras', jogos: [
+    id: 'palavras', icone: 'abc', nome: 'Palavras', jogos: [
       j('termo', 'Termo', 'A palavra em seis tentativas, com Dueto e Quarteto', 'abc', '1', () => import('./palavras/Termo.svelte')),
       j('roda', 'Roda de Letras', 'Forme palavras com as letras da roda', 'letter-case', '1', () => import('./palavras/Roda.svelte')),
       j('cruzadas', 'Palavras Cruzadas', 'Grade livre com dicas curtas', 'keyboard', '1', () => import('./palavras/Cruzadas.svelte')),
     ],
   },
   {
-    id: 'conhecimento', nome: 'Conhecimento', jogos: [
+    id: 'conhecimento', icone: 'brain', nome: 'Conhecimento', jogos: [
       j('perguntas', 'Perguntas por Categoria', 'Escolha o tema, aposte e responda', 'message-question', '1-4', () => import('./conhecimento/Perguntas.svelte')),
       j('filme', 'Adivinhe o Filme', 'Até seis pistas para acertar', 'movie', '1', () => import('./conhecimento/Filme.svelte')),
     ],
   },
   {
-    id: 'geografia', nome: 'Geografia', jogos: [
+    id: 'geografia', icone: 'world', nome: 'Geografia', jogos: [
       j('pais-distancia', 'País pela Distância', 'Ache o país secreto pelo mapa de calor', 'world', '1', () => import('./geo/Distancia.svelte')),
       j('capital-distancia', 'Capital pela Distância', 'Ache a capital pela distância e direção', 'map-pin', '1', () => import('./geo/Capital.svelte')),
       j('pais-contorno', 'País pelo Contorno', 'Que país tem esse formato?', 'map', '1', () => import('./geo/Contorno.svelte')),
@@ -75,7 +77,7 @@ export const GRUPOS: GrupoJogos[] = [
     ],
   },
   {
-    id: 'cartas', nome: 'Cartas', jogos: [
+    id: 'cartas', icone: 'cards', nome: 'Cartas', jogos: [
       j('paciencia', 'Paciência', 'A clássica, virando 1 ou 3', 'cards', '1', () => import('./cartas/Paciencia.svelte')),
       j('spider', 'Paciência Spider', 'Com 1, 2 ou 4 naipes', 'spider', '1', () => import('./cartas/Spider.svelte')),
       j('freecell', 'FreeCell', 'Todas abertas e quatro células', 'square', '1', () => import('./cartas/FreeCell.svelte')),
@@ -86,13 +88,13 @@ export const GRUPOS: GrupoJogos[] = [
     ],
   },
   {
-    id: 'dados', nome: 'Dados', jogos: [
+    id: 'dados', icone: 'dice-5', nome: 'Dados', jogos: [
       j('general', 'General', 'Cinco dados, dez jogadas', 'dice-5', '1-4', () => import('./dados/General.svelte')),
       j('mentiroso', 'Dado Mentiroso', 'Aposte e blefe com dados escondidos', 'mask', '2-4', () => import('./dados/Mentiroso.svelte')),
     ],
   },
   {
-    id: 'tabuleiro', nome: 'Tabuleiro para dois', jogos: [
+    id: 'tabuleiro', icone: 'chess', nome: 'Tabuleiro para dois', jogos: [
       j('quatro', 'Quatro em Linha', 'Alinhe quatro peças primeiro', 'circles', '2', () => import('./quatro/Quatro.svelte')),
       j('trilha', 'Trilha', 'Forme moinhos e tire peças', 'square-dot', '2', () => import('./trilha/Trilha.svelte')),
       j('damas', 'Damas', 'Regra brasileira', 'circle-half-2', '2', () => import('./damas/Damas.svelte')),

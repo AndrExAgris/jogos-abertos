@@ -9,6 +9,8 @@
   import TelaJogo from '../../lib/jogo/TelaJogo.svelte';
   import Escolha from '../../lib/jogo/Escolha.svelte';
   import Fim from '../../lib/jogo/Fim.svelte';
+  import Faixa from '../../lib/jogo/Faixa.svelte';
+  import Retomar from '../../lib/jogo/Retomar.svelte';
   import Dialogo from '../../lib/jogo/Dialogo.svelte';
   import { Relogio } from '../../lib/jogo/relogio.svelte.ts';
   import { apagarPartida, lerPartida, lerPreferencias, salvarPartida, salvarPreferencias, vibrar } from '../../lib/jogo/partida.ts';
@@ -28,7 +30,7 @@
   const nomes: Record<Variante, string> = { facil: 'Fácil', medio: 'Médio', dificil: 'Difícil', personalizado: 'Personalizado' };
 
   let prefs = $state<Preferencias>({ personalizado: { largura: 12, altura: 12, minas: 20 } });
-  let fase = $state<'carregando' | 'escolha' | 'jogo'>('carregando');
+  let fase = $state<'carregando' | 'retomar' | 'escolha' | 'jogo'>('carregando');
   let estado = $state<EstadoMinas | null>(null);
   let variante = $state<Variante>('facil');
   const relogio = new Relogio();
@@ -80,6 +82,11 @@
       return;
     }
     comecar(id as Variante);
+  }
+
+  function continuar() {
+    fase = 'jogo';
+    if (estado && estado.tabuleiro.length && estado.resultado === 'andamento') relogio.iniciar();
   }
 
   function voltarParaEscolha() {
@@ -253,8 +260,7 @@
         variante = s.variante;
         relogio.zerar(s.tempo);
         casa = s.casa ?? casaInicial(estado.largura);
-        fase = 'jogo';
-        if (estado.tabuleiro.length && estado.resultado === 'andamento') relogio.iniciar();
+        fase = 'retomar';
         return;
       } catch {
         await apagarPartida(ID);
@@ -278,26 +284,18 @@
   });
 </script>
 
-<TelaJogo titulo="Campo Minado" comoJogar={COMO_JOGAR} bind:ajudaAberta={ajuda} semAjudaNaBarra aoNova={fase === 'jogo' ? voltarParaEscolha : undefined}>
-  {#if fase === 'escolha'}
+<TelaJogo titulo="Campo Minado" comoJogar={COMO_JOGAR} bind:ajudaAberta={ajuda} aoNova={fase === 'jogo' ? voltarParaEscolha : undefined}>
+  {#if fase === 'retomar' && estado}
+    <Retomar descricao={nomeVariante()} tempo={relogio.ms} aoContinuar={continuar} aoNova={voltarParaEscolha} />
+  {:else if fase === 'escolha'}
     <Escolha opcoes={opcoes} aoEscolher={escolher} />
   {:else if fase === 'jogo' && estado}
     <div class="ja-minas-tela">
-      <div class="ja-minas-faixa">
-        <div class="ja-placar-item">
-          <Icone nome="flag" />
-          <span class="sr-only">Minas restantes:</span>
-          <span class="ja-numero">{bandeirasRestantes(estado)}</span>
-        </div>
-        <div class="ja-placar-item ja-relogio">
-          <Icone nome="clock" />
-          <span class="sr-only">Tempo:</span>
-          <span class="ja-numero">{formatarTempo(relogio.ms)}</span>
-        </div>
-        <div class="ja-minas-ajuda">
-          <button class="botao botao-terciario" type="button" onclick={() => (ajuda = true)}><Icone nome="help-circle" /><span>Como jogar</span></button>
-        </div>
-      </div>
+      <Faixa tempo={relogio.ms} aoAjuda={() => (ajuda = true)}>
+        {#snippet esquerda()}
+          <span class="ja-placar-item"><Icone nome="flag" /><span class="sr-only">Minas restantes:</span><span class="ja-numero">{bandeirasRestantes(estado!)}</span></span>
+        {/snippet}
+      </Faixa>
 
       {#if acabou}
         <Fim

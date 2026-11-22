@@ -46,7 +46,7 @@
         {#each LIGACOES as [a, b], k (k)}<line x1={PONTOS[a][0]} y1={PONTOS[a][1]} x2={PONTOS[b][0]} y2={PONTOS[b][1]} />{/each}
         {#each PONTOS as [x, y], i (i)}
           {@const c = s.estado.casas[i]}
-          <g role="button" tabindex="0" aria-label="Ponto {i + 1}{c ? `, jogador ${c}` : ''}" onclick={() => tocar(i)} onkeydown={(e) => e.key === 'Enter' && tocar(i)} class="ja-trilha-ponto" data-alvo={alvos.includes(i) || undefined} data-tirar={tirar.has(i) || undefined} data-selecionada={selecionada === i || undefined}>
+          <g role="button" tabindex="-1" aria-label="Ponto {i + 1}{c ? `, jogador ${c}` : ''}" onclick={() => tocar(i)} onkeydown={(e) => e.key === 'Enter' && tocar(i)} class="ja-trilha-ponto" data-alvo={alvos.includes(i) || undefined} data-tirar={tirar.has(i) || undefined} data-selecionada={selecionada === i || undefined}>
             <circle cx={x} cy={y} r="0.42" class="ja-toque" />
             {#if c}<circle cx={x} cy={y} r="0.3" class="ja-trilha-peca ja-j{c}" />{:else}<circle cx={x} cy={y} r="0.1" class="ja-trilha-vazio" />{/if}
           </g>

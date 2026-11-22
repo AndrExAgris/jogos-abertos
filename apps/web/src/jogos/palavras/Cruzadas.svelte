@@ -4,6 +4,7 @@
   import { sementeNova } from '@ja/contrato';
   import { gerarCruzada, solucaoCruzada, type Cruzada, type Entrada } from '@ja/nucleo-palavras/cruzadas';
   import Casca from '../../lib/jogo/Casca.svelte';
+  import { gerarNoFundo } from '../../lib/jogo/gerar.ts';
   import { Sessao } from '../../lib/jogo/sessao.svelte.ts';
 
   interface Estado { letras: Record<string, string>; verificar: boolean }
@@ -12,12 +13,27 @@
     { id: 'p', titulo: 'Pequena', descricao: 'Cerca de 8 palavras' },
     { id: 'm', titulo: 'Média', descricao: 'Cerca de 14 palavras' },
     { id: 'g', titulo: 'Grande', descricao: 'Cerca de 20 palavras' },
+    { id: 'd5', titulo: 'Densa 5 × 5', descricao: 'Grade cheia, estilo jornal: tudo se cruza' },
+    { id: 'd7', titulo: 'Densa 7 × 7', descricao: 'Grade cheia, estilo jornal' },
+    { id: 'd9', titulo: 'Densa 9 × 9', descricao: 'Grade cheia, estilo jornal (pode demorar uns segundos)' },
   ];
+  // Densa: [lado, palavras comuns usadas, fração de casas pretas]
+  const DENSA: Record<string, [number, number, number]> = { d5: [5, 5000, 0.2], d7: [7, 6000, 0.22], d9: [9, 8000, 0.26] };
+  function escolher(id: string) {
+    const nome = OPCOES.find((o) => o.id === id)!.titulo;
+    if (DENSA[id]) {
+      const [n, comuns, pretas] = DENSA[id];
+      void s.comecar(id, nome, async () => ({ quebra: await gerarNoFundo<Cruzada>('cruzadaDensa', [n, sementeNova(), 20000, comuns, pretas]), estado: { letras: {}, verificar: false } }));
+      return;
+    }
+    const [n, lado, comuns] = PARAM[id];
+    void s.comecar(id, nome, () => ({ quebra: gerarCruzada(n, sementeNova(), comuns, lado), estado: { letras: {}, verificar: false } }));
+  }
   const PARAM: Record<string, [number, number, number]> = { p: [8, 9, 3000], m: [14, 12, 5000], g: [20, 13, 8000] };
   const COMO = [
     'Preencha a grade com as respostas das dicas. Respostas sem acento nem cedilha.',
     'Toque numa casa para escolher a palavra (toque de novo para trocar entre horizontal e vertical) e digite no teclado. A dica da palavra escolhida aparece acima do teclado.',
-    'Verificar marca as letras erradas. As dicas vêm do Wikcionário (CC BY-SA).',
+    'Verificar marca as letras erradas enquanto estiver ligado (aparece "Verificando" no alto). As grades densas, no estilo de jornal, têm casas pretas e quase toda letra pertence a duas palavras. As dicas vêm do Wikcionário (CC BY-SA).',
   ];
   const TECLAS = ['qwertyuiop', 'asdfghjkl', 'zxcvbnm'];
   let sel = $state<{ x: number; y: number; horizontal: boolean } | null>(null);
@@ -73,9 +89,12 @@
 
 <svelte:window onkeydown={aoTeclado} />
 
-<Casca sessao={s} titulo="Palavras Cruzadas" comoJogar={COMO} opcoes={OPCOES} aoEscolher={(id) => s.comecar(id, OPCOES.find((o) => o.id === id)!.titulo, () => { const [n, lado, comuns] = PARAM[id]; return { quebra: gerarCruzada(n, sementeNova(), comuns, lado), estado: { letras: {}, verificar: false } }; })} semDesfazer>
+<Casca sessao={s} titulo="Palavras Cruzadas" comoJogar={COMO} opcoes={OPCOES} aoEscolher={escolher} semDesfazer>
   {#snippet faixa()}
-    {#if s.estado}<button class="botao botao-terciario" type="button" aria-pressed={s.estado.verificar} onclick={() => s.mudar({ ...s.estado!, verificar: !s.estado!.verificar }, false)}><Icone nome="check" /><span>Verificar</span></button>{/if}
+    {#if s.estado?.verificar}<span class="etiqueta ja-etiqueta-verificar" data-cor="secundaria"><Icone nome="checks" pequeno />Verificando</span>{:else if s.quebra}<span class="ja-faixa-texto">{s.nomeVariante}</span>{/if}
+  {/snippet}
+  {#snippet rodape()}
+    {#if s.estado}<button class="botao ja-botao-alternar" type="button" aria-pressed={s.estado.verificar} onclick={() => s.mudar({ ...s.estado!, verificar: !s.estado!.verificar }, false)}><Icone nome={s.estado.verificar ? 'checks' : 'check'} /><span>{s.estado.verificar ? 'Verificação ligada' : 'Verificar'}</span></button>{/if}
   {/snippet}
   {#if s.estado && s.quebra}
     {@const c = s.quebra}
@@ -91,7 +110,7 @@
                 <span class="ja-cruz-letra">{(l ?? '').toUpperCase()}</span>
               </button>
             {:else}
-              <span class="ja-cruz-vazia"></span>
+              <span class="ja-cruz-vazia" data-preta={c.densa || undefined}></span>
             {/if}
           {/each}
         {/each}

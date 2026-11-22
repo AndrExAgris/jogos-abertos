@@ -285,6 +285,21 @@ class Solucionador {
   }
 }
 
+/**
+ * Para cada casa, as casas que não podem ter o mesmo dígito que ela: linha,
+ * coluna, caixa e as regras extras (diagonais, anti-rei, anti-cavalo, gaiolas
+ * do killer, termômetros e pontos do Kropki). Serve para destacar na interface.
+ */
+export function casasProibidas(regras: Regra[], pistasOuGaiolas: Pistas | Gaiola[] = []): number[][] {
+  const m = modelo(regras, pistasOuGaiolas);
+  const viz = m.vizinhos.map((v) => new Set(v));
+  const liga = (a: number, b: number) => { if (a !== b) { viz[a].add(b); viz[b].add(a); } };
+  const pistas = normalizar(pistasOuGaiolas);
+  for (const t of pistas.termometros ?? []) for (const a of t) for (const b of t) liga(a, b);
+  for (const p of pistas.pontos ?? []) if (p.tipo === 'branco' || p.tipo === 'preto') liga(p.a, p.b);
+  return viz.map((v) => [...v]);
+}
+
 export function contarSolucoes(regras: Regra[], dadas: number[], gaiolas: Pistas | Gaiola[] = [], limite = 2): number {
   const s = new Solucionador(modelo(regras, gaiolas));
   if (!s.carregar(dadas)) return 0;

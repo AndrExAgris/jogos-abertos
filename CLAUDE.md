@@ -315,11 +315,11 @@ A cada marco: testes dos núcleos passando, APK gerado no CI e um release para o
   - [x] 5. App web: início por grupo, recordes, Mais/Configurações (Aparência primeiro), IndexedDB com exportar e importar, PWA com tudo em cache
   - [x] 6. Docker (Dockerfile, nginx.conf, docker-compose.yml). Build simulado sem Docker; `make up` ainda não testado (usuário fora do grupo `docker`)
   - [x] 7. Makefile
-  - [x] 8. Capacitor 8 com `android/` versionado, ícones e splash próprios. APK ainda não compilado localmente (sem Android SDK)
+  - [x] 8. Capacitor 8 com `android/` versionado, ícones e splash próprios. APK compila no CI (sem Android SDK local)
   - [x] 9. CI (`ci.yml`, `release.yml`); keystore explicada no README
   - [x] 10. Minas completo (Fácil, Médio, Difícil, personalizado; primeira jogada segura, sem chute)
   - [x] 11. Gerador do Mines portado para TypeScript e medido (README): Difícil em ~3 ms, sem Web Worker
-  - [ ] 12. Release `v0.1.0`
+  - [x] 12. Release `v0.1.0` publicado em 22/11/2026 (APK assinado, 4,8 MB). Falta o André testar a instalação pelo Obtainium nos dois celulares
 
 Decisões tomadas com o André:
 - Minas: 3 níveis (9×9/10, 16×16/40, 30×16/99, em pé 16×30 no celular na vertical) + personalizado (lados de 5 a 40)

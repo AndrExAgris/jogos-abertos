@@ -36,6 +36,20 @@ export const GRUPOS: GrupoJogos[] = [
       j('ligue', 'Ligue os Números', 'Ligue os pares e preencha a grade', 'route', '1', () => import('./ligue/Ligue.svelte')),
     ],
   },
+  {
+    id: 'numeros', nome: 'Números', jogos: [
+      j('conta', 'Conta Certa', 'Chegue ao alvo com seis números', 'math-symbols', '1', () => import('./conta/Conta.svelte')),
+    ],
+  },
+  {
+    id: 'mover', nome: 'Mover e encaixar', jogos: [
+      j('resta-um', 'Resta Um', 'Pule as peças até sobrar uma', 'circle-dot', '1', () => import('./resta-um/RestaUm.svelte')),
+      j('separe', 'Separe as Cores', 'Uma cor em cada tubo', 'test-pipe', '1', () => import('./separe/Separe.svelte')),
+      j('rush', 'Hora do Rush', 'Abra caminho para o carro sair', 'car', '1', () => import('./rush/Rush.svelte')),
+      j('setas', 'Setas', 'Tire as setas na ordem certa', 'arrow-big-right', '1', () => import('./setas/Setas.svelte')),
+      j('desembaraco', 'Desembaraço', 'Arraste até nenhuma linha cruzar', 'vector-triangle', '1', () => import('./desembaraco/Desembaraco.svelte')),
+    ],
+  },
 ];
 
 export function acharJogo(id: string): ItemJogo | undefined {

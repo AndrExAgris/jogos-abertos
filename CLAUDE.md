@@ -313,7 +313,7 @@ A cada marco: testes dos núcleos passando, APK gerado no CI e um release para o
   - [x] 3. Monorepo pnpm (`apps/web`, `packages/contrato`, `packages/ui`, `packages/nucleo-grade`, `tools/icones`)
   - [x] 4. Open Design copiado para `packages/ui/open-design/` (tokens, bundle, open-design.js, fontes, licenças); ícones Tabler usados em `packages/ui/icones/`
   - [x] 5. App web: início por grupo, recordes, Mais/Configurações (Aparência primeiro), IndexedDB com exportar e importar, PWA com tudo em cache
-  - [x] 6. Docker (Dockerfile, nginx.conf, docker-compose.yml). Build simulado sem Docker; `make up` ainda não testado (usuário fora do grupo `docker`)
+  - [x] 6. Docker (Dockerfile, nginx.conf, docker-compose.yml). `make up` testado em 22/11/2026: imagem de 64 MB, container saudável, cache correto e site abrindo offline
   - [x] 7. Makefile
   - [x] 8. Capacitor 8 com `android/` versionado, ícones e splash próprios. APK compila no CI (sem Android SDK local)
   - [x] 9. CI (`ci.yml`, `release.yml`); keystore explicada no README

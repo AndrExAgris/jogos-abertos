@@ -8,6 +8,10 @@ export interface Estatistica {
   maiorSequencia: number;
   /** Melhor tempo de vitória, em milissegundos. */
   melhorTempo: number | null;
+  /** Maior pontuação, nos jogos com pontos. */
+  melhorPontuacao?: number | null;
+  /** Nome da variante para a tela de recordes ("Fácil (9×9, 10 minas)"). */
+  nome?: string;
 }
 
 export type EstatisticasJogo = Record<string, Estatistica>;
@@ -22,17 +26,23 @@ export async function lerEstatisticas(jogo: string): Promise<EstatisticasJogo> {
 
 /** Registra o fim de uma partida. Devolve true se for recorde de tempo. */
 export async function registrarPartida(
-  jogo: string, variante: string, venceu: boolean, tempo: number,
+  jogo: string, variante: string, venceu: boolean, tempo: number, nome?: string, pontuacao?: number,
 ): Promise<boolean> {
   const todas = await lerEstatisticas(jogo);
   const e = { ...vazia(), ...todas[variante] };
+  if (nome) e.nome = nome;
   e.jogadas++;
+  let recordePontos = false;
+  if (pontuacao !== undefined) {
+    recordePontos = e.melhorPontuacao != null && pontuacao > e.melhorPontuacao;
+    if (e.melhorPontuacao == null || pontuacao > e.melhorPontuacao) e.melhorPontuacao = pontuacao;
+  }
   let recorde = false;
   if (venceu) {
     e.vitorias++;
     e.sequenciaAtual++;
     e.maiorSequencia = Math.max(e.maiorSequencia, e.sequenciaAtual);
-    if (e.melhorTempo === null || tempo < e.melhorTempo) {
+    if (tempo > 0 && (e.melhorTempo === null || tempo < e.melhorTempo)) {
       recorde = e.melhorTempo !== null;
       e.melhorTempo = tempo;
     }
@@ -41,7 +51,7 @@ export async function registrarPartida(
   }
   todas[variante] = e;
   await gravar('estatisticas', jogo, todas);
-  return recorde;
+  return pontuacao !== undefined ? recordePontos : recorde;
 }
 
 export function formatarTempo(ms: number): string {

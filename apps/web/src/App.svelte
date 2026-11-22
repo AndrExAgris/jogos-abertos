@@ -9,7 +9,7 @@
   import Aparencia from './telas/Aparencia.svelte';
   import Sobre from './telas/Sobre.svelte';
   import NaoEncontrada from './telas/NaoEncontrada.svelte';
-  import Minas from './jogos/minas/Minas.svelte';
+  import Carregar from './jogos/Carregar.svelte';
 
   type Area = 'jogos' | 'recordes' | 'mais';
 
@@ -24,10 +24,13 @@
     '/mais': { componente: Mais, area: 'mais' },
     '/mais/aparencia': { componente: Aparencia, area: 'mais', subtela: true },
     '/mais/sobre': { componente: Sobre, area: 'mais', subtela: true },
-    '/jogo/minas': { componente: Minas, area: 'jogos', subtela: true },
   };
 
-  const atual = $derived(telas[rota.caminho] ?? { componente: NaoEncontrada as Component, area: 'jogos' as Area, subtela: true });
+  const idJogo = $derived(rota.caminho.startsWith('/jogo/') ? rota.caminho.slice(6) : null);
+  const atual = $derived(
+    idJogo ? { componente: NaoEncontrada as Component, area: 'jogos' as Area, subtela: true }
+    : telas[rota.caminho] ?? { componente: NaoEncontrada as Component, area: 'jogos' as Area, subtela: true },
+  );
   const Componente = $derived(atual.componente);
 
   function navegar(e: MouseEvent, caminho: string) {
@@ -53,12 +56,12 @@
       </div>
     </nav>
     <div class="principal ja-principal">
-      {#key rota.caminho}<Componente />{/key}
+      {#key rota.caminho}{#if idJogo}<Carregar id={idJogo} />{:else}<Componente />{/if}{/key}
     </div>
   </div>
 {:else}
   <div class="tela-app">
-    {#key rota.caminho}<Componente />{/key}
+    {#key rota.caminho}{#if idJogo}<Carregar id={idJogo} />{:else}<Componente />{/if}{/key}
     {#if !atual.subtela}
       <nav class="nav-inferior" aria-label="Principal">
         {#each [...areas, { id: 'mais' as Area, nome: 'Mais', caminho: '/mais', icone: 'dots' }] as a (a.id)}

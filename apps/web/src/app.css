@@ -514,3 +514,9 @@ body { overscroll-behavior: none; }
 .ja-carta-canto span { font-size: calc(var(--carta-l) * 0.26); line-height: 1.05; }
 .ja-carta-centro { position: absolute; right: 4px; bottom: 2px; font-size: calc(var(--carta-l) * 0.5); line-height: 1; }
 .ja-contador { font: 600 13px/1 var(--font-interface); color: var(--texto-2); align-self: center; }
+.ja-na-pilha { position: absolute; left: 0; }
+.ja-piramide { position: relative; }
+.ja-descarte { display: flex; }
+.ja-descarte > .ja-carta:not(:first-child) { margin-left: calc(var(--carta-l) * -0.7); }
+.ja-vinte-mao { display: flex; flex-direction: column; gap: var(--e-2); min-height: calc(var(--carta-a) + 28px); }
+.ja-vinte-mao .ja-mesa-linha { flex-wrap: wrap; }

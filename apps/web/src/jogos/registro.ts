@@ -51,6 +51,17 @@ export const GRUPOS: GrupoJogos[] = [
     ],
   },
   {
+    id: 'cartas', nome: 'Cartas', jogos: [
+      j('paciencia', 'Paciência', 'A clássica, virando 1 ou 3', 'cards', '1', () => import('./cartas/Paciencia.svelte')),
+      j('spider', 'Paciência Spider', 'Com 1, 2 ou 4 naipes', 'spider', '1', () => import('./cartas/Spider.svelte')),
+      j('freecell', 'FreeCell', 'Todas abertas e quatro células', 'square', '1', () => import('./cartas/FreeCell.svelte')),
+      j('piramide', 'Pirâmide', 'Pares que somam 13', 'triangle', '1', () => import('./cartas/Piramide.svelte')),
+      j('tripeaks', 'TriPeaks', 'Uma acima ou uma abaixo', 'mountain', '1', () => import('./cartas/TriPeaks.svelte')),
+      j('golf', 'Golf', 'Limpe as sete colunas', 'golf', '1', () => import('./cartas/Golf.svelte')),
+      j('vinte-e-um', 'Vinte e Um', 'Chegue perto de 21 sem passar', 'spade', '1', () => import('./cartas/VinteEUm.svelte')),
+    ],
+  },
+  {
     id: 'tabuleiro', nome: 'Tabuleiro para dois', jogos: [
       j('quatro', 'Quatro em Linha', 'Alinhe quatro peças primeiro', 'circles', '2', () => import('./quatro/Quatro.svelte')),
       j('trilha', 'Trilha', 'Forme moinhos e tire peças', 'square-dot', '2', () => import('./trilha/Trilha.svelte')),

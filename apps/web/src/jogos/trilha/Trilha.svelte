@@ -5,7 +5,7 @@
   import Jogadores from '../../lib/jogo/Jogadores.svelte';
   import { Sessao } from '../../lib/jogo/sessao.svelte.ts';
   import { usarComputador } from '../../lib/jogo/computador.svelte.ts';
-  import { nivelDoId, opcoesIA, NOMES_NIVEL, type NivelIA } from '../../lib/jogo/ia.ts';
+  import { nivelDoId, opcoesIA, type NivelIA } from '../../lib/jogo/ia.ts';
 
   const s = new Sessao<{ modo: string; ia?: NivelIA }, EstadoTrilha>('trilha', { semRelogio: true, semEstatisticas: true });
   const COMO = [
@@ -16,7 +16,7 @@
   let selecionada = $state(-1);
   const OPCOES = [...opcoesIA(), { id: '2', titulo: 'Dois jogadores', descricao: 'Nove peças cada, no mesmo aparelho' }];
   const ia = $derived(s.quebra?.ia);
-  const nomes = $derived(ia ? ['Você', `Computador (${NOMES_NIVEL[ia].toLowerCase()})`] : ['Jogador 1', 'Jogador 2']);
+  const nomes = $derived(ia ? ['Você', 'Computador'] : ['Jogador 1', 'Jogador 2']);
   type LanceT = { tipo: 'colocar'; i: number } | { tipo: 'mover'; de: number; para: number } | { tipo: 'remover'; i: number };
   const pc = usarComputador<EstadoTrilha, LanceT>({
     jogo: 'trilha', sessao: s, vez: (e) => e.vez === 2,

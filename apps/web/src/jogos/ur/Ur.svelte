@@ -6,7 +6,7 @@
   import Jogadores from '../../lib/jogo/Jogadores.svelte';
   import { Sessao } from '../../lib/jogo/sessao.svelte.ts';
   import { iaUr } from '@ja/nucleo-tabuleiro/ia';
-  import { agendar, nivelDoId, opcoesIA, NOMES_NIVEL, type NivelIA } from '../../lib/jogo/ia.ts';
+  import { agendar, nivelDoId, opcoesIA, type NivelIA } from '../../lib/jogo/ia.ts';
 
   const s = new Sessao<{ modo: string; ia?: NivelIA }, EstadoUr>('ur', { semRelogio: true, semEstatisticas: true });
   const COMO = [
@@ -17,7 +17,7 @@
   let dados = $state<number[]>([]);
   const OPCOES = [...opcoesIA(), { id: '2', titulo: 'Dois jogadores', descricao: 'Regras de Irving Finkel, no mesmo aparelho' }];
   const ia = $derived(s.quebra?.ia);
-  const nomes = $derived(ia ? ['Você', `Computador (${NOMES_NIVEL[ia].toLowerCase()})`] : ['Jogador 1', 'Jogador 2']);
+  const nomes = $derived(ia ? ['Você', 'Computador'] : ['Jogador 1', 'Jogador 2']);
   const vezPC = $derived(!!ia && s.estado?.vez === 1 && s.estado.vencedor === null && !s.terminou);
   function comecar(id: string) {
     void s.comecar(id, OPCOES.find((o) => o.id === id)!.titulo, () => ({ quebra: { modo: id, ia: nivelDoId(id) }, estado: novoUr() }));

@@ -5,7 +5,7 @@
   import Jogadores from '../../lib/jogo/Jogadores.svelte';
   import { Sessao } from '../../lib/jogo/sessao.svelte.ts';
   import { usarComputador } from '../../lib/jogo/computador.svelte.ts';
-  import { nivelDoId, opcoesIA, NOMES_NIVEL, type NivelIA } from '../../lib/jogo/ia.ts';
+  import { nivelDoId, opcoesIA, type NivelIA } from '../../lib/jogo/ia.ts';
 
   const s = new Sessao<{ modo: string; ia?: NivelIA }, EstadoReversi>('reversi', { semRelogio: true, semEstatisticas: true });
   const COMO = [
@@ -17,7 +17,7 @@
   const placar = $derived(s.estado ? placarReversi(s.estado) : [0, 0]);
   const OPCOES = [...opcoesIA(), { id: '2', titulo: 'Dois jogadores', descricao: 'No mesmo aparelho' }];
   const ia = $derived(s.quebra?.ia);
-  const nomes = $derived(ia ? ['Você', `Computador (${NOMES_NIVEL[ia].toLowerCase()})`] : ['Jogador 1', 'Jogador 2']);
+  const nomes = $derived(ia ? ['Você', 'Computador'] : ['Jogador 1', 'Jogador 2']);
   const fim = $derived(placar[0] === placar[1] ? `Empate: ${placar[0]} a ${placar[1]}.` : `${ia ? (placar[0] > placar[1] ? 'Você venceu' : 'O computador venceu') : `Jogador ${placar[0] > placar[1] ? 1 : 2} venceu`} por ${Math.max(...placar)} a ${Math.min(...placar)}!`);
   const pc = usarComputador<EstadoReversi, number>({ jogo: 'reversi', sessao: s, vez: (e) => e.vez === 2 && !e.fim, aplicar: (i) => jogar(i) });
   function comecar(id: string) {

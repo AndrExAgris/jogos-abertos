@@ -2,7 +2,7 @@
   import { onDestroy, onMount } from 'svelte';
   import { Icone } from '@ja/ui';
   import { NOMES_JOGADA, VALORES_REGRA, jogadaGeneralIA, ordemJogadas, type RegraGeneral, guardar, lancar, marcar, novoGeneral, pontosJogada, total, type EstadoGeneral, type Jogada } from '@ja/nucleo-dados/general';
-  import { agendar, nivelDoId, opcoesIA, NOMES_NIVEL, type NivelIA } from '../../lib/jogo/ia.ts';
+  import { agendar, nivelDoId, opcoesIA, type NivelIA } from '../../lib/jogo/ia.ts';
   import Casca from '../../lib/jogo/Casca.svelte';
   import Jogadores from '../../lib/jogo/Jogadores.svelte';
   import { Sessao } from '../../lib/jogo/sessao.svelte.ts';
@@ -45,7 +45,7 @@
     'Feitas no primeiro lançamento ("de boca"), Seguida, Full e Quadra valem 5 a mais e o General vale 100. Se nada servir, marque zero numa jogada. Ganha quem somar mais.',
     'Há duas tabelas, escolhidas antes da partida: "Seguida maior" (Seguida 40, Quadra 35, Full 30) e a clássica (Seguida 20, Full 30, Quadra 40).',
   ]);
-  const nomes = $derived(s.estado ? Array.from({ length: s.estado.jogadores }, (_, i) => (s.quebra?.ia ? (i === 0 ? 'Você' : `Computador (${NOMES_NIVEL[s.quebra.ia].toLowerCase()})`) : `Jogador ${i + 1}`)) : []);
+  const nomes = $derived(s.estado ? Array.from({ length: s.estado.jogadores }, (_, i) => (s.quebra?.ia ? (i === 0 ? 'Você' : 'Computador') : `Jogador ${i + 1}`)) : []);
   const textoFim = $derived.by(() => {
     if (!s.estado) return '';
     const t = s.estado.tabelas.map(total);

@@ -6,7 +6,7 @@
   import Dialogo from '../../lib/jogo/Dialogo.svelte';
   import { Sessao } from '../../lib/jogo/sessao.svelte.ts';
   import { usarComputador } from '../../lib/jogo/computador.svelte.ts';
-  import { nivelDoId, opcoesIA, NOMES_NIVEL, type NivelIA } from '../../lib/jogo/ia.ts';
+  import { nivelDoId, opcoesIA, type NivelIA } from '../../lib/jogo/ia.ts';
 
   const imagens = import.meta.glob('../../../../../packages/ui/pecas/cburnett/*.svg', { query: '?url', import: 'default', eager: true }) as Record<string, string>;
   const img = (p: string) => imagens[Object.keys(imagens).find((k) => k.endsWith(`/${p === p.toUpperCase() ? 'w' : 'b'}${p.toUpperCase()}.svg`))!];
@@ -62,7 +62,7 @@
     <button class="botao botao-terciario" type="button" onclick={() => (virar = !virar)}><span>Girar tabuleiro</span></button>
   {/snippet}
   {#if s.estado}
-    <Jogadores nomes={ia ? ['Você (brancas)', `Computador (${NOMES_NIVEL[ia].toLowerCase()})`] : ['Brancas', 'Pretas']} vez={s.terminou ? -1 : s.estado.vez === 'b' ? 0 : 1} />
+    <Jogadores nomes={ia ? ['Você (brancas)', 'Computador'] : ['Brancas', 'Pretas']} vez={s.terminou ? -1 : s.estado.vez === 'b' ? 0 : 1} />
     {#if xeque >= 0}<p class="ja-dica">Xeque!</p>{:else if pc.pensando}<p class="ja-dica">O computador está pensando…</p>{/if}
     <div class="ja-centro">
       <div class="ja-tab ja-tab-grade ja-xadrez" style="--ja-colunas:8">

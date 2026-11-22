@@ -5,7 +5,7 @@
   import Jogadores from '../../lib/jogo/Jogadores.svelte';
   import { Sessao } from '../../lib/jogo/sessao.svelte.ts';
   import { usarComputador } from '../../lib/jogo/computador.svelte.ts';
-  import { nivelDoId, opcoesIA, NOMES_NIVEL, type NivelIA } from '../../lib/jogo/ia.ts';
+  import { nivelDoId, opcoesIA, type NivelIA } from '../../lib/jogo/ia.ts';
 
   const s = new Sessao<{ modo: string; ia?: NivelIA }, EstadoQuatro>('quatro', { semRelogio: true, semEstatisticas: true });
   const COMO = [
@@ -14,7 +14,7 @@
   ];
   const OPCOES = [...opcoesIA(), { id: '2', titulo: 'Dois jogadores', descricao: 'No mesmo aparelho' }];
   const ia = $derived(s.quebra?.ia);
-  const nomes = $derived(ia ? ['Você', `Computador (${NOMES_NIVEL[ia].toLowerCase()})`] : ['Jogador 1', 'Jogador 2']);
+  const nomes = $derived(ia ? ['Você', 'Computador'] : ['Jogador 1', 'Jogador 2']);
   const fim = $derived(s.estado?.vencedor ? (s.estado.vencedor === 'empate' ? 'Empate: o tabuleiro encheu.' : ia ? (s.estado.vencedor === 1 ? 'Você venceu!' : 'O computador venceu.') : `Jogador ${s.estado.vencedor} venceu!`) : '');
   const pc = usarComputador<EstadoQuatro, number>({ jogo: 'quatro', sessao: s, vez: (e) => e.vez === 2, aplicar: (c) => jogar(c) });
   function comecar(id: string) {

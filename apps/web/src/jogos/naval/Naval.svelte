@@ -8,7 +8,7 @@
   import { Sessao } from '../../lib/jogo/sessao.svelte.ts';
   import { vibrar } from '../../lib/jogo/partida.ts';
   import { avisar } from '../../lib/aviso.svelte.ts';
-  import { agendar, nivelDoId, opcoesIA, NOMES_NIVEL, type NivelIA } from '../../lib/jogo/ia.ts';
+  import { agendar, nivelDoId, opcoesIA, type NivelIA } from '../../lib/jogo/ia.ts';
 
   interface Estado {
     /** mares[j] = navios do jogador j e os tiros que ele recebeu. */
@@ -26,7 +26,7 @@
     'A dois, passe o aparelho a cada tiro; a frota de cada um só aparece quando a pessoa confirma que é a vez dela.',
   ];
   const ia = $derived(s.quebra?.ia);
-  const nomes = $derived(ia ? ['Você', `Computador (${NOMES_NIVEL[ia].toLowerCase()})`] : ['Jogador 1', 'Jogador 2']);
+  const nomes = $derived(ia ? ['Você', 'Computador'] : ['Jogador 1', 'Jogador 2']);
   const outro = (j: 0 | 1) => (1 - j) as 0 | 1;
 
   function comecar(id: string) {
@@ -115,7 +115,7 @@
   tituloFim={s.estado?.vencedor != null ? (ia ? (s.estado.vencedor === 0 ? 'Você venceu!' : 'O computador venceu.') : `${nomes[s.estado.vencedor]} venceu!`) : ''} textoFim="">
   {#if s.estado && meuMar && vistaInimiga}
     {@const e = s.estado}
-    <Jogadores {nomes} vez={s.terminou || e.fase !== 'jogar' ? -1 : e.vez} pontos={[0, 1].map((j) => `${restam(e.mares[j])} navios`)} />
+    <Jogadores {nomes} vez={s.terminou || e.fase !== 'jogar' ? -1 : e.vez} pontos={[0, 1].map((j) => `${restam(e.mares[j])}/5`)} />
     {#if e.fase === 'posicionar'}
       <p class="ja-dica">{ia ? 'Sua frota' : `Frota do ${nomes[e.vez]}`}: sorteie até gostar da posição.</p>
       <div class="ja-centro">{@render grade(e.mares[e.vez], true, null, false)}</div>

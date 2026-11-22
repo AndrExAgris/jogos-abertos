@@ -308,7 +308,7 @@ A cada marco: testes dos núcleos passando, APK gerado no CI e um release para o
 ## Estado atual
 
 - [ ] Marco 1: base do projeto (em andamento)
-  - [x] 1. Git iniciado (`main`). Repositório no GitHub (público, decidido em 21/11/2026) ainda não criado: falta o `gh` na máquina
+  - [x] 1. Git e repositório público https://github.com/AndrExAgris/jogos-abertos (criado em 22/11/2026); CI passando
   - [x] 2. Arquivos de raiz (LICENSE, README, CREDITS, .gitignore, .editorconfig, .dockerignore)
   - [x] 3. Monorepo pnpm (`apps/web`, `packages/contrato`, `packages/ui`, `packages/nucleo-grade`, `tools/icones`)
   - [x] 4. Open Design copiado para `packages/ui/open-design/` (tokens, bundle, open-design.js, fontes, licenças); ícones Tabler usados em `packages/ui/icones/`

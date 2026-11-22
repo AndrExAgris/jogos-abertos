@@ -50,6 +50,19 @@ export const GRUPOS: GrupoJogos[] = [
       j('desembaraco', 'Desembaraço', 'Arraste até nenhuma linha cruzar', 'vector-triangle', '1', () => import('./desembaraco/Desembaraco.svelte')),
     ],
   },
+  {
+    id: 'tabuleiro', nome: 'Tabuleiro para dois', jogos: [
+      j('quatro', 'Quatro em Linha', 'Alinhe quatro peças primeiro', 'circles', '2', () => import('./quatro/Quatro.svelte')),
+      j('trilha', 'Trilha', 'Forme moinhos e tire peças', 'square-dot', '2', () => import('./trilha/Trilha.svelte')),
+      j('damas', 'Damas', 'Regra brasileira', 'circle-half-2', '2', () => import('./damas/Damas.svelte')),
+      j('reversi', 'Reversi', 'Cerque e vire as peças', 'contrast', '2', () => import('./reversi/Reversi.svelte')),
+      j('xadrez', 'Xadrez', 'Dois jogadores no mesmo aparelho', 'chess-knight', '2', () => import('./xadrez/Xadrez.svelte')),
+      j('go', 'Go', '9×9, 13×13 e 19×19', 'circle-dashed', '2', () => import('./go/Go.svelte')),
+      j('ludo', 'Ludo', 'De 2 a 4 jogadores', 'dice-3', '2-4', () => import('./ludo/Ludo.svelte')),
+      j('ur', 'Jogo Real de Ur', 'Corrida milenar com rosetas', 'rosette', '2', () => import('./ur/Ur.svelte')),
+      j('sinuca', 'Sinuca', '8 bolas: lisas contra listradas', 'ball-bowling', '2', () => import('./sinuca/Sinuca.svelte')),
+    ],
+  },
 ];
 
 export function acharJogo(id: string): ItemJogo | undefined {

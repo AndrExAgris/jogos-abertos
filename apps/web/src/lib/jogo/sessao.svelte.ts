@@ -21,14 +21,14 @@ export class Sessao<Q, E> {
   estado = $state<E | null>(null);
   variante = $state('');
   nomeVariante = $state('');
-  terminou = $state<null | 'vitoria' | 'derrota'>(null);
+  terminou = $state<null | 'vitoria' | 'derrota' | 'empate'>(null);
   recorde = $state(false);
   erro = $state('');
   podeDesfazer = $state(false);
   relogio = new Relogio();
   private historico: E[] = [];
 
-  constructor(private id: string, private opcoes: { semRelogio?: boolean; pontuacao?: (e: E) => number } = {}) {
+  constructor(private id: string, private opcoes: { semRelogio?: boolean; semEstatisticas?: boolean; pontuacao?: (e: E) => number } = {}) {
     document.addEventListener('visibilitychange', this.aoEsconder);
   }
 
@@ -95,12 +95,13 @@ export class Sessao<Q, E> {
     void this.salvar();
   }
 
-  async terminar(resultado: 'vitoria' | 'derrota') {
+  async terminar(resultado: 'vitoria' | 'derrota' | 'empate') {
     if (this.terminou) return;
     this.terminou = resultado;
     this.relogio.parar();
     vibrar(resultado === 'vitoria' ? [30, 60, 30] : 200);
     await apagarPartida(this.id);
+    if (this.opcoes.semEstatisticas) return;
     const pontos = this.opcoes.pontuacao && this.estado ? this.opcoes.pontuacao(this.estado) : undefined;
     this.recorde = await registrarPartida(this.id, this.variante, resultado === 'vitoria', this.relogio.ms, this.nomeVariante, pontos);
   }

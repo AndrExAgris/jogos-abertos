@@ -382,3 +382,102 @@ body { overscroll-behavior: none; }
 .ja-aresta[data-cruza] { stroke: var(--primaria-texto); stroke-width: 0.008; }
 .ja-no { fill: var(--texto); stroke: var(--fundo); stroke-width: 0.006; cursor: grab; touch-action: none; }
 .ja-no[data-arrastando] { fill: var(--primaria); cursor: grabbing; }
+
+/* Jogos de tabuleiro para 2: jogador 1 na primária, jogador 2 na secundária. */
+.ja-j1 { --peca: var(--primaria); --peca-sobre: var(--primaria-sobre); }
+.ja-j2 { --peca: var(--secundaria); --peca-sobre: var(--secundaria-sobre); }
+/*
+ * Pedras de Go e peças de xadrez são pretas e brancas por natureza: não mudam
+ * com o tema. Valores tirados do texto e da superfície do tema claro.
+ */
+:root { --ja-preta: #1b2329; --ja-branca: #fafcfd; }
+.ja-tab { --lado: min(calc(100vw - 2 * var(--grade-margem-compacta)), 520px); width: var(--lado); }
+.ja-tab-grade { display: grid; grid-template-columns: repeat(var(--ja-colunas), 1fr); grid-template-rows: repeat(var(--ja-linhas, var(--ja-colunas)), 1fr); aspect-ratio: var(--ja-colunas) / var(--ja-linhas, var(--ja-colunas)); border-radius: var(--raio-painel); overflow: hidden; border: var(--borda-fina) solid var(--borda-controle); }
+.ja-tab-casa { position: relative; display: grid; place-items: center; padding: 0; border: 0; background: var(--superficie); cursor: pointer; -webkit-tap-highlight-color: transparent; min-width: 0; }
+.ja-tab-casa:focus-visible { outline: none; box-shadow: inset 0 0 0 3px color-mix(in oklab, var(--foco) 55%, transparent); z-index: 1; }
+.ja-disco { width: 78%; height: 78%; border-radius: var(--raio-total); background: var(--peca); box-shadow: var(--sombra-relevo); display: grid; place-items: center; color: var(--peca-sobre); }
+.ja-disco .icone { width: 55%; height: 55%; }
+.ja-alvo-ponto { width: 26%; height: 26%; border-radius: var(--raio-total); background: color-mix(in oklab, var(--texto) 30%, transparent); }
+.ja-tab-casa[data-escura] { background: color-mix(in oklab, var(--texto) 18%, var(--superficie)); }
+.ja-tab-casa[data-selecionada] { background: var(--primaria-fundo); box-shadow: inset 0 0 0 2px var(--primaria-texto); }
+.ja-tab-casa[data-ultimo] { background: color-mix(in oklab, var(--secundaria) 25%, var(--superficie)); }
+.ja-tab-casa[data-ultimo][data-escura] { background: color-mix(in oklab, var(--secundaria) 30%, color-mix(in oklab, var(--texto) 18%, var(--superficie))); }
+.ja-tab-casa[data-destaque] .ja-disco { box-shadow: 0 0 0 3px var(--texto); }
+.ja-tab-casa[data-xeque] { background: var(--erro-fundo); }
+.ja-peca-img { width: 92%; height: 92%; pointer-events: none; }
+.ja-quatro { background: var(--superficie-elevada); gap: 4px; padding: 6px; }
+.ja-quatro .ja-tab-casa { background: transparent; }
+.ja-buraco { width: 78%; height: 78%; border-radius: var(--raio-total); background: var(--fundo); box-shadow: var(--sombra-afundado); }
+.ja-reversi-casa { box-shadow: inset 0 0 0 0.5px var(--borda); }
+.ja-sobre { position: absolute; }
+.ja-peca-mini { width: 28px; height: 28px; }
+
+/* Trilha */
+.ja-trilha { height: auto; background: var(--superficie); border-radius: var(--raio-painel); border: var(--borda-fina) solid var(--borda); }
+.ja-trilha line { stroke: var(--texto-2); stroke-width: 0.06; }
+.ja-toque { fill: transparent; cursor: pointer; }
+.ja-trilha-vazio { fill: var(--texto-2); }
+.ja-trilha-peca { fill: var(--peca); stroke: var(--fundo); stroke-width: 0.05; }
+.ja-trilha-ponto[data-selecionada] .ja-trilha-peca { stroke: var(--texto); stroke-width: 0.1; }
+.ja-trilha-ponto[data-alvo] .ja-trilha-vazio { r: 0.18; fill: var(--primaria-texto); }
+.ja-trilha-ponto[data-tirar] .ja-trilha-peca { stroke: var(--erro); stroke-width: 0.1; stroke-dasharray: 0.12 0.08; }
+.ja-trilha-ponto:focus-visible { outline: none; }
+
+/* Go */
+.ja-go { height: auto; border-radius: var(--raio-painel); }
+.ja-go-fundo { fill: color-mix(in oklab, var(--bronze) 45%, var(--superficie)); }
+.ja-go line { stroke: color-mix(in oklab, var(--ja-preta) 75%, transparent); stroke-width: 0.04; }
+.ja-go-estrela { fill: var(--ja-preta); }
+.ja-pedra[data-cor="1"] { fill: var(--ja-preta); }
+.ja-pedra[data-cor="2"] { fill: var(--ja-branca); stroke: var(--ja-preta); stroke-width: 0.03; }
+
+/* Jogo Real de Ur */
+.ja-ur { --c: min(calc((100vw - 2 * var(--grade-margem-compacta)) / 8), 60px); display: grid; grid-template-columns: repeat(8, var(--c)); grid-auto-rows: var(--c); gap: 3px; }
+.ja-ur-casa { position: relative; display: grid; place-items: center; background: var(--superficie-elevada); border-radius: var(--raio-indicador); color: var(--texto-2); }
+.ja-ur-casa[data-roseta] { background: color-mix(in oklab, var(--primaria) 18%, var(--superficie-elevada)); color: var(--primaria-texto); }
+.ja-ur-casa .icone { position: absolute; width: 60%; height: 60%; opacity: 0.6; }
+.ja-ur-peca { position: relative; z-index: 1; width: 70%; aspect-ratio: 1; border-radius: var(--raio-total); border: 0; background: var(--peca); box-shadow: var(--sombra-relevo); cursor: pointer; padding: 0; }
+.ja-ur-peca:disabled { cursor: default; }
+.ja-ur-peca[data-pode], .ja-ur-fora .ja-ur-peca:not(:disabled) { box-shadow: 0 0 0 3px var(--texto); }
+.ja-ur-fora { display: flex; gap: var(--e-2); justify-content: center; align-items: center; min-height: 36px; flex-wrap: wrap; padding-inline: var(--grade-margem-compacta); }
+.ja-ur-fora .ja-ur-peca { width: 30px; }
+.ja-ur-dados { display: flex; gap: var(--e-2); justify-content: center; align-items: center; flex-wrap: wrap; padding-inline: var(--grade-margem-compacta); }
+.ja-ur-dado { display: grid; place-items: center; width: 32px; height: 32px; border-radius: var(--raio-controle); background: var(--superficie-elevada); border: var(--borda-fina) solid var(--borda-controle); font: 700 16px/1 var(--font-interface); color: var(--texto-2); }
+.ja-ur-dado[data-um] { color: var(--texto); background: var(--primaria-fundo); }
+.ja-dado-grande { width: 48px; height: 48px; font-size: 26px; color: var(--texto); }
+
+/* Ludo */
+.ja-ludo { height: auto; background: var(--superficie); border-radius: var(--raio-painel); }
+.ja-ludo-base { fill: color-mix(in oklab, var(--peca) 35%, var(--superficie)); stroke: var(--peca); stroke-width: 0.08; }
+.ja-ludo-casa { fill: var(--fundo); stroke: var(--borda-controle); stroke-width: 0.03; }
+.ja-ludo-casa[data-saida="0"] { fill: color-mix(in oklab, var(--laranja) 55%, var(--fundo)); }
+.ja-ludo-casa[data-saida="1"] { fill: color-mix(in oklab, var(--teal) 55%, var(--fundo)); }
+.ja-ludo-casa[data-saida="2"] { fill: color-mix(in oklab, var(--roxo) 55%, var(--fundo)); }
+.ja-ludo-casa[data-saida="3"] { fill: color-mix(in oklab, var(--lima) 55%, var(--fundo)); }
+.ja-ludo-reta { fill: color-mix(in oklab, var(--peca) 55%, var(--fundo)); }
+.ja-ludo-meio { fill: var(--superficie-elevada); }
+.ja-ludo-estrela { font-size: 0.7px; text-anchor: middle; dominant-baseline: middle; fill: var(--texto-2); }
+.ja-ludo-peao { fill: var(--peca); stroke: var(--fundo); stroke-width: 0.06; cursor: pointer; }
+.ja-ludo-peao[data-pode] { stroke: var(--texto); stroke-width: 0.12; }
+.ja-ludo-num { font: 700 0.42px var(--font-interface); text-anchor: middle; dominant-baseline: middle; fill: var(--peca-sobre); pointer-events: none; }
+
+/* Sinuca */
+.ja-sinuca { width: min(calc(100vw - 2 * var(--grade-margem-compacta)), 760px); height: auto; touch-action: none; }
+.ja-sinuca[data-retrato] { width: auto; height: min(68dvh, calc((100vw - 2 * var(--grade-margem-compacta)) * 1.9)); }
+.ja-sinuca-borda { fill: color-mix(in oklab, var(--bronze) 60%, var(--fundo)); }
+.ja-sinuca-pano { fill: color-mix(in oklab, var(--teal) 30%, var(--fundo)); }
+.ja-sinuca-cacapa { fill: var(--ja-preta); }
+.ja-sinuca-mira { stroke: var(--texto); stroke-width: 0.4; stroke-dasharray: 1.5 1.5; opacity: 0.7; }
+.ja-sinuca-taco { stroke: var(--primaria); stroke-width: 1; stroke-linecap: round; }
+.ja-bola { fill: var(--peca); }
+.ja-bola[data-n="0"] { fill: var(--ja-branca); }
+.ja-bola[data-n="8"] { fill: var(--ja-preta); }
+.ja-bola[data-listrada] { stroke: var(--ja-branca); stroke-width: 1.1; }
+.ja-bola-num { font: 700 2.2px var(--font-interface); text-anchor: middle; dominant-baseline: middle; fill: var(--ja-branca); pointer-events: none; }
+/* Xadrez: tons fixos para as peças pretas e brancas aparecerem nos dois temas. */
+.ja-xadrez .ja-tab-casa { background: color-mix(in oklab, var(--ja-branca) 88%, var(--ja-preta)); }
+.ja-xadrez .ja-tab-casa[data-escura] { background: color-mix(in oklab, var(--ja-branca) 58%, var(--ja-preta)); }
+.ja-xadrez .ja-tab-casa[data-ultimo] { background: color-mix(in oklab, var(--secundaria) 40%, var(--ja-branca)); }
+.ja-xadrez .ja-tab-casa[data-selecionada] { background: color-mix(in oklab, var(--primaria) 45%, var(--ja-branca)); box-shadow: inset 0 0 0 2px var(--primaria); }
+.ja-xadrez .ja-tab-casa[data-xeque] { background: color-mix(in oklab, var(--erro) 55%, var(--ja-branca)); }
+.ja-xadrez .ja-alvo-ponto { background: color-mix(in oklab, var(--ja-preta) 35%, transparent); }

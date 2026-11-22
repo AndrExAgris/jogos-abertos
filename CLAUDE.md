@@ -329,10 +329,10 @@ A cada marco: testes dos núcleos passando, APK gerado no CI e um release para o
   - [x] Números: Conta Certa
   - [x] Mover e encaixar: Resta Um, Separe as Cores, Hora do Rush, Setas (só plano), Desembaraço
   - [x] Tabuleiro para dois: Quatro em Linha, Trilha, Damas, Reversi, Xadrez, Go, Ludo, Jogo Real de Ur, Sinuca
-  - [~] Cartas (núcleo e testes prontos; falta a tela, só existe `jogos/cartas/Carta.svelte`): Paciência, Spider, FreeCell, Pirâmide, TriPeaks, Golf, Vinte e Um
-  - [ ] Dados: General, Dado Mentiroso
-  - [ ] Dados abertos + jogos: palavras (Termo, Roda de Letras, Palavras Cruzadas), Wikidata (Perguntas, Adivinhe o Filme), países (7 jogos de geografia)
-  - [ ] Release v0.2.0
+  - [x] Cartas: Paciência, Spider, FreeCell, Pirâmide, TriPeaks, Golf, Vinte e Um
+  - [x] Dados: General, Dado Mentiroso
+  - [x] Dados abertos + jogos: palavras (Termo, Roda de Letras, Palavras Cruzadas), Wikidata (Perguntas por Categoria, Adivinhe o Filme), países (7 jogos de geografia). Scripts em `tools/dados/` (cache em `tools/dados/.cache/`, fora do git)
+  - [x] Releases v0.2.0 (parcial) e v0.3.0 (catálogo completo, 44 jogos) em 22/11/2026
 
 Decisões tomadas com o André:
 - Minas: 3 níveis (9×9/10, 16×16/40, 30×16/99, em pé 16×30 no celular na vertical) + personalizado (lados de 5 a 40)

@@ -58,6 +58,12 @@ export const GRUPOS: GrupoJogos[] = [
     ],
   },
   {
+    id: 'conhecimento', nome: 'Conhecimento', jogos: [
+      j('perguntas', 'Perguntas por Categoria', 'Escolha o tema, aposte e responda', 'message-question', '1-4', () => import('./conhecimento/Perguntas.svelte')),
+      j('filme', 'Adivinhe o Filme', 'Até seis pistas para acertar', 'movie', '1', () => import('./conhecimento/Filme.svelte')),
+    ],
+  },
+  {
     id: 'geografia', nome: 'Geografia', jogos: [
       j('pais-distancia', 'País pela Distância', 'Ache o país secreto pelo mapa de calor', 'world', '1', () => import('./geo/Distancia.svelte')),
       j('capital-distancia', 'Capital pela Distância', 'Ache a capital pela distância e direção', 'map-pin', '1', () => import('./geo/Capital.svelte')),

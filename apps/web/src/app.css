@@ -614,3 +614,10 @@ body { overscroll-behavior: none; }
 .ja-cruz-dica { margin: 0; padding: var(--e-2) var(--grade-margem-compacta); font: 400 15px/22px var(--font-interface); color: var(--texto); text-align: center; }
 .ja-cruz-lista { padding-inline: var(--grade-margem-compacta); color: var(--texto-2); font: 400 14px/20px var(--font-interface); max-width: 560px; margin-inline: auto; width: 100%; box-sizing: border-box; }
 .ja-cruz-lista summary { cursor: pointer; color: var(--texto); font-weight: 600; min-height: 44px; display: flex; align-items: center; }
+
+/* Conhecimento */
+.ja-escolha-brasil { justify-content: space-between; width: 100%; }
+.ja-pergunta { display: flex; flex-direction: column; align-items: flex-start; gap: var(--e-2); padding-inline: var(--grade-margem-compacta); max-width: 520px; margin-inline: auto; width: 100%; box-sizing: border-box; }
+.ja-pergunta-texto { margin: 0; font: 600 20px/28px var(--font-interface); color: var(--texto); }
+.ja-pistas-filme { margin-inline: var(--grade-margem-compacta); max-width: 520px; }
+@media (min-width: 560px) { .ja-pistas-filme { margin-inline: auto; width: 100%; } }

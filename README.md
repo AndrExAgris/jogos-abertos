@@ -6,13 +6,31 @@ O mesmo código vira um site (PWA, que pode ser instalado pelo navegador) e um a
 
 Código aberto sob a licença [GPL-3.0](LICENSE). Créditos de terceiros em [CREDITS.md](CREDITS.md).
 
-## Jogos prontos
+## Jogos
 
-| Jogo | Situação |
+Versão inicial de todo o catálogo (44 jogos), para testar e ajustar:
+
+| Grupo | Jogos |
 | --- | --- |
-| Minas | Pronto: Fácil, Médio, Difícil e personalizado; a primeira casa nunca tem mina e o tabuleiro sempre se resolve sem chute |
+| Quebra-cabeças de grade | Campo Minado, Sudoku (clássico, killer e regras combinadas), Akari, Tendas, Pontes, Rainhas, Mosaico, Ligue os Números |
+| Números | Conta Certa |
+| Mover e encaixar | Resta Um, Separe as Cores, Hora do Rush, Setas, Desembaraço |
+| Palavras | Termo (com Dueto e Quarteto), Roda de Letras, Palavras Cruzadas |
+| Conhecimento | Perguntas por Categoria, Adivinhe o Filme |
+| Geografia | País pela Distância, Capital pela Distância, País pelo Contorno, Bandeira Revelada, Descobre Bandeiras, Viagem pelas Fronteiras, País pelas Pistas |
+| Cartas | Paciência, Paciência Spider, FreeCell, Pirâmide, TriPeaks, Golf, Vinte e Um |
+| Dados | General, Dado Mentiroso |
+| Tabuleiro para dois (no mesmo aparelho) | Quatro em Linha, Trilha, Damas, Reversi, Xadrez, Go, Ludo, Jogo Real de Ur, Sinuca |
 
-O resto do catálogo aparece na tela inicial como "Em breve" e chega nas próximas versões.
+## Bancos de dados
+
+Montados por scripts em `tools/dados/` a partir de fontes abertas; o resultado fica em `data/`, com a licença de cada fonte ao lado:
+
+```sh
+node tools/dados/paises.mjs     # data/paises: mledoze/countries (ODbL), Wikidata, Natural Earth
+node tools/dados/palavras.mjs   # data/palavras: pythonprobr/palavras, AOSP LatinIME, Wikcionário
+node tools/dados/wikidata.mjs   # data/conhecimento: filmes e perguntas do Wikidata
+```
 
 ## Instalar no Android pelo Obtainium
 

@@ -8,19 +8,20 @@ Código aberto sob a licença [GPL-3.0](LICENSE). Créditos de terceiros em [CRE
 
 ## Jogos
 
-Versão inicial de todo o catálogo (45 jogos), para testar e ajustar:
+53 jogos, em teste e ajuste:
 
 | Grupo | Jogos |
 | --- | --- |
-| Quebra-cabeças de grade | Campo Minado, Sudoku (clássico, killer e regras combinadas), Akari, Tendas, Pontes, Rainhas, Mosaico, Sumplete, Ligue os Números |
-| Números | Conta Certa |
+| Quebra-cabeças | Campo Minado, Sudoku (clássico ou com regras combinadas: diagonais, anti-rei, anti-cavalo, não consecutivo, killer, Kropki, XV, par e ímpar, termômetro), Nonograma, Charada de Einstein, Akari, Tendas, Pontes, Rainhas, Mosaico, Sumplete, Ligue os Números, Apague as Luzes |
+| Números e memória | Conta Certa, Jogo da Memória, Sequência de Cores |
 | Mover e encaixar | Resta Um, Separe as Cores, Desbloqueio, Setas, Desembaraço |
 | Palavras | Termo (com Dueto e Quarteto), Roda de Letras, Palavras Cruzadas (layout livre e grade densa) |
-| Conhecimento | Perguntas por Categoria, Adivinhe o Filme |
+| Conhecimento | Perguntas por Categoria, Rumo ao Milhão, Adivinhe o Filme |
 | Geografia | País pela Distância, Capital pela Distância, País pelo Contorno, Bandeira Revelada, Descobre Bandeiras, Viagem pelas Fronteiras, País pelas Pistas |
-| Cartas | Paciência, Paciência Spider, FreeCell, Pirâmide, TriPeaks, Golf, Vinte e Um |
-| Dados | General, Dado Mentiroso |
-| Tabuleiro para dois (no mesmo aparelho) | Quatro em Linha, Trilha, Damas, Reversi, Xadrez, Go, Ludo, Jogo Real de Ur, Sinuca |
+| Paciências | Paciência, Paciência Spider, FreeCell, Pirâmide, TriPeaks, Golf |
+| Jogos 2+ | Quatro em Linha, Damas, Xadrez, Reversi, Trilha, Batalha Naval, General, Dado Mentiroso, Vinte e Um, Quem Sou Eu, Go, Ludo, Jogo Real de Ur, Sinuca |
+
+Contra o computador (fácil, médio e difícil): Quatro em Linha, Damas, Xadrez, Reversi, Trilha, Batalha Naval, General, Dado Mentiroso e Jogo Real de Ur. O computador é próprio do projeto (busca minimax com poda alfa-beta, rodando num Web Worker), sem motor externo.
 
 ## Bancos de dados
 
@@ -31,6 +32,8 @@ node tools/dados/paises.mjs     # data/paises: mledoze/countries (ODbL), Wikidat
 node tools/dados/palavras.mjs   # data/palavras: pythonprobr/palavras, AOSP LatinIME, Wikcionário
 node tools/dados/wikidata.mjs   # data/conhecimento: filmes e perguntas do Wikidata
 ```
+
+As cartas do Quem Sou Eu (`data/quem-sou-eu/`) foram escritas para o projeto.
 
 ## Instalar no Android pelo Obtainium
 

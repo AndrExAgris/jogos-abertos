@@ -340,6 +340,20 @@ A cada marco: testes dos núcleos passando, APK gerado no CI e um release para o
   - [x] Bugs: notas do Sudoku deslocando a linha; somas do killer; bolas gigantes nas Pontes (anel de foco e destaque de toque do Android em SVG)
   - [x] Sumplete (novo), Sudoku (dois teclados, refazer, preencher notas, destaque do dígito, contador de erros, linhas finas e caixas na cor secundária), Rainhas (coroa no 1º toque, divisas simples), Ligue (paleta ampla sorteada), Conta Certa (contornos, dica de um passo), Separe (sem números, visual de líquido), Hora do Rush virou Desbloqueio, Setas (linhas longas com curvas e animação), Termo (verde e amarelo, lista de palpites ampliada para 15.772, escrever em qualquer casa), Roda (arrastar o dedo), Cruzadas (grade densa 5, 7 e 9, indicador de verificação), mapa com zoom, Descobre Bandeiras progressivo (2, 4, 6 opções), verso clássico das cartas e mesa de feltro, celular deitado sem navegação lateral (Spider em duas colunas), General com duas tabelas
 
+- [x] Rodada de correções 2 (pedida em 22/11/2026, antes de amigos testarem), release v0.5.0
+  - [x] Ajustes: Minas (aviso de toque curto), Sudoku (regras combináveis à vontade, Kropki, XV, par e ímpar, termômetro, dígito travado ao segurar, destaque de números e notas, divisórias brancas), Pontes por arrasto, Separe (tubo completo fecha), Setas mais rápidas e sem bloqueio, Desembaraço (toque maior), Termo (teclado no meio do espaço livre), Roda (toque tira letra; banco revisado pelo Wikcionário), Perguntas (sem aposta, 3 vidas, sem categoria Brasil), Contorno e Capital (ponto cardeal no lugar da porcentagem), Paciência (aviso de sem saída), General e Mentiroso (dados embaixo, animação), Sinuca (branca embaixo, cores oficiais)
+  - [x] Jogos novos: Rumo ao Milhão, Batalha Naval, Quem Sou Eu, Charada de Einstein, Nonograma, Apague as Luzes, Jogo da Memória, Sequência de Cores (53 jogos)
+  - [x] Computador (fácil, médio, difícil) em Quatro em Linha, Damas, Xadrez, Reversi, Trilha, Ur, Batalha Naval, General e Mentiroso (`nucleo-tabuleiro/ia`, worker `ia`)
+  - [x] Teclado do app em todos os jogos com digitação (`TecladoLetras`, `CampoTeclado`); avisos curtos (`lib/aviso.svelte.ts`)
+  - [x] Ícone do cubo mágico; miniaturas desenhadas de cada jogo no início (`jogos/Miniatura.svelte`); categoria "Jogos 2+"; animações de entrada e toque
+
+Pendências para avaliar depois (pedidas pelo André, fora desta rodada):
+- Mahjong (paciência de pares, o "Mahjong Solitaire"): funciona bem no celular e no site; regras simples (tirar pares livres). Precisa de peças desenhadas em SVG próprio e de gerador que garanta solução (montar a pilha de trás para frente). Esforço médio.
+- Cobrinha: fácil e funciona bem com deslize do dedo; esforço pequeno.
+- Tetris (blocos caindo, com outro nome): funciona no celular com botões grandes ou gestos; o nome e o visual do Tetris são marca registrada, então teria nome e arte próprios. Esforço médio.
+- Outros de lógica do mesmo tipo que encaixam bem: 2048, Quebra-cabeça de 15, Slitherlink, Kakuro, Takuzu (binário), Futoshiki.
+- Xadrez mais forte: Stockfish.js lite (GPL-3.0, uns 1,7 MB) como nível extra.
+
 Decisões tomadas com o André:
 - Minas: 3 níveis (9×9/10, 16×16/40, 30×16/99, em pé 16×30 no celular na vertical) + personalizado (lados de 5 a 40)
 
@@ -348,5 +362,8 @@ Decisões provisórias, a confirmar com o André:
 - "Tele" era o Sumplete: entrou no catálogo com esse nome (3×3 a 9×9, solução única)
 - Termo usa verde (sucesso) e amarelo (aviso), como no jogo original, a pedido do André
 - General: tabela "Seguida maior" (Seguida 40, Quadra 35, Full 30) como padrão e a clássica (Seguida 20, Full 30, Quadra 40) como opção; as fontes divergem
+- Show do Milhão genérico entrou como "Rumo ao Milhão" (o nome do programa é marca); ajudas próprias: eliminar duas, plateia e pular (duas vezes); prêmios garantidos em R$ 10 mil e R$ 100 mil
+- Perguntas sobre o Brasil: geografia foi para Mundo (junto com as capitais do mundo) e presidentes para Sociedade
+- Batalha Naval: frota 5, 4, 3, 3 e 2, sem encostar, um tiro por vez; posição sorteada (com "sortear de novo")
 - Nomes em português: Campo Minado, Rainhas (Queens), Conta Certa (Alvo), Separe as Cores (Water Sort), Desbloqueio (Rush Hour, só blocos), Quatro em Linha, Vinte e Um (Blackjack); jogos de geografia com nomes descritivos
 - Cores de peças (Separe as Cores, Ludo, bolas da Sinuca, regiões das Rainhas): paleta de destaque definida só em `.ja-cor-N` no app.css, sempre com número ou forma; pedras de Go e tabuleiro de xadrez com preto e branco fixos (`--ja-preta`, `--ja-branca`)

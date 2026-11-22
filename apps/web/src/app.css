@@ -1079,3 +1079,6 @@ rect.m-cor-a, rect.m-cor-b, rect.m-cor-c, circle.m-cor-a, circle.m-cor-b, circle
 @media (prefers-reduced-motion: reduce) {
   .tela-conteudo, .ja-escolha .linha-config, .ja-grade-jogos > .ja-quadro-jogo, .ja-fim, .ja-retomar, .ja-regra, .ja-categoria { animation: none; }
 }
+.ja-campo-pais .campo { width: 100%; }
+.ja-campo-linha .ja-campo-falso { flex: 1; min-width: 0; }
+.ja-tecla-letra.ja-tecla-espaco { flex: 0 1 60%; max-width: 60%; text-transform: none; font: 500 15px/1 var(--font-interface); }

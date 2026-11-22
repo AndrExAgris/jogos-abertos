@@ -1,0 +1,35 @@
+# Node
+node_modules/
+dist/
+dev-dist/
+.vite/
+*.log
+.pnpm-store/
+coverage/
+*.tsbuildinfo
+
+# Android / Gradle
+.gradle/
+build/
+local.properties
+.idea/
+*.iml
+captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+*.aab
+
+# Assinatura e segredos
+*.keystore
+*.jks
+keystore.properties
+.env
+.env.*
+
+# Docker
+docker-data/
+
+# Sistema
+.DS_Store
+Thumbs.db

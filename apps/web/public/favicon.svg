@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Ícone do Jogos Abertos: grade 3×3 nas cores do Open Design (escuro). -->
+  <rect width="512" height="512" fill="#181a1d"/>
+  <g transform="translate(136 136)">
+    <rect x="0"   y="0"   width="72" height="72" rx="12" fill="#373b40"/>
+    <rect x="84"  y="0"   width="72" height="72" rx="12" fill="#373b40"/>
+    <rect x="168" y="0"   width="72" height="72" rx="12" fill="#36d2ba"/>
+    <rect x="0"   y="84"  width="72" height="72" rx="12" fill="#373b40"/>
+    <rect x="84"  y="84"  width="72" height="72" rx="12" fill="#fc6c12"/>
+    <rect x="168" y="84"  width="72" height="72" rx="12" fill="#373b40"/>
+    <rect x="0"   y="168" width="72" height="72" rx="12" fill="#373b40"/>
+    <rect x="84"  y="168" width="72" height="72" rx="12" fill="#373b40"/>
+    <rect x="168" y="168" width="72" height="72" rx="12" fill="#373b40"/>
+  </g>
+</svg>

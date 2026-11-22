@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Jogos Abertos</string>
+    <string name="title_activity_main">Jogos Abertos</string>
+    <string name="package_name">io.github.andrexagris.jogosabertos</string>
+    <string name="custom_url_scheme">io.github.andrexagris.jogosabertos</string>
+</resources>

@@ -1,0 +1,9 @@
+**/node_modules
+**/dist
+**/dev-dist
+apps/web/android
+.git
+.github
+*.keystore
+*.jks
+.env

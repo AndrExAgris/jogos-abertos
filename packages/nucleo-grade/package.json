@@ -1,0 +1,18 @@
+{
+  "name": "@ja/nucleo-grade",
+  "version": "0.1.0",
+  "private": true,
+  "license": "GPL-3.0-or-later",
+  "type": "module",
+  "exports": {
+    "./minas": "./src/minas/index.ts"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "medir": "vitest bench --run"
+  },
+  "dependencies": {
+    "@ja/contrato": "workspace:*"
+  }
+}

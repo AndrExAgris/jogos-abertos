@@ -1,0 +1,72 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: write
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+      - uses: android-actions/setup-android@v3
+
+      - name: Versão a partir da tag
+        id: versao
+        run: |
+          TAG="${GITHUB_REF_NAME}"
+          NOME="${TAG#v}"
+          IFS=. read -r MAIOR MENOR CORRECAO <<< "$NOME"
+          # v1.2.3 -> 10203. Cresce a cada release enquanto menor e correção ficarem abaixo de 100.
+          CODIGO=$(( MAIOR * 10000 + MENOR * 100 + CORRECAO ))
+          echo "nome=$NOME" >> "$GITHUB_OUTPUT"
+          echo "codigo=$CODIGO" >> "$GITHUB_OUTPUT"
+
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm test
+      - name: Build web e sync do Capacitor
+        run: pnpm --filter @ja/web cap:sync
+
+      - name: Chave de assinatura
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+        run: |
+          if [ -z "$ANDROID_KEYSTORE_BASE64" ]; then
+            echo "::error::Falta o secret ANDROID_KEYSTORE_BASE64. Veja o README."
+            exit 1
+          fi
+          echo "$ANDROID_KEYSTORE_BASE64" | base64 -d > "$RUNNER_TEMP/jogos-abertos.jks"
+          echo "ANDROID_KEYSTORE_PATH=$RUNNER_TEMP/jogos-abertos.jks" >> "$GITHUB_ENV"
+
+      - name: APK de release assinado
+        working-directory: apps/web/android
+        env:
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleRelease \
+            -PversionCode=${{ steps.versao.outputs.codigo }} \
+            -PversionName=${{ steps.versao.outputs.nome }}
+          cp app/build/outputs/apk/release/app-release.apk "$RUNNER_TEMP/jogos-abertos-${GITHUB_REF_NAME}.apk"
+
+      - name: Publicar no release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" "$RUNNER_TEMP/jogos-abertos-${GITHUB_REF_NAME}.apk" \
+            --title "Jogos Abertos $GITHUB_REF_NAME" --generate-notes

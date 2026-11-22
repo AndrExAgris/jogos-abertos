@@ -1,0 +1,119 @@
+/*
+ * Classes próprias do Jogos Abertos (prefixo ja-), só com variáveis do Open Design.
+ */
+
+html, body { margin: 0; background: var(--fundo); }
+body { overscroll-behavior: none; }
+
+/* Desktop: barra superior fixa e só o conteúdo rola, como na TelaApp. */
+.ja-principal { height: 100vh; display: grid; grid-template-rows: auto minmax(0, 1fr); }
+.ja-principal > .barra-superior { padding-inline: calc(var(--e-6) * var(--fator)); }
+
+.ja-pilha { display: flex; flex-direction: column; gap: calc(var(--e-5) * var(--fator)); }
+.ja-sem-margem { margin: 0; }
+
+/* Início */
+.ja-grupo { display: flex; flex-direction: column; gap: calc(var(--e-2) * var(--fator)); }
+.ja-grupo .grupo-config-titulo { margin: 0; }
+.ja-lista-jogos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
+  gap: calc(var(--e-3) * var(--fator));
+}
+.ja-cartao-jogo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--e-1);
+  min-height: var(--alvo-toque);
+  padding: calc(var(--e-4) * var(--fator));
+  background: var(--superficie);
+  border: var(--borda-fina) solid var(--borda);
+  border-radius: var(--raio-painel);
+  color: var(--texto);
+  font: inherit;
+  text-align: left;
+  -webkit-tap-highlight-color: transparent;
+}
+button.ja-cartao-jogo { cursor: pointer; box-shadow: var(--sombra-relevo); }
+@media (hover: hover) {
+  button.ja-cartao-jogo:hover { background-image: linear-gradient(var(--sobreposicao-hover), var(--sobreposicao-hover)); }
+}
+button.ja-cartao-jogo:active { box-shadow: none; background-image: linear-gradient(var(--sobreposicao-pressionado), var(--sobreposicao-pressionado)); }
+button.ja-cartao-jogo:focus-visible { outline: none; box-shadow: 0 0 0 var(--anel-foco) color-mix(in oklab, var(--foco) 55%, transparent); }
+.ja-cartao-jogo[aria-disabled="true"] { background: var(--superficie-sutil); color: var(--texto-2); }
+.ja-cartao-titulo { font: 600 15px/20px var(--font-interface); }
+.ja-cartao-descricao { font: 400 13px/18px var(--font-interface); color: var(--texto-2); }
+.ja-cartao-rodape { margin-top: auto; padding-top: var(--e-2); }
+
+/* Jogos */
+.tela-conteudo.ja-livre { padding-block: calc(var(--e-3) * var(--fator)) var(--e-6); }
+.ja-jogo {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--e-4) * var(--fator));
+  max-width: var(--largura-conteudo);
+  margin-inline: auto;
+}
+.ja-jogo-controles {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--e-3) * var(--fator));
+  padding-inline: var(--grade-margem-compacta);
+}
+.ja-segmentado-largo { align-self: stretch; }
+.ja-segmentado-largo > button { flex: 1; }
+.ja-placar { display: flex; align-items: center; gap: calc(var(--e-4) * var(--fator)); flex-wrap: wrap; }
+.ja-placar-item { display: inline-flex; align-items: center; gap: var(--e-2); color: var(--texto-2); }
+.ja-placar-item .leitura-numero { color: var(--texto); font: 600 18px/24px var(--font-interface); font-variant-numeric: tabular-nums; }
+.ja-placar .segmentado { margin-left: auto; }
+.ja-placar .segmentado button { display: inline-flex; align-items: center; gap: var(--e-1); }
+.ja-tabuleiro-area { overflow-x: auto; padding-inline: var(--grade-margem-compacta); padding-block: 2px; }
+
+/* Minas */
+.ja-minas {
+  display: grid;
+  grid-template-columns: repeat(var(--ja-colunas), var(--ja-casa));
+  grid-auto-rows: var(--ja-casa);
+  gap: 2px;
+  width: max-content;
+  margin-inline: auto;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+.ja-minas-casa {
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: var(--raio-indicador);
+  background: var(--superficie-elevada);
+  box-shadow: var(--sombra-relevo);
+  color: var(--texto);
+  font: 700 calc(var(--ja-casa) * 0.5) / 1 var(--font-interface);
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.ja-minas-casa .icone { width: calc(var(--ja-casa) * 0.55); height: calc(var(--ja-casa) * 0.55); }
+.ja-minas-casa:not([data-aberta]) .icone { color: var(--primaria-texto); }
+@media (hover: hover) {
+  .ja-minas-casa:not([data-aberta]):not(:disabled):hover { background-image: linear-gradient(var(--sobreposicao-hover), var(--sobreposicao-hover)); }
+}
+.ja-minas-casa:not([data-aberta]):active { box-shadow: none; }
+.ja-minas-casa:focus-visible { outline: none; box-shadow: 0 0 0 var(--anel-foco) color-mix(in oklab, var(--foco) 55%, transparent); position: relative; z-index: 1; }
+.ja-minas-casa[data-aberta] { background: var(--fundo); box-shadow: inset 0 0 0 var(--borda-fina) var(--borda); cursor: default; }
+.ja-minas-casa[data-aberta][data-n] { cursor: pointer; }
+.ja-minas-casa:disabled { cursor: default; }
+/* Fim de jogo: minas à mostra em neutro; a que explodiu e as bandeiras erradas em erro, sempre com ícone. */
+.ja-minas[data-fim] .ja-minas-casa:not([data-aberta]) .icone { color: var(--texto-2); }
+.ja-minas[data-fim="vitoria"] .ja-minas-casa:not([data-aberta]) .icone { color: var(--primaria-texto); }
+.ja-minas-casa[data-explodida] { background: var(--erro-fundo); box-shadow: inset 0 0 0 var(--borda-fina) var(--erro); }
+.ja-minas-casa[data-explodida] .icone,
+.ja-minas[data-fim] .ja-minas-casa[data-erro] .icone { color: var(--erro-texto); }
+
+/* Formulários em folhas */
+.ja-form { display: flex; flex-direction: column; gap: calc(var(--e-3) * var(--fator)); }
+.ja-campos-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: calc(var(--e-3) * var(--fator)); }

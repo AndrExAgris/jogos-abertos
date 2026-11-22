@@ -1,0 +1,13 @@
+{
+  "name": "@ja/tools-icones",
+  "version": "0.1.0",
+  "private": true,
+  "license": "GPL-3.0-or-later",
+  "type": "module",
+  "scripts": {
+    "gerar": "node gerar.mjs"
+  },
+  "devDependencies": {
+    "sharp": "^0.35.5"
+  }
+}

@@ -536,3 +536,44 @@ body { overscroll-behavior: none; }
 .ja-aposta { display: flex; flex-direction: column; gap: var(--e-3); align-items: center; padding-inline: var(--grade-margem-compacta); }
 .ja-aposta-campo { display: flex; flex-direction: column; align-items: center; gap: var(--e-1); }
 .ja-aposta .ja-botoes { align-items: center; }
+
+/* Geografia */
+.ja-campo-pais { display: flex; flex-direction: column; gap: var(--e-2); padding-inline: var(--grade-margem-compacta); max-width: 520px; margin-inline: auto; width: 100%; box-sizing: border-box; }
+.ja-campo-linha { display: flex; gap: var(--e-2); }
+.ja-campo-linha .entrada { flex: 1; min-width: 0; }
+.ja-sugestoes .linha-config { min-height: 44px; }
+.ja-mapa { width: 100%; height: auto; max-height: 46dvh; background: color-mix(in oklab, var(--info) 10%, var(--superficie)); border-radius: var(--raio-painel); border: var(--borda-fina) solid var(--borda); }
+.ja-mapa-pais { fill: var(--superficie-elevada); stroke: var(--borda-controle); stroke-width: 0.15; vector-effect: non-scaling-stroke; }
+.ja-mapa-pais.perto-0 { fill: color-mix(in oklab, var(--primaria) 18%, var(--superficie-elevada)); }
+.ja-mapa-pais.perto-1 { fill: color-mix(in oklab, var(--primaria) 38%, var(--superficie-elevada)); }
+.ja-mapa-pais.perto-2 { fill: color-mix(in oklab, var(--primaria) 60%, var(--superficie-elevada)); }
+.ja-mapa-pais.perto-3 { fill: color-mix(in oklab, var(--primaria) 82%, var(--superficie-elevada)); }
+.ja-mapa-pais.ponta { fill: var(--secundaria); }
+.ja-mapa-pais.certo { fill: var(--primaria); }
+.ja-mapa-pais.fora { fill: color-mix(in oklab, var(--texto) 35%, var(--superficie-elevada)); }
+.ja-mapa-ponto { fill: var(--primaria); stroke: var(--fundo); stroke-width: 0.3; }
+.ja-mapa-ponto.segredo { fill: var(--secundaria); }
+.ja-palpites { display: flex; flex-direction: column; gap: var(--e-1); padding-inline: var(--grade-margem-compacta); max-width: 520px; margin-inline: auto; width: 100%; box-sizing: border-box; }
+.ja-palpite { display: flex; align-items: center; gap: var(--e-2); padding: var(--e-2) var(--e-3); border-radius: var(--raio-controle); background: var(--superficie); border: var(--borda-fina) solid var(--borda); font: 500 14px/20px var(--font-interface); }
+.ja-palpite[data-certo] { background: var(--primaria-fundo); border-color: var(--primaria-texto); }
+.ja-palpite-nome { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ja-palpite-valor { font-variant-numeric: tabular-nums; color: var(--texto-2); }
+.ja-seta { font: 700 18px/1 var(--font-interface); color: var(--primaria-texto); width: 20px; text-align: center; }
+.ja-silhueta { width: min(70vw, 300px); height: min(56vw, 240px); }
+.ja-silhueta path { fill: var(--texto); }
+.ja-bandeira { display: block; width: min(calc(100vw - 2 * var(--grade-margem-compacta)), 360px); aspect-ratio: 4 / 3; border-radius: var(--raio-controle); box-shadow: var(--sombra-painel); border: var(--borda-fina) solid var(--borda); object-fit: cover; }
+.ja-bandeira-coberta { position: relative; width: min(calc(100vw - 2 * var(--grade-margem-compacta)), 360px); aspect-ratio: 4 / 3; }
+.ja-bandeira-coberta .ja-bandeira { width: 100%; }
+.ja-cobertura { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 1fr); }
+.ja-cobertura span { background: var(--superficie-elevada); border: 1px solid var(--borda); }
+.ja-cobertura span[data-aberto] { visibility: hidden; }
+.ja-opcoes-quiz { display: grid; grid-template-columns: 1fr 1fr; gap: var(--e-2); padding-inline: var(--grade-margem-compacta); max-width: 520px; margin-inline: auto; width: 100%; box-sizing: border-box; }
+.ja-opcoes-quiz .botao { min-height: 56px; white-space: normal; text-align: center; justify-content: center; line-height: 1.2; }
+.ja-opcoes-quiz .botao[data-certa] { background: var(--sucesso-fundo); box-shadow: inset 0 0 0 2px var(--sucesso); }
+.ja-opcoes-quiz .botao[data-errada] { background: var(--erro-fundo); box-shadow: inset 0 0 0 2px var(--erro); }
+.ja-pistas { overflow-x: auto; padding-inline: var(--grade-margem-compacta); }
+.ja-pistas table { border-collapse: separate; border-spacing: 3px; font: 500 12px/16px var(--font-interface); min-width: 100%; }
+.ja-pistas th { color: var(--texto-2); font-weight: 500; text-align: left; padding: 2px 4px; }
+.ja-pistas td { background: var(--superficie); border-radius: var(--raio-indicador); padding: 6px; text-align: center; white-space: nowrap; }
+.ja-pistas td[data-certo] { background: var(--primaria-fundo); color: var(--primaria-texto); font-weight: 700; }
+.ja-pistas td.ja-pistas-nome { text-align: left; font-weight: 600; }

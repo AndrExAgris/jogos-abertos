@@ -11,6 +11,11 @@ Código, dados e recursos de terceiros usados no Jogos Abertos. Cada item vem co
 | JetBrains Mono | JetBrains | SIL OFL 1.1 | https://github.com/JetBrains/JetBrainsMono |
 | Symbols Nerd Font 3.4.0 | Ryan L McIntyre e colaboradores | MIT (os conjuntos de ícones incluídos têm licenças próprias) | https://github.com/ryanoasis/nerd-fonts |
 | Gerador e solucionador do Minas, portados de `mines.c` | Simon Tatham e colaboradores | MIT | https://www.chiark.greenend.org.uk/~sgtatham/puzzles/ |
+| Peças de xadrez "Cburnett" (`packages/ui/pecas/cburnett/`) | Colin M.L. Burnett | GPLv2 ou posterior | https://github.com/lichess-org/lila/tree/master/public/piece/cburnett |
+| Bandeiras flag-icons 7.6.0, formato 4:3 (`packages/geo/bandeiras/`) | Panayiotis Lipiridis e colaboradores | MIT | https://github.com/lipis/flag-icons |
+| Base de países (`data/paises/paises.json`, derivada) | Mohammed Le Doze (mledoze/countries) | ODbL 1.0 | https://github.com/mledoze/countries |
+| Capitais, coordenadas e população dos países | Colaboradores do Wikidata | CC0 | https://www.wikidata.org |
+| Formas dos países (`data/paises/formas.json`) | Natural Earth | Domínio público | https://www.naturalearthdata.com |
 
 Os textos das licenças das fontes e dos ícones estão em `packages/ui/open-design/licencas/` e `packages/ui/icones/LICENSE`. O aviso de copyright do Simon Tatham está no topo de `packages/nucleo-grade/src/minas/gerador.ts`.
 

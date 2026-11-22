@@ -51,6 +51,17 @@ export const GRUPOS: GrupoJogos[] = [
     ],
   },
   {
+    id: 'geografia', nome: 'Geografia', jogos: [
+      j('pais-distancia', 'País pela Distância', 'Ache o país secreto pelo mapa de calor', 'world', '1', () => import('./geo/Distancia.svelte')),
+      j('capital-distancia', 'Capital pela Distância', 'Ache a capital pela distância e direção', 'map-pin', '1', () => import('./geo/Capital.svelte')),
+      j('pais-contorno', 'País pelo Contorno', 'Que país tem esse formato?', 'map', '1', () => import('./geo/Contorno.svelte')),
+      j('bandeira-revelada', 'Bandeira Revelada', 'A bandeira aparece aos poucos', 'flag-question', '1', () => import('./geo/BandeiraRevelada.svelte')),
+      j('descobre-bandeiras', 'Descobre Bandeiras', 'De que país é esta bandeira?', 'flag', '1', () => import('./geo/DescobreBandeiras.svelte')),
+      j('viagem-fronteiras', 'Viagem pelas Fronteiras', 'De um país a outro só por terra', 'route-2', '1', () => import('./geo/Viagem.svelte')),
+      j('pais-pistas', 'País pelas Pistas', 'Continente, população, área e distância', 'world-search', '1', () => import('./geo/Pistas.svelte')),
+    ],
+  },
+  {
     id: 'cartas', nome: 'Cartas', jogos: [
       j('paciencia', 'Paciência', 'A clássica, virando 1 ou 3', 'cards', '1', () => import('./cartas/Paciencia.svelte')),
       j('spider', 'Paciência Spider', 'Com 1, 2 ou 4 naipes', 'spider', '1', () => import('./cartas/Spider.svelte')),

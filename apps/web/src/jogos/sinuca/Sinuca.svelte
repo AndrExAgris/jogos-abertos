@@ -21,14 +21,14 @@
   const branca = $derived(bolas.find((b) => b.n === 0));
   const FORCA_MAX = 9;
 
-  // No celular em pé, a mesa gira 90°: (x, y) da mesa vira (ALTURA − y, x) na tela.
+  // No celular em pé, a mesa gira 90° com a cabeceira (onde fica a branca) embaixo: (x, y) da mesa vira (y, LARGURA − x) na tela.
   const retrato = !layout.largo && window.innerHeight > window.innerWidth;
   function ponto(e: PointerEvent) {
     const r = svg!.getBoundingClientRect();
     if (retrato) {
       const sx = ((e.clientX - r.left) / r.width) * (ALTURA + 16) - 8;
       const sy = ((e.clientY - r.top) / r.height) * (LARGURA + 16) - 8;
-      return { x: sy, y: ALTURA - sx };
+      return { x: LARGURA - sy, y: sx };
     }
     return { x: ((e.clientX - r.left) / r.width) * (LARGURA + 16) - 8, y: ((e.clientY - r.top) / r.height) * (ALTURA + 16) - 8 };
   }
@@ -74,7 +74,7 @@
     };
     quadro = requestAnimationFrame(quadroFn);
   }
-  const grupoTxt = (g: string | null) => (g === 'lisas' ? 'lisas' : g === 'listradas' ? 'listradas' : 'sem grupo');
+  const grupoTxt = (g: string | null) => (g === 'lisas' ? 'lisas' : g === 'listradas' ? 'listradas' : '—');
   onMount(() => s.carregar());
   onDestroy(() => { cancelAnimationFrame(quadro); s.destruir(); });
 </script>
@@ -97,7 +97,7 @@
         onpointerup={soltar}
         onpointercancel={() => (mira = null)}
       >
-        <g transform={retrato ? `translate(${ALTURA} 0) rotate(90)` : undefined}>
+        <g transform={retrato ? `translate(0 ${LARGURA}) rotate(-90)` : undefined}>
         <rect x="-8" y="-8" width={LARGURA + 16} height={ALTURA + 16} rx="5" class="ja-sinuca-borda" />
         <rect x="0" y="0" width={LARGURA} height={ALTURA} class="ja-sinuca-pano" />
         {#each CACAPAS as [cx, cy], k (k)}<circle {cx} {cy} r={CACAPA} class="ja-sinuca-cacapa" />{/each}
@@ -110,9 +110,14 @@
         {/if}
         {#each bolas as b (b.n)}
           {#if !b.dentro}
-            <g class="ja-cor-{b.n === 0 ? 9 : b.n === 8 ? 9 : (b.n - 1) % 8}">
+            <g class="ja-bola-grupo ja-bola-c{b.n > 8 ? b.n - 8 : b.n}">
               <circle cx={b.x} cy={b.y} r={RAIO} class="ja-bola" data-n={b.n} data-listrada={b.n > 8 || undefined} />
-              {#if b.n > 0}<text x={b.x} y={b.y + 0.1} class="ja-bola-num">{b.n}</text>{/if}
+              {#if b.n > 8}
+                <clipPath id="ja-bola-{b.n}"><circle cx={b.x} cy={b.y} r={RAIO} /></clipPath>
+                <rect x={retrato ? b.x - RAIO * 0.55 : b.x - RAIO} y={retrato ? b.y - RAIO : b.y - RAIO * 0.55} width={retrato ? RAIO * 1.1 : RAIO * 2} height={retrato ? RAIO * 2 : RAIO * 1.1} class="ja-bola-faixa" clip-path="url(#ja-bola-{b.n})" />
+              {/if}
+              {#if b.n > 0}<circle cx={b.x} cy={b.y} r={RAIO * 0.48} class="ja-bola-disco" /><text x={b.x} y={b.y + 0.1} class="ja-bola-num" transform={retrato ? `rotate(90 ${b.x} ${b.y})` : undefined}>{b.n}</text>{/if}
+              <circle cx={b.x - RAIO * 0.35} cy={b.y - RAIO * 0.35} r={RAIO * 0.28} class="ja-bola-brilho" />
             </g>
           {/if}
         {/each}

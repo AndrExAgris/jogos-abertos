@@ -515,16 +515,27 @@ body { overscroll-behavior: none; }
 /* Sinuca */
 .ja-sinuca { width: min(calc(100vw - 2 * var(--grade-margem-compacta)), 760px); height: auto; touch-action: none; }
 .ja-sinuca[data-retrato] { width: auto; height: min(68dvh, calc((100vw - 2 * var(--grade-margem-compacta)) * 1.9)); }
-.ja-sinuca-borda { fill: color-mix(in oklab, var(--bronze) 60%, var(--fundo)); }
-.ja-sinuca-pano { fill: color-mix(in oklab, var(--teal) 30%, var(--fundo)); }
+.ja-sinuca-borda { fill: color-mix(in oklab, var(--bronze) 45%, #2a1608); }
+.ja-sinuca-pano { fill: color-mix(in oklab, var(--sucesso) 38%, #0b2116); }
 .ja-sinuca-cacapa { fill: var(--ja-preta); }
 .ja-sinuca-mira { stroke: var(--texto); stroke-width: 0.4; stroke-dasharray: 1.5 1.5; opacity: 0.7; }
 .ja-sinuca-taco { stroke: var(--primaria); stroke-width: 1; stroke-linecap: round; }
+/* Bolas nas cores oficiais (1 amarela, 2 azul, 3 vermelha, 4 roxa, 5 laranja, 6 verde, 7 vinho, 8 preta), em tons sóbrios. */
+.ja-bola-c0 { --peca: var(--ja-branca); }
+.ja-bola-c1 { --peca: color-mix(in oklab, var(--aviso) 82%, black); }
+.ja-bola-c2 { --peca: color-mix(in oklab, var(--indigo) 70%, black); }
+.ja-bola-c3 { --peca: color-mix(in oklab, var(--erro) 78%, black); }
+.ja-bola-c4 { --peca: color-mix(in oklab, var(--roxo) 62%, black); }
+.ja-bola-c5 { --peca: color-mix(in oklab, var(--laranja) 85%, black); }
+.ja-bola-c6 { --peca: color-mix(in oklab, var(--sucesso) 55%, black); }
+.ja-bola-c7 { --peca: color-mix(in oklab, var(--erro) 45%, #2a0a06); }
+.ja-bola-c8 { --peca: var(--ja-preta); }
 .ja-bola { fill: var(--peca); }
-.ja-bola[data-n="0"] { fill: var(--ja-branca); }
-.ja-bola[data-n="8"] { fill: var(--ja-preta); }
-.ja-bola[data-listrada] { stroke: var(--ja-branca); stroke-width: 1.1; }
-.ja-bola-num { font: 700 2.2px var(--font-interface); text-anchor: middle; dominant-baseline: middle; fill: var(--ja-branca); pointer-events: none; }
+.ja-bola[data-listrada] { fill: var(--ja-branca); }
+.ja-bola-faixa { fill: var(--peca); }
+.ja-bola-disco { fill: var(--ja-branca); }
+.ja-bola-brilho { fill: white; opacity: 0.28; pointer-events: none; }
+.ja-bola-num { font: 700 1.6px var(--font-interface); text-anchor: middle; dominant-baseline: middle; fill: var(--ja-preta); pointer-events: none; }
 /* Xadrez: tons fixos para as peças pretas e brancas aparecerem nos dois temas. */
 .ja-xadrez .ja-tab-casa { background: color-mix(in oklab, var(--ja-branca) 88%, var(--ja-preta)); }
 .ja-xadrez .ja-tab-casa[data-escura] { background: color-mix(in oklab, var(--ja-branca) 58%, var(--ja-preta)); }

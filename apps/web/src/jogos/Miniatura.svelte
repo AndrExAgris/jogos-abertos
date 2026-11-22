@@ -6,6 +6,8 @@
   import { Icone } from '@ja/ui';
   interface Props { id: string; icone: string }
   let { id, icone }: Props = $props();
+  import rainhaBranca from '../../../../packages/ui/pecas/cburnett/wQ.svg?url';
+  import rainhaPreta from '../../../../packages/ui/pecas/cburnett/bQ.svg?url';
 
   const g3 = [0, 1, 2];
   const g4 = [0, 1, 2, 3];
@@ -195,8 +197,14 @@
     {#each g4 as y (y)}{#each g4 as x (x)}<rect x={4 + x * 14} y={4 + y * 14} width="14" height="14" class={(x + y) % 2 ? 'm-casa-escura' : 'm-casa-clara'} />{/each}{/each}
     <circle cx="25" cy="11" r="5" class="m-preta-fixa" /><circle cx="53" cy="11" r="5" class="m-preta-fixa" /><circle cx="11" cy="53" r="5" class="m-branca-fixa" /><circle cx="39" cy="39" r="5" class="m-branca-fixa" />
   {:else if id === 'xadrez'}
+    <!-- Rainha das peças do jogo (Cburnett): metade branca, metade preta. -->
+    <defs>
+      <clipPath id="m-xadrez-esq"><rect x="0" y="0" width="32" height="64" /></clipPath>
+      <clipPath id="m-xadrez-dir"><rect x="32" y="0" width="32" height="64" /></clipPath>
+    </defs>
     {#each g4 as y (y)}{#each g4 as x (x)}<rect x={4 + x * 14} y={4 + y * 14} width="14" height="14" class={(x + y) % 2 ? 'm-casa-escura' : 'm-casa-clara'} />{/each}{/each}
-    <path d="M22 54h20v-5H40c-2-6 0-12 4-18-1-6-6-12-14-12l-2-4-2 5c-4 2-6 6-6 10l6-1 2 3-6 6 3 3 6-4c2 2 0 8-3 12h-6z" class="m-branca-fixa m-borda-peca" />
+    <image href={rainhaBranca} x="6" y="5" width="52" height="52" clip-path="url(#m-xadrez-esq)" />
+    <image href={rainhaPreta} x="6" y="5" width="52" height="52" clip-path="url(#m-xadrez-dir)" />
   {:else if id === 'reversi'}
     <rect x="4" y="4" width="56" height="56" rx="4" class="m-feltro" />
     {#each [1, 2, 3] as k (k)}<path d="M{4 + k * 14} 4V60M4 {4 + k * 14}H60" class="m-grade-feltro" />{/each}

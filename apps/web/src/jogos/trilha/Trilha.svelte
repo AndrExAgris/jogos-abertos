@@ -12,7 +12,7 @@
   const COMO = [
     'Primeiro cada um coloca suas 9 peças, uma por vez, nos pontos livres. Depois, as peças andam para um ponto vizinho pela linha.',
     'Três peças suas em linha formam um moinho: você tira uma peça do outro (que não esteja num moinho, se houver outra opção).',
-    'Quem fica com 3 peças pode voar para qualquer ponto livre. Perde quem ficar com 2 peças ou sem movimento.',
+    'Para mover, toque na peça e depois no destino, ou arraste a peça até lá. Quem fica com 3 peças pode voar para qualquer ponto livre. Perde quem ficar com 2 peças ou sem movimento.',
   ];
   let selecionada = $state(-1);
   const OPCOES = [...opcoesIA(), { id: '2', titulo: 'Dois jogadores', descricao: 'Nove peças cada, no mesmo aparelho' }];
@@ -42,6 +42,7 @@
   });
 
   function tocar(i: number) {
+    if (engolirClique) return;
     if (!s.estado || s.terminou || (ia && s.estado.vez === 2)) return;
     const e = s.estado;
     let n = e;
@@ -51,6 +52,48 @@
     else if (selecionada >= 0) { n = moverTrilha(e, selecionada, i); selecionada = -1; }
     aplicar(n);
   }
+  // --- Arrastar a peça até o destino (além de tocar na peça e depois no ponto) ---
+  let svg = $state<SVGSVGElement>();
+  let arrasto = $state<{ de: number; x: number; y: number; x0: number; y0: number; moveu: boolean; id: number } | null>(null);
+  let engolirClique = false;
+  function pontoSvg(e: PointerEvent): [number, number] {
+    const p = new DOMPoint(e.clientX, e.clientY).matrixTransform(svg!.getScreenCTM()!.inverse());
+    return [p.x, p.y];
+  }
+  function pontoPerto(x: number, y: number, alcance: number): number {
+    let melhor = -1, menor = alcance;
+    PONTOS.forEach(([px, py], i) => { const d = Math.hypot(px - x, py - y); if (d < menor) { menor = d; melhor = i; } });
+    return melhor;
+  }
+  function aoPressionar(e: PointerEvent) {
+    const est = s.estado;
+    if (!est || s.terminou || (ia && est.vez === 2) || est.removendo || fase(est) === 'colocar') return;
+    const [x, y] = pontoSvg(e);
+    const i = pontoPerto(x, y, 0.45);
+    if (i < 0 || est.casas[i] !== est.vez) return;
+    arrasto = { de: i, x, y, x0: x, y0: y, moveu: false, id: e.pointerId };
+  }
+  function aoMover(e: PointerEvent) {
+    if (!arrasto || e.pointerId !== arrasto.id) return;
+    const [x, y] = pontoSvg(e);
+    const moveu = arrasto.moveu || Math.hypot(x - arrasto.x0, y - arrasto.y0) > 0.25;
+    if (moveu && !arrasto.moveu) { svg!.setPointerCapture(e.pointerId); selecionada = arrasto.de; }
+    arrasto = { ...arrasto, x, y, moveu };
+  }
+  function aoSoltar(e: PointerEvent) {
+    if (!arrasto || e.pointerId !== arrasto.id) return;
+    const { de, x, y, moveu } = arrasto;
+    arrasto = null;
+    if (!moveu || !s.estado) return;
+    engolirClique = true;
+    setTimeout(() => (engolirClique = false), 0);
+    const para = pontoPerto(x, y, 0.55);
+    if (para >= 0 && para !== de && destinos(s.estado, de).includes(para)) {
+      selecionada = -1;
+      aplicar(moverTrilha(s.estado, de, para));
+    }
+  }
+
   onMount(() => s.carregar());
   onDestroy(() => s.destruir());
 </script>
@@ -60,15 +103,18 @@
     <Jogadores {nomes} vez={s.terminou ? -1 : s.estado.vez - 1} pensando={pc.pensando} pontos={[`${s.estado.casas.filter((c) => c === 1).length + s.estado.mao[0]} peças`, `${s.estado.casas.filter((c) => c === 2).length + s.estado.mao[1]} peças`]} />
     <Status texto={dica} />
     <div class="ja-centro">
-      <svg class="ja-tab ja-trilha" viewBox="-0.6 -0.6 7.2 7.2" role="group" aria-label="Tabuleiro da trilha">
+      <svg bind:this={svg} class="ja-tab ja-trilha" onpointerdown={aoPressionar} onpointermove={aoMover} onpointerup={aoSoltar} onpointercancel={() => (arrasto = null)} viewBox="-0.6 -0.6 7.2 7.2" role="group" aria-label="Tabuleiro da trilha">
         {#each LIGACOES as [a, b], k (k)}<line x1={PONTOS[a][0]} y1={PONTOS[a][1]} x2={PONTOS[b][0]} y2={PONTOS[b][1]} />{/each}
         {#each PONTOS as [x, y], i (i)}
           {@const c = s.estado.casas[i]}
           <g role="button" tabindex="-1" aria-label="Ponto {i + 1}{c ? `, jogador ${c}` : ''}" onclick={() => tocar(i)} onkeydown={(e) => e.key === 'Enter' && tocar(i)} class="ja-trilha-ponto" data-alvo={alvos.includes(i) || undefined} data-tirar={tirar.has(i) || undefined} data-selecionada={selecionada === i || undefined}>
             <circle cx={x} cy={y} r="0.42" class="ja-toque" />
-            {#if c}<circle cx={x} cy={y} r="0.3" class="ja-trilha-peca ja-j{c}" />{:else}<circle cx={x} cy={y} r="0.1" class="ja-trilha-vazio" />{/if}
+            {#if c}<circle cx={x} cy={y} r="0.3" class="ja-trilha-peca ja-j{c}" opacity={arrasto?.moveu && arrasto.de === i ? 0.35 : 1} />{:else}<circle cx={x} cy={y} r="0.1" class="ja-trilha-vazio" />{/if}
           </g>
         {/each}
+        {#if arrasto?.moveu}
+          <circle cx={arrasto.x} cy={arrasto.y} r="0.34" class="ja-trilha-peca ja-j{s.estado.vez}" pointer-events="none" />
+        {/if}
       </svg>
     </div>
   {/if}

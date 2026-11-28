@@ -6,6 +6,7 @@
   import Casca from '../../lib/jogo/Casca.svelte';
   import { Sessao } from '../../lib/jogo/sessao.svelte.ts';
   import { gerarNoFundo } from '../../lib/jogo/gerar.ts';
+  import { segurar } from '../../lib/jogo/segurar.ts';
 
   interface Estado { marcas: MarcaSumplete[] }
   const s = new Sessao<QuebraSumplete, Estado>('sumplete');
@@ -15,7 +16,7 @@
   const COMO = [
     'Cada linha e cada coluna tem uma soma-alvo, fora da grade. Apague números até que a soma dos que sobram bata com o alvo de todas as linhas e colunas.',
     'Exemplo: se a linha tem 1, 2 e 3 e o alvo é 4, apague o 2 e mantenha o 1 e o 3.',
-    'Toque num número para apagá-lo; toque de novo para marcar que ele fica (com um círculo); mais uma vez para limpar. O alvo fica verde quando a soma bate.',
+    'Toque num número para apagá-lo; toque de novo para marcar que ele fica (com um círculo); mais uma vez para limpar. Segure num número sem marca para marcar direto que ele fica. O alvo fica verde quando a soma bate.',
     'Toda grade tem uma única solução.',
   ];
 
@@ -33,6 +34,15 @@
     if (!s.quebra || !s.estado || s.terminou) return;
     const marcas = [...s.estado.marcas];
     marcas[i] = ((marcas[i] + 1) % 3) as MarcaSumplete;
+    s.mudar({ marcas });
+    if (resolvido(s.quebra, marcas)) void s.terminar('vitoria');
+  }
+
+  /** Segurar numa casa sem marca leva direto ao último estado (fica). */
+  function segurarCasa(i: number) {
+    if (!s.quebra || !s.estado || s.terminou || s.estado.marcas[i] !== 0) return;
+    const marcas = [...s.estado.marcas];
+    marcas[i] = 2;
     s.mudar({ marcas });
     if (resolvido(s.quebra, marcas)) void s.terminar('vitoria');
   }
@@ -56,6 +66,7 @@
               data-marca={m || undefined}
               aria-label="Linha {y + 1}, coluna {x + 1}: {q.numeros[i]}{m === 1 ? ', apagado' : m === 2 ? ', fica' : ''}"
               onclick={() => tocar(i)}
+              use:segurar={() => segurarCasa(i)}
             >{q.numeros[i]}</button>
           {/each}
           <span class="ja-sumplete-alvo" data-ok={soma.linhas[y] === q.alvoLinhas[y] || undefined} data-faltou={soma.linhas[y] < q.alvoLinhas[y] || undefined} aria-label="Alvo da linha {y + 1}: {q.alvoLinhas[y]}, agora {soma.linhas[y]}">{q.alvoLinhas[y]}</span>

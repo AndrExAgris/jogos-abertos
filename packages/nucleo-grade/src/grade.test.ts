@@ -28,6 +28,14 @@ describe('tendas', () => {
       expect(analisarTendas(q, new Set()).resolvido).toBe(false);
     }
   });
+  it('tem solução única e acusa tenda sem árvore ', () => {
+    for (const s of ['c', 'd', 'e']) expect(contarSolucoesTendas(gerarTendas(8, 8, s), 2, Date.now() + 10000)).toBe(1);
+    // 3×1: árvore no meio, tendas nas pontas = duas tendas para uma árvore só.
+    const q = { largura: 3, altura: 1, arvores: [1], linhas: [1], colunas: [1, 0, 0] };
+    expect(analisarTendas(q, new Set([0])).resolvido).toBe(true);
+    const longe = { largura: 4, altura: 1, arvores: [0], linhas: [1], colunas: [0, 0, 0, 1] };
+    expect([...analisarTendas(longe, new Set([3])).semArvore]).toEqual([3]);
+  });
 });
 
 describe('pontes', () => {

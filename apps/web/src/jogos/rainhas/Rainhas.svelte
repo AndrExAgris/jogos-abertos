@@ -6,6 +6,7 @@
   import Casca from '../../lib/jogo/Casca.svelte';
   import { Sessao } from '../../lib/jogo/sessao.svelte.ts';
   import { gerarNoFundo } from '../../lib/jogo/gerar.ts';
+  import { segurar } from '../../lib/jogo/segurar.ts';
 
   interface Estado { coroas: number[]; marcas: number[] }
   const s = new Sessao<QuebraRainhas, Estado>('rainhas');
@@ -13,7 +14,7 @@
   const COMO = [
     'Ponha uma coroa em cada linha, em cada coluna e em cada região (as áreas separadas pelas bordas grossas).',
     'Duas coroas nunca se encostam, nem na diagonal.',
-    'Toque numa casa para pôr a coroa; toque de novo para trocar por um X (lugar sem coroa); mais uma vez para limpar.',
+    'Toque numa casa para pôr a coroa; toque de novo para trocar por um X (lugar sem coroa); mais uma vez para limpar. Segure numa casa vazia para pôr o X direto.',
   ];
 
   const coroas = $derived(new Set(s.estado?.coroas ?? []));
@@ -36,6 +37,12 @@
     else c.add(i);
     s.mudar({ coroas: [...c], marcas: [...m] });
     if (analisarRainhas(s.quebra, c).resolvido) void s.terminar('vitoria');
+  }
+
+  /** Segurar numa casa marca direto que ali não tem coroa. */
+  function descartar(i: number) {
+    if (!s.quebra || s.terminou || coroas.has(i) || marcas.has(i)) return;
+    s.mudar({ coroas: [...coroas], marcas: [...marcas, i] });
   }
 
   // Linhas simples entre regiões diferentes, desenhadas por cima da grade.
@@ -68,6 +75,7 @@
             data-regiao={r}
             aria-label="Linha {Math.floor(i / q.n) + 1}, coluna {(i % q.n) + 1}, região {r + 1}{coroas.has(i) ? ', coroa' : marcas.has(i) ? ', marcada' : ''}"
             onclick={() => tocar(i)}
+            use:segurar={() => descartar(i)}
           >
             {#if coroas.has(i)}
               <span class="ja-icone-texto" class:ja-erro-icone={analise.conflitos.has(i)}><Icone nome="crown" /></span>

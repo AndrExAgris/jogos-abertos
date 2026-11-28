@@ -57,7 +57,7 @@
 
   // --- Arrastar de uma ilha a outra ---
   let svg = $state<SVGSVGElement>();
-  let arrasto = $state<{ de: number; x: number; y: number; alvo: number; moveu: boolean } | null>(null);
+  let arrasto = $state<{ de: number; x: number; y: number; x0: number; y0: number; alvo: number; moveu: boolean } | null>(null);
 
   function ponto(e: PointerEvent): [number, number] {
     const m = svg!.getScreenCTM()!.inverse();
@@ -81,18 +81,29 @@
     }
     return melhor;
   }
-  function aoPressionar(e: PointerEvent, i: number) {
+  /** Ilha mais perto do dedo, com uma folga ao redor de cada uma (não precisa acertar em cima). */
+  const ALCANCE = 0.78;
+  function ilhaPerto(x: number, y: number): number {
+    let melhor = -1, menor = ALCANCE;
+    s.quebra!.ilhas.forEach((il, i) => {
+      const d = Math.hypot(il.x - x, il.y - y);
+      if (d < menor) { menor = d; melhor = i; }
+    });
+    return melhor;
+  }
+  function aoPressionar(e: PointerEvent) {
     if (!s.quebra || s.terminou) return;
+    const [x, y] = ponto(e);
+    const i = ilhaPerto(x, y);
+    if (i < 0) return;
     e.preventDefault();
     svg!.setPointerCapture(e.pointerId);
-    const [x, y] = ponto(e);
-    arrasto = { de: i, x, y, alvo: -1, moveu: false };
+    arrasto = { de: i, x, y, x0: x, y0: y, alvo: -1, moveu: false };
   }
   function aoMover(e: PointerEvent) {
     if (!arrasto) return;
     const [x, y] = ponto(e);
-    const A = s.quebra!.ilhas[arrasto.de];
-    arrasto = { ...arrasto, x, y, alvo: alvoEm(arrasto.de, x, y), moveu: arrasto.moveu || Math.hypot(x - A.x, y - A.y) > 0.45 };
+    arrasto = { ...arrasto, x, y, alvo: alvoEm(arrasto.de, x, y), moveu: arrasto.moveu || Math.hypot(x - arrasto.x0, y - arrasto.y0) > 0.45 };
   }
   function aoSoltar() {
     if (!arrasto) return;
@@ -110,7 +121,7 @@
   {#if s.quebra}
     {@const q = s.quebra}
     <div class="ja-centro">
-      <svg bind:this={svg} class="ja-pontes" onpointermove={aoMover} onpointerup={aoSoltar} onpointercancel={() => (arrasto = null)} viewBox="-0.6 -0.6 {q.largura + 0.2} {q.altura + 0.2}" role="group" aria-label="Ilhas">
+      <svg bind:this={svg} class="ja-pontes" onpointerdown={aoPressionar} onpointermove={aoMover} onpointerup={aoSoltar} onpointercancel={() => (arrasto = null)} viewBox="-0.6 -0.6 {q.largura + 0.2} {q.altura + 0.2}" role="group" aria-label="Ilhas">
         {#each Object.entries(pontes) as [k, n] (k)}
           {@const [a, b] = k.split('-').map(Number)}
           {@const A = q.ilhas[a]}
@@ -146,7 +157,6 @@
             role="button"
             tabindex="-1"
             aria-label="Ilha {il.n}, {g} pontes"
-            onpointerdown={(e) => aoPressionar(e, i)}
             onkeydown={(e) => (e.key === 'Enter' || e.key === ' ') && tocarIlha(i)}
           >
             <circle cx={il.x} cy={il.y} r="0.42" />

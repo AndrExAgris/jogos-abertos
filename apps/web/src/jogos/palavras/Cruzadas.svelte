@@ -33,7 +33,7 @@
   const PARAM: Record<string, [number, number, number]> = { p: [8, 9, 3000], m: [14, 12, 5000], g: [20, 13, 8000] };
   const COMO = [
     'Preencha a grade com as respostas das dicas. Respostas sem acento nem cedilha.',
-    'Toque numa casa para escolher a palavra (toque de novo para trocar entre horizontal e vertical) e digite no teclado. A dica da palavra escolhida aparece acima do teclado.',
+    'Toque numa casa para escolher a palavra (toque de novo para trocar entre horizontal e vertical) e digite no teclado. A dica da palavra escolhida aparece acima do teclado; as setas ao lado de Verificar passam para a palavra anterior ou a próxima (em ordem de número).',
     'Verificar marca as letras erradas enquanto estiver ligado (aparece "Verificando" no alto). As grades densas, no estilo de jornal, têm casas pretas e quase toda letra pertence a duas palavras. As dicas vêm do Wikcionário (CC BY-SA).',
   ];
   let sel = $state<{ x: number; y: number; horizontal: boolean } | null>(null);
@@ -77,6 +77,20 @@
     s.mudar({ ...s.estado, letras }, false);
     if ([...sol.entries()].every(([pos, letra]) => letras[pos] === letra)) void s.terminar('vitoria');
   }
+  /** Ordem fixa das palavras: pelo número; no mesmo número, a horizontal antes. */
+  const ordem = $derived([...(s.quebra?.entradas ?? [])].sort((a, b) => a.numero - b.numero || Number(b.horizontal) - Number(a.horizontal)));
+  function irPara(passo: number) {
+    if (!s.quebra || !s.estado || !ordem.length) return;
+    const atual = entradaAtual ? ordem.indexOf(entradaAtual) : -1;
+    const e = ordem[(atual + passo + ordem.length) % ordem.length];
+    // Vai para a primeira casa vazia da palavra (ou o começo, se já estiver cheia).
+    let alvo = 0;
+    for (let k = 0; k < e.palavra.length; k++) {
+      const pos = e.horizontal ? `${e.x + k},${e.y}` : `${e.x},${e.y + k}`;
+      if (!s.estado.letras[pos]) { alvo = k; break; }
+    }
+    sel = { x: e.x + (e.horizontal ? alvo : 0), y: e.y + (e.horizontal ? 0 : alvo), horizontal: e.horizontal };
+  }
   const naEntradaPos = (e: Entrada, x: number, y: number) => (e.horizontal ? y === e.y && x < e.x + e.palavra.length : x === e.x && y < e.y + e.palavra.length);
   function aoTeclado(ev: KeyboardEvent) {
     if (ev.ctrlKey || ev.metaKey) return;
@@ -92,9 +106,6 @@
 <Casca sessao={s} titulo="Palavras Cruzadas" comoJogar={COMO} opcoes={OPCOES} aoEscolher={escolher} semDesfazer>
   {#snippet faixa()}
     {#if s.estado?.verificar}<span class="etiqueta ja-etiqueta-verificar" data-cor="secundaria"><Icone nome="checks" pequeno />Verificando</span>{:else if s.quebra}<span class="ja-faixa-texto">{s.nomeVariante}</span>{/if}
-  {/snippet}
-  {#snippet rodape()}
-    {#if s.estado}<button class="botao ja-botao-alternar" type="button" aria-pressed={s.estado.verificar} onclick={() => s.mudar({ ...s.estado!, verificar: !s.estado!.verificar }, false)}><Icone nome={s.estado.verificar ? 'checks' : 'check'} /><span>{s.estado.verificar ? 'Verificação ligada' : 'Verificar'}</span></button>{/if}
   {/snippet}
   {#if s.estado && s.quebra}
     {@const c = s.quebra}
@@ -116,11 +127,19 @@
         {/each}
       </div>
     </div>
-    {#if entradaAtual && !s.terminou}
-      <p class="ja-cruz-dica"><strong>{entradaAtual.numero} {entradaAtual.horizontal ? 'horizontal' : 'vertical'} ({entradaAtual.palavra.length}):</strong> {entradaAtual.dica}</p>
-    {/if}
     {#if !s.terminou}
-      <TecladoLetras aoTecla={digitar} comEnviar={false} fisico={false} />
+      <!-- Dica, botões e teclado presos juntos ao pé da tela: nada fica escondido atrás do teclado. -->
+      <div class="ja-painel-teclado">
+        <p class="ja-cruz-dica">
+          {#if entradaAtual}<strong>{entradaAtual.numero} {entradaAtual.horizontal ? 'horizontal' : 'vertical'} ({entradaAtual.palavra.length}):</strong> {entradaAtual.dica}{:else}Toque numa casa para ver a dica.{/if}
+        </p>
+        <div class="ja-cruz-botoes">
+          <button class="botao" type="button" aria-label="Palavra anterior" onclick={() => irPara(-1)}><Icone nome="chevron-left" /></button>
+          <button class="botao ja-botao-alternar" type="button" aria-pressed={s.estado.verificar} onclick={() => s.mudar({ ...s.estado!, verificar: !s.estado!.verificar }, false)}><Icone nome={s.estado.verificar ? 'checks' : 'check'} /><span>{s.estado.verificar ? 'Verificação ligada' : 'Verificar'}</span></button>
+          <button class="botao" type="button" aria-label="Próxima palavra" onclick={() => irPara(1)}><Icone nome="chevron-right" /></button>
+        </div>
+        <TecladoLetras aoTecla={digitar} comEnviar={false} fisico={false} />
+      </div>
     {/if}
     <details class="ja-cruz-lista">
       <summary>Todas as dicas</summary>

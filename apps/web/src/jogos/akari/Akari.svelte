@@ -6,6 +6,7 @@
   import Casca from '../../lib/jogo/Casca.svelte';
   import { Sessao } from '../../lib/jogo/sessao.svelte.ts';
   import { gerarNoFundo } from '../../lib/jogo/gerar.ts';
+  import { segurar } from '../../lib/jogo/segurar.ts';
 
   interface Estado { lampadas: number[]; marcas: number[] }
   const s = new Sessao<QuebraAkari, Estado>('akari');
@@ -17,7 +18,7 @@
   const COMO = [
     'Ponha lâmpadas nas casas brancas até iluminar todas. Uma lâmpada ilumina a linha e a coluna até bater numa parede.',
     'Duas lâmpadas não podem se iluminar. Um número numa parede diz quantas lâmpadas encostam nela (em cima, embaixo e dos lados).',
-    'Toque numa casa para pôr uma lâmpada; toque de novo para marcar que ali não tem lâmpada; mais uma vez para limpar.',
+    'Toque numa casa para pôr uma lâmpada; toque de novo para marcar que ali não tem lâmpada; mais uma vez para limpar. Segure numa casa vazia para marcar direto.',
   ];
 
   const lampadas = $derived(new Set(s.estado?.lampadas ?? []));
@@ -42,6 +43,12 @@
     if (analisar(s.quebra, l).resolvido) void s.terminar('vitoria');
   }
 
+  /** Segurar numa casa marca direto que ali não tem lâmpada. */
+  function descartar(i: number) {
+    if (!s.quebra || !s.estado || s.terminou || lampadas.has(i) || marcas.has(i)) return;
+    s.mudar({ lampadas: [...lampadas], marcas: [...marcas, i] });
+  }
+
   onMount(() => s.carregar());
   onDestroy(() => s.destruir());
 </script>
@@ -58,6 +65,7 @@
               data-acesa={analise.iluminadas.has(i) || undefined}
               aria-label={lampadas.has(i) ? 'Lâmpada' : marcas.has(i) ? 'Marcada sem lâmpada' : analise.iluminadas.has(i) ? 'Iluminada' : 'Apagada'}
               onclick={() => tocar(i)}
+              use:segurar={() => descartar(i)}
             >
               {#if lampadas.has(i)}
                 <span class:ja-erro-icone={analise.conflitos.has(i)} class="ja-icone-primaria"><Icone nome="bulb" /></span>

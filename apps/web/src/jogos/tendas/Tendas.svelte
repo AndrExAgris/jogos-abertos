@@ -4,8 +4,10 @@
   import { sementeNova } from '@ja/contrato';
   import { analisarTendas, type QuebraTendas } from '@ja/nucleo-grade/tendas';
   import Casca from '../../lib/jogo/Casca.svelte';
+  import Status from '../../lib/jogo/Status.svelte';
   import { Sessao } from '../../lib/jogo/sessao.svelte.ts';
   import { gerarNoFundo } from '../../lib/jogo/gerar.ts';
+  import { segurar } from '../../lib/jogo/segurar.ts';
 
   interface Estado { tendas: number[]; marcas: number[] }
   const s = new Sessao<QuebraTendas, Estado>('tendas');
@@ -16,8 +18,8 @@
   ];
   const COMO = [
     'Cada árvore tem uma tenda ao lado dela (em cima, embaixo ou dos lados), uma tenda por árvore.',
-    'Tendas não se encostam, nem na diagonal. Os números da borda dizem quantas tendas há em cada linha e coluna.',
-    'Toque numa casa para pôr uma tenda; de novo para marcar grama (sem tenda); mais uma vez para limpar.',
+    'Toda tenda fica ao lado da sua árvore (fica vermelha se não tiver nenhuma). Tendas não se encostam, nem na diagonal. Os números da borda dizem quantas tendas há em cada linha e coluna.',
+    'Toque numa casa para pôr uma tenda; de novo para marcar grama (sem tenda); mais uma vez para limpar. Segure numa casa vazia para marcar grama direto.',
   ];
 
   const tendas = $derived(new Set(s.estado?.tendas ?? []));
@@ -56,6 +58,12 @@
     if (analisarTendas(s.quebra, t).resolvido) void s.terminar('vitoria');
   }
 
+  /** Segurar numa casa marca grama direto. */
+  function descartar(i: number) {
+    if (!s.quebra || s.terminou || arvores.has(i) || tendas.has(i) || marcas.has(i)) return;
+    s.mudar({ tendas: [...tendas], marcas: [...marcas, i] });
+  }
+
   onMount(() => s.carregar());
   onDestroy(() => s.destruir());
 </script>
@@ -63,6 +71,7 @@
 <Casca sessao={s} titulo="Tendas" comoJogar={COMO} opcoes={TAMANHOS} aoEscolher={escolher} tituloEscolha="Escolha o tamanho">
   {#if s.quebra && analise}
     {@const w = s.quebra.largura}
+    <Status texto={s.terminou ? '' : analise.semPar ? 'Os números batem, mas alguma árvore ficou sem tenda só dela: cada tenda pertence a uma árvore.' : ''} />
     <div class="ja-centro">
       <div class="ja-grade ja-grade-bordas" style="--ja-colunas:{w + 1}">
         <span></span>
@@ -76,9 +85,9 @@
             {#if arvores.has(i)}
               <div class="ja-grade-casa ja-arvore" role="img" aria-label="Árvore"><Icone nome="tree" /></div>
             {:else}
-              <button type="button" class="ja-grade-casa" data-grama={marcas.has(i) || undefined} aria-label={tendas.has(i) ? 'Tenda' : marcas.has(i) ? 'Grama' : 'Vazia'} onclick={() => tocar(i)}>
+              <button type="button" class="ja-grade-casa" data-grama={marcas.has(i) || undefined} aria-label={tendas.has(i) ? 'Tenda' : marcas.has(i) ? 'Grama' : 'Vazia'} onclick={() => tocar(i)} use:segurar={() => descartar(i)}>
                 {#if tendas.has(i)}
-                  <span class="ja-icone-primaria" class:ja-erro-icone={analise.coladas.has(i)}><Icone nome="tent" /></span>
+                  <span class="ja-icone-primaria" class:ja-erro-icone={analise.coladas.has(i) || analise.semArvore.has(i)}><Icone nome="tent" /></span>
                 {:else if marcas.has(i)}
                   <span class="ja-marca-ponto" aria-hidden="true"></span>
                 {/if}

@@ -53,6 +53,10 @@ function emparelha(q: QuebraTendas, tendas: number[]): boolean {
 export interface AnaliseTendas {
   /** Tendas encostadas em outra tenda. */
   coladas: Set<number>;
+  /** Tendas sem nenhuma árvore ao lado (em cima, embaixo ou dos lados). */
+  semArvore: Set<number>;
+  /** Contagens certas e nada encostado, mas não dá para ligar cada árvore à sua própria tenda. */
+  semPar: boolean;
   linhasErradas: Set<number>;
   colunasErradas: Set<number>;
   resolvido: boolean;
@@ -68,8 +72,12 @@ export function analisarTendas(q: QuebraTendas, tendas: Set<number>): AnaliseTen
   porLinha.forEach((n, y) => n > q.linhas[y] && linhasErradas.add(y));
   porColuna.forEach((n, x) => n > q.colunas[x] && colunasErradas.add(x));
   const contagemOk = porLinha.every((n, y) => n === q.linhas[y]) && porColuna.every((n, x) => n === q.colunas[x]);
-  const resolvido = contagemOk && coladas.size === 0 && emparelha(q, [...tendas]);
-  return { coladas, linhasErradas, colunasErradas, resolvido };
+  const arv = new Set(q.arvores);
+  const semArvore = new Set<number>();
+  for (const t of tendas) if (!viz4(w, h, t).some((v) => arv.has(v))) semArvore.add(t);
+  const quase = contagemOk && coladas.size === 0 && semArvore.size === 0;
+  const resolvido = quase && emparelha(q, [...tendas]);
+  return { coladas, semArvore, semPar: quase && !resolvido, linhasErradas, colunasErradas, resolvido };
 }
 
 export function contarSolucoesTendas(q: QuebraTendas, limite = 2, prazo = Date.now() + 1500): number {

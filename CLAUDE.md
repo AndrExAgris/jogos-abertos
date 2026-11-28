@@ -118,7 +118,7 @@ Implemente motor por motor; o primeiro jogo de cada grupo destrava os outros. 1P
 
 | Motor | Jogos | Notas |
 | --- | --- | --- |
-| Grade | Minas, Sudoku (padrão e com regras combinadas), Lâmpadas (Akari), Tele (Sumplete), Tendas, Pontes (Hashi), Kings (Queens), Mosaico, Linkar números (Numberlink) | Minas sem chute |
+| Grade | Minas, Sudoku (padrão e com regras combinadas), Lâmpadas (Akari), Tele (Sumplete), Tendas, Pontes (Hashi), Kings (Queens), Linkar números (Numberlink) | Minas sem chute (o Mosaico saiu a pedido do André em 28/11/2026) |
 | Números | Alvo com 6 números | 4 operações para chegar ao alvo |
 | Palavras | Palavras cruzadas, Roda de letras, Termo (com Dueto e Quarteto) | Respostas sem acento nem cedilha |
 | Conhecimento | Trivia por categorias, Filme por pistas | Mesmo banco de dados |
@@ -146,7 +146,6 @@ Porte os geradores úteis da Simon Tatham's Portable Puzzle Collection (https://
 | Lâmpadas | Light Up |
 | Tendas | Tents |
 | Pontes | Bridges |
-| Mosaico | Mosaic |
 | Desembaraço | Untangle |
 | Resta Um | Pegs (só os tabuleiros fixos) |
 
@@ -284,7 +283,9 @@ A cada marco: testes dos núcleos passando, APK gerado no CI e um release para o
 - Infra comum em `apps/web/src/lib/jogo/`: Sessao, Casca (faixa, fim de jogo preso ao pé da tela, rodapé), Escolha, Jogadores (com "pensando"), Status (linha de aviso com altura reservada), TecladoLetras e CampoTeclado (teclado do app, colado no fundo), computador (`computador.svelte.ts`, worker `ia`), avisos curtos.
 - Regras de layout pedidas pelo André: nada interativo atrás da barra do sistema (`--ja-seguro-baixo`); teclado sempre colado no fundo; mensagens não empurram o tabuleiro (linha reservada ou cartão preso ao pé da tela).
 - Site público: https://andrexagris.github.io/jogos-abertos/ (GitHub Pages).
-- Falta: o André testar com amigos e trazer a próxima rodada de críticas.
+- Quarta rodada de correções (28/11/2026): Mosaico removido (52 jogos); toque longo leva direto ao estado de descarte (Akari, Tendas, Rainhas, Sumplete, Nonograma; ação `use:segurar` em `lib/jogo/segurar.ts`); Sudoku com layout novo inspirado no LogicWiz; Charada com reserva de 5 jogos prontos (Difícil e Desafio, worker próprio), "jogo anterior" (`guardarUltimo` na Sessao), opções com emoji/cor na casa, dicas usadas no fim e destaque das dicas de uma linha ou casa; Tendas acusam tenda sem árvore (a verificação já era pelas regras; gerador conferido com solução única); Nonograma valida pelas pistas e fica centralizado; Pontes com folga de toque; Trilha com arraste; Cruzadas com dica, setas e Verificar presos ao teclado.
+- Banco de perguntas: 3.763 perguntas, 62 tipos. Escritas à mão em `tools/dados/curadas/*.txt` (formato `nota|pergunta|certa|errada|errada|errada|dica de cruzada`, `@tema` por bloco), modelos do Wikidata em `wikidata.mjs` e montagem em `banco.mjs` (perguntas com imagem e `dicas-conhecimento.json` para as cruzadas). Regerar: `node tools/dados/wikidata.mjs` (usa o cache em `tools/dados/.cache`; o Wikidata limita a 1 consulta por minuto quando está instável). O sorteio escolhe o tipo primeiro; Variedades mistura perguntas fáceis das outras categorias. Contagens de Copa vêm com "até 2022" (o resultado da Copa de 2026 não está no banco).
+- Falta: o André testar a quarta rodada e trazer a próxima leva de críticas.
 
 Pendências para avaliar depois (pedidas pelo André, fora desta rodada):
 - Mahjong (paciência de pares, o "Mahjong Solitaire"): funciona bem no celular e no site; regras simples (tirar pares livres). Precisa de peças desenhadas em SVG próprio e de gerador que garanta solução (montar a pilha de trás para frente). Esforço médio.
@@ -306,6 +307,8 @@ Decisões provisórias, a confirmar com o André:
 - Batalha Naval: frota 5, 4, 3, 3 e 2, sem encostar; posição escolhida à mão (ou sorteada); quem acerta atira de novo até errar
 - Quem Sou Eu: dois modos, Rápido (cartas com tempo) e Perguntas (sem tempo, sim ou não; o app só sorteia). Só nomes, sem imagens (direitos e tamanho)
 - Dado Mentiroso: modos com e sem coringa; contra o computador, quando a pessoa perde todos os dados o jogo acaba na hora
+- Sudoku (layout de 28/11/2026): um teclado numa linha com modo Notas (Lig/Desl) no lugar dos dois teclados; regras como etiquetas com desenho e explicação; grade branca, e a linha, coluna e caixa da seleção num cinza neutro misturado (no tema claro o token `superficie` é quase branco e sumiria na grade branca)
+- Charada: caju e goiaba viraram abacaxi e morango (têm emoji); segurar numa opção apaga a opção naquela casa
 - Sudoku: só fica destacado o que foi escolhido (o número ou a nota); com dígito travado, arrastar aplica ou apaga; casas proibidas em cinza incluem as regras extras
 - Nomes em português: Campo Minado, Rainhas (Queens), Conta Certa (Alvo), Separe as Cores (Water Sort), Desbloqueio (Rush Hour, só blocos), Quatro em Linha, Vinte e Um (Blackjack); jogos de geografia com nomes descritivos
 - Cores de peças (Separe as Cores, Ludo, bolas da Sinuca, regiões das Rainhas): paleta de destaque definida só em `.ja-cor-N` no app.css, sempre com número ou forma; pedras de Go e tabuleiro de xadrez com preto e branco fixos (`--ja-preta`, `--ja-branca`)

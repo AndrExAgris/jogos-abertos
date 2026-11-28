@@ -26,6 +26,10 @@
   const ativoNumero = $derived(ativo && !ativo.notas ? ativo.d : 0);
   const ativoNota = $derived(ativo?.notas ? ativo.d : 0);
   let folhaNotas = $state(false);
+  /** Modo Notas: o teclado escreve anotações em vez do número. */
+  let modoNotas = $state(false);
+  /** Regra aberta na folha de explicação. */
+  let regraAberta = $state<Regra | null>(null);
   /** Regras marcadas na escolha. */
   let marcadas = $state<Regra[]>([]);
   /** Dígito travado (tocar e segurar no teclado): cada casa tocada recebe o número ou a nota. */
@@ -36,16 +40,14 @@
   const q = $derived(s.quebra);
   const e = $derived(s.estado);
   const erros = $derived(q && e ? conflitos(q.regras, e.grade, q) : new Set<number>());
-  const completos = $derived.by(() => {
-    const c = new Set<number>();
-    if (!e) return c;
-    for (const d of DIGITOS) if (e.grade.filter((v) => v === d).length >= 9) c.add(d);
-    return c;
-  });
+  /** Quantos de cada dígito ainda faltam na grade. */
+  const faltam = $derived(DIGITOS.map((d) => (e ? Math.max(0, 9 - e.grade.filter((v) => v === d).length) : 9)));
+  const nomeDificuldade = $derived(DIFS.find((d) => s.variante.endsWith(`-${d.id}`))?.nome ?? '');
   const comoJogar = $derived([
     'Preencha a grade com os dígitos de 1 a 9: cada linha, coluna e caixa 3 × 3 tem todos eles, sem repetir.',
     ...(q?.regras ?? []).map((r) => `${NOMES_REGRAS[r].nome}: ${NOMES_REGRAS[r].descricao}`),
-    'Toque numa casa e depois num dígito. O teclado da esquerda escreve o número; o da direita, as notas (anotações pequenas).',
+    'Toque numa casa e depois num dígito. Com Notas ligado, o dígito vira uma anotação pequena (toque de novo para tirar). O número embaixo de cada dígito diz quantos ainda faltam.',
+    'As etiquetas acima da grade são as regras extras da partida: toque numa para ver a explicação com um exemplo.',
     'Toque e segure um dígito do teclado para travá-lo: a partir daí, cada casa tocada recebe esse número (ou ganha e perde essa nota). Toque de novo no dígito travado para soltar.',
     'Com um dígito travado, toque numa casa e arraste o dedo: todas as casas por onde passar recebem o número (ou a nota). Se a primeira casa já tinha, o arrasto apaga.',
     'Ao escolher uma casa, ficam em cinza todas as casas que não podem ter o mesmo número que ela, pelas regras da partida.',
@@ -179,7 +181,7 @@
   }
 
   // Teclas: toque curto escreve; tocar e segurar trava o dígito.
-  function pressionarTecla(d: number, notas: boolean) {
+  function pressionarTecla(d: number, notas = modoNotas) {
     segurou = false;
     clearTimeout(temporizador);
     temporizador = setTimeout(() => {
@@ -192,7 +194,7 @@
   function soltarTecla() {
     clearTimeout(temporizador);
   }
-  function tocarTecla(d: number, notas: boolean) {
+  function tocarTecla(d: number, notas = modoNotas) {
     if (segurou) { segurou = false; return; }
     if (travado) {
       travado = travado.d === d && travado.notas === notas ? null : { d, notas };
@@ -239,6 +241,18 @@
     return m;
   });
 
+  const EXEMPLOS: Record<Regra, string> = {
+    diagonais: 'No exemplo, o 3 não pode aparecer de novo na mesma diagonal.',
+    'anti-rei': 'Nenhuma das oito casas em volta do 5 pode ter outro 5.',
+    'anti-cavalo': 'O 5 de baixo proíbe o 5 na casa a um salto de cavalo (duas para cima, uma para o lado).',
+    'nao-consecutivo': '4 e 5 lado a lado não pode: são seguidos.',
+    killer: 'As três casas da gaiola somam 15 e não repetem dígito (por exemplo, 4, 5 e 6).',
+    kropki: 'Em cima, 3 e 4 são seguidos (bolinha branca). Embaixo, 6 é o dobro de 3 (bolinha preta).',
+    xv: 'Em cima, 3 + 7 = 10 (X). Embaixo, 1 + 4 = 5 (V).',
+    'par-impar': 'O 7 está no círculo (ímpar) e o 4, no quadrado (par).',
+    termometro: 'Do bulbo para a ponta, cada dígito é maior que o anterior: 2, 5, 8.',
+  };
+
   const opcoes = [{ id: 'classico', titulo: 'Sudoku clássico', descricao: 'Linha, coluna e caixa sem repetir. Começa direto.' }];
 
   // Desenho das pistas: pontos, termômetros e marcas de par e ímpar.
@@ -254,6 +268,45 @@
 </script>
 
 <svelte:window onkeydown={aoTecla} />
+
+<!-- Desenho de cada regra, pequeno nas etiquetas e grande na explicação (só cores do sistema). -->
+{#snippet desenhoRegra(r: Regra, grande: boolean)}
+  <svg class="ja-regra-desenho" class:ja-regra-desenho-grande={grande} viewBox="0 0 30 30" aria-hidden="true">
+    {#if r === 'diagonais'}
+      <rect x="1" y="1" width="28" height="28" rx="2" class="rd-grade" /><path d="M2 2L28 28M28 2L2 28" class="rd-traco" />
+      {#if grande}<text x="8" y="10" class="rd-num">3</text><text x="22" y="24" class="rd-num rd-ruim">3</text>{/if}
+    {:else if r === 'anti-rei'}
+      {#each [0, 1, 2] as y (y)}{#each [0, 1, 2] as x (x)}<rect x={1 + x * 9.4} y={1 + y * 9.4} width="9.4" height="9.4" class={x === 1 && y === 1 ? 'rd-centro' : 'rd-vizinha'} />{/each}{/each}
+      <text x="15" y="15.5" class="rd-num">5</text>
+    {:else if r === 'anti-cavalo'}
+      {#each [0, 1, 2] as y (y)}{#each [0, 1, 2] as x (x)}<rect x={1 + x * 9.4} y={1 + y * 9.4} width="9.4" height="9.4" class="rd-grade" />{/each}{/each}
+      <path d="M5.7 24.5V5.7H15" class="rd-seta" /><text x="5.7" y="25" class="rd-num">5</text><text x="15" y="6.2" class="rd-num rd-ruim">5</text>
+    {:else if r === 'nao-consecutivo'}
+      <rect x="1" y="8" width="14" height="14" class="rd-grade" /><rect x="15" y="8" width="14" height="14" class="rd-grade" />
+      <text x="8" y="15.5" class="rd-num">4</text><text x="22" y="15.5" class="rd-num rd-ruim">5</text>
+    {:else if r === 'killer'}
+      <rect x="1" y="1" width="28" height="28" class="rd-grade" /><path d="M15 1V29M1 15H29" class="rd-fina" /><path d="M3 3H27V13H13V27H3Z" class="rd-gaiola" />
+      <text x="4.5" y="7" class="rd-soma">15</text>
+    {:else if r === 'kropki'}
+      <rect x="1" y="1" width="14" height="14" class="rd-grade" /><rect x="15" y="1" width="14" height="14" class="rd-grade" />
+      <rect x="1" y="15" width="14" height="14" class="rd-grade" /><rect x="15" y="15" width="14" height="14" class="rd-grade" />
+      <circle cx="15" cy="8" r="2.6" class="rd-branca" /><circle cx="15" cy="22" r="2.6" class="rd-preta" />
+      {#if grande}<text x="8" y="8.5" class="rd-num">3</text><text x="22" y="8.5" class="rd-num">4</text><text x="8" y="22.5" class="rd-num">3</text><text x="22" y="22.5" class="rd-num">6</text>{/if}
+    {:else if r === 'xv'}
+      <rect x="1" y="1" width="14" height="14" class="rd-grade" /><rect x="15" y="1" width="14" height="14" class="rd-grade" />
+      <rect x="1" y="15" width="14" height="14" class="rd-grade" /><rect x="15" y="15" width="14" height="14" class="rd-grade" />
+      <text x="15" y="8.5" class="rd-letra">X</text><text x="15" y="22.5" class="rd-letra">V</text>
+      {#if grande}<text x="7" y="8.5" class="rd-num">3</text><text x="23" y="8.5" class="rd-num">7</text><text x="7" y="22.5" class="rd-num">1</text><text x="23" y="22.5" class="rd-num">4</text>{/if}
+    {:else if r === 'par-impar'}
+      <rect x="1" y="8" width="14" height="14" class="rd-grade" /><rect x="15" y="8" width="14" height="14" class="rd-grade" />
+      <circle cx="8" cy="15" r="5.5" class="rd-paridade" /><rect x="16.5" y="9.5" width="11" height="11" rx="1" class="rd-paridade" />
+      {#if grande}<text x="8" y="15.5" class="rd-num">7</text><text x="22" y="15.5" class="rd-num">4</text>{/if}
+    {:else if r === 'termometro'}
+      <rect x="1" y="1" width="28" height="28" class="rd-grade" /><path d="M10 1V29M20 1V29M1 10H29M1 20H29" class="rd-fina" /><path d="M5 25L5 5L25 5" class="rd-termo" /><circle cx="5" cy="25" r="4.2" class="rd-bulbo" />
+      {#if grande}<text x="5" y="25.5" class="rd-num">2</text><text x="5" y="5.5" class="rd-num">5</text><text x="25" y="5.5" class="rd-num">8</text>{/if}
+    {/if}
+  </svg>
+{/snippet}
 
 <Casca sessao={s} titulo="Sudoku" {comoJogar} {opcoes} aoEscolher={escolher} tituloEscolha="Nova partida" semDesfazer>
   {#snippet antesDaEscolha()}
@@ -278,9 +331,21 @@
     </button>
   {/snippet}
   {#snippet faixa()}
-    {#if e}<span class="ja-placar-item"><Icone nome="alert-triangle" /><span class="sr-only">Erros:</span><span class="ja-numero">{e.erros}</span></span>{/if}
+    {#if e}
+      <span class="ja-faixa-texto">{nomeDificuldade || 'Sudoku'}</span>
+      <span class="ja-sudoku-erros" data-tem={e.erros > 0 || undefined}><span>Erros</span> <span class="ja-numero">{e.erros}</span></span>
+    {/if}
   {/snippet}
   {#if q && e}
+    {#if q.regras.length}
+      <div class="ja-sudoku-regras" role="group" aria-label="Regras extras">
+        {#each q.regras as r (r)}
+          <button type="button" class="ja-sudoku-regra" onclick={() => (regraAberta = r)} aria-label="Regra {NOMES_REGRAS[r].nome}: ver explicação">
+            {@render desenhoRegra(r, false)}<span>{NOMES_REGRAS[r].nome}</span>
+          </button>
+        {/each}
+      </div>
+    {/if}
     <div class="ja-centro">
       <div class="ja-sudoku" role="grid" tabindex="-1" aria-label="Grade do Sudoku" data-travado={travado ? '' : undefined}
         onpointerdown={iniciarArrasto} onpointermove={moverArrasto} onpointerup={fimArrasto} onpointercancel={fimArrasto}>
@@ -345,30 +410,38 @@
 
     <div class="ja-sudoku-controles">
       <div class="ja-sudoku-acoes">
-        <button class="botao" type="button" disabled={!s.podeDesfazer || !!s.terminou} onclick={() => s.desfazer()} aria-label="Desfazer" title="Desfazer"><Icone nome="arrow-back-up" /></button>
-        <button class="botao" type="button" disabled={!editavel} onclick={apagar} aria-label="Apagar a casa" title="Apagar a casa"><Icone nome="eraser" /></button>
-        <button class="botao" type="button" disabled={!s.podeRefazer || !!s.terminou} onclick={() => s.refazer()} aria-label="Refazer" title="Refazer"><Icone nome="arrow-forward-up" /></button>
-        <button class="botao" type="button" disabled={!!s.terminou} onclick={() => (folhaNotas = true)} aria-label="Preencher notas" title="Preencher notas"><Icone nome="wand" /></button>
+        <button class="ja-sudoku-acao" type="button" disabled={!s.podeDesfazer || !!s.terminou} onclick={() => s.desfazer()}><Icone nome="arrow-back-up" /><span>Desfazer</span></button>
+        <button class="ja-sudoku-acao" type="button" disabled={!editavel} onclick={apagar}><Icone nome="eraser" /><span>Apagar</span></button>
+        <button class="ja-sudoku-acao" type="button" aria-pressed={modoNotas} disabled={!!s.terminou} onclick={() => (modoNotas = !modoNotas)}>
+          <span class="ja-sudoku-acao-icone"><Icone nome="pencil" /><span class="ja-sudoku-selo">{modoNotas ? 'Lig' : 'Desl'}</span></span><span>Notas</span>
+        </button>
+        <button class="ja-sudoku-acao" type="button" disabled={!!s.terminou} onclick={() => (folhaNotas = true)}><Icone nome="wand" /><span>Auto notas</span></button>
+        <button class="ja-sudoku-acao" type="button" disabled={!s.podeRefazer || !!s.terminou} onclick={() => s.refazer()}><Icone nome="arrow-forward-up" /><span>Refazer</span></button>
       </div>
-      <div class="ja-sudoku-teclados">
-        <div class="ja-sudoku-teclado" role="group" aria-label="Números">
-          <span class="ja-sudoku-teclado-rotulo">Números</span>
-          {#each DIGITOS as d (d)}
-            <button class="botao ja-tecla" type="button" aria-pressed={ativoNumero === d} data-travado={(travado && !travado.notas && travado.d === d) || undefined} data-completo={completos.has(d) || undefined}
-              onpointerdown={() => pressionarTecla(d, false)} onpointerup={soltarTecla} onpointerleave={soltarTecla} oncontextmenu={(ev) => ev.preventDefault()} onclick={() => tocarTecla(d, false)}>{d}</button>
-          {/each}
-        </div>
-        <div class="ja-sudoku-teclado ja-sudoku-teclado-notas" role="group" aria-label="Notas">
-          <span class="ja-sudoku-teclado-rotulo"><Icone nome="pencil" pequeno />Notas</span>
-          {#each DIGITOS as d (d)}
-            <button class="botao ja-tecla" type="button" aria-pressed={ativoNota === d} aria-label="Nota {d}" data-travado={(travado && travado.notas && travado.d === d) || undefined} data-completo={completos.has(d) || undefined}
-              onpointerdown={() => pressionarTecla(d, true)} onpointerup={soltarTecla} onpointerleave={soltarTecla} oncontextmenu={(ev) => ev.preventDefault()} onclick={() => tocarTecla(d, true)}><span data-pos={d}>{d}</span></button>
-          {/each}
-        </div>
+      <div class="ja-sudoku-numeros" role="group" aria-label={modoNotas ? 'Notas' : 'Números'} data-notas={modoNotas || undefined}>
+        {#each DIGITOS as d, k (d)}
+          {@const trav = travado && travado.d === d && travado.notas === modoNotas}
+          <button class="ja-sudoku-num" type="button" aria-label={modoNotas ? `Nota ${d}` : `${d}, faltam ${faltam[k]}`}
+            aria-pressed={modoNotas ? ativoNota === d : ativoNumero === d} data-travado={trav || undefined} data-completo={faltam[k] === 0 || undefined}
+            onpointerdown={() => pressionarTecla(d)} onpointerup={soltarTecla} onpointerleave={soltarTecla} oncontextmenu={(ev) => ev.preventDefault()} onclick={() => tocarTecla(d)}>
+            <span class="ja-sudoku-num-d" data-pos={d}>{d}</span>
+            <span class="ja-sudoku-num-falta">{faltam[k] || ''}</span>
+          </button>
+        {/each}
       </div>
     </div>
   {/if}
 </Casca>
+
+<Dialogo aberto={regraAberta !== null} titulo={regraAberta ? NOMES_REGRAS[regraAberta].nome : ''} folha aoFechar={() => (regraAberta = null)}>
+  {#if regraAberta}
+    <div class="ja-regra-explicacao">
+      {@render desenhoRegra(regraAberta, true)}
+      <p>{NOMES_REGRAS[regraAberta].descricao}</p>
+      <p class="ja-dica">{EXEMPLOS[regraAberta]}</p>
+    </div>
+  {/if}
+</Dialogo>
 
 <Dialogo bind:aberto={folhaNotas} titulo="Preencher notas" folha>
   <p>As notas atuais das casas vazias serão trocadas. Dá para desfazer.</p>

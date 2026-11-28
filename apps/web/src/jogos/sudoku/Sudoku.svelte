@@ -21,10 +21,8 @@
 
   let dificuldade = $state<Dificuldade>('medio');
   let selecionada = $state(-1);
-  /** Tecla "pressionada": destaca só o que foi escolhido (o número ou a nota daquele dígito). */
-  let ativo = $state<{ d: number; notas: boolean } | null>(null);
-  const ativoNumero = $derived(ativo && !ativo.notas ? ativo.d : 0);
-  const ativoNota = $derived(ativo?.notas ? ativo.d : 0);
+  /** Dígito escolhido (0 = nenhum): fica destacado no tabuleiro, tanto nos números quanto nas notas, nos dois modos. */
+  let ativo = $state(0);
   let folhaNotas = $state(false);
   /** Modo Notas: o teclado escreve anotações em vez do número. */
   let modoNotas = $state(false);
@@ -32,8 +30,8 @@
   let regraAberta = $state<Regra | null>(null);
   /** Regras marcadas na escolha. */
   let marcadas = $state<Regra[]>([]);
-  /** Dígito travado (tocar e segurar no teclado): cada casa tocada recebe o número ou a nota. */
-  let travado = $state<{ d: number; notas: boolean } | null>(null);
+  /** Dígito travado (tocar e segurar no teclado): cada casa tocada recebe o número ou a nota, conforme o modo Notas. */
+  let travado = $state(0);
   let segurou = false;
   let temporizador: ReturnType<typeof setTimeout> | undefined;
 
@@ -48,10 +46,10 @@
     ...(q?.regras ?? []).map((r) => `${NOMES_REGRAS[r].nome}: ${NOMES_REGRAS[r].descricao}`),
     'Toque numa casa e depois num dígito. Com Notas ligado, o dígito vira uma anotação pequena (toque de novo para tirar). O número embaixo de cada dígito diz quantos ainda faltam.',
     'As etiquetas acima da grade são as regras extras da partida: toque numa para ver a explicação com um exemplo.',
-    'Toque e segure um dígito do teclado para travá-lo: a partir daí, cada casa tocada recebe esse número (ou ganha e perde essa nota). Toque de novo no dígito travado para soltar.',
+    'Toque e segure um dígito do teclado para travá-lo: a partir daí, cada casa tocada recebe esse número (ou, com Notas ligado, ganha e perde essa nota). O dígito continua travado ao ligar ou desligar as notas. Toque de novo no dígito travado para soltar.',
     'Com um dígito travado, toque numa casa e arraste o dedo: todas as casas por onde passar recebem o número (ou a nota). Se a primeira casa já tinha, o arrasto apaga.',
     'Ao escolher uma casa, ficam em cinza todas as casas que não podem ter o mesmo número que ela, pelas regras da partida.',
-    'O dígito tocado fica destacado no tabuleiro. Dígitos que quebram uma regra ficam sublinhados, e o contador de erros sobe quando um número não é o da solução.',
+    'O dígito escolhido fica destacado no tabuleiro, nos números e nas notas. Dígitos que quebram uma regra ficam sublinhados, e o contador de erros sobe quando um número não é o da solução.',
     'O botão de notas preenche as anotações de todas as casas vazias: só os candidatos possíveis ou de 1 a 9.',
   ]);
 
@@ -72,8 +70,8 @@
     const nomeDif = DIFS.find((d) => d.id === dificuldade)!.nome;
     const nome = regras.length ? regras.map((r) => NOMES_REGRAS[r].nome).join(' + ') : 'Clássico';
     selecionada = -1;
-    ativo = null;
-    travado = null;
+    ativo = 0;
+    travado = 0;
     void s.comecar(`${regras.length ? regras.join('+') : 'classico'}-${dificuldade}`, `${nome}, ${nomeDif}`, async () => {
       const quebra = await gerarNoFundo<Quebra>('sudoku', { regras, dificuldade, semente: sementeNova(), prazo: 5000 });
       return { quebra, estado: { grade: quebra.dadas.slice(), notas: new Array(81).fill(0), erros: 0 } };
@@ -86,7 +84,7 @@
 
   /** Escreve (ou apaga) o número. `quer`: true só escreve, false só apaga, undefined alterna. `guardar`: entra no desfazer. */
   function escrever(d: number, casa = selecionada, quer?: boolean, guardar = true) {
-    ativo = { d, notas: false };
+    ativo = d;
     if (!q || !e || casa < 0 || q.dadas[casa] || s.terminou) return;
     selecionada = casa;
     const tem = e.grade[casa] === d;
@@ -106,7 +104,7 @@
   }
 
   function anotar(d: number, casa = selecionada, quer?: boolean, guardar = true) {
-    ativo = { d, notas: true };
+    ativo = d;
     if (!q || !e || casa < 0 || q.dadas[casa] || e.grade[casa] || s.terminou) return;
     const tem = !!(e.notas[casa] & (1 << d));
     if (quer === tem) return;
@@ -122,8 +120,8 @@
     if (!travado || !arrasto || arrasto.feitas.has(i)) return;
     arrasto.feitas.add(i);
     const antes = s.estado;
-    if (travado.notas) anotar(travado.d, i, arrasto.quer, !arrasto.guardou);
-    else escrever(travado.d, i, arrasto.quer, !arrasto.guardou);
+    if (modoNotas) anotar(travado, i, arrasto.quer, !arrasto.guardou);
+    else escrever(travado, i, arrasto.quer, !arrasto.guardou);
     if (s.estado !== antes) arrasto.guardou = true;
     selecionada = i;
   }
@@ -135,7 +133,7 @@
     if (!travado || !e || !q || s.terminou || (ev.pointerType === 'mouse' && ev.button !== 0)) return;
     const i = casaNoPonto(ev.clientX, ev.clientY);
     if (i < 0) return;
-    const tem = travado.notas ? !!(e.notas[i] & (1 << travado.d)) : e.grade[i] === travado.d;
+    const tem = modoNotas ? !!(e.notas[i] & (1 << travado)) : e.grade[i] === travado;
     arrasto = { quer: !tem, feitas: new Set(), guardou: false };
     ignorarClique = true;
     (ev.currentTarget as HTMLElement).setPointerCapture(ev.pointerId);
@@ -172,36 +170,36 @@
     selecionada = i;
     if (ignorarClique) { ignorarClique = false; return; }
     if (travado) {
-      if (travado.notas) anotar(travado.d, i);
-      else escrever(travado.d, i);
+      if (modoNotas) anotar(travado, i);
+      else escrever(travado, i);
       return;
     }
     const v = e?.grade[i];
-    if (v) ativo = { d: v, notas: false };
+    if (v) ativo = v;
   }
 
   // Teclas: toque curto escreve; tocar e segurar trava o dígito.
-  function pressionarTecla(d: number, notas = modoNotas) {
+  function pressionarTecla(d: number) {
     segurou = false;
     clearTimeout(temporizador);
     temporizador = setTimeout(() => {
       segurou = true;
-      travado = travado && travado.d === d && travado.notas === notas ? null : { d, notas };
-      ativo = { d, notas };
+      travado = travado === d ? 0 : d;
+      ativo = d;
       vibrar(30);
     }, 420);
   }
   function soltarTecla() {
     clearTimeout(temporizador);
   }
-  function tocarTecla(d: number, notas = modoNotas) {
+  function tocarTecla(d: number) {
     if (segurou) { segurou = false; return; }
     if (travado) {
-      travado = travado.d === d && travado.notas === notas ? null : { d, notas };
-      ativo = { d, notas };
+      travado = travado === d ? 0 : d;
+      ativo = d;
       return;
     }
-    if (notas) anotar(d);
+    if (modoNotas) anotar(d);
     else escrever(d);
   }
 
@@ -358,7 +356,7 @@
             data-selecionada={selecionada === i || undefined}
             data-relacionada={relacionada(i) || undefined}
             data-i={i}
-            data-mesmo={(v && ativoNumero === v) || undefined}
+            data-mesmo={(v && ativo === v) || undefined}
             data-dada={dada || undefined}
             data-erro={(!dada && erros.has(i)) || undefined}
             data-soma={soma !== undefined || undefined}
@@ -372,7 +370,7 @@
               <span class="ja-sudoku-valor">{v}</span>
             {:else if e.notas[i]}
               <span class="ja-sudoku-notas">
-                {#each DIGITOS as d (d)}<span data-ativa={(ativoNota === d && e.notas[i] & (1 << d)) || undefined}>{e.notas[i] & (1 << d) ? d : ''}</span>{/each}
+                {#each DIGITOS as d (d)}<span data-ativa={(ativo === d && e.notas[i] & (1 << d)) || undefined}>{e.notas[i] & (1 << d) ? d : ''}</span>{/each}
               </span>
             {/if}
           </button>
@@ -420,9 +418,8 @@
       </div>
       <div class="ja-sudoku-numeros" role="group" aria-label={modoNotas ? 'Notas' : 'Números'} data-notas={modoNotas || undefined}>
         {#each DIGITOS as d, k (d)}
-          {@const trav = travado && travado.d === d && travado.notas === modoNotas}
           <button class="ja-sudoku-num" type="button" aria-label={modoNotas ? `Nota ${d}` : `${d}, faltam ${faltam[k]}`}
-            aria-pressed={modoNotas ? ativoNota === d : ativoNumero === d} data-travado={trav || undefined} data-completo={faltam[k] === 0 || undefined}
+            aria-pressed={ativo === d} data-travado={travado === d || undefined} data-completo={faltam[k] === 0 || undefined}
             onpointerdown={() => pressionarTecla(d)} onpointerup={soltarTecla} onpointerleave={soltarTecla} oncontextmenu={(ev) => ev.preventDefault()} onclick={() => tocarTecla(d)}>
             <span class="ja-sudoku-num-d" data-pos={d}>{d}</span>
             <span class="ja-sudoku-num-falta">{faltam[k] || ''}</span>

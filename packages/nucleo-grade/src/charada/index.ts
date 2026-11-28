@@ -33,7 +33,7 @@ export const BANCO: Categoria[] = [
   { nome: 'Bicho', valores: ['gato', 'cachorro', 'peixe', 'papagaio', 'tartaruga', 'coelho'], pred: (v) => `tem ${v === 'tartaruga' ? 'uma' : 'um'} ${v}` },
   { nome: 'Bebida', valores: ['café', 'chá', 'suco', 'leite', 'água', 'refrigerante'], pred: (v) => `bebe ${v}` },
   { nome: 'Esporte', valores: ['futebol', 'vôlei', 'natação', 'xadrez', 'corrida', 'basquete'], pred: (v) => (v === 'natação' || v === 'corrida' ? `faz ${v}` : `joga ${v}`) },
-  { nome: 'Fruta', valores: ['manga', 'banana', 'uva', 'caju', 'maçã', 'goiaba'], pred: (v) => `gosta de ${v}` },
+  { nome: 'Fruta', valores: ['manga', 'banana', 'uva', 'abacaxi', 'maçã', 'morango'], pred: (v) => `gosta de ${v}` },
 ];
 
 // --- Solucionador: casa de cada valor, com permutação por categoria ---

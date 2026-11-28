@@ -47,6 +47,13 @@
   {:else if sessao.fase === 'escolha'}
     <Escolha titulo={tituloEscolha} {opcoes} {aoEscolher} depois={depoisDaEscolha}>
       {#snippet antes()}
+        {#if sessao.ultimo}
+          <button class="ja-ultimo" type="button" onclick={() => sessao.continuarUltimo()}>
+            <span class="ja-retomar-icone"><Icone nome="player-play" /></span>
+            <span class="ja-ultimo-texto"><strong>Continuar o jogo anterior</strong><small>{sessao.ultimo.nomeVariante}{semRelogio || !sessao.ultimo.tempo ? '' : ` · ${formatarTempo(sessao.ultimo.tempo)}`}</small></span>
+            <Icone nome="chevron-right" />
+          </button>
+        {/if}
         {@render antesDaEscolha?.()}
         {#if sessao.erro}
           <div class="aviso" data-tipo="erro" role="alert"><Icone nome="alert-triangle" /><div><p class="aviso-titulo">Não deu para começar</p><p>{sessao.erro}</p></div></div>

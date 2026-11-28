@@ -32,12 +32,20 @@ export class Sessao<Q, E> {
   /** Partida guardada, esperando a pessoa escolher entre continuar e começar outra. */
   pendente = $state<{ nomeVariante: string; tempo: number } | null>(null);
   private salvo: Salvo<Q, E> | null = null;
+  /** Jogo anterior que ficou sem terminar (com `guardarUltimo`): dá para voltar a ele na escolha. */
+  ultimo = $state<{ nomeVariante: string; tempo: number } | null>(null);
 
-  constructor(private id: string, private opcoes: { semRelogio?: boolean; semEstatisticas?: boolean; pontuacao?: (e: E) => number } = {}) {
+  constructor(private id: string, private opcoes: { semRelogio?: boolean; semEstatisticas?: boolean; pontuacao?: (e: E) => number; guardarUltimo?: boolean } = {}) {
     document.addEventListener('visibilitychange', this.aoEsconder);
   }
 
+  private get chaveUltimo() { return `${this.id}-ultimo`; }
+
   async carregar(): Promise<boolean> {
+    if (this.opcoes.guardarUltimo) {
+      const u = await lerPartida<Salvo<Q, E>>(this.chaveUltimo);
+      this.ultimo = u ? { nomeVariante: u.nomeVariante, tempo: u.tempo } : null;
+    }
     const s = await lerPartida<Salvo<Q, E>>(this.id);
     if (s) {
       this.salvo = s;
@@ -47,6 +55,17 @@ export class Sessao<Q, E> {
     }
     this.fase = 'escolha';
     return false;
+  }
+
+  /** Volta ao jogo anterior guardado (ele vira a partida atual). */
+  async continuarUltimo() {
+    const u = await lerPartida<Salvo<Q, E>>(this.chaveUltimo);
+    await apagarPartida(this.chaveUltimo);
+    this.ultimo = null;
+    if (!u) return;
+    this.salvo = u;
+    this.continuar();
+    void this.salvar();
   }
 
   /** Continua a partida guardada. */
@@ -141,6 +160,14 @@ export class Sessao<Q, E> {
   }
 
   nova() {
+    // A partida sem terminar vira o "jogo anterior" (e o anterior a ela é descartado).
+    if (this.opcoes.guardarUltimo && !this.terminou) {
+      const atual = this.salvo ?? this.retrato();
+      if (atual) {
+        this.ultimo = { nomeVariante: atual.nomeVariante, tempo: atual.tempo };
+        void salvarPartida(this.chaveUltimo, atual);
+      }
+    }
     this.salvo = null;
     this.pendente = null;
     this.relogio.zerar();
@@ -151,16 +178,23 @@ export class Sessao<Q, E> {
     this.fase = 'escolha';
   }
 
-  salvar() {
-    if (!this.quebra || !this.estado || this.terminou || this.fase !== 'jogo') return;
-    return salvarPartida<Salvo<Q, E>>(this.id, {
+  private retrato(): Salvo<Q, E> | null {
+    if (!this.quebra || !this.estado || this.fase !== 'jogo') return null;
+    return {
       quebra: $state.snapshot(this.quebra) as Q,
       estado: $state.snapshot(this.estado) as E,
       tempo: this.relogio.ms,
       variante: this.variante,
       nomeVariante: this.nomeVariante,
       historico: this.historico.slice(-60),
-    });
+    };
+  }
+
+  salvar() {
+    if (this.terminou) return;
+    const r = this.retrato();
+    if (!r) return;
+    return salvarPartida<Salvo<Q, E>>(this.id, r);
   }
 
   destruir() {

@@ -17,5 +17,10 @@ const COR: Record<string, string> = {
 export function simbolo(categoria: string, valor: string): Simbolo {
   if (categoria === 'Cor da casa' && COR[valor]) return { tipo: 'cor', cor: COR[valor] };
   if (EMOJI[valor]) return { tipo: 'emoji', texto: EMOJI[valor] };
-  return { tipo: 'texto', texto: valor, curto: valor.slice(0, 2) };
+  return { tipo: 'texto', texto: valor, curto: valor.slice(0, 1) };
 }
+
+/** Ícone de cada categoria (Tabler), no lugar do nome na lateral do tabuleiro. */
+export const ICONE_CATEGORIA: Record<string, string> = {
+  Nome: 'user', 'Cor da casa': 'palette', Bicho: 'paw', Bebida: 'cup', Esporte: 'ball-football', Fruta: 'apple',
+};

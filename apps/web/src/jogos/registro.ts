@@ -35,7 +35,6 @@ export const GRUPOS: GrupoJogos[] = [
       j('tendas', 'Tendas', 'Uma tenda ao lado de cada árvore', 'tent', '1', () => import('./tendas/Tendas.svelte')),
       j('pontes', 'Pontes', 'Ligue as ilhas com pontes', 'building-bridge-2', '1', () => import('./pontes/Pontes.svelte')),
       j('rainhas', 'Rainhas', 'Uma coroa por linha, coluna e região', 'crown', '1', () => import('./rainhas/Rainhas.svelte')),
-      j('mosaico', 'Mosaico', 'Pinte as casas pelos números', 'layout-grid', '1', () => import('./mosaico/Mosaico.svelte')),
       j('sumplete', 'Sumplete', 'Apague números até as somas baterem', 'sum', '1', () => import('./sumplete/Sumplete.svelte')),
       j('ligue', 'Ligue os Números', 'Ligue os pares e preencha a grade', 'route', '1', () => import('./ligue/Ligue.svelte')),
       j('luzes', 'Apague as Luzes', 'Cada toque inverte uma cruz', 'bulb-off', '1', () => import('./luzes/Luzes.svelte')),

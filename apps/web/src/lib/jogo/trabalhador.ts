@@ -9,7 +9,6 @@ const geradores: Record<string, () => Promise<Gerador>> = {
   tendas: async () => (await import('@ja/nucleo-grade/tendas')).gerarTendas as Gerador,
   pontes: async () => (await import('@ja/nucleo-grade/pontes')).gerarPontes as Gerador,
   rainhas: async () => (await import('@ja/nucleo-grade/rainhas')).gerarRainhas as Gerador,
-  mosaico: async () => (await import('@ja/nucleo-grade/mosaico')).gerarMosaico as Gerador,
   ligue: async () => (await import('@ja/nucleo-grade/ligue')).gerarLigue as Gerador,
   conta: async () => (await import('@ja/nucleo-numeros/conta')).gerarConta as Gerador,
   separe: async () => (await import('@ja/nucleo-estado/separe')).gerarSepare as Gerador,

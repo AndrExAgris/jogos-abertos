@@ -10,11 +10,11 @@ Código aberto sob a licença [GPL-3.0](LICENSE). Créditos de terceiros em [CRE
 
 ## Jogos
 
-53 jogos, em teste e ajuste:
+52 jogos, em teste e ajuste:
 
 | Grupo | Jogos |
 | --- | --- |
-| Quebra-cabeças | Campo Minado, Sudoku (clássico ou com regras combinadas: diagonais, anti-rei, anti-cavalo, não consecutivo, killer, Kropki, XV, par e ímpar, termômetro), Nonograma, Charada de Einstein, Akari, Tendas, Pontes, Rainhas, Mosaico, Sumplete, Ligue os Números, Apague as Luzes |
+| Quebra-cabeças | Campo Minado, Sudoku (clássico ou com regras combinadas: diagonais, anti-rei, anti-cavalo, não consecutivo, killer, Kropki, XV, par e ímpar, termômetro), Nonograma, Charada de Einstein, Akari, Tendas, Pontes, Rainhas, Sumplete, Ligue os Números, Apague as Luzes |
 | Números e memória | Conta Certa, Jogo da Memória, Sequência de Cores |
 | Mover e encaixar | Resta Um, Separe as Cores, Desbloqueio, Setas, Desembaraço |
 | Palavras | Termo (com Dueto e Quarteto), Roda de Letras, Palavras Cruzadas (layout livre e grade densa) |

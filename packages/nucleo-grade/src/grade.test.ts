@@ -3,7 +3,6 @@ import { analisar, contarSolucoesAkari, gerarAkari } from './akari/index.ts';
 import { analisarTendas, contarSolucoesTendas, gerarTendas } from './tendas/index.ts';
 import { gerarPontes, resolvido as pontesResolvido } from './pontes/index.ts';
 import { analisarRainhas, contarSolucoesRainhas, gerarRainhas } from './rainhas/index.ts';
-import { analisarMosaico, gerarMosaico } from './mosaico/index.ts';
 import { gerarLigue, resolvidoLigue } from './ligue/index.ts';
 
 describe('akari', () => {
@@ -50,14 +49,6 @@ describe('rainhas', () => {
       expect(contarSolucoesRainhas(q)).toBe(1);
     }
   });
-});
-
-describe('mosaico', () => {
-  it('gera e a imagem satisfaz as pistas', () => {
-    const q = gerarMosaico(8, 8, 'm');
-    expect(analisarMosaico(q, new Set(q.solucao)).resolvido).toBe(true);
-    expect(q.pistas.filter((p) => p >= 0).length).toBeLessThan(64);
-  }, 20000);
 });
 
 describe('ligue', () => {

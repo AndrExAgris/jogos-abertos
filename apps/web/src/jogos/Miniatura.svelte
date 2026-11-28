@@ -13,7 +13,7 @@
   const g4 = [0, 1, 2, 3];
   const g5 = [0, 1, 2, 3, 4];
   const CONHECIDOS = new Set([
-    'minas', 'sudoku', 'nonograma', 'charada', 'akari', 'tendas', 'pontes', 'rainhas', 'mosaico', 'sumplete', 'ligue', 'luzes',
+    'minas', 'sudoku', 'nonograma', 'charada', 'akari', 'tendas', 'pontes', 'rainhas', 'sumplete', 'ligue', 'luzes',
     'conta', 'memoria', 'sequencia', 'resta-um', 'separe', 'rush', 'setas', 'desembaraco', 'termo', 'roda', 'cruzadas',
     'perguntas', 'milhao', 'filme', 'pais-distancia', 'capital-distancia', 'pais-contorno', 'bandeira-revelada', 'descobre-bandeiras',
     'viagem-fronteiras', 'pais-pistas', 'paciencia', 'spider', 'freecell', 'piramide', 'tripeaks', 'golf', 'quatro', 'damas',
@@ -72,9 +72,6 @@
     {#each g4 as y (y)}{#each g4 as x (x)}<rect x={6 + x * 13} y={6 + y * 13} width="13" height="13" class="m-reg{[[0, 0, 1, 1], [0, 2, 2, 1], [3, 2, 1, 1], [3, 3, 3, 1]][y][x]}" />{/each}{/each}
     <path d="M10 15l2-6 3 4 2-5 2 5 3-4 2 6z" class="m-preta" transform="translate(13 0)" />
     <path d="M10 15l2-6 3 4 2-5 2 5 3-4 2 6z" class="m-preta" transform="translate(-3 39)" />
-  {:else if id === 'mosaico'}
-    {#each g4 as y (y)}{#each g4 as x (x)}<rect x={6 + x * 13} y={6 + y * 13} width="12" height="12" rx="2" class={[[1, 1, 0, 0], [1, 0, 0, 1], [0, 0, 1, 1], [1, 0, 1, 1]][y][x] ? 'm-cheia' : 'm-casa'} />{/each}{/each}
-    <text x="25" y="25.5" class="m-num m-pri-t">4</text><text x="38" y="38.5" class="m-num m-pri-t">5</text>
   {:else if id === 'sumplete'}
     {#each g3 as y (y)}{#each g3 as x (x)}
       {@const n = [[3, 7, 1], [5, 2, 8], [4, 6, 9]][y][x]}

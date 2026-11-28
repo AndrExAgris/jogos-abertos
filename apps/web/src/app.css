@@ -1193,3 +1193,8 @@ rect.m-cor-a, rect.m-cor-b, rect.m-cor-c, circle.m-cor-a, circle.m-cor-b, circle
 .ja-sudoku-numeros[data-notas] .ja-sudoku-num-d { font-size: 20px; }
 .ja-sudoku-numeros[data-notas] .ja-sudoku-num[aria-pressed="true"] { color: var(--primaria-texto); box-shadow: inset 0 0 0 2px var(--primaria-texto); }
 @media (max-height: 700px) { .ja-sudoku-num { height: 52px; } .ja-sudoku-num-d { font-size: 28px; } }
+
+/* Perguntas com imagem (bandeira ou contorno) */
+.ja-pergunta-imagem { display: grid; place-items: center; width: 100%; height: 150px; }
+.ja-pergunta-bandeira { height: 120px; width: auto; max-width: 100%; border-radius: 4px; box-shadow: 0 0 0 1px var(--borda), var(--sombra-relevo); }
+.ja-pergunta-contorno { height: 150px; width: 100%; max-width: 260px; }

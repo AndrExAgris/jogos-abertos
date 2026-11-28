@@ -57,6 +57,11 @@ export function dificuldade(q, ctx, contagem) {
   const fama = ctx.links.get(pais) ?? 0;
   if (p.startsWith('Qual é a capital deste país')) return CAPITAL_FACIL.has(pais) ? 1 : PAIS_CONHECIDO.has(pais) ? 3 : fama >= 340 ? 4 : 5;
   if (p.startsWith('Em que continente fica este país')) return CAPITAL_FACIL.has(pais) ? 1 : PAIS_CONHECIDO.has(pais) ? 2 : fama >= 330 ? 3 : 4;
+  if (p.startsWith('Qual é a língua oficial deste país')) return CAPITAL_FACIL.has(pais) ? 1 : PAIS_CONHECIDO.has(pais) ? 2 : fama >= 330 ? 3 : 4;
+  if (p.startsWith('Quem está no elenco principal de')) { const r = ctx.rankFilme.get(aspas(p)) ?? 999; return r < 50 ? 2 : r < 110 ? 3 : 4; }
+  if (p.startsWith('Quem atuou em')) return 3;
+  if (p.startsWith('De que país é a banda')) return 3;
+  if (p.startsWith('Qual artista lançou o álbum')) return 3;
   if (p.startsWith('Qual é a moeda deste país')) return CAPITAL_FACIL.has(pais) || PAIS_CONHECIDO.has(pais) ? 3 : fama >= 340 ? 4 : 5;
   if (p.startsWith('Qual é a capital deste estado') || p.endsWith('é a capital de qual estado?')) {
     const estado = p.startsWith('Qual') ? pais : q.r;
@@ -85,7 +90,7 @@ export function anotar(perguntas) {
   const limpas = perguntas.map(limpar).filter(Boolean);
   const contagem = new Map();
   for (const q of limpas) contagem.set(q.r, (contagem.get(q.r) ?? 0) + 1);
-  return limpas.map((q) => ({ ...q, d: limitar(dificuldade(q, ctx, contagem)) }));
+  return limpas.map((q) => ({ ...q, d: limitar(q.d ?? dificuldade(q, ctx, contagem)) }));
 }
 
 if (process.argv[1] === fileURLToPath(import.meta.url)) {

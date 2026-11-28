@@ -4,6 +4,7 @@
 // Uso: node tools/dados/wikidata.mjs
 import { mkdir, writeFile } from 'node:fs/promises';
 import { anotar } from './dificuldade.mjs';
+import { dicasDoBanco, juntar, lerCuradas, perguntasComImagem } from './banco.mjs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -97,7 +98,7 @@ async function filmes() {
 }
 
 /** Monta perguntas de múltipla escolha: resposta certa + 3 erradas do mesmo tipo. */
-function montar(categoria, linhas, texto, campoResposta, campoChave = null) {
+function montar(categoria, linhas, texto, campoResposta, campoChave = null, tipo = 'outro') {
   const respostas = [...new Set(linhas.map((l) => l[campoResposta]))];
   const vistas = new Set();
   const perguntas = [];
@@ -110,7 +111,7 @@ function montar(categoria, linhas, texto, campoResposta, campoChave = null) {
     if (certas.size !== 1) continue;
     const erradas = respostas.filter((r) => !certas.has(r));
     if (erradas.length < 3) continue;
-    perguntas.push({ c: categoria, p: texto(l), r: l[campoResposta], pool: erradas });
+    perguntas.push({ c: categoria, p: texto(l), r: l[campoResposta], pool: erradas, t: tipo });
   }
   return perguntas;
 }
@@ -129,50 +130,106 @@ async function perguntas(listaFilmes) {
   console.log('Perguntas: países…');
   const paises = (await talvez('paises', `SELECT ?pLabel ?capLabel ?moedaLabel ?contLabel ?links WHERE { ?p wdt:P31 wd:Q3624078 ; wikibase:sitelinks ?links . FILTER(?links >= 150)
     OPTIONAL { ?p wdt:P36 ?cap } OPTIONAL { ?p wdt:P38 ?moeda } OPTIONAL { ?p wdt:P30 ?cont } ${ROTULO} }`)).filter((l) => bom(l.pLabel));
-  P.push(...montar('Mundo', paises.filter((l) => bom(l.capLabel)), (l) => `Qual é a capital deste país: ${l.pLabel}?`, 'capLabel', 'pLabel'));
-  P.push(...montar('Mundo', paises.filter((l) => CONTINENTES.has(l.contLabel)), (l) => `Em que continente fica este país: ${l.pLabel}?`, 'contLabel', 'pLabel'));
-  P.push(...montar('Sociedade', paises.filter((l) => bom(l.moedaLabel)).map((l) => ({ ...l, moeda: maiuscula(l.moedaLabel) })), (l) => `Qual é a moeda deste país: ${l.pLabel}?`, 'moeda', 'pLabel'));
+  P.push(...montar('Mundo', paises.filter((l) => bom(l.capLabel)), (l) => `Qual é a capital deste país: ${l.pLabel}?`, 'capLabel', 'pLabel', 'capital-pais'));
+  P.push(...montar('Mundo', paises.filter((l) => CONTINENTES.has(l.contLabel)), (l) => `Em que continente fica este país: ${l.pLabel}?`, 'contLabel', 'pLabel', 'continente'));
+  P.push(...montar('Sociedade', paises.filter((l) => bom(l.moedaLabel)).map((l) => ({ ...l, moeda: maiuscula(l.moedaLabel) })), (l) => `Qual é a moeda deste país: ${l.pLabel}?`, 'moeda', 'pLabel', 'moeda'));
 
   console.log('Perguntas: obras e pessoas…');
   const pinturas = (await talvez('pinturas', `SELECT ?oLabel ?aLabel WHERE { ?o wdt:P31 wd:Q3305213 ; wdt:P170 ?a ; wikibase:sitelinks ?l . FILTER(?l >= 35) ${ROTULO} }`)).filter((l) => bom(l.oLabel) && bom(l.aLabel));
-  P.push(...montar('Artes e Entretenimento', pinturas, (l) => `Quem pintou "${l.oLabel}"?`, 'aLabel', 'oLabel'));
-  const livros = (await talvez('livros', `SELECT ?oLabel ?aLabel WHERE { ?o wdt:P31 wd:Q7725634 ; wdt:P50 ?a ; wikibase:sitelinks ?l . FILTER(?l >= 50) ${ROTULO} }`)).filter((l) => bom(l.oLabel) && bom(l.aLabel));
-  P.push(...montar('Artes e Entretenimento', livros, (l) => `Quem escreveu "${l.oLabel}"?`, 'aLabel', 'oLabel'));
+  P.push(...montar('Artes e Entretenimento', pinturas, (l) => `Quem pintou "${l.oLabel}"?`, 'aLabel', 'oLabel', 'pintura'));
+  // Sem os livros da Bíblia (autoria tradicional, não é pergunta de "quem escreveu").
+  const BIBLICOS = new Set(['Paulo de Tarso', 'Marcos', 'Moisés', 'Lucas', 'João de Patmos', 'Salomão', 'Mateus', 'João Evangelista', 'Davi']);
+  const livros = (await talvez('livros', `SELECT ?oLabel ?aLabel WHERE { ?o wdt:P31 wd:Q7725634 ; wdt:P50 ?a ; wikibase:sitelinks ?l . FILTER(?l >= 50) ${ROTULO} }`)).filter((l) => bom(l.oLabel) && bom(l.aLabel) && !BIBLICOS.has(l.aLabel));
+  P.push(...montar('Artes e Entretenimento', livros, (l) => `Quem escreveu "${l.oLabel}"?`, 'aLabel', 'oLabel', 'livro'));
   const filmesDir = listaFilmes.slice(0, 250).map((f) => ({ t: f.titulo, d: f.direcao[0], a: String(f.ano) }));
-  P.push(...montar('Artes e Entretenimento', filmesDir, (l) => `Quem dirigiu o filme "${l.t}"?`, 'd', 't'));
-  P.push(...montar('Artes e Entretenimento', filmesDir, (l) => `Em que ano foi lançado o filme "${l.t}"?`, 'a', 't'));
+  P.push(...montar('Artes e Entretenimento', filmesDir, (l) => `Quem dirigiu o filme "${l.t}"?`, 'd', 't', 'diretor'));
+  P.push(...montar('Artes e Entretenimento', filmesDir.slice(0, 80), (l) => `Em que ano foi lançado o filme "${l.t}"?`, 'a', 't', 'ano-filme'));
 
   console.log('Perguntas: ciência…');
   const elementos = (await talvez('elementos', `SELECT ?eLabel ?simbolo ?numero WHERE { ?e wdt:P31 wd:Q11344 ; wdt:P246 ?simbolo ; wdt:P1086 ?numero . FILTER(?numero <= 92) ${ROTULO} }`)).filter((l) => bom(l.eLabel));
-  P.push(...montar('Ciência e Tecnologia', elementos, (l) => `Qual é o símbolo químico do elemento ${l.eLabel.toLowerCase()}?`, 'simbolo', 'eLabel'));
-  P.push(...montar('Ciência e Tecnologia', elementos.map((l) => ({ ...l, n2: l.eLabel })), (l) => `Qual elemento químico tem o símbolo ${l.simbolo}?`, 'n2', 'simbolo'));
+  P.push(...montar('Ciência e Tecnologia', elementos, (l) => `Qual é o símbolo químico do elemento ${l.eLabel.toLowerCase()}?`, 'simbolo', 'eLabel', 'simbolo'));
+  P.push(...montar('Ciência e Tecnologia', elementos.map((l) => ({ ...l, n2: l.eLabel })), (l) => `Qual elemento químico tem o símbolo ${l.simbolo}?`, 'n2', 'simbolo', 'elemento'));
   const cientistas = (await talvez('cientistas', `SELECT ?pLabel ?campoLabel WHERE { ?p wdt:P106 wd:Q901 ; wdt:P101 ?campo ; wikibase:sitelinks ?l . FILTER(?l >= 120) ${ROTULO} }`)).filter((l) => bom(l.pLabel) && bom(l.campoLabel));
-  P.push(...montar('Ciência e Tecnologia', cientistas, (l) => `Em que área ${l.pLabel} ficou conhecido(a)?`, 'campoLabel', 'pLabel'));
+  P.push(...montar('Ciência e Tecnologia', cientistas, (l) => `Em que área ${l.pLabel} ficou conhecido(a)?`, 'campoLabel', 'pLabel', 'cientista'));
   console.log('Perguntas: esporte…');
   // Atletas premiados (conjuntos pequenos: a consulta é rápida). Bola de Ouro, Melhor do Mundo da FIFA,
   // campeões de Fórmula 1, MVP da NBA, Laureus.
   const atletas = (await talvez('atletas', `SELECT ?pLabel ?esporteLabel ?paisLabel WHERE { VALUES ?premio { wd:Q166177 wd:Q233454 wd:Q1968 wd:Q222047 wd:Q1052387 wd:Q2665924 }
     ?p wdt:P166 ?premio ; wdt:P641 ?esporte ; wdt:P27 ?pais ; wikibase:sitelinks ?l . FILTER(?l >= 45) ${ROTULO} }`)).filter((l) => bom(l.pLabel) && bom(l.esporteLabel) && bom(l.paisLabel));
-  P.push(...montar('Esporte e Lazer', atletas, (l) => `Qual esporte ${l.pLabel} pratica ou praticou?`, 'esporteLabel', 'pLabel'));
-  P.push(...montar('Esporte e Lazer', atletas, (l) => `De que país é ${l.pLabel}?`, 'paisLabel', 'pLabel'));
+  P.push(...montar('Esporte e Lazer', atletas, (l) => `Qual esporte ${l.pLabel} pratica ou praticou?`, 'esporteLabel', 'pLabel', 'atleta-esporte'));
+  P.push(...montar('Esporte e Lazer', atletas, (l) => `De que país é ${l.pLabel}?`, 'paisLabel', 'pLabel', 'atleta-pais'));
   const copas = (await talvez('copas', `SELECT ?cLabel ?campeaoLabel WHERE { ?c wdt:P3450 wd:Q19317 ; wdt:P1346 ?campeao . ${ROTULO} }`)).filter((l) => bom(l.cLabel) && bom(l.campeaoLabel));
-  P.push(...montar('Esporte e Lazer', copas.map((l) => ({ ...l, campeao: l.campeaoLabel.replace(/^seleção (masculina )?(de futebol )?d[aoe]s? /i, '').replace(/ de futebol$/i, '') })), (l) => `Quem foi campeão da ${l.cLabel}?`, 'campeao', 'cLabel'));
+  P.push(...montar('Esporte e Lazer', copas.map((l) => ({ ...l, campeao: l.campeaoLabel.replace(/^seleção (masculina )?(de futebol )?d[aoe]s? /i, '').replace(/ de futebol$/i, '') })), (l) => `Quem foi campeão da ${l.cLabel}?`, 'campeao', 'cLabel', 'copa'));
   const olimpiadas = (await talvez('olimpiadas', `SELECT ?oLabel ?cidadeLabel WHERE { ?o wdt:P31 wd:Q159821 ; wdt:P276 ?cidade . ${ROTULO} }`)).filter((l) => bom(l.oLabel) && bom(l.cidadeLabel));
-  P.push(...montar('Esporte e Lazer', olimpiadas, (l) => `Em que cidade foram os ${l.oLabel}?`, 'cidadeLabel', 'oLabel'));
+  P.push(...montar('Esporte e Lazer', olimpiadas, (l) => `Em que cidade foram os ${l.oLabel}?`, 'cidadeLabel', 'oLabel', 'olimpiada'));
 
   console.log('Perguntas: variedades e Brasil…');
   const patrimonios = (await talvez('patrimonios', `SELECT ?lLabel ?paisLabel WHERE { ?lugar wdt:P1435 wd:Q9259 ; wdt:P17 ?pais ; wikibase:sitelinks ?l . FILTER(?l >= 55) ${ROTULO} }`)).filter((l) => bom(l.lLabel) && bom(l.paisLabel));
-  P.push(...montar('Variedades', patrimonios, (l) => `Em que país fica ${l.lLabel}?`, 'paisLabel', 'lLabel'));
+  P.push(...montar('Mundo', patrimonios, (l) => `Em que país fica ${l.lLabel}?`, 'paisLabel', 'lLabel', 'patrimonio'));
   const nobel = (await talvez('nobel', `SELECT ?pLabel ?premioLabel WHERE { ?premio wdt:P279 wd:Q7191 . ?p wdt:P166 ?premio ; wikibase:sitelinks ?l . FILTER(?l >= 100) ${ROTULO} }`)).filter((l) => bom(l.pLabel) && bom(l.premioLabel));
-  P.push(...montar('Variedades', nobel.map((l) => ({ ...l, area: l.premioLabel.replace(/^Prémio |^Prêmio /, 'Prêmio ') })), (l) => `${l.pLabel} ganhou qual prêmio?`, 'area', 'pLabel'));
+  P.push(...montar('Variedades', nobel.map((l) => ({ ...l, area: l.premioLabel.replace(/^Prémio |^Prêmio /, 'Prêmio ') })), (l) => `${l.pLabel} ganhou qual prêmio?`, 'area', 'pLabel', 'nobel'));
   const estados = (await talvez('estados', `SELECT ?eLabel ?capLabel WHERE { ?e wdt:P31 wd:Q485258 ; wdt:P36 ?cap . ${ROTULO} }`)).filter((l) => bom(l.eLabel) && bom(l.capLabel));
-  P.push(...montar('Mundo', estados, (l) => `Qual é a capital deste estado: ${l.eLabel}?`, 'capLabel', 'eLabel'));
-  P.push(...montar('Mundo', estados.map((l) => ({ ...l, e2: l.eLabel })), (l) => `${l.capLabel} é a capital de qual estado?`, 'e2', 'capLabel'));
+  P.push(...montar('Mundo', estados, (l) => `Qual é a capital deste estado: ${l.eLabel}?`, 'capLabel', 'eLabel', 'capital-estado'));
+  P.push(...montar('Mundo', estados.map((l) => ({ ...l, e2: l.eLabel })), (l) => `${l.capLabel} é a capital de qual estado?`, 'e2', 'capLabel', 'estado-da-capital'));
   const cidades = (await talvez('cidades', `SELECT ?cLabel ?eLabel WHERE { ?c wdt:P31 wd:Q3184121 ; wdt:P1082 ?pop ; wdt:P131 ?e . ?e wdt:P31 wd:Q485258 . FILTER(?pop >= 300000) ${ROTULO} }`)).filter((l) => bom(l.cLabel) && bom(l.eLabel));
-  P.push(...montar('Mundo', cidades, (l) => `Em que estado fica a cidade de ${l.cLabel}?`, 'eLabel', 'cLabel'));
+  P.push(...montar('Mundo', cidades, (l) => `Em que estado fica a cidade de ${l.cLabel}?`, 'eLabel', 'cLabel', 'cidade-estado'));
   const presidentes = (await talvez('presidentes', `SELECT ?pLabel ?inicio WHERE { ?p p:P39 ?st . ?st ps:P39 wd:Q4254005 ; pq:P580 ?inicio . ${ROTULO} }`)).filter((l) => bom(l.pLabel));
   const pres = presidentes.map((l) => ({ p: l.pLabel, ano: l.inicio.slice(0, 4) })).filter((l) => Number(l.ano) >= 1930);
-  P.push(...montar('Sociedade', pres, (l) => `Quem tomou posse como presidente do Brasil em ${l.ano}?`, 'p', 'ano'));
+  P.push(...montar('Sociedade', pres, (l) => `Quem tomou posse como presidente do Brasil em ${l.ano}?`, 'p', 'ano', 'presidente'));
+
+  console.log('Perguntas: música, idiomas, elenco…');
+  const normPais = (p) => ({ Inglaterra: 'Reino Unido', 'República da Irlanda': 'Irlanda', 'República Popular da China': 'China', 'Alemanha Ocidental': 'Alemanha' })[p] ?? p;
+  const bandas = (await talvez('bandas', `SELECT ?bLabel ?pLabel ?l WHERE { VALUES ?t { wd:Q215380 wd:Q5741069 wd:Q9212979 wd:Q216337 wd:Q641066 wd:Q2088357 } ?b wdt:P31 ?t ; wdt:P495 ?p ; wikibase:sitelinks ?l . FILTER(?l >= 60) ${ROTULO} }`))
+    .filter((l) => bom(l.bLabel) && bom(l.pLabel) && !['Lordi', 'Kara'].includes(l.bLabel)).map((l) => ({ ...l, pais: normPais(l.pLabel) }));
+  const vezesPais = new Map();
+  for (const l of bandas) vezesPais.set(l.pais, (vezesPais.get(l.pais) ?? 0) + 1);
+  // Opções erradas só entre países com mais de uma banda famosa (sem "União Soviética" e afins).
+  P.push(...montar('Artes e Entretenimento', bandas, (l) => `De que país é a banda ${l.bLabel}?`, 'pais', 'bLabel', 'banda-pais')
+    .map((q) => ({ ...q, pool: q.pool.filter((c) => vezesPais.get(c) >= 2) })).filter((q) => q.pool.length >= 3));
+  const ARTISTAS = { Q36153: 'Beyoncé', Q19848: 'Lady Gaga', Q2831: 'Michael Jackson' };
+  const albuns = (await talvez('albuns', `SELECT ?aLabel ?artLabel ?l WHERE { ?a wdt:P31 wd:Q482994 ; wdt:P175 ?art ; wikibase:sitelinks ?l . FILTER(?l >= 45) ${ROTULO} }`))
+    .map((l) => ({ ...l, art: ARTISTAS[l.artLabel] ?? l.artLabel }))
+    .filter((l) => bom(l.aLabel) && bom(l.art) && l.art !== 'Lordi' && !l.aLabel.toLowerCase().includes(l.art.toLowerCase()));
+  // Só artistas com dois álbuns ou mais (tira músicos convidados que aparecem como intérpretes).
+  const vezesArt = new Map();
+  for (const l of albuns) vezesArt.set(l.art, (vezesArt.get(l.art) ?? 0) + 1);
+  albuns.splice(0, albuns.length, ...albuns.filter((l) => vezesArt.get(l.art) >= 2));
+  P.push(...montar('Artes e Entretenimento', albuns, (l) => `Qual artista lançou o álbum "${l.aLabel}"?`, 'art', 'aLabel', 'album'));
+  // Língua oficial: só países com uma língua oficial, com o nome da língua padronizado ("língua húngara" → "Húngaro").
+  const nomeLingua = (s) => {
+    const longa = /^língua /i.test(s);
+    let n = s.replace(/^língua /i, '');
+    if (longa) n = n.replace(/esa$/, 'ês').replace(/ã$/, 'ão').replace(/([^t]|[^i]t)a$/, '$1o');
+    return maiuscula(({ banglo: 'bengali', bangla: 'bengali' })[n] ?? n);
+  };
+  const idiomas = (await talvez('idiomas', `SELECT ?pLabel ?idLabel ?l WHERE { ?p wdt:P31 wd:Q3624078 ; wdt:P37 ?id ; wikibase:sitelinks ?l . FILTER(?l >= 150) ${ROTULO} }`))
+    .filter((l) => bom(l.pLabel) && bom(l.idLabel)).map((l) => ({ ...l, lingua: nomeLingua(l.idLabel), pais: normPais(l.pLabel) }));
+  // Só países com uma língua oficial; assim as opções são línguas nacionais conhecidas.
+  const linguasPorPais = new Map();
+  for (const l of idiomas) linguasPorPais.set(l.pais, (linguasPorPais.get(l.pais) ?? 0) + 1);
+  idiomas.splice(0, idiomas.length, ...idiomas.filter((l) => linguasPorPais.get(l.pais) === 1));
+  // Opções erradas só entre línguas de países bem conhecidos.
+  const linguasConhecidas = new Set(idiomas.filter((l) => Number(l.l) >= 340).map((l) => l.lingua));
+  P.push(...montar('Sociedade', idiomas, (l) => `Qual é a língua oficial deste país: ${l.pais}?`, 'lingua', 'pais', 'lingua-oficial')
+    .map((q) => ({ ...q, pool: q.pool.filter((x) => linguasConhecidas.has(x)) })).filter((q) => q.pool.length >= 3));
+  // Elenco dos filmes famosos (sem as participações rápidas de Stan Lee e Hitchcock).
+  const FORA = new Set(['Stan Lee', 'Alfred Hitchcock']);
+  const porAtor = new Map();
+  for (const f of listaFilmes.slice(0, 500)) for (const a of f.elenco) if (!FORA.has(a)) { if (!porAtor.has(a)) porAtor.set(a, []); porAtor.get(a).push(f.titulo); }
+  const atores = [...porAtor.entries()].filter(([, fs]) => fs.length >= 3);
+  const nomesAtores = atores.map(([a]) => a);
+  for (const [ator, fs] of atores) {
+    const tres = fs.slice(0, 3);
+    const noElenco = new Set(listaFilmes.filter((f) => tres.includes(f.titulo)).flatMap((f) => f.elenco));
+    const pool = nomesAtores.filter((n) => !noElenco.has(n));
+    if (pool.length >= 3) P.push({ c: 'Artes e Entretenimento', p: `Quem atuou em "${tres[0]}", "${tres[1]}" e "${tres[2]}"?`, r: ator, pool, t: 'ator-filmes' });
+  }
+  for (const f of listaFilmes.slice(0, 150)) {
+    const elenco = f.elenco.filter((a) => !FORA.has(a));
+    if (!elenco.length) continue;
+    const pool = nomesAtores.filter((n) => !f.elenco.includes(n));
+    P.push({ c: 'Artes e Entretenimento', p: `Quem está no elenco principal de "${f.titulo}" (${f.ano})?`, r: elenco[0], pool, t: 'elenco' });
+  }
 
   const final = sortearErradas(P);
   const porCategoria = {};
@@ -193,6 +250,13 @@ if (existsSync(arqFilmes) && !process.argv.includes('--filmes')) {
   await writeFile(arqFilmes, JSON.stringify(listaFilmes));
 }
 console.log(listaFilmes.length, 'filmes completos');
-const lista = anotar(await perguntas(listaFilmes));
+const modelos = anotar(await perguntas(listaFilmes));
+const curadas = lerCuradas();
+const lista = juntar(modelos, curadas.perguntas, perguntasComImagem());
 await writeFile(join(saida, 'perguntas.json'), JSON.stringify(lista));
-console.log(lista.length, 'perguntas');
+const dicas = dicasDoBanco(modelos, curadas.dicas);
+await writeFile(join(saida, 'dicas-conhecimento.json'), JSON.stringify(dicas));
+const porCat = {}, porTipo = {};
+for (const q of lista) { porCat[q.c] = (porCat[q.c] ?? 0) + 1; porTipo[q.t] = (porTipo[q.t] ?? 0) + 1; }
+console.log(lista.length, 'perguntas no banco:', porCat);
+console.log(Object.keys(porTipo).length, 'tipos;', dicas.length, 'dicas para cruzadas');

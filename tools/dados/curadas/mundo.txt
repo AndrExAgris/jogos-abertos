@@ -1,0 +1,196 @@
+# Perguntas escritas à mão: Mundo (geopolítica, organizações, geografia física, cidades e símbolos).
+# Formato: nota (1 fácil a 5 difícil)|pergunta|certa|errada|errada|errada|dica para cruzada (opcional, resposta de uma palavra)
+# "@tema nome" muda o tema das linhas seguintes. Fatos que mudam com o tempo vêm com o ano.
+
+@tema geopolitica
+3|Quantos países são membros permanentes do Conselho de Segurança da ONU?|5|3|7|10
+3|Qual destes países NÃO é membro permanente do Conselho de Segurança da ONU?|Alemanha|França|China|Rússia
+2|Em que cidade fica a sede da ONU?|Nova York|Genebra|Paris|Washington
+4|Em que cidade fica a sede da OTAN?|Bruxelas|Genebra|Haia|Viena
+4|Em que cidade fica a Corte Internacional de Justiça, da ONU?|Haia|Genebra|Estrasburgo|Bruxelas
+3|Qual país saiu da União Europeia em 2020, no chamado Brexit?|Reino Unido|Irlanda|Grécia|Polônia
+3|Quantos países fazem parte da União Europeia desde a saída do Reino Unido?|27|25|28|30
+4|Quantos países fazem parte da ONU?|193|180|201|170
+3|O Mercosul foi criado em 1991 por Brasil, Argentina, Uruguai e qual outro país?|Paraguai|Chile|Bolívia|Venezuela
+3|Qual destes países é um dos fundadores do BRICS?|Índia|México|Turquia|Indonésia
+4|O "S" da sigla BRICS vem de qual país, que entrou no grupo em 2010?|África do Sul|Suécia|Singapura|Suriname
+3|Qual agência da ONU cuida da saúde no mundo?|OMS|OMC|OIT|FMI
+4|Qual organização internacional cuida das regras do comércio entre países?|OMC|OMS|Unesco|OIT
+4|O que significa a sigla OTAN?|Organização do Tratado do Atlântico Norte|Organização dos Territórios Aliados do Norte|Organização Transnacional de Apoio às Nações|Ordem do Tratado da Aliança do Norte
+3|A Opep reúne países exportadores de quê?|Petróleo|Ouro|Café|Trigo
+3|Qual agência da ONU cuida da educação, da ciência e do patrimônio cultural?|Unesco|Unicef|OMS|FAO
+3|Qual agência da ONU é dedicada às crianças?|Unicef|Unesco|Acnur|OMS
+4|Qual agência da ONU cuida dos refugiados?|Acnur|Unicef|OIT|FAO
+3|Qual país invadiu a Ucrânia em fevereiro de 2022?|Rússia|Belarus|Polônia|Turquia
+4|Qual península foi anexada pela Rússia em 2014?|Crimeia|Kamchatka|Península Balcânica|Península de Kola
+4|De qual país o Sudão do Sul se separou em 2011?|Sudão|Etiópia|Somália|Quênia
+4|Qual é o país mais novo do mundo reconhecido pela ONU, independente desde 2011?|Sudão do Sul|Kosovo|Timor-Leste|Montenegro
+3|Segundo a ONU, qual país passou a China como o mais populoso do mundo em 2023?|Índia|Estados Unidos|Indonésia|Paquistão
+3|Que acordo internacional, assinado em 2015, busca limitar o aquecimento global?|Acordo de Paris|Protocolo de Kyoto|Tratado de Roma|Acordo de Genebra
+3|Qual cidade brasileira sediou a conferência do clima COP30, em 2025?|Belém|Manaus|Rio de Janeiro|Brasília
+3|Em que ano a OMS declarou a covid-19 uma pandemia?|2020|2019|2021|2018
+3|Em qual cidade chinesa foram identificados os primeiros casos de covid-19?|Wuhan|Pequim|Xangai|Hong Kong
+3|O Muro de Berlim caiu em que ano?|1989|1991|1985|1975
+3|Qual país deixou de existir em 1991, dando origem a 15 novas nações?|União Soviética|Iugoslávia|Tchecoslováquia|Alemanha Oriental
+4|Qual país se dividiu pacificamente em República Tcheca e Eslováquia em 1993?|Tchecoslováquia|Iugoslávia|Áustria-Hungria|União Soviética
+3|Em que ano a Alemanha foi reunificada?|1990|1989|1985|1995
+4|Qual território foi devolvido pelo Reino Unido à China em 1997?|Hong Kong|Macau|Taiwan|Cingapura
+4|Macau, devolvida à China em 1999, era administrada por qual país?|Portugal|Reino Unido|Espanha|França
+3|Em que ano aconteceram os ataques às Torres Gêmeas, em Nova York?|2001|1999|2003|2005
+3|Qual destes países tem armas nucleares?|Índia|Brasil|Japão|Alemanha
+4|Como se chama a faixa de fronteira entre as duas Coreias, uma das mais vigiadas do mundo?|Zona Desmilitarizada|Linha Maginot|Cortina de Ferro|Paralelo 17
+4|Qual grupo reúne as sete economias mais industrializadas do mundo?|G7|G20|BRICS|Opep
+3|Qual destes países faz parte do G7?|Japão|China|Brasil|Índia
+4|Qual destes países NÃO faz parte da União Europeia?|Noruega|Suécia|Finlândia|Dinamarca
+4|Qual destes países NÃO faz parte da União Europeia?|Suíça|Áustria|Bélgica|Portugal
+3|Qual moeda é usada na maioria dos países da União Europeia?|Euro|Libra|Franco|Marco
+4|Em que cidade fica o Parlamento Europeu, além de Bruxelas?|Estrasburgo|Paris|Berlim|Luxemburgo
+
+@tema geografia-fisica
+2|Qual é o maior país do mundo em área?|Rússia|Canadá|China|Estados Unidos
+3|Qual é o segundo maior país do mundo em área?|Canadá|Estados Unidos|China|Brasil
+2|Qual é o menor país do mundo?|Vaticano|Mônaco|San Marino|Liechtenstein
+3|Qual destes países fica totalmente cercado pela Itália?|San Marino|Mônaco|Andorra|Malta
+3|Qual país fica totalmente cercado pela África do Sul?|Lesoto|Essuatíni|Botsuana|Namíbia
+4|Qual destes países fica em dois continentes, Europa e Ásia?|Turquia|Grécia|Irã|Ucrânia
+3|Qual canal liga o Mar Mediterrâneo ao Mar Vermelho?|Canal de Suez|Canal do Panamá|Canal de Corinto|Canal da Mancha
+2|Qual canal liga os oceanos Atlântico e Pacífico na América Central?|Canal do Panamá|Canal de Suez|Canal de Kiel|Canal da Mancha
+3|Qual estreito separa a Europa da África?|Estreito de Gibraltar|Estreito de Bering|Estreito de Ormuz|Bósforo
+4|Qual estreito separa a Ásia da América?|Estreito de Bering|Estreito de Magalhães|Estreito de Malaca|Estreito de Gibraltar
+4|Por qual estreito passa boa parte do petróleo do Golfo Pérsico?|Estreito de Ormuz|Estreito de Malaca|Bósforo|Estreito de Gibraltar
+4|Qual braço de mar separa a Inglaterra da França?|Canal da Mancha|Mar do Norte|Mar Báltico|Mar da Irlanda
+2|Qual é o maior oceano da Terra?|Pacífico|Atlântico|Índico|Ártico|Maior oceano da Terra
+3|Qual é o menor oceano da Terra?|Ártico|Índico|Antártico|Atlântico|Menor oceano, no polo Norte
+2|Qual é o rio com mais água do mundo?|Amazonas|Nilo|Mississippi|Yangtzé|Rio com mais água do mundo
+3|Qual é o rio mais longo da África?|Nilo|Congo|Níger|Zambeze|Rio do Egito
+3|Qual é o rio mais longo da Ásia?|Yangtzé|Ganges|Mekong|Eufrates
+3|Qual rio é sagrado para os hindus?|Ganges|Indo|Mekong|Tigre|Rio sagrado da Índia
+3|Qual rio passa por Paris?|Sena|Tâmisa|Danúbio|Reno|Rio que corta Paris
+3|Qual rio passa por Londres?|Tâmisa|Sena|Reno|Tejo
+3|Qual rio passa por Lisboa?|Tejo|Douro|Guadiana|Minho|Rio de Lisboa
+4|Qual rio passa por Viena, Budapeste e Belgrado?|Danúbio|Reno|Volga|Elba
+3|Qual rio separa o Brasil do Paraguai na região da Usina de Itaipu?|Rio Paraná|Rio Uruguai|Rio Paraguai|Rio São Francisco
+3|Qual é o rio conhecido como "Velho Chico"?|São Francisco|Tietê|Paraná|Parnaíba
+3|Em que fronteira ficam as Cataratas do Iguaçu?|Brasil e Argentina|Brasil e Paraguai|Brasil e Uruguai|Argentina e Paraguai
+4|As Cataratas do Niágara ficam na fronteira entre quais países?|Estados Unidos e Canadá|Estados Unidos e México|Canadá e Groenlândia|Venezuela e Guiana
+4|Qual é a cachoeira mais alta do mundo, na Venezuela?|Salto Ángel|Cataratas Vitória|Niágara|Salto do Iguaçu
+2|Qual é a montanha mais alta do mundo?|Monte Everest|K2|Aconcágua|Kilimanjaro|Montanha mais alta do mundo
+3|Qual é a montanha mais alta das Américas?|Aconcágua|Denali|Chimborazo|Pico da Neblina
+3|Qual é o ponto mais alto do Brasil?|Pico da Neblina|Pico da Bandeira|Monte Roraima|Pico Paraná
+3|Em qual cordilheira fica o Monte Everest?|Himalaia|Andes|Alpes|Montanhas Rochosas
+3|Qual cordilheira atravessa a América do Sul de norte a sul?|Andes|Rochosas|Alpes|Urais|Cordilheira da América do Sul
+4|Qual cordilheira é considerada a divisa entre a Europa e a Ásia?|Urais|Cáucaso|Alpes|Cárpatos
+3|Qual é a montanha mais alta da África?|Kilimanjaro|Monte Quênia|Atlas|Ruwenzori
+2|Qual é o maior deserto quente do mundo?|Saara|Atacama|Gobi|Kalahari|Grande deserto do norte da África
+3|Qual deserto do Chile é um dos lugares mais secos do mundo?|Atacama|Patagônia|Sechura|Mojave
+4|O Deserto de Gobi fica na China e em qual outro país?|Mongólia|Cazaquistão|Rússia|Índia
+3|Qual é a maior ilha do mundo, sem contar a Austrália?|Groenlândia|Madagascar|Bornéu|Nova Guiné
+4|A Groenlândia faz parte do reino de qual país?|Dinamarca|Noruega|Canadá|Islândia
+3|Qual país é formado por mais de 17 mil ilhas?|Indonésia|Filipinas|Japão|Grécia
+3|Madagascar, a grande ilha africana, fica em qual oceano?|Índico|Atlântico|Pacífico|Ártico
+4|O Lago Titicaca fica na fronteira entre quais países?|Peru e Bolívia|Chile e Bolívia|Peru e Equador|Argentina e Chile
+4|Qual é o lugar mais baixo em terra firme no planeta?|Margens do Mar Morto|Vale da Morte|Depressão de Qattara|Lago Assal
+3|Por que o Mar Morto tem esse nome?|É tão salgado que quase não tem vida|Fica num cemitério antigo|Não tem ondas|Secou no século passado
+3|Qual é o maior lago do mundo, que muitos chamam de mar?|Mar Cáspio|Lago Superior|Lago Vitória|Mar de Aral
+3|Qual linha imaginária divide a Terra em hemisférios Norte e Sul?|Linha do Equador|Meridiano de Greenwich|Trópico de Capricórnio|Trópico de Câncer
+3|O Meridiano de Greenwich passa por qual cidade?|Londres|Paris|Lisboa|Madri
+3|Qual trópico passa pela cidade de São Paulo?|Trópico de Capricórnio|Trópico de Câncer|Linha do Equador|Círculo Polar Antártico
+3|Qual destes países fica inteiro no hemisfério Sul?|Argentina|Colômbia|Equador|Quênia
+3|Qual país recebeu esse nome por causa da linha imaginária que passa por ele?|Equador|Colômbia|Gabão|Quênia
+3|A Antártida pertence a qual país?|A nenhum: é protegida por um tratado internacional|Argentina|Chile|Noruega
+3|Qual é o continente mais frio do planeta?|Antártida|Ásia|Europa|América do Norte
+3|Qual é o maior continente em área?|Ásia|África|América|Europa
+3|Qual é o menor continente?|Oceania|Europa|Antártida|América do Sul
+3|Qual é a maior floresta tropical do mundo?|Amazônia|Floresta do Congo|Mata Atlântica|Bornéu
+3|Qual é a maior planície alagável do mundo, no Brasil?|Pantanal|Amazônia|Cerrado|Caatinga|Planície alagada de MT e MS
+3|Qual bioma brasileiro é típico do sertão nordestino?|Caatinga|Cerrado|Pampa|Pantanal|Bioma do sertão
+3|O Pampa, bioma de campos, fica em qual estado brasileiro?|Rio Grande do Sul|Mato Grosso|Bahia|Goiás
+4|A Grande Barreira de Corais fica na costa de qual país?|Austrália|Indonésia|Filipinas|Maldivas
+3|Qual vulcão destruiu a cidade romana de Pompeia?|Vesúvio|Etna|Stromboli|Krakatoa
+4|Qual é o vulcão mais famoso do Japão, cartão-postal do país?|Monte Fuji|Monte Aso|Sakurajima|Monte Ontake
+3|O "Círculo de Fogo", com muitos vulcões e terremotos, fica em volta de qual oceano?|Pacífico|Atlântico|Índico|Ártico
+3|Qual destes países tem um litoral muito longo e estreito, com mais de 4 mil km de norte a sul?|Chile|Peru|Uruguai|Equador
+
+@tema paises
+3|Qual é o país mais populoso da África?|Nigéria|Egito|Etiópia|África do Sul
+3|Qual é o maior país da África em área?|Argélia|Sudão|Congo (RDC)|Líbia
+3|Qual é o país mais populoso da América do Sul depois do Brasil?|Colômbia|Argentina|Peru|Venezuela
+3|Qual é o país mais populoso da Europa (sem contar a Rússia)?|Alemanha|França|Reino Unido|Itália
+3|Qual país da América do Sul NÃO faz fronteira com o Brasil?|Chile|Peru|Paraguai|Venezuela
+3|Além do Chile, qual país da América do Sul não faz fronteira com o Brasil?|Equador|Bolívia|Colômbia|Guiana
+3|A Guiana Francesa, vizinha do Brasil, pertence a qual país?|França|Países Baixos|Reino Unido|Espanha
+2|Qual destes países faz fronteira com o Brasil?|Uruguai|Chile|Equador|México
+3|Qual país faz a maior fronteira terrestre com o Brasil?|Bolívia|Argentina|Peru|Venezuela
+4|Qual país tem três capitais, uma para cada poder?|África do Sul|Bolívia|Países Baixos|Suíça
+4|Qual é a capital constitucional da Bolívia?|Sucre|La Paz|Santa Cruz de la Sierra|Cochabamba
+3|Qual país tem o formato de uma bota no mapa?|Itália|Chile|Portugal|Grécia
+3|Qual país é chamado de "Terra do Sol Nascente"?|Japão|China|Coreia do Sul|Tailândia
+4|Qual país é chamado de "Terra dos Mil Lagos"?|Finlândia|Canadá|Suécia|Escócia
+3|Qual país é mais famoso pelos fiordes, vales de mar entre montanhas?|Noruega|Suíça|Países Baixos|Portugal
+3|Qual país é famoso pelos moinhos de vento e pelas tulipas?|Países Baixos|Dinamarca|Bélgica|Suíça
+3|Qual país tem mais de 60% do seu território abaixo ou quase no nível do mar, protegido por diques?|Países Baixos|Bélgica|Dinamarca|Bangladesh
+3|Qual destes países não tem saída para o mar?|Bolívia|Peru|Chile|Colômbia
+3|Qual destes países não tem saída para o mar?|Paraguai|Uruguai|Argentina|Venezuela
+4|Qual destes países europeus não tem saída para o mar?|Suíça|Portugal|Bélgica|Grécia
+3|Qual país da Europa tem a forma de um hexágono e é chamado assim pelos moradores?|França|Espanha|Alemanha|Polônia
+3|O Reino Unido é formado por Inglaterra, Escócia, País de Gales e qual outra nação?|Irlanda do Norte|Irlanda|Islândia|Cornualha
+3|A Escandinávia é formada por Noruega, Dinamarca e qual outro país?|Suécia|Finlândia|Islândia|Estônia
+4|Qual país é o maior produtor de petróleo do mundo?|Estados Unidos|Arábia Saudita|Rússia|Venezuela
+4|Qual país tem as maiores reservas de petróleo do mundo?|Venezuela|Arábia Saudita|Irã|Rússia
+
+@tema cidades-e-monumentos
+2|Em que cidade fica a Torre Eiffel?|Paris|Londres|Roma|Bruxelas
+2|Em que país fica o Coliseu?|Itália|Grécia|Espanha|Turquia
+2|Em que país ficam as pirâmides de Gizé?|Egito|México|Peru|Sudão
+2|Em que país fica Machu Picchu?|Peru|Bolívia|México|Equador
+3|Em que país fica a cidade de Petra, esculpida na rocha?|Jordânia|Egito|Israel|Síria
+3|Em que país fica o Taj Mahal?|Índia|Paquistão|Irã|Bangladesh
+2|Em que cidade fica a Estátua da Liberdade?|Nova York|Paris|Washington|Boston
+3|Quem deu a Estátua da Liberdade de presente aos Estados Unidos?|França|Reino Unido|Espanha|Itália
+3|Em que cidade fica o Big Ben?|Londres|Edimburgo|Dublin|Manchester
+3|Em que cidade fica a Sagrada Família, de Gaudí?|Barcelona|Madri|Lisboa|Sevilha
+3|Em que cidade fica a famosa Ópera em forma de velas de barco?|Sydney|Melbourne|Camberra|Auckland
+3|Em que cidade fica o Portão de Brandemburgo?|Berlim|Viena|Munique|Praga
+3|Qual cidade fica dividida entre a Europa e a Ásia pelo Estreito de Bósforo?|Istambul|Atenas|Ancara|Moscou
+3|Qual cidade é conhecida como a "Cidade Luz"?|Paris|Las Vegas|Roma|Viena
+3|Qual cidade é conhecida como a "Grande Maçã"?|Nova York|Chicago|Los Angeles|Londres
+3|Em que cidade fica a Times Square?|Nova York|Londres|Tóquio|Chicago
+2|Em que cidade fica o Cristo Redentor?|Rio de Janeiro|São Paulo|Salvador|Belo Horizonte
+3|Em que cidade fica a Torre de Pisa, que é inclinada?|Pisa|Florença|Veneza|Roma|Cidade da torre inclinada
+3|Qual cidade italiana é famosa pelos canais e gôndolas?|Veneza|Florença|Nápoles|Milão|Cidade das gôndolas
+3|Em que cidade fica a Praça Vermelha?|Moscou|São Petersburgo|Pequim|Varsóvia
+3|Em que cidade fica a Cidade Proibida, antigo palácio dos imperadores?|Pequim|Xangai|Tóquio|Seul
+3|Em que cidade fica o Partenon?|Atenas|Roma|Esparta|Istambul
+3|Em que cidade fica o Burj Khalifa, o prédio mais alto do mundo?|Dubai|Abu Dhabi|Doha|Riade
+3|Em que país fica Angkor Wat, o maior templo religioso do mundo?|Camboja|Tailândia|Vietnã|Laos
+4|Em que país ficam as estátuas gigantes de pedra da Ilha de Páscoa?|Chile|Peru|Nova Zelândia|Equador
+3|Em que país fica Chichén Itzá, a pirâmide maia?|México|Guatemala|Peru|Honduras
+3|Em que cidade fica o Museu do Louvre?|Paris|Londres|Madri|Roma
+3|Em que cidade fica o Museu do Prado?|Madri|Barcelona|Lisboa|Paris
+3|Em que cidade fica o Central Park?|Nova York|Londres|Chicago|Toronto
+3|Qual cidade brasileira é conhecida como "Terra da Garoa"?|São Paulo|Curitiba|Porto Alegre|Rio de Janeiro
+3|Qual cidade brasileira foi planejada por Lúcio Costa e Oscar Niemeyer?|Brasília|Goiânia|Belo Horizonte|Palmas
+3|Em qual cidade fica o Pelourinho, centro histórico colonial?|Salvador|Recife|São Luís|Olinda
+4|Qual capital brasileira é conhecida como "Veneza brasileira" por causa das pontes e rios?|Recife|Belém|Manaus|Florianópolis|Capital de Pernambuco
+3|Em que cidade fica o Teatro Amazonas?|Manaus|Belém|Porto Velho|Macapá
+
+@tema bandeiras-e-simbolos
+2|Qual país tem uma folha de bordo vermelha na bandeira?|Canadá|Suíça|Japão|Líbano
+3|Qual país tem um cedro na bandeira?|Líbano|Canadá|Chipre|Israel
+3|A bandeira de qual país tem uma estrela de Davi?|Israel|Marrocos|Etiópia|Gana
+2|Qual país tem um círculo vermelho sobre fundo branco na bandeira?|Japão|Bangladesh|Coreia do Sul|China
+3|A bandeira de qual país tem o desenho do mapa do próprio país?|Chipre|Grécia|Malta|Israel
+3|Qual país tem um dragão na bandeira?|Butão|China|Japão|Vietnã
+3|Quantas estrelas tem a bandeira dos Estados Unidos?|50|52|48|13
+3|Quantas estrelas tem a bandeira do Brasil?|27|26|21|25
+2|Qual frase está escrita na bandeira do Brasil?|Ordem e Progresso|Independência ou Morte|Deus, Pátria e Família|Liberdade e União
+3|Qual país tem uma bandeira quadrada, vermelha com uma cruz branca no meio?|Suíça|Dinamarca|Suécia|Noruega
+4|Qual país tem a única bandeira nacional que não é retangular nem quadrada?|Nepal|Butão|Suíça|Vaticano
+3|Qual animal aparece na bandeira do México?|Águia|Leão|Condor|Onça
+3|Quais são as cores da bandeira da Itália?|Verde, branco e vermelho|Azul, branco e vermelho|Verde, amarelo e vermelho|Preto, vermelho e amarelo
+3|Qual país tem uma bandeira com as cores preto, vermelho e amarelo em faixas horizontais?|Alemanha|Bélgica|Espanha|Colômbia
+4|A bandeira de qual país europeu tem as mesmas cores da Alemanha, mas em faixas verticais?|Bélgica|Romênia|Andorra|Moldávia
+3|Qual país tem na bandeira o símbolo do yin-yang?|Coreia do Sul|Japão|China|Mongólia
+3|Qual é o animal símbolo da Austrália, que anda aos saltos?|Canguru|Coala|Ornitorrinco|Emu
+3|Qual é o animal símbolo da China?|Panda|Tigre|Dragão-de-komodo|Iaque
+3|Qual é a ave símbolo dos Estados Unidos?|Águia-careca|Peru|Condor|Falcão

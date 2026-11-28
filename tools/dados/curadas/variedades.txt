@@ -1,0 +1,184 @@
+# Perguntas escritas à mão: Variedades (curiosidades, calendário, medidas, comidas, bichos, marcas e símbolos).
+# A categoria também recebe, na hora do sorteio, perguntas fáceis das outras categorias.
+# Formato: nota|pergunta|certa|errada|errada|errada|dica para cruzada (opcional)
+
+@tema calendario
+2|Quantos dias tem um ano bissexto?|366|365|364|367
+2|De quantos em quantos anos acontece um ano bissexto?|4|2|5|3
+3|Quantas horas tem uma semana?|168|144|172|160
+3|Quantos minutos tem um dia?|1.440|1.200|1.640|2.400
+3|Quantos segundos tem uma hora?|3.600|360|6.000|1.200
+2|Quantos anos tem um século?|100|1.000|10|50
+2|Quantos anos tem um milênio?|1.000|100|10.000|500
+3|Quantos anos tem uma década?|10|5|20|100
+3|Quantos anos tem um lustro?|5|10|15|4
+3|Em que século estamos?|XXI|XX|XXII|XIX
+3|Qual mês tem 28 dias (ou 29 nos anos bissextos)?|Fevereiro|Janeiro|Abril|Novembro
+3|Quantos meses do ano têm 31 dias?|7|6|5|8
+3|Bodas de ouro comemoram quantos anos de casamento?|50|25|40|60
+3|Bodas de prata comemoram quantos anos de casamento?|25|50|10|30
+4|Bodas de diamante comemoram quantos anos de casamento?|60|50|75|70
+3|Bodas de papel comemoram quantos anos de casamento?|1|5|10|2
+3|Qual é o signo de quem nasce em 25 de dezembro?|Capricórnio|Sagitário|Aquário|Peixes
+3|Qual signo é representado por um carneiro?|Áries|Touro|Capricórnio|Leão
+3|Qual signo é representado por uma balança?|Libra|Virgem|Aquário|Gêmeos
+3|Qual signo é representado por um caranguejo?|Câncer|Escorpião|Peixes|Aquário
+3|Quantos são os signos do zodíaco?|12|10|7|13
+3|Em que data se comemora a Independência do Brasil?|7 de setembro|15 de novembro|21 de abril|12 de outubro
+3|O feriado de 21 de abril homenageia quem?|Tiradentes|Dom Pedro I|Zumbi dos Palmares|Santos Dumont
+3|O Dia da Consciência Negra, 20 de novembro, lembra quem?|Zumbi dos Palmares|Princesa Isabel|Luiz Gama|André Rebouças
+3|Qual é o feriado de 15 de novembro?|Proclamação da República|Independência|Dia do Trabalho|Finados
+3|Qual é o feriado de 12 de outubro?|Nossa Senhora Aparecida|Proclamação da República|Finados|Tiradentes
+3|Qual é o feriado de 2 de novembro?|Finados|Todos os Santos|Proclamação da República|Corpus Christi
+3|Em que dia se comemora o Dia do Trabalho?|1º de maio|1º de abril|15 de outubro|25 de dezembro
+3|Em que mês acontece o Dia das Mães no Brasil?|Maio|Agosto|Março|Junho
+3|Em que mês acontece o Dia dos Pais no Brasil?|Agosto|Maio|Junho|Dezembro
+3|Qual data é conhecida como Dia da Mentira?|1º de abril|13 de agosto|31 de outubro|29 de fevereiro
+3|Em que dia se comemora o Dia dos Namorados no Brasil?|12 de junho|14 de fevereiro|13 de maio|24 de junho
+3|O Dia dos Namorados na maior parte do mundo, o Valentine's Day, é em qual data?|14 de fevereiro|12 de junho|1º de maio|31 de outubro
+3|Em que dia se comemora o Dia das Crianças no Brasil?|12 de outubro|1º de junho|20 de novembro|5 de setembro
+3|Em que dia é o Halloween?|31 de outubro|1º de novembro|13 de agosto|24 de dezembro
+3|Qual sexta-feira é considerada de azar, segundo a superstição?|Sexta-feira 13|Sexta-feira Santa|Sexta-feira 31|Primeira sexta do ano
+
+@tema medidas
+2|Quantos metros tem um quilômetro?|1.000|100|10.000|10
+2|Quantos gramas tem um quilo?|1.000|100|500|10.000
+2|Quantos centímetros tem um metro?|100|10|1.000|50
+4|Uma polegada tem cerca de quantos centímetros?|2,54|1,5|3,3|5
+3|Quantos litros cabem num metro cúbico?|1.000|100|10|10.000
+4|Uma milha terrestre tem cerca de quantos quilômetros?|1,6|1,2|2,5|0,8
+3|Quantos mililitros tem um litro?|1.000|100|10|500
+3|Quantos metros quadrados tem um hectare?|10.000|1.000|100|100.000
+3|Uma dúzia tem quantas unidades?|12|10|6|24
+3|Quantas unidades tem uma dezena?|10|12|100|5
+3|Quantas unidades tem uma centena?|100|10|1.000|50
+3|Quantas unidades tem uma grosa?|144|100|120|12
+4|O nó é uma unidade de velocidade usada em barcos e aviões. Quanto vale um nó?|Uma milha náutica por hora|Um quilômetro por hora|Um metro por segundo|Uma légua por dia
+4|Um quilate é uma unidade usada para pesar o quê?|Pedras preciosas|Grãos de café|Metais industriais|Remédios
+3|Qual é a temperatura normal do corpo humano, aproximadamente?|36,5 °C|38 °C|35 °C|40 °C
+
+@tema comidas
+3|De qual fruta se faz o guacamole?|Abacate|Limão|Manga|Tomate
+3|De qual planta vem o chocolate?|Cacau|Café|Baunilha|Guaraná
+3|Qual país é o maior produtor de café do mundo?|Brasil|Colômbia|Vietnã|Etiópia
+3|Qual bebida típica do Brasil é feita com cana-de-açúcar?|Cachaça|Tequila|Rum|Saquê|Pinga
+3|Qual é o drinque brasileiro feito com cachaça, limão, açúcar e gelo?|Caipirinha|Mojito|Margarita|Piña colada|Drinque nacional
+3|O saquê é uma bebida feita de quê?|Arroz|Batata|Uva|Cevada
+3|A tequila é feita de qual planta?|Agave|Cana|Milho|Cacto
+3|O vinho é feito da fermentação de qual fruta?|Uva|Maçã|Cevada|Pera
+3|De qual cereal se faz a maior parte das cervejas?|Cevada|Arroz|Milho|Trigo-sarraceno
+3|Qual queijo vai na pizza margherita?|Muçarela|Parmesão|Provolone|Gorgonzola
+3|Quais são as cores da pizza margherita, que lembram a bandeira da Itália?|Vermelho, branco e verde|Amarelo, verde e azul|Vermelho, amarelo e preto|Branco, azul e vermelho
+3|De qual país vem o queijo gorgonzola?|Itália|França|Suíça|Países Baixos
+3|O queijo cheio de buracos, famoso em desenhos animados, vem de qual país?|Suíça|França|Itália|Países Baixos
+3|De qual país vem o hambúrguer, segundo o nome?|Alemanha (Hamburgo)|Estados Unidos|Inglaterra|Áustria
+3|De qual tubérculo se faz a tapioca?|Mandioca|Batata|Inhame|Cará
+3|De qual grão se faz a pipoca?|Milho|Arroz|Trigo|Feijão
+3|O brigadeiro é um doce feito principalmente com leite condensado e quê?|Chocolate em pó|Coco|Amendoim|Goiabada
+3|Qual doce mineiro junta goiabada e queijo?|Romeu e Julieta|Cocada|Pé de moleque|Quindim
+3|O pé de moleque é feito com rapadura e qual ingrediente?|Amendoim|Coco|Castanha|Milho
+3|O quindim é feito com gema de ovo, açúcar e qual ingrediente?|Coco|Chocolate|Amendoim|Leite em pó
+3|De que é feito o tradicional tutu à mineira?|Feijão|Mandioca|Milho|Batata
+3|Qual fruta asiática é chamada de "rei das frutas" e tem cheiro muito forte?|Durião|Lichia|Pitaia|Carambola
+3|Qual fruta tem formato de estrela quando cortada?|Carambola|Kiwi|Pitaia|Maracujá
+3|Qual fruta tem mais vitamina C, comum no Brasil?|Acerola|Laranja|Maçã|Banana
+3|Qual tempero amarelo dá cor à comida indiana e ao arroz?|Açafrão-da-terra|Pimenta-do-reino|Canela|Cominho
+4|Qual é o tempero mais caro do mundo, feito de partes de uma flor?|Açafrão (estigmas)|Baunilha|Cardamomo|Noz-moscada
+3|Qual é a principal fruta usada para fazer o vinagre balsâmico?|Uva|Maçã|Cana|Limão
+3|Qual é o nome da massa italiana em forma de tubinhos cortados na diagonal?|Penne|Espaguete|Farfalle|Lasanha
+3|Qual massa italiana tem forma de gravatinha (borboleta)?|Farfalle|Penne|Fusilli|Rigatoni
+3|O que é o "sushi" uramaki?|Arroz por fora e alga por dentro|Peixe cru sem arroz|Bolinho frito|Sopa de missô
+
+@tema bichos
+3|Qual animal é conhecido como "rei da selva"?|Leão|Tigre|Elefante|Gorila
+3|Quantos corações tem um polvo?|3|1|2|8
+4|Qual animal dorme até 20 horas por dia?|Coala|Cachorro|Cavalo|Golfinho
+4|Qual destes animais não consegue pular?|Elefante|Canguru|Gato|Sapo
+5|De que cor é a língua da girafa?|Roxa escura|Rosa|Vermelha|Amarela
+3|Qual animal tem listras pretas e brancas e vive na savana africana?|Zebra|Ocapi|Tapir|Antílope
+3|Qual ave não voa e vive na Antártida?|Pinguim|Avestruz|Kiwi|Albatroz
+3|Qual animal carrega a casa nas costas?|Caracol|Tatu|Lagosta|Besouro
+3|Qual animal brasileiro se enrola numa bola para se proteger?|Tatu-bola|Tamanduá|Preguiça|Quati
+3|Qual animal brasileiro é famoso por se mexer bem devagar nas árvores?|Bicho-preguiça|Macaco-prego|Quati|Gambá
+3|Qual é o mascote da Copa de 2014, um tatu-bola?|Fuleco|Zakumi|Footix|Tip e Tap
+3|O pinguim-imperador vive em qual lugar?|Antártida|Ártico|Amazônia|Austrália
+3|O urso-polar vive em qual lugar?|Ártico|Antártida|Alpes|Himalaia
+3|Como se chama o filhote da vaca?|Bezerro|Potro|Leitão|Cabrito
+3|Como se chama o filhote do cavalo?|Potro|Bezerro|Cordeiro|Leitão
+3|Como se chama o filhote da ovelha?|Cordeiro|Cabrito|Potro|Leitão
+3|Qual é o coletivo de abelhas?|Enxame|Cardume|Alcateia|Manada
+3|Qual é o coletivo de peixes?|Cardume|Enxame|Matilha|Rebanho
+3|Qual é o coletivo de lobos?|Alcateia|Matilha|Cardume|Bando
+3|Qual é o coletivo de cães?|Matilha|Alcateia|Manada|Bando
+3|Qual é o coletivo de ovelhas?|Rebanho|Cardume|Alcateia|Revoada
+3|Qual é o nome do som que o leão faz?|Rugido|Uivo|Relincho|Mugido
+3|Qual animal relincha?|Cavalo|Burro|Vaca|Ovelha
+3|Qual animal zurra?|Burro|Cavalo|Leão|Porco
+3|Qual animal coaxa?|Sapo|Pato|Grilo|Corvo
+
+@tema marcas-e-simbolos
+3|Qual é o animal do logotipo da Ferrari?|Cavalo|Touro|Leão|Águia
+3|Qual é o animal do logotipo da Lamborghini?|Touro|Cavalo|Jaguar|Leão
+3|Qual empresa tem uma maçã mordida no logotipo?|Apple|Samsung|Microsoft|Dell
+3|Qual é o símbolo chamado "arroba"?|@|#|&|%
+3|Como se chama o símbolo "#", muito usado nas redes sociais?|Hashtag (cerquilha)|Arroba|Asterisco|E comercial
+3|Como se chama o símbolo "&"?|E comercial|Arroba|Cerquilha|Til
+3|Qual cor resulta da mistura de todas as cores da luz?|Branco|Preto|Cinza|Marrom
+3|Quantas cores tem o arco-íris, tradicionalmente?|7|5|6|8
+3|Que cor se forma misturando tinta azul e amarela?|Verde|Roxo|Laranja|Marrom
+3|Que cor se forma misturando tinta vermelha e azul?|Roxo|Verde|Laranja|Rosa
+3|Que cor se forma misturando tinta vermelha e amarela?|Laranja|Verde|Roxo|Marrom
+3|Qual é o metal da medalha de segundo lugar?|Prata|Ouro|Bronze|Cobre
+3|O que um filatelista coleciona?|Selos|Moedas|Figurinhas|Chaveiros
+3|O que um numismata coleciona?|Moedas|Selos|Livros|Carros
+3|Como se chama o medo de altura?|Acrofobia|Claustrofobia|Aracnofobia|Agorafobia
+3|Claustrofobia é o medo de quê?|Lugares fechados|Aranhas|Altura|Multidões
+3|Aracnofobia é o medo de quê?|Aranhas|Cobras|Altura|Escuro
+3|O que é um palíndromo?|Palavra ou frase que se lê igual de trás para frente|Palavra com todas as vogais|Palavra estrangeira|Palavra muito longa
+3|Qual destas palavras é um palíndromo?|Arara|Banana|Abacaxi|Cebola
+3|O que é um anagrama?|Palavra formada trocando a ordem das letras de outra|Palavra com sentido oposto|Palavra que imita um som|Abreviação de uma palavra
+3|Qual destas palavras é anagrama de "amor"?|Roma|Rumo|Remo|Maré
+3|O que significa a expressão "pagar o pato"?|Levar a culpa por algo que não fez|Pagar uma conta alta|Comprar comida cara|Fazer um mau negócio
+3|O que significa "chorar o leite derramado"?|Lamentar o que não tem mais jeito|Ficar com fome|Desperdiçar comida|Pedir ajuda
+3|O que significa "pisar na bola"?|Cometer um erro|Jogar futebol mal|Fugir de casa|Ser muito rápido
+3|O que quer dizer "dar com a língua nos dentes"?|Contar um segredo|Morder a língua|Falar baixo|Cantar errado
+
+@tema curiosidades
+3|Qual é o nome do ursinho que adora mel, criado por A. A. Milne?|Ursinho Pooh|Paddington|Zé Colmeia|Baloo
+3|Qual é o prato preferido do gato Garfield?|Lasanha|Pizza|Hambúrguer|Macarrão
+3|Quem é o dono do Snoopy?|Charlie Brown|Linus|Calvin|Jon Arbuckle
+3|Qual é o nome do tigre de pelúcia amigo do Calvin, nas tirinhas brasileiras?|Haroldo|Tigrão|Shere Khan|Tony
+3|Que animal é o Scooby-Doo?|Cachorro|Gato|Urso|Lobo
+3|Qual é o nome do papagaio carioca da Disney, amigo do Pato Donald?|Zé Carioca|Louro José|Panchito|Tucano Tom
+3|Qual é o nome do namorado da Minnie?|Mickey|Pateta|Donald|Pluto
+3|Qual é o nome do cachorro do Mickey?|Pluto|Pateta|Bidu|Snoopy
+3|Qual é o nome do avô rico do Pato Donald, que nada em moedas?|Tio Patinhas|Professor Pardal|Gastão|Zé Carioca
+3|Em qual cidade fica a Disneylândia original, inaugurada em 1955?|Anaheim, na Califórnia|Orlando, na Flórida|Paris|Tóquio
+3|Qual é o maior parque de diversões do Brasil, em Santa Catarina?|Beto Carrero World|Hopi Hari|Playcenter|Parque da Mônica
+3|Qual brinquedo é uma mola colorida que desce escadas?|Mola maluca|Ioiô|Pião|Bilboquê
+3|Qual brinquedo gira num fio, subindo e descendo na mão?|Ioiô|Pião|Peteca|Bilboquê
+3|Qual brinquedo feito de penas e couro é jogado com a palma da mão, de origem indígena?|Peteca|Pipa|Bola de gude|Pião
+3|Quantas vidas tem um gato, segundo o ditado brasileiro?|7|9|3|5
+3|Segundo a superstição, o que dá azar quebrar?|Espelho|Copo|Prato|Relógio
+3|Qual destas plantas é símbolo de sorte quando tem quatro folhas?|Trevo|Samambaia|Arruda|Espada-de-são-jorge
+3|Qual é a maior flor do mundo, que tem cheiro de carne podre?|Rafflesia|Vitória-régia|Girassol|Orquídea
+3|Qual flor gira acompanhando o Sol?|Girassol|Rosa|Margarida|Tulipa
+3|Qual flor é símbolo dos Países Baixos?|Tulipa|Rosa|Lírio|Orquídea
+3|Qual flor é símbolo do Japão, que floresce na primavera?|Flor de cerejeira|Lótus|Crisântemo|Orquídea
+3|Qual é a pedra preciosa verde mais famosa?|Esmeralda|Rubi|Safira|Topázio
+3|Qual é a pedra preciosa vermelha mais famosa?|Rubi|Esmeralda|Safira|Ametista
+3|Qual pedra semipreciosa roxa é muito encontrada no Rio Grande do Sul?|Ametista|Turmalina|Esmeralda|Água-marinha
+3|Qual é a pedra semipreciosa azul-esverdeada com nome que lembra o mar?|Água-marinha|Turquesa|Safira|Lápis-lazúli
+3|Quantos jogadores participam de uma partida de dominó em duplas?|4|2|3|6
+3|Quantas faces tem um dado comum?|6|4|8|12
+3|Qual é o nome do ponto mais alto de uma montanha?|Cume|Sopé|Encosta|Vale|Topo da montanha
+3|Qual é o nome do instrumento que mostra as horas pela sombra do Sol?|Relógio de sol|Ampulheta|Clepsidra|Astrolábio
+3|Qual instrumento mede o tempo com areia caindo?|Ampulheta|Relógio de sol|Clepsidra|Cronômetro|Relógio de areia
+3|Quantos ponteiros tem um relógio analógico comum, contando o dos segundos?|3|2|4|1
+3|Quantos graus tem uma volta completa?|360|180|90|100
+3|Qual é o nome do formato de papel mais comum no escritório, de 210 × 297 mm?|A4|Ofício|Carta|A3
+3|Qual é a cor do "botão" que indica gravação na maioria dos aparelhos?|Vermelho|Verde|Azul|Amarelo
+3|O que é um emoji?|Pequena figura usada em mensagens|Um tipo de letra|Um vírus|Um jogo japonês
+3|De qual país vem a palavra "emoji"?|Japão|Estados Unidos|Coreia do Sul|China
+3|Qual é o nome do sinal "~" usado em "maçã" e "não"?|Til|Acento agudo|Trema|Cedilha
+3|O "ç" é a letra c com qual sinal?|Cedilha|Til|Trema|Crase

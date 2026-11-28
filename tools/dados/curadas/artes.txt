@@ -1,0 +1,349 @@
+# Perguntas escritas à mão: Artes e Entretenimento.
+# Formato: nota|pergunta|certa|errada|errada|errada|dica para cruzada (opcional)
+
+@tema atores
+2|Quem interpretou Jack Dawson em "Titanic" (1997)?|Leonardo DiCaprio|Brad Pitt|Matt Damon|Johnny Depp
+2|Quem interpretou o pirata Jack Sparrow em "Piratas do Caribe"?|Johnny Depp|Orlando Bloom|Keanu Reeves|Hugh Jackman
+2|Quem interpretou Harry Potter nos filmes da saga?|Daniel Radcliffe|Rupert Grint|Elijah Wood|Tom Holland
+3|Quem interpretou Hermione Granger nos filmes de Harry Potter?|Emma Watson|Emma Stone|Keira Knightley|Natalie Portman
+3|Quem interpretou o Coringa em "Batman: O Cavaleiro das Trevas" (2008)?|Heath Ledger|Joaquin Phoenix|Jared Leto|Jack Nicholson
+3|Quem interpretou o Coringa no filme "Coringa" (2019)?|Joaquin Phoenix|Heath Ledger|Jared Leto|Jack Nicholson
+3|Quem interpretou Tony Stark, o Homem de Ferro, nos filmes da Marvel?|Robert Downey Jr.|Chris Evans|Chris Hemsworth|Mark Ruffalo
+3|Quem interpretou o Capitão América nos filmes da Marvel a partir de 2011?|Chris Evans|Chris Pratt|Chris Hemsworth|Sebastian Stan
+3|Quem interpretou Thor nos filmes da Marvel?|Chris Hemsworth|Chris Evans|Tom Hiddleston|Chris Pratt
+3|Quem interpretou Loki nos filmes da Marvel?|Tom Hiddleston|Benedict Cumberbatch|Tom Holland|Paul Bettany
+3|Quem interpretou o Doutor Estranho nos filmes da Marvel?|Benedict Cumberbatch|Tom Hiddleston|Jude Law|Mads Mikkelsen
+3|Quem interpretou o Homem-Aranha em "Homem-Aranha: De Volta ao Lar" (2017)?|Tom Holland|Tobey Maguire|Andrew Garfield|Timothée Chalamet
+4|Quem interpretou o Homem-Aranha nos filmes de 2002 a 2007, dirigidos por Sam Raimi?|Tobey Maguire|Andrew Garfield|Tom Holland|Jake Gyllenhaal
+2|Quem interpretou Rocky Balboa?|Sylvester Stallone|Arnold Schwarzenegger|Bruce Willis|Jean-Claude Van Damme
+2|Qual ator interpretou o Exterminador do Futuro em 1984?|Arnold Schwarzenegger|Sylvester Stallone|Dolph Lundgren|Bruce Willis
+3|Quem interpretou Forrest Gump?|Tom Hanks|Robin Williams|Kevin Costner|Jim Carrey
+3|Quem interpretou Neo em "Matrix" (1999)?|Keanu Reeves|Laurence Fishburne|Tom Cruise|Will Smith
+3|Quem interpretou John Wick?|Keanu Reeves|Jason Statham|Liam Neeson|Tom Hardy
+3|Quem interpretou Vito Corleone em "O Poderoso Chefão" (1972)?|Marlon Brando|Al Pacino|Robert De Niro|James Caan
+4|Quem interpretou o jovem Vito Corleone em "O Poderoso Chefão: Parte II"?|Robert De Niro|Al Pacino|Marlon Brando|Joe Pesci
+3|Quem interpretou Hannibal Lecter em "O Silêncio dos Inocentes"?|Anthony Hopkins|Gary Oldman|Jack Nicholson|Christopher Walken
+3|Quem interpretou Indiana Jones?|Harrison Ford|Mark Hamill|Kevin Costner|Mel Gibson
+3|Harrison Ford também interpretou qual personagem de "Star Wars"?|Han Solo|Luke Skywalker|Obi-Wan Kenobi|Lando Calrissian
+3|Quem interpretou Wolverine nos filmes dos X-Men?|Hugh Jackman|Ryan Reynolds|Chris Pratt|Russell Crowe
+3|Quem interpretou Deadpool no cinema?|Ryan Reynolds|Hugh Jackman|Ryan Gosling|Chris Pratt
+3|Quem interpretou a Mulher-Maravilha no filme de 2017?|Gal Gadot|Scarlett Johansson|Margot Robbie|Brie Larson
+3|Quem interpretou a Viúva Negra nos filmes da Marvel?|Scarlett Johansson|Elizabeth Olsen|Gal Gadot|Zoe Saldaña
+3|Quem interpretou Barbie no filme de 2023?|Margot Robbie|Emma Stone|Anne Hathaway|Florence Pugh
+3|Quem interpretou Ken no filme "Barbie" (2023)?|Ryan Gosling|Ryan Reynolds|Chris Pine|Zac Efron
+3|Quem interpretou Mia Wallace em "Pulp Fiction"?|Uma Thurman|Nicole Kidman|Julia Roberts|Sharon Stone
+3|Quem interpretou Vivian em "Uma Linda Mulher" (1990)?|Julia Roberts|Sandra Bullock|Meg Ryan|Demi Moore
+3|Quem interpretou Maximus em "Gladiador" (2000)?|Russell Crowe|Gerard Butler|Mel Gibson|Brad Pitt
+3|Quem interpretou Kevin em "Esqueceram de Mim" (1990)?|Macaulay Culkin|Elijah Wood|Haley Joel Osment|Jonathan Lipnicki
+3|Quem interpretou Frodo em "O Senhor dos Anéis"?|Elijah Wood|Sean Astin|Orlando Bloom|Daniel Radcliffe
+3|Quem interpretou Gandalf em "O Senhor dos Anéis"?|Ian McKellen|Christopher Lee|Patrick Stewart|Anthony Hopkins
+3|Quem interpretou Jack Torrance em "O Iluminado" (1980)?|Jack Nicholson|Robert De Niro|Al Pacino|Dustin Hoffman
+4|Quem interpretou Rose em "Titanic" (1997)?|Kate Winslet|Gwyneth Paltrow|Claire Danes|Nicole Kidman
+3|Quem interpretou Katniss Everdeen em "Jogos Vorazes"?|Jennifer Lawrence|Kristen Stewart|Shailene Woodley|Emma Watson
+3|Quem interpretou Bella Swan na saga "Crepúsculo"?|Kristen Stewart|Jennifer Lawrence|Emma Watson|Dakota Fanning
+3|Quem interpretou Paul Atreides em "Duna" (2021)?|Timothée Chalamet|Tom Holland|Austin Butler|Robert Pattinson
+3|Qual ator brasileiro interpretou o Capitão Nascimento em "Tropa de Elite"?|Wagner Moura|Selton Mello|Rodrigo Santoro|Lázaro Ramos
+3|Qual ator brasileiro interpretou Pablo Escobar na série "Narcos"?|Wagner Moura|Rodrigo Santoro|Selton Mello|Cauã Reymond
+3|Qual ator brasileiro interpretou o rei Xerxes em "300"?|Rodrigo Santoro|Wagner Moura|Cauã Reymond|Reynaldo Gianecchini
+3|Qual atriz brasileira foi indicada ao Oscar por "Central do Brasil"?|Fernanda Montenegro|Fernanda Torres|Sônia Braga|Glória Pires
+3|Qual atriz brasileira ganhou o Globo de Ouro em 2025 por "Ainda Estou Aqui"?|Fernanda Torres|Fernanda Montenegro|Alice Braga|Débora Falabella
+3|"Ainda Estou Aqui" ganhou o Oscar de 2025 em qual categoria?|Melhor Filme Internacional|Melhor Filme|Melhor Atriz|Melhor Roteiro
+4|Qual ator brasileiro interpretou Chicó no filme "O Auto da Compadecida" (2000)?|Selton Mello|Matheus Nachtergaele|Lázaro Ramos|Marco Nanini
+4|Qual ator interpretou João Grilo no filme "O Auto da Compadecida" (2000)?|Matheus Nachtergaele|Selton Mello|Marco Nanini|Diogo Vilela
+3|Ator conhecido por "Top Gun", "Missão: Impossível" e "Jerry Maguire":|Tom Cruise|Brad Pitt|Tom Hanks|Matt Damon
+3|Atriz conhecida por "Jogos Vorazes", "O Lado Bom da Vida" e "X-Men: Primeira Classe":|Jennifer Lawrence|Emma Stone|Kristen Stewart|Anne Hathaway
+3|Ator conhecido por "O Máskara", "Debi & Lóide" e "O Show de Truman":|Jim Carrey|Adam Sandler|Ben Stiller|Eddie Murphy
+3|Ator conhecido por "Clube da Luta", "Seven" e "Troia":|Brad Pitt|Edward Norton|Orlando Bloom|Eric Bana
+3|Ator conhecido por "Homens de Preto", "Eu Sou a Lenda" e "Um Maluco no Pedaço":|Will Smith|Denzel Washington|Jamie Foxx|Eddie Murphy
+3|Atriz conhecida por "Velocidade Máxima", "Gravidade" e "Miss Simpatia":|Sandra Bullock|Julia Roberts|Cameron Diaz|Meg Ryan
+4|Atriz conhecida por "Cisne Negro", "V de Vingança" e "Star Wars: Episódio I":|Natalie Portman|Keira Knightley|Anne Hathaway|Scarlett Johansson
+3|Ator conhecido por "Crepúsculo", "Tenet" e "Batman" (2022):|Robert Pattinson|Christian Bale|Taylor Lautner|Ben Affleck
+3|Ator conhecido por "Oppenheimer", "Peaky Blinders" e "Batman Begins":|Cillian Murphy|Tom Hardy|Christian Bale|Gary Oldman
+3|Ator conhecido por "Velozes e Furiosos", "Jumanji" e "Moana" (voz de Maui):|Dwayne Johnson|Vin Diesel|Jason Momoa|Jason Statham
+3|Ator conhecido por "Aquaman" e "Game of Thrones" (Khal Drogo):|Jason Momoa|Dwayne Johnson|Chris Hemsworth|Henry Cavill
+3|Atriz conhecida por "La La Land", "Pobres Criaturas" e "A Mentira":|Emma Stone|Emma Watson|Jennifer Lawrence|Anne Hathaway
+4|Atriz conhecida por "Mudança de Hábito", "Ghost" e "A Cor Púrpura":|Whoopi Goldberg|Oprah Winfrey|Viola Davis|Halle Berry
+3|Qual diretor fez "Kill Bill", "Pulp Fiction" e "Django Livre"?|Quentin Tarantino|Martin Scorsese|Steven Spielberg|Christopher Nolan
+4|Quem ganhou o Oscar de Melhor Ator por "Oppenheimer"?|Cillian Murphy|Robert Downey Jr.|Paul Giamatti|Bradley Cooper
+3|Qual ator ganhou o Oscar por "O Regresso" (2016), depois de várias indicações?|Leonardo DiCaprio|Tom Hardy|Matt Damon|Michael Fassbender
+4|Qual atriz tem o recorde de quatro Oscars de Melhor Atriz?|Katharine Hepburn|Meryl Streep|Ingrid Bergman|Bette Davis
+4|Qual atriz tem o recorde de indicações ao Oscar, mais de 20?|Meryl Streep|Katharine Hepburn|Cate Blanchett|Judi Dench
+3|Qual comediante inglês criou o personagem Mr. Bean?|Rowan Atkinson|Charlie Chaplin|John Cleese|Ricky Gervais
+3|Qual ator do cinema mudo criou o personagem Carlitos (o Vagabundo)?|Charlie Chaplin|Buster Keaton|Harold Lloyd|Stan Laurel
+
+@tema personagens
+2|Qual é o nome verdadeiro do Homem-Aranha?|Peter Parker|Bruce Wayne|Clark Kent|Tony Stark
+2|Qual é a identidade secreta do Batman?|Bruce Wayne|Clark Kent|Peter Parker|Barry Allen
+2|De que planeta veio o Super-Homem?|Krypton|Marte|Asgard|Titã|Planeta natal do Super-Homem
+2|Qual é a fraqueza do Super-Homem?|Kryptonita|Ouro|Água|Fogo
+3|Qual é o nome do martelo de Thor?|Mjolnir|Excalibur|Gungnir|Stormbreaker
+2|Em qual cidade vive o Batman?|Gotham City|Metrópolis|Nova York|Star City|Cidade do Batman
+3|Qual vilão da Marvel quer reunir as Joias do Infinito?|Thanos|Loki|Ultron|Magneto
+3|Qual é o nome do mordomo do Batman?|Alfred|Jarvis|Lucius|Gordon
+3|Qual herói da Marvel é de Wakanda?|Pantera Negra|Falcão|Máquina de Combate|Luke Cage
+3|Qual personagem da Marvel fica verde e enorme quando sente raiva?|Hulk|Coisa|Abominável|Thanos
+3|Qual mutante dos X-Men controla o metal?|Magneto|Professor X|Ciclope|Wolverine
+2|Qual vilão de "Star Wars" usa máscara preta e respira com barulho?|Darth Vader|Darth Maul|Kylo Ren|Palpatine
+3|Quem é o pai de Luke Skywalker?|Darth Vader|Obi-Wan Kenobi|Yoda|Han Solo
+3|Qual mestre Jedi baixinho e verde fala com a ordem das palavras trocada?|Yoda|Obi-Wan Kenobi|Qui-Gon Jinn|Mace Windu
+3|Qual é o nome do robô dourado de "Star Wars"?|C-3PO|R2-D2|BB-8|Wall-E
+2|Qual é o nome do boneco caubói de "Toy Story"?|Woody|Buzz Lightyear|Jessie|Rex
+2|Em "Procurando Nemo", que tipo de peixe é o Nemo?|Peixe-palhaço|Peixe-cirurgião|Baiacu|Tubarão
+3|Em "Procurando Nemo", qual é o nome da peixinha azul esquecida?|Dory|Marlin|Nemo|Bruce
+2|Qual é o nome do leão protagonista de "O Rei Leão"?|Simba|Mufasa|Scar|Nala
+3|Qual é o nome do tio malvado de Simba em "O Rei Leão"?|Scar|Mufasa|Rafiki|Zazu
+3|Qual é o lema de Timão e Pumba em "O Rei Leão"?|Hakuna Matata|Ohana|Ao infinito e além|Bibbidi-Bobbidi-Boo
+2|Qual personagem diz "Ao infinito e além!"?|Buzz Lightyear|Woody|Shrek|Mike Wazowski
+2|Que tipo de criatura é o Shrek?|Ogro|Troll|Gigante|Duende
+3|Como se chama o gato espadachim de "Shrek 2"?|Gato de Botas|Garfield|Tom|Frajola
+2|Qual é o nome do rato mais famoso da Disney?|Mickey|Jerry|Speedy|Remy
+3|Qual é o nome do rato cozinheiro de "Ratatouille"?|Remy|Mickey|Stuart|Jerry
+2|Qual é a cor do Pikachu?|Amarelo|Vermelho|Azul|Verde
+3|Qual é o nome do treinador de Pokémon dono do Pikachu no desenho?|Ash|Brock|Misty|Gary
+3|Em "Frozen", qual é o nome da irmã de Elsa?|Anna|Ariel|Aurora|Bela
+3|Qual é o nome do boneco de neve de "Frozen"?|Olaf|Sven|Kristoff|Hans
+3|Qual princesa da Disney perde um sapatinho de cristal?|Cinderela|Branca de Neve|Aurora|Bela
+3|Quantos são os anões amigos da Branca de Neve?|7|5|6|9
+3|Qual princesa da Disney é uma sereia?|Ariel|Moana|Jasmine|Rapunzel
+3|Em "Aladdin", onde o Gênio vive preso?|Numa lâmpada|Num anel|Numa garrafa|Num baú
+3|Em "Os Simpsons", qual é o nome do pai da família?|Homer|Bart|Ned|Moe
+3|Como se chama a cidade dos Simpsons?|Springfield|Shelbyville|Quahog|South Park
+3|Em qual desenho vive o Bob Esponja?|Fenda do Biquíni|Springfield|Gotham|Bedrock
+3|Qual é o melhor amigo do Bob Esponja, uma estrela-do-mar?|Patrick|Lula Molusco|Sirigueijo|Plankton
+3|Qual é a família da Idade da Pedra do desenho com Fred e Wilma?|Os Flintstones|Os Jetsons|Os Simpsons|A Família Addams
+3|Qual família de desenho animado vive no futuro, com carros voadores?|Os Jetsons|Os Flintstones|Os Incríveis|Os Simpsons
+3|Qual é o diretor de Hogwarts na maior parte da saga Harry Potter?|Alvo Dumbledore|Severo Snape|Rúbeo Hagrid|Minerva McGonagall
+3|Qual é o nome do vilão principal de "Harry Potter"?|Voldemort|Draco Malfoy|Sirius Black|Grindelwald
+3|Em qual casa de Hogwarts Harry Potter fica?|Grifinória|Sonserina|Corvinal|Lufa-Lufa
+3|Em "O Senhor dos Anéis", quem leva o Um Anel até Mordor?|Frodo|Aragorn|Gandalf|Legolas
+3|Qual criatura de "O Senhor dos Anéis" chama o anel de "meu precioso"?|Gollum|Sauron|Saruman|Bilbo
+3|Qual é o nome do detetive criado por Arthur Conan Doyle?|Sherlock Holmes|Hercule Poirot|Auguste Dupin|Philip Marlowe
+3|Qual é o nome do amigo e assistente de Sherlock Holmes?|Dr. Watson|Hastings|Lestrade|Moriarty
+3|Qual é o detetive belga criado por Agatha Christie?|Hercule Poirot|Sherlock Holmes|Miss Marple|Maigret
+3|Qual é o código do agente secreto James Bond?|007|001|009|700
+3|Qual é o nome do vilão dos jogos de "Super Mario"?|Bowser|Wario|Ganondorf|Dr. Robotnik
+2|Qual é o irmão de Mario nos jogos da Nintendo?|Luigi|Wario|Toad|Yoshi
+3|Qual é a profissão do Mario, segundo a Nintendo?|Encanador|Carpinteiro|Pedreiro|Eletricista
+3|Qual é o nome do ouriço azul da Sega?|Sonic|Tails|Knuckles|Shadow
+4|Em "The Legend of Zelda", qual é o nome do herói que o jogador controla?|Link|Zelda|Ganon|Navi
+2|Na série "Chaves", onde o Chaves costuma se esconder?|No barril|Embaixo da escada|Na casa da Dona Florinda|No quintal
+3|Em "Chaves", qual personagem vive cobrando o aluguel do Seu Madruga?|Senhor Barriga|Professor Girafales|Dona Clotilde|Nhonho
+3|Qual personagem do Sítio do Picapau Amarelo é uma boneca de pano falante?|Emília|Narizinho|Cuca|Tia Nastácia
+3|Quem criou o Sítio do Picapau Amarelo?|Monteiro Lobato|Ziraldo|Mauricio de Sousa|Ruth Rocha
+3|Quem criou a Turma da Mônica?|Mauricio de Sousa|Ziraldo|Monteiro Lobato|Henfil
+2|Qual personagem da Turma da Mônica tem medo de água?|Cascão|Cebolinha|Magali|Chico Bento
+2|Qual personagem da Turma da Mônica troca o R pelo L?|Cebolinha|Cascão|Chico Bento|Franjinha
+2|Qual é o nome do coelho de pelúcia azul da Mônica?|Sansão|Bidu|Floquinho|Mingau
+3|Quem criou o Menino Maluquinho?|Ziraldo|Mauricio de Sousa|Monteiro Lobato|Laerte
+3|Em qual livro o personagem Macunaíma é "o herói sem nenhum caráter"?|Macunaíma, de Mário de Andrade|Iracema, de José de Alencar|O Guarani, de José de Alencar|Sagarana, de Guimarães Rosa
+
+@tema teatro-e-musicais
+3|Qual destes NÃO é um musical da Broadway?|O Poderoso Chefão|O Fantasma da Ópera|Cats|Os Miseráveis
+3|Qual destes NÃO é um musical?|Hamlet|Hamilton|Wicked|Chicago
+3|Quem compôs a música do musical "O Fantasma da Ópera"?|Andrew Lloyd Webber|Stephen Sondheim|Elton John|Lin-Manuel Miranda
+4|O musical "Hamilton" conta a história de um dos fundadores de qual país?|Estados Unidos|Reino Unido|França|Canadá
+4|Qual musical conta a história das bruxas de "O Mágico de Oz"?|Wicked|Cats|Mamma Mia!|Chicago
+3|As músicas de qual banda formam o musical "Mamma Mia!"?|ABBA|Queen|Bee Gees|Beatles
+4|O musical "Cats" foi inspirado em poemas de qual autor?|T. S. Eliot|Shakespeare|Lewis Carroll|Edgar Allan Poe
+4|O musical "Os Miseráveis" é baseado no livro de qual escritor?|Victor Hugo|Charles Dickens|Alexandre Dumas|Émile Zola
+4|Qual musical tem a canção "Memory"?|Cats|Evita|O Rei Leão|Chicago
+4|Qual musical conta a vida de Eva Perón, da Argentina?|Evita|Chicago|Cabaret|Anastasia
+3|Quem escreveu "Romeu e Julieta"?|William Shakespeare|Molière|Christopher Marlowe|Oscar Wilde
+3|Em qual peça de Shakespeare aparece a frase "Ser ou não ser, eis a questão"?|Hamlet|Macbeth|Otelo|Rei Lear
+4|Qual peça de Shakespeare tem um general mouro como protagonista?|Otelo|Hamlet|Macbeth|A Tempestade
+4|Em qual país se passa "Hamlet", de Shakespeare?|Dinamarca|Inglaterra|Escócia|Itália
+4|Em qual cidade italiana se passa "Romeu e Julieta"?|Verona|Veneza|Florença|Roma|Cidade de Romeu e Julieta
+4|Quem escreveu a peça "Auto da Compadecida"?|Ariano Suassuna|Nelson Rodrigues|Dias Gomes|Jorge Amado
+4|Quem escreveu a peça "Vestido de Noiva"?|Nelson Rodrigues|Ariano Suassuna|Plínio Marcos|Oduvaldo Vianna Filho
+3|Em "O Auto da Compadecida", quem é o parceiro de João Grilo?|Chicó|Severino|Padre João|Major Antônio Morais
+4|Qual dramaturgo francês escreveu "O Avarento" e "Tartufo"?|Molière|Jean Racine|Victor Hugo|Voltaire
+4|Qual é o nome do teatro de ópera mais famoso de Milão?|Teatro alla Scala|Ópera Garnier|Teatro Colón|Royal Albert Hall
+4|O Teatro Colón, um dos mais famosos do mundo, fica em qual cidade?|Buenos Aires|Santiago|Lima|Montevidéu
+3|Como se chama a fala de um único personagem sozinho no palco?|Monólogo|Diálogo|Coro|Prólogo|Fala de um só personagem
+3|Como se chama a ópera ou peça cantada em que quase tudo é música, sem falas?|Ópera|Esquete|Stand-up|Pantomima
+3|O que é uma pantomima?|Teatro só com gestos, sem palavras|Peça com bonecos|Comédia improvisada|Teatro de rua com música
+4|Qual é o nome do teatro de bonecos manipulados por fios?|Marionete|Fantoche|Ventríloquo|Mamulengo
+4|O mamulengo é um teatro de bonecos típico de qual região do Brasil?|Nordeste|Sul|Norte|Centro-Oeste
+4|Quem compôs a ópera "La Traviata"?|Giuseppe Verdi|Giacomo Puccini|Mozart|Richard Wagner
+4|Quem compôs a ópera "A Flauta Mágica"?|Mozart|Verdi|Puccini|Beethoven
+4|Qual compositor brasileiro escreveu a ópera "O Guarani"?|Carlos Gomes|Heitor Villa-Lobos|Chiquinha Gonzaga|Ernesto Nazareth
+4|O balé "O Quebra-Nozes" é de qual compositor?|Piotr Tchaikovsky|Igor Stravinsky|Sergei Prokofiev|Claude Debussy
+4|Qual companhia canadense ficou famosa no mundo com espetáculos de circo sem animais?|Cirque du Soleil|Circo Garcia|Ringling Bros.|Beto Carrero
+
+@tema musica
+2|Qual banda britânica tinha John Lennon e Paul McCartney?|The Beatles|The Rolling Stones|Queen|The Who
+2|Quem era o vocalista do Queen?|Freddie Mercury|Mick Jagger|Robert Plant|Bono
+3|Quem é o vocalista dos Rolling Stones?|Mick Jagger|Keith Richards|Roger Daltrey|Steven Tyler
+2|Quem é conhecido como o "Rei do Pop"?|Michael Jackson|Elvis Presley|Prince|Stevie Wonder
+2|Quem é conhecido como o "Rei do Rock"?|Elvis Presley|Chuck Berry|Little Richard|Johnny Cash
+2|Qual cantor é conhecido como o "Rei" da música brasileira?|Roberto Carlos|Erasmo Carlos|Caetano Veloso|Tim Maia
+3|Quem compôs "Garota de Ipanema" com Vinicius de Moraes?|Tom Jobim|João Gilberto|Chico Buarque|Toquinho
+3|Qual destes ritmos nasceu no Brasil?|Bossa nova|Tango|Salsa|Reggae
+2|O reggae surgiu em qual país?|Jamaica|Cuba|Brasil|Estados Unidos
+3|O tango é um ritmo tradicional de quais países?|Argentina e Uruguai|Espanha e Portugal|México e Cuba|Chile e Peru
+3|Qual cantor jamaicano é o maior nome do reggae?|Bob Marley|Peter Tosh|Jimmy Cliff|Shaggy
+3|Qual cantora é conhecida como a "Rainha do Pop"?|Madonna|Lady Gaga|Britney Spears|Beyoncé
+3|Qual cantora colombiana canta "Hips Don't Lie"?|Shakira|Jennifer Lopez|Karol G|Thalía
+3|Qual cantora brasileira fez sucesso mundial com "Envolver"?|Anitta|Ludmilla|Iza|Pabllo Vittar
+3|Qual compositor ficou surdo e mesmo assim compôs a Nona Sinfonia?|Ludwig van Beethoven|Wolfgang Amadeus Mozart|Johann Sebastian Bach|Frédéric Chopin
+3|Quem compôs "As Quatro Estações"?|Antonio Vivaldi|Johann Sebastian Bach|Mozart|Tchaikovsky
+4|Quem compôs o balé "O Lago dos Cisnes"?|Piotr Tchaikovsky|Igor Stravinsky|Sergei Prokofiev|Claude Debussy
+4|Qual compositor brasileiro criou as "Bachianas Brasileiras"?|Heitor Villa-Lobos|Carlos Gomes|Tom Jobim|Pixinguinha
+4|Qual compositor era um menino prodígio de Salzburgo que compunha aos 5 anos?|Mozart|Beethoven|Haydn|Schubert
+3|Qual banda irlandesa tem o vocalista Bono?|U2|The Cranberries|Coldplay|Oasis
+3|Qual banda gravou o álbum "The Dark Side of the Moon"?|Pink Floyd|Led Zeppelin|The Beatles|Queen
+3|Qual banda gravou "Smells Like Teen Spirit"?|Nirvana|Pearl Jam|Foo Fighters|Metallica
+3|Qual banda gravou "Bohemian Rhapsody"?|Queen|The Beatles|Pink Floyd|Aerosmith
+3|Qual cantor gravou "Thriller"?|Michael Jackson|Prince|Lionel Richie|Stevie Wonder
+3|Qual banda brasileira tinha Renato Russo como vocalista?|Legião Urbana|Titãs|Paralamas do Sucesso|Barão Vermelho
+3|Qual banda brasileira de heavy metal ficou famosa no mundo com o disco "Roots"?|Sepultura|Angra|Ratos de Porão|Krisiun
+3|Qual cantor brasileiro gravou "Exagerado" e "Ideologia"?|Cazuza|Frejat|Lobão|Renato Russo
+3|Qual cantor brasileiro é o "Rei do Baião"?|Luiz Gonzaga|Dominguinhos|Jackson do Pandeiro|Alceu Valença
+3|Qual cantora brasileira era conhecida como "Pimentinha" e gravou "Como Nossos Pais"?|Elis Regina|Gal Costa|Maria Bethânia|Rita Lee
+3|Qual cantora brasileira era chamada de "Rainha do Rock"?|Rita Lee|Elis Regina|Cássia Eller|Pitty
+3|Qual cantora brasileira levou o samba e a fruta na cabeça para Hollywood?|Carmen Miranda|Elza Soares|Clara Nunes|Dalva de Oliveira
+3|Caetano Veloso e Gilberto Gil foram líderes de qual movimento musical?|Tropicália|Bossa Nova|Jovem Guarda|Clube da Esquina
+3|Roberto Carlos e Erasmo Carlos foram líderes de qual movimento dos anos 60?|Jovem Guarda|Tropicália|Bossa Nova|Mangue Beat
+4|Chico Science e Nação Zumbi criaram qual movimento em Recife?|Manguebeat|Axé|Tropicália|Forró universitário
+3|O frevo é uma dança típica de qual estado?|Pernambuco|Bahia|Ceará|Rio Grande do Norte|Estado do frevo
+3|Qual ritmo é a base das escolas de samba do Rio de Janeiro?|Samba|Frevo|Axé|Maracatu
+3|O axé music surgiu em qual estado?|Bahia|Pernambuco|Rio de Janeiro|Maranhão
+3|O sertanejo universitário é um estilo derivado de qual gênero?|Música sertaneja|Forró|Pagode|Funk
+3|Quantas cordas tem um violão comum?|6|4|5|7
+3|Qual instrumento tem 88 teclas no modelo padrão?|Piano|Órgão|Acordeão|Cravo
+3|O berimbau é o instrumento que acompanha qual manifestação brasileira?|Capoeira|Frevo|Samba de roda|Bumba meu boi
+3|Qual instrumento tem fole e é muito usado no forró?|Sanfona|Cavaquinho|Pandeiro|Violino
+3|O cavaquinho é parente de qual instrumento havaiano?|Ukulele|Banjo|Bandolim|Charango
+3|Qual destes é um instrumento de sopro?|Saxofone|Violino|Piano|Bateria
+3|Quantas notas musicais tem a escala básica (dó, ré, mi...)?|7|5|8|12
+4|Qual banda sueca venceu o Eurovision em 1974 com "Waterloo"?|ABBA|Roxette|Ace of Base|Europe
+4|Qual grupo sul-coreano de K-pop é o mais famoso do mundo, com sete integrantes?|BTS|Blackpink|EXO|Twice
+3|Qual cantora americana fez a turnê "The Eras Tour", a mais lucrativa da história?|Taylor Swift|Beyoncé|Lady Gaga|Ariana Grande
+3|Qual cantor canadense ficou famoso ainda adolescente com "Baby"?|Justin Bieber|Drake|Shawn Mendes|The Weeknd
+
+@tema literatura
+3|Quem escreveu "Dom Casmurro"?|Machado de Assis|José de Alencar|Eça de Queirós|Aluísio Azevedo
+3|Em "Dom Casmurro", qual personagem tem "olhos de ressaca"?|Capitu|Bentinho|Escobar|José Dias
+3|Quem escreveu "Grande Sertão: Veredas"?|Guimarães Rosa|Graciliano Ramos|Jorge Amado|Clarice Lispector
+3|Quem escreveu "O Pequeno Príncipe"?|Antoine de Saint-Exupéry|Júlio Verne|Victor Hugo|Albert Camus
+3|Quem escreveu "Dom Quixote"?|Miguel de Cervantes|Lope de Vega|Gabriel García Márquez|Jorge Luis Borges
+3|Qual é o nome do fiel escudeiro de Dom Quixote?|Sancho Pança|Rocinante|Dulcineia|Lazarilho
+3|Contra o que Dom Quixote luta, achando que são gigantes?|Moinhos de vento|Árvores|Torres de igreja|Rochedos
+3|Quem escreveu "Cem Anos de Solidão"?|Gabriel García Márquez|Mario Vargas Llosa|Pablo Neruda|Julio Cortázar
+3|Quem escreveu "1984" e "A Revolução dos Bichos"?|George Orwell|Aldous Huxley|Ray Bradbury|H. G. Wells
+3|Quem escreveu "O Alquimista"?|Paulo Coelho|Jorge Amado|Érico Veríssimo|Rubem Fonseca
+3|Quem escreveu "Capitães da Areia" e "Gabriela, Cravo e Canela"?|Jorge Amado|Graciliano Ramos|Rachel de Queiroz|José Lins do Rego
+4|Quem escreveu "Vidas Secas"?|Graciliano Ramos|Rachel de Queiroz|Jorge Amado|João Cabral de Melo Neto
+4|Qual poeta brasileiro escreveu "No meio do caminho tinha uma pedra"?|Carlos Drummond de Andrade|Manuel Bandeira|Vinicius de Moraes|Cecília Meireles
+4|Qual escritora brasileira escreveu "A Hora da Estrela"?|Clarice Lispector|Cecília Meireles|Rachel de Queiroz|Lygia Fagundes Telles
+4|Qual escritora brasileira escreveu "Quarto de Despejo", diário da vida numa favela de São Paulo?|Carolina Maria de Jesus|Conceição Evaristo|Clarice Lispector|Cora Coralina
+4|Qual romance de José de Alencar tem uma heroína indígena "dos lábios de mel"?|Iracema|O Guarani|Senhora|Lucíola
+3|Quem escreveu a série "Harry Potter"?|J. K. Rowling|J. R. R. Tolkien|C. S. Lewis|Stephenie Meyer
+3|Quem escreveu "O Senhor dos Anéis"?|J. R. R. Tolkien|C. S. Lewis|George R. R. Martin|J. K. Rowling
+3|Quem escreveu os livros que deram origem a "Game of Thrones"?|George R. R. Martin|J. R. R. Tolkien|Stephen King|Neil Gaiman
+3|Quem escreveu "Os Lusíadas"?|Luís de Camões|Fernando Pessoa|Eça de Queirós|José Saramago
+4|Qual escritor português ganhou o Nobel de Literatura em 1998?|José Saramago|Fernando Pessoa|António Lobo Antunes|Eça de Queirós
+4|Como se chamam os vários autores inventados por Fernando Pessoa, como Alberto Caeiro?|Heterônimos|Pseudônimos|Sinônimos|Anagramas|Autores inventados por Pessoa
+4|Qual livro começa com "Chamai-me Ismael"?|Moby Dick|O Velho e o Mar|A Ilha do Tesouro|Robinson Crusoé
+2|Em "Moby Dick", que animal é Moby Dick?|Baleia|Tubarão|Polvo|Lula gigante
+3|Quem escreveu "Vinte Mil Léguas Submarinas"?|Júlio Verne|H. G. Wells|Arthur Conan Doyle|Robert Louis Stevenson
+3|Quem escreveu "A Volta ao Mundo em 80 Dias"?|Júlio Verne|Charles Dickens|Mark Twain|H. G. Wells
+3|Qual personagem tem o nariz que cresce quando mente?|Pinóquio|Peter Pan|Gepeto|Aladim|Boneco de nariz comprido
+3|Em que livro a protagonista segue um coelho branco até um mundo maluco?|Alice no País das Maravilhas|O Mágico de Oz|Peter Pan|As Crônicas de Nárnia
+3|Qual menino da Terra do Nunca não quer crescer?|Peter Pan|Pinóquio|Oliver Twist|Tom Sawyer
+4|Quem escreveu "A Metamorfose", em que um homem acorda transformado num inseto?|Franz Kafka|Albert Camus|Fiódor Dostoiévski|Thomas Mann
+4|Quem escreveu "Crime e Castigo"?|Fiódor Dostoiévski|Liev Tolstói|Anton Tchekhov|Nikolai Gógol
+4|Quem escreveu "Guerra e Paz"?|Liev Tolstói|Fiódor Dostoiévski|Ivan Turguêniev|Boris Pasternak
+3|Qual diário escrito por uma menina judia escondida na Segunda Guerra ficou famoso no mundo todo?|O Diário de Anne Frank|A Menina que Roubava Livros|O Menino do Pijama Listrado|A Lista de Schindler
+3|Quem escreveu "Drácula"?|Bram Stoker|Mary Shelley|Edgar Allan Poe|Stephen King
+3|Quem escreveu "Frankenstein"?|Mary Shelley|Bram Stoker|Jane Austen|Emily Brontë
+4|Quem escreveu "Orgulho e Preconceito"?|Jane Austen|Emily Brontë|Charlotte Brontë|Virginia Woolf
+3|Quem escreveu "O Código Da Vinci"?|Dan Brown|John Grisham|Stephen King|Sidney Sheldon
+3|Qual autor de terror escreveu "It: A Coisa" e "O Iluminado"?|Stephen King|Edgar Allan Poe|H. P. Lovecraft|Dean Koontz
+3|Quem escreveu "O Hobbit"?|J. R. R. Tolkien|C. S. Lewis|J. K. Rowling|Roald Dahl
+3|Quem escreveu "A Fantástica Fábrica de Chocolate"?|Roald Dahl|Lewis Carroll|Dr. Seuss|C. S. Lewis
+4|Qual poeta chileno ganhou o Nobel em 1971?|Pablo Neruda|Gabriela Mistral|Jorge Luis Borges|Octavio Paz
+4|Qual escritor argentino escreveu "O Aleph" e "Ficções"?|Jorge Luis Borges|Julio Cortázar|Ernesto Sabato|Adolfo Bioy Casares
+3|Qual destes é um livro infantil de Ruth Rocha?|Marcelo, Marmelo, Martelo|O Menino Maluquinho|Reinações de Narizinho|A Bolsa Amarela
+
+@tema pintura-e-escultura
+2|Quem pintou a "Mona Lisa"?|Leonardo da Vinci|Michelangelo|Rafael|Botticelli
+3|Em qual museu está a "Mona Lisa"?|Louvre|Museu do Prado|Museu Britânico|Uffizi
+3|Quem pintou o teto da Capela Sistina?|Michelangelo|Leonardo da Vinci|Rafael|Caravaggio
+3|Qual pintor holandês cortou parte da própria orelha?|Vincent van Gogh|Rembrandt|Johannes Vermeer|Piet Mondrian
+3|Quem esculpiu "O Pensador"?|Auguste Rodin|Michelangelo|Canova|Camille Claudel
+3|O "Davi" de mármore de Florença, com mais de 5 metros, é obra de quem?|Michelangelo|Rodin|Canova|Rafael
+3|Qual pintora mexicana ficou famosa pelos autorretratos e pelas sobrancelhas marcantes?|Frida Kahlo|Tarsila do Amaral|Georgia O'Keeffe|Remedios Varo
+3|Quem pintou o "Abaporu"?|Tarsila do Amaral|Anita Malfatti|Di Cavalcanti|Candido Portinari
+3|Quem pintou "Guernica"?|Pablo Picasso|Salvador Dalí|Joan Miró|Francisco Goya
+3|Qual pintor surrealista é famoso pelos relógios derretidos?|Salvador Dalí|René Magritte|Joan Miró|Max Ernst
+4|Qual pintor brasileiro fez os painéis "Guerra e Paz", na sede da ONU?|Candido Portinari|Di Cavalcanti|Tarsila do Amaral|Romero Britto
+3|Qual movimento artístico teve Monet e Renoir como grandes nomes?|Impressionismo|Cubismo|Barroco|Surrealismo
+3|Picasso é o principal nome de qual movimento?|Cubismo|Impressionismo|Barroco|Romantismo
+4|Como era conhecido Antônio Francisco Lisboa, escultor do Barroco mineiro?|Aleijadinho|Mestre Ataíde|Mestre Valentim|Tiradentes
+4|A Semana de Arte Moderna aconteceu em 1922 em qual cidade?|São Paulo|Rio de Janeiro|Belo Horizonte|Recife
+3|Quem pintou "A Noite Estrelada"?|Vincent van Gogh|Claude Monet|Paul Cézanne|Edvard Munch
+3|Quem pintou "O Grito"?|Edvard Munch|Vincent van Gogh|Gustav Klimt|Egon Schiele
+4|Quem pintou "O Beijo", com muito dourado?|Gustav Klimt|Edvard Munch|Auguste Rodin|Henri Matisse
+4|Quem pintou "Moça com Brinco de Pérola"?|Johannes Vermeer|Rembrandt|Rubens|Van Gogh
+4|Quem pintou "A Última Ceia"?|Leonardo da Vinci|Michelangelo|Rafael|Ticiano
+4|Quem pintou "O Nascimento de Vênus"?|Sandro Botticelli|Leonardo da Vinci|Rafael|Caravaggio
+4|Qual artista americano é famoso pelas latas de sopa e retratos coloridos de Marilyn Monroe?|Andy Warhol|Roy Lichtenstein|Jackson Pollock|Keith Haring
+4|Andy Warhol é o grande nome de qual movimento?|Pop art|Cubismo|Impressionismo|Expressionismo
+4|Qual artista anônimo de grafite é famoso pela obra "Menina com Balão"?|Banksy|Os Gêmeos|Keith Haring|Basquiat
+4|Os Gêmeos, famosos grafiteiros brasileiros, são de qual cidade?|São Paulo|Rio de Janeiro|Salvador|Curitiba
+3|Quais são as três cores primárias na pintura tradicional?|Vermelho, amarelo e azul|Vermelho, verde e azul|Preto, branco e cinza|Laranja, verde e roxo
+4|Qual arquiteto brasileiro projetou os principais prédios de Brasília?|Oscar Niemeyer|Lúcio Costa|Burle Marx|Lina Bo Bardi
+4|Qual arquiteta projetou o prédio do MASP, em São Paulo?|Lina Bo Bardi|Tomie Ohtake|Zaha Hadid|Ruy Ohtake
+
+@tema cinema-e-tv
+3|Em qual série um professor de química vira fabricante de drogas?|Breaking Bad|Dexter|Narcos|Ozark
+3|Qual série espanhola mostra um assalto à Casa da Moeda da Espanha?|La Casa de Papel|Elite|Narcos|Round 6
+3|Qual série sul-coreana tem jogos infantis mortais?|Round 6|Kingdom|Pousando no Amor|Sweet Home
+3|Em qual série os personagens disputam o Trono de Ferro?|Game of Thrones|The Witcher|Vikings|Outlander
+3|Em "Stranger Things", como se chama o mundo paralelo sombrio?|Mundo Invertido|Terra Média|Nárnia|Zona Fantasma
+3|Qual série americana se passa em torno do café Central Perk?|Friends|Seinfeld|How I Met Your Mother|The Big Bang Theory
+3|Qual série tem uma família de mafiosos liderada por Tony?|Família Soprano|Peaky Blinders|Boardwalk Empire|The Wire
+3|Qual série da Netflix mostra a família real britânica?|The Crown|Downton Abbey|Bridgerton|Victoria
+3|Qual é o nome do agente secreto criado por Ian Fleming?|James Bond|Jason Bourne|Ethan Hunt|Jack Ryan
+3|Qual filme tem a frase "Que a Força esteja com você"?|Star Wars|Star Trek|Matrix|Duna
+3|Qual filme de 1993 tem dinossauros recriados num parque temático?|Jurassic Park|Godzilla|King Kong|Avatar
+3|Qual filme de animação da Pixar se passa dentro da mente de uma menina?|Divertida Mente|Soul|Up: Altas Aventuras|Viva: A Vida é uma Festa
+3|Em "Up: Altas Aventuras", o que faz a casa voar?|Balões|Um foguete|Asas mecânicas|Um furacão
+3|Qual filme de animação japonês do Studio Ghibli ganhou o Oscar em 2003?|A Viagem de Chihiro|Meu Amigo Totoro|Princesa Mononoke|O Castelo Animado
+3|Qual destes filmes é uma animação do Studio Ghibli?|Meu Amigo Totoro|Akira|Your Name|Ghost in the Shell
+4|Qual filme sul-coreano foi o primeiro em língua não inglesa a ganhar o Oscar de Melhor Filme?|Parasita|Oldboy|Em Chamas|O Hospedeiro
+3|Qual filme brasileiro de 2002 mostra a vida na favela que dá nome ao filme, no Rio?|Cidade de Deus|Tropa de Elite|Central do Brasil|Carandiru
+3|Qual filme brasileiro de 1998 acompanha um menino e uma escrevedora de cartas pelo sertão?|Central do Brasil|Cidade de Deus|O Auto da Compadecida|Bacurau
+3|Qual é o prêmio mais famoso do cinema, entregue em Hollywood?|Oscar|Emmy|Grammy|Tony
+3|O Grammy premia qual área?|Música|Cinema|Teatro|Televisão
+3|O Emmy é o principal prêmio de qual área?|Televisão|Música|Teatro|Literatura
+4|O Prêmio Tony é dado a qual área?|Teatro|Cinema|Música|Televisão
+4|Em qual cidade acontece o festival de cinema que dá a Palma de Ouro?|Cannes|Veneza|Berlim|Toronto
+4|Qual festival de cinema entrega o Leão de Ouro?|Veneza|Cannes|Berlim|Sundance
+4|Qual festival de cinema entrega o Urso de Ouro?|Berlim|Cannes|Veneza|San Sebastián
+3|Quantos filmes tem a saga principal de Harry Potter?|8|7|6|9
+3|Qual foi o primeiro longa-metragem de animação da Disney, de 1937?|Branca de Neve e os Sete Anões|Pinóquio|Cinderela|Fantasia
+3|Qual foi o primeiro longa-metragem totalmente feito em computação gráfica, de 1995?|Toy Story|Shrek|Vida de Inseto|Procurando Nemo
+3|Qual novela brasileira tinha o famoso mistério "Quem matou Odete Roitman?"|Vale Tudo|Roque Santeiro|Avenida Brasil|Tieta
+3|Em "Avenida Brasil", qual é o nome da vilã interpretada por Adriana Esteves?|Carminha|Nazaré Tedesco|Odete Roitman|Flora
+3|Qual vilã de novela virou meme com uma cena cheia de cálculos matemáticos na tela?|Nazaré Tedesco|Carminha|Odete Roitman|Perpétua
+3|Qual apresentador comandou por décadas o "Programa Silvio Santos"?|Silvio Santos|Faustão|Gugu Liberato|Raul Gil
+3|Qual apresentadora ficou conhecida como "Rainha dos Baixinhos"?|Xuxa|Angélica|Eliana|Mara Maravilha
+3|Qual desenho japonês tem Goku como protagonista?|Dragon Ball|Naruto|One Piece|Cavaleiros do Zodíaco
+3|Em qual anime os heróis usam armaduras ligadas às constelações?|Cavaleiros do Zodíaco|Dragon Ball|Pokémon|Sailor Moon
+3|Qual anime acompanha um ninja que sonha em ser Hokage?|Naruto|One Piece|Bleach|Dragon Ball
+3|Qual anime acompanha piratas em busca de um tesouro, com Luffy como capitão?|One Piece|Naruto|Dragon Ball|Fullmetal Alchemist
+
+@tema games
+3|Qual jogo de construção com blocos é o videogame mais vendido da história?|Minecraft|Tetris|Roblox|Fortnite
+3|Em qual jogo os jogadores caem de um ônibus voador numa ilha?|Fortnite|PUBG|Free Fire|Apex Legends
+3|Qual empresa japonesa criou Mario e Zelda?|Nintendo|Sega|Sony|Capcom
+3|Qual empresa fabrica o console PlayStation?|Sony|Microsoft|Nintendo|Sega
+3|Qual empresa fabrica o console Xbox?|Microsoft|Sony|Nintendo|Apple
+3|Em qual jogo um personagem amarelo come pastilhas e foge de fantasmas?|Pac-Man|Space Invaders|Donkey Kong|Frogger
+3|Qual jogo russo de peças que caem foi criado em 1984?|Tetris|Pac-Man|Snake|Arkanoid
+3|Em qual jogo os personagens tentam descobrir quem é o impostor na nave?|Among Us|Fall Guys|Roblox|Fortnite
+3|Qual série de jogos se passa na cidade fictícia de Los Santos?|Grand Theft Auto (GTA)|Need for Speed|Red Dead Redemption|Watch Dogs
+4|Qual jogo de futebol da EA Sports passou a se chamar EA Sports FC em 2023?|FIFA|PES|Football Manager|Rocket League
+4|Qual jogo de batalha para celular, da Garena, é muito popular no Brasil?|Free Fire|Fortnite|PUBG Mobile|Call of Duty Mobile

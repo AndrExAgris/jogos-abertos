@@ -2,7 +2,8 @@
   import { onDestroy, onMount } from 'svelte';
   import { Icone } from '@ja/ui';
   import { sementeNova, criarAleatorio } from '@ja/contrato';
-  import { aleatorioDaRodada, sortearNivel, type Pergunta } from '@ja/nucleo-trivia/perguntas';
+  import { aleatorioDaRodada, chave, sortearNivel, type Pergunta } from '@ja/nucleo-trivia/perguntas';
+  import ImagemPergunta from '../conhecimento/ImagemPergunta.svelte';
   import Casca from '../../lib/jogo/Casca.svelte';
   import { Sessao } from '../../lib/jogo/sessao.svelte.ts';
   import { vibrar } from '../../lib/jogo/partida.ts';
@@ -51,7 +52,7 @@
   function nova(e: Estado, semente: string): Estado {
     const p = sortearNivel(NIVEL[Math.min(e.nivel, NIVEL.length - 1)], e.usadas, aleatorioDaRodada(semente, e.usadas.length));
     dado = null;
-    return { ...e, pergunta: p, usadas: p ? [...e.usadas, p.p] : e.usadas, resposta: null, eliminadas: [], plateia: null, universitarios: null, assistente: false, segundaAtiva: false };
+    return { ...e, pergunta: p, usadas: p ? [...e.usadas, chave(p)] : e.usadas, resposta: null, eliminadas: [], plateia: null, universitarios: null, assistente: false, segundaAtiva: false };
   }
   function comecar(id: string) {
     const semente = sementeNova();
@@ -194,6 +195,7 @@
       </div>
       <div class="ja-pergunta">
         <p class="ja-pergunta-texto">{q.p}</p>
+        {#if q.img}<ImagemPergunta tipo={q.img.tipo} pais={q.img.pais} />{/if}
       </div>
       <div class="ja-opcoes-quiz ja-milhao-opcoes">
         {#each q.opcoes as op, k (op)}

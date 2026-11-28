@@ -1,0 +1,321 @@
+# Perguntas escritas à mão: Sociedade (religiões, mitologias, folclore, idiomas, culturas, história e cidadania).
+# Formato: nota|pergunta|certa|errada|errada|errada|dica para cruzada (opcional)
+
+@tema religiao
+2|Qual é o livro sagrado do islamismo?|Alcorão|Bíblia|Torá|Vedas|Livro sagrado do islã
+3|Como se chamam os cinco primeiros livros da Bíblia no judaísmo?|Torá|Alcorão|Talmude|Vedas|Livro sagrado judaico
+3|Em qual cidade fica a Caaba, o lugar mais sagrado do islamismo?|Meca|Medina|Jerusalém|Istambul|Cidade sagrada do islã
+3|Quem fundou o budismo?|Sidarta Gautama|Confúcio|Lao-Tsé|Maomé
+3|Qual país tem a maior população católica do mundo?|Brasil|México|Itália|Filipinas
+2|Como se chama o líder da Igreja Católica?|Papa|Patriarca|Dalai-lama|Aiatolá|Chefe da Igreja Católica
+4|Qual nome escolheu o papa eleito em 2025, o primeiro nascido nos Estados Unidos?|Leão XIV|Francisco II|Bento XVII|João Paulo III
+3|O papa Francisco, que morreu em 2025, nasceu em qual país?|Argentina|Itália|Brasil|Espanha
+3|Em qual pequeno país fica a sede da Igreja Católica?|Vaticano|Itália|San Marino|Malta
+3|Qual religião tem os deuses Brahma, Vishnu e Shiva?|Hinduísmo|Budismo|Xintoísmo|Sikhismo
+3|Qual é o mês sagrado de jejum do islamismo?|Ramadã|Hanukkah|Quaresma|Diwali
+3|O Hanukkah é uma festa de qual religião?|Judaísmo|Hinduísmo|Islamismo|Budismo
+3|O Diwali, festival das luzes, é a principal festa de qual religião?|Hinduísmo|Judaísmo|Islamismo|Cristianismo
+3|Como se chama o templo do judaísmo?|Sinagoga|Mesquita|Pagode|Catedral|Templo judaico
+3|Como se chama o templo do islamismo?|Mesquita|Sinagoga|Pagode|Basílica|Templo muçulmano
+3|Qual é a religião tradicional do Japão, ao lado do budismo?|Xintoísmo|Taoísmo|Hinduísmo|Confucionismo
+3|Candomblé e Umbanda são religiões de origem...|Afro-brasileira|Indígena|Asiática|Europeia
+3|No Candomblé e na Umbanda, qual orixá é a rainha do mar?|Iemanjá|Oxum|Iansã|Nanã|Rainha do mar
+4|Qual orixá é o senhor da justiça e do trovão?|Xangô|Ogum|Oxóssi|Exu
+4|Qual orixá é o guerreiro, senhor do ferro, sincretizado com São Jorge em muitos lugares?|Ogum|Xangô|Oxalá|Omolu
+3|Qual destas religiões acredita num único deus?|Islamismo|Hinduísmo|Xintoísmo|Religião grega antiga
+3|Qual símbolo do taoísmo tem duas metades, uma preta e uma branca?|Yin-yang|Mandala|Lótus|Om
+3|Em que cidade fica o Muro das Lamentações?|Jerusalém|Meca|Roma|Belém
+3|Qual é o dia sagrado de descanso no judaísmo?|Sábado|Domingo|Sexta-feira|Segunda-feira
+2|Em qual cidade paulista fica o maior santuário católico do Brasil?|Aparecida|Campinas|Santos|Sorocaba
+2|Qual é a padroeira do Brasil?|Nossa Senhora Aparecida|Nossa Senhora de Fátima|Santa Rita|Nossa Senhora de Nazaré
+3|Qual é o nome do líder espiritual do budismo tibetano?|Dalai-lama|Papa|Aiatolá|Rabino
+3|Como se chama o líder religioso de uma sinagoga?|Rabino|Imã|Pastor|Monge
+3|Como se chama quem conduz a oração numa mesquita?|Imã|Rabino|Lama|Padre
+3|Em qual cidade nasceu Jesus, segundo a Bíblia?|Belém|Nazaré|Jerusalém|Jericó
+3|Qual é a festa cristã que celebra a ressurreição de Jesus?|Páscoa|Natal|Pentecostes|Corpus Christi
+3|Quantos são os apóstolos de Jesus?|12|10|7|14
+3|Qual apóstolo negou Jesus três vezes?|Pedro|Judas|João|Tomé
+3|Qual apóstolo traiu Jesus?|Judas Iscariotes|Pedro|Tomé|Mateus
+3|Na Bíblia, quem construiu a arca para salvar os animais do dilúvio?|Noé|Moisés|Abraão|Davi
+3|Na Bíblia, quem recebeu os Dez Mandamentos?|Moisés|Abraão|Noé|Elias
+3|Na Bíblia, qual jovem derrotou o gigante Golias?|Davi|Sansão|Salomão|José
+3|Na Bíblia, quem perdeu a força quando teve o cabelo cortado?|Sansão|Davi|Golias|Elias
+3|Qual religião surgiu com Martinho Lutero no século XVI?|Protestantismo (luteranismo)|Catolicismo|Ortodoxia|Anglicanismo
+4|Qual rei inglês criou a Igreja Anglicana?|Henrique VIII|Ricardo Coração de Leão|Eduardo VII|Jorge III
+4|A religião sikh surgiu em qual país?|Índia|Paquistão|Irã|Nepal
+4|Qual é o nome da peregrinação a Meca, obrigatória ao menos uma vez na vida para o muçulmano que pode?|Hajj|Ramadã|Jihad|Zakat
+4|Qual cidade brasileira tem a maior romaria do Nordeste, ligada ao Padre Cícero?|Juazeiro do Norte|Canindé|Bom Jesus da Lapa|Caruaru
+4|O espiritismo, muito seguido no Brasil, foi codificado por quem?|Allan Kardec|Chico Xavier|Bezerra de Menezes|Divaldo Franco
+3|Qual médium brasileiro, de Minas Gerais, psicografou mais de 400 livros?|Chico Xavier|Allan Kardec|Zé Arigó|Divaldo Franco
+
+@tema mitologia
+3|Na mitologia grega, quem é o rei dos deuses?|Zeus|Poseidon|Hades|Apolo|Rei dos deuses gregos
+3|Qual é o deus romano equivalente a Zeus?|Júpiter|Marte|Netuno|Saturno
+3|Na mitologia grega, quem é o deus dos mares?|Poseidon|Zeus|Hermes|Ares
+3|Qual é o nome romano de Poseidon?|Netuno|Júpiter|Plutão|Mercúrio|Deus romano dos mares
+3|Na mitologia grega, quem é o deus do mundo dos mortos?|Hades|Ares|Cronos|Hefesto
+3|Qual é a deusa grega da sabedoria?|Atena|Afrodite|Hera|Ártemis|Deusa grega da sabedoria
+3|Qual é a deusa grega do amor e da beleza?|Afrodite|Atena|Hera|Deméter
+3|Qual é o nome romano de Afrodite?|Vênus|Minerva|Juno|Diana|Deusa romana do amor
+3|Qual é o deus grego da guerra?|Ares|Apolo|Hermes|Dioniso
+3|Qual é o nome romano de Ares, o deus da guerra?|Marte|Júpiter|Mercúrio|Saturno
+3|Qual é o deus mensageiro, com sandálias aladas?|Hermes|Apolo|Ares|Hefesto
+3|Qual é o deus grego do vinho e das festas?|Dioniso|Apolo|Hermes|Pã
+3|Qual deus romano é o equivalente de Dioniso?|Baco|Vulcano|Jano|Marte
+3|Qual é o deus grego do fogo e da forja?|Hefesto|Ares|Apolo|Prometeu
+4|Qual deus romano dá nome a janeiro e tem duas faces?|Jano|Júpiter|Saturno|Marte
+3|Qual herói grego tinha como único ponto fraco o calcanhar?|Aquiles|Hércules|Ulisses|Perseu
+3|Qual herói é famoso pelos doze trabalhos?|Hércules|Aquiles|Teseu|Perseu
+3|Qual criatura da mitologia grega tinha serpentes no lugar dos cabelos?|Medusa|Quimera|Esfinge|Hidra
+3|Qual herói grego cortou a cabeça da Medusa?|Perseu|Teseu|Aquiles|Jasão
+3|Qual criatura grega era metade homem e metade touro?|Minotauro|Centauro|Sátiro|Ciclope
+3|Qual herói grego matou o Minotauro no labirinto?|Teseu|Perseu|Hércules|Ulisses
+3|Que criatura grega é metade homem e metade cavalo?|Centauro|Minotauro|Grifo|Pégaso
+3|Qual é o nome do cavalo alado da mitologia grega?|Pégaso|Bucéfalo|Sleipnir|Centauro|Cavalo alado
+3|Qual monstro grego tinha várias cabeças que nasciam de novo quando cortadas?|Hidra|Medusa|Cérbero|Quimera
+3|Qual é o nome do cão de três cabeças que guarda o mundo dos mortos grego?|Cérbero|Fenrir|Ortro|Argos
+3|Que gigante da mitologia grega tinha um olho só no meio da testa?|Ciclope|Titã|Sátiro|Centauro
+3|Qual titã foi castigado a carregar o céu nas costas?|Atlas|Prometeu|Cronos|Hipérion
+3|Qual titã roubou o fogo dos deuses para dar aos humanos?|Prometeu|Atlas|Epimeteu|Cronos
+3|Qual herói grego levou dez anos para voltar para casa depois da Guerra de Troia?|Ulisses (Odisseu)|Aquiles|Heitor|Páris
+3|O que os gregos deixaram em Troia com soldados escondidos dentro?|Um cavalo de madeira|Uma estátua de Atena|Um navio|Um baú de ouro
+3|Por causa de qual mulher começou a Guerra de Troia, segundo a lenda?|Helena|Penélope|Cassandra|Andrômaca
+3|Na mitologia grega, quem abriu a caixa que espalhou os males pelo mundo?|Pandora|Perséfone|Helena|Medeia
+3|Qual jovem grego se apaixonou pelo próprio reflexo na água?|Narciso|Ícaro|Adônis|Orfeu
+3|Qual jovem voou perto demais do Sol e teve as asas de cera derretidas?|Ícaro|Dédalo|Narciso|Faetonte
+4|Em qual monte moravam os deuses gregos?|Olimpo|Parnaso|Ida|Etna
+4|Qual ave mitológica renasce das próprias cinzas?|Fênix|Grifo|Harpia|Roca
+3|Na mitologia nórdica, qual é o deus do trovão?|Thor|Odin|Loki|Balder
+3|Qual deus nórdico, pai de todos, tem um olho só?|Odin|Thor|Tyr|Freyr
+3|Qual deus nórdico é famoso pelas trapaças?|Loki|Thor|Heimdall|Frigga
+4|Como se chama o salão dos guerreiros mortos na mitologia nórdica?|Valhalla|Olimpo|Asgard|Midgard
+4|Na mitologia nórdica, qual é o nome da árvore que liga os nove mundos?|Yggdrasil|Bifrost|Mjolnir|Midgard
+4|Qual é o nome do lobo gigante, filho de Loki, na mitologia nórdica?|Fenrir|Cérbero|Sleipnir|Jörmungandr
+4|Que dia da semana em inglês, "Thursday", homenageia qual deus?|Thor|Odin|Tyr|Saturno
+3|Rá é o deus do Sol de qual mitologia?|Egípcia|Grega|Nórdica|Asteca
+3|Na mitologia egípcia, qual deus tem cabeça de chacal?|Anúbis|Hórus|Osíris|Ptá
+3|Na mitologia egípcia, qual deus tem cabeça de falcão?|Hórus|Anúbis|Bastet|Seth
+4|Qual deusa egípcia tem forma de gata?|Bastet|Ísis|Hathor|Sekhmet
+4|Qual deus egípcio é o senhor do mundo dos mortos?|Osíris|Rá|Hórus|Thoth
+3|A Esfinge de Gizé tem corpo de qual animal?|Leão|Touro|Águia|Cavalo
+4|Quetzalcóatl, a "serpente emplumada", é um deus de qual povo?|Astecas|Incas|Tupis|Vikings
+4|Inti era o deus do Sol de qual povo?|Incas|Astecas|Maias|Egípcios
+4|Tupã é uma figura ligada ao trovão em qual tradição?|Tupi-guarani|Iorubá|Asteca|Nórdica
+3|O horóscopo chinês tem 12 animais. Qual destes faz parte dele?|Dragão|Leão|Águia|Lobo
+4|Qual criatura da mitologia japonesa é uma raposa mágica com várias caudas?|Kitsune|Tengu|Kappa|Oni
+4|Na mitologia celta e na lenda do Rei Artur, qual é o nome da espada tirada da pedra?|Excalibur|Durindana|Mjolnir|Joyeuse
+4|Qual mago aconselhava o Rei Artur?|Merlin|Gandalf|Morgana|Lancelote
+
+@tema folclore
+2|O Saci-Pererê, de uma perna só, é do folclore de qual país?|Brasil|Portugal|México|Argentina
+2|Qual personagem do folclore brasileiro tem os pés virados para trás?|Curupira|Saci-Pererê|Boitatá|Iara|Protetor da mata com pés ao contrário
+3|Qual personagem do folclore brasileiro é uma cobra de fogo que protege as matas?|Boitatá|Curupira|Mula sem cabeça|Boto-cor-de-rosa
+3|Qual lenda amazônica fala de um animal que vira um rapaz bonito nas festas?|Boto-cor-de-rosa|Mapinguari|Iara|Cuca
+3|Qual sereia do folclore brasileiro atrai pescadores para o fundo dos rios?|Iara|Iemanjá|Cuca|Mãe-do-Ouro|Sereia dos rios
+3|O que o Saci usa na cabeça?|Gorro vermelho|Chapéu de palha|Coroa de penas|Lenço azul
+3|Qual figura do folclore é uma mulher transformada em mula que solta fogo pelo pescoço?|Mula sem cabeça|Cuca|Iara|Comadre Fulozinha
+3|Qual bruxa com cabeça de jacaré aparece no Sítio do Picapau Amarelo?|Cuca|Iara|Bruxa do 71|Baba Yaga
+3|Qual lenda conta a origem da mandioca a partir de uma menina indígena?|Lenda de Mani|Lenda do guaraná|Lenda da vitória-régia|Lenda do Curupira
+3|Qual lenda indígena conta a origem de uma planta aquática gigante da Amazônia?|Vitória-régia|Mandioca|Guaraná|Açaí
+3|O Leprechaun, duende com pote de ouro, é do folclore de qual país?|Irlanda|Escócia|Alemanha|Noruega
+3|O Monstro do Lago Ness é uma lenda de qual país?|Escócia|Irlanda|Inglaterra|Noruega
+3|Segundo a lenda, em qual cordilheira vive o Yeti, o "abominável homem das neves"?|Himalaia|Andes|Alpes|Montanhas Rochosas
+3|O Pé-Grande é uma criatura do folclore de qual região?|América do Norte|Europa|África|Ásia Central
+3|Os trolls são criaturas do folclore de qual região?|Escandinávia|Grécia|Japão|Egito
+4|A Baba Yaga é uma bruxa do folclore de quais povos?|Eslavos|Celtas|Árabes|Japoneses
+3|O conde Drácula vive em qual região, segundo o livro?|Transilvânia|Baviera|Sibéria|Andaluzia
+4|O Golem, figura de barro que ganha vida, vem do folclore de qual povo?|Judeu|Grego|Viking|Asteca
+3|O gênio da lâmpada vem de histórias de qual livro?|As Mil e Uma Noites|Ilíada|Dom Quixote|Os Contos de Grimm
+3|Quem contava as histórias de "As Mil e Uma Noites" para o sultão?|Sherazade|Jasmine|Cleópatra|Nefertiti
+3|Os irmãos Grimm, que recolheram contos como "João e Maria", eram de qual país?|Alemanha|Dinamarca|França|Áustria
+3|Qual escritor dinamarquês escreveu "A Pequena Sereia" e "O Patinho Feio"?|Hans Christian Andersen|Irmãos Grimm|Charles Perrault|Esopo
+3|Qual festa popular brasileira tem quadrilha, fogueira e milho?|Festa Junina|Carnaval|Círio de Nazaré|Festa do Divino
+3|O Bumba meu boi é uma festa folclórica muito forte em qual estado?|Maranhão|Rio Grande do Sul|Santa Catarina|Paraná
+3|O Festival de Parintins, com os bois Garantido e Caprichoso, acontece em qual estado?|Amazonas|Pará|Maranhão|Bahia
+3|O Círio de Nazaré, uma das maiores procissões do mundo, acontece em qual cidade?|Belém|Salvador|Recife|São Luís
+4|Qual festival celta deu origem ao Halloween?|Samhain|Beltane|Yule|Imbolc
+3|O Dia de Muertos, com caveiras coloridas, é uma tradição de qual país?|México|Espanha|Peru|Colômbia
+3|Qual santo é festejado em 24 de junho, nas festas juninas?|São João|Santo Antônio|São Pedro|São Jorge
+3|Qual santo é conhecido como "santo casamenteiro"?|Santo Antônio|São João|São Pedro|São Francisco
+3|Qual personagem do Natal brasileiro chega com um saco de presentes?|Papai Noel|Saci|Curupira|Rei Momo
+3|Qual personagem é o "rei" do Carnaval?|Rei Momo|Rei Arthur|Rei Leão|Rei do Baião
+3|Qual brincadeira de rua é o "pique-esconde"?|Esconde-esconde|Amarelinha|Pular corda|Bolinha de gude
+3|Como se chama o brinquedo de papel que voa preso a uma linha, chamado também de papagaio ou raia?|Pipa|Peteca|Pião|Ioiô
+
+@tema idiomas
+3|Qual é o idioma com mais falantes nativos no mundo?|Mandarim|Inglês|Espanhol|Hindi
+3|Em quantos países o português é língua oficial?|9|5|7|12
+3|Qual destes países tem o português como língua oficial?|Angola|Senegal|Quênia|Gana
+3|Qual destes países africanos tem o português como língua oficial?|Moçambique|Marrocos|Nigéria|Etiópia
+4|Qual país asiático tem o português como uma das línguas oficiais?|Timor-Leste|Filipinas|Tailândia|Malásia
+3|Quantas línguas oficiais tem a Suíça?|4|2|3|5
+3|Qual destas NÃO é uma língua oficial da Suíça?|Inglês|Alemão|Francês|Italiano
+3|Qual é a língua oficial do Suriname?|Neerlandês|Inglês|Francês|Espanhol
+3|Qual é a língua oficial da Guiana, vizinha do Brasil?|Inglês|Espanhol|Francês|Neerlandês
+3|Além do espanhol, qual língua indígena é oficial no Paraguai?|Guarani|Quéchua|Aimará|Tupi
+4|Qual língua indígena era falada no Império Inca e ainda é falada nos Andes?|Quéchua|Guarani|Náuatle|Maia
+4|Qual língua era falada pelos astecas?|Náuatle|Quéchua|Guarani|Tupi
+3|Quantas são as línguas oficiais da ONU?|6|4|5|10
+3|Qual destas é uma das seis línguas oficiais da ONU?|Árabe|Português|Alemão|Japonês
+3|Qual é a língua oficial do Irã?|Persa|Árabe|Turco|Curdo
+3|Em qual país se fala o africâner?|África do Sul|Nigéria|Egito|Quênia
+3|O esperanto é uma língua...|Criada para ser universal|Falada na Espanha antiga|Indígena do México|Usada só por cientistas
+3|Qual destas línguas vem do latim?|Português|Inglês|Alemão|Grego
+3|Qual destas línguas NÃO vem do latim?|Alemão|Italiano|Romeno|Francês
+4|Qual país tem o maior número de línguas faladas, mais de 800?|Papua-Nova Guiné|Índia|Indonésia|Nigéria
+3|Libras é a língua de sinais de qual país?|Brasil|Portugal|Angola|Espanha
+3|Como se diz "obrigado" em japonês?|Arigatô|Konnichiwa|Sayonara|Kawaii
+3|Como se diz "obrigado" em francês?|Merci|Grazie|Danke|Gracias
+3|Como se diz "obrigado" em italiano?|Grazie|Merci|Danke|Obrigado
+3|Como se diz "obrigado" em alemão?|Danke|Merci|Grazie|Gracias
+3|Qual saudação havaiana também significa amor e despedida?|Aloha|Mahalo|Namastê|Shalom
+3|"Shalom", que significa "paz", é uma saudação em qual língua?|Hebraico|Árabe|Grego|Turco
+4|A saudação "namastê" vem de qual língua antiga?|Sânscrito|Japonês|Árabe|Tailandês
+3|Palavras como "abacaxi", "pipoca" e "jabuti" vêm de qual língua?|Tupi|Árabe|Latim|Iorubá
+3|Palavras como "almofada", "açúcar" e "alface" vêm de qual língua?|Árabe|Tupi|Grego|Francês
+4|Palavras como "caçula", "moleque" e "cochilar" vêm de línguas de qual continente?|África|Ásia|Oceania|América do Norte
+3|Qual alfabeto é usado no russo?|Cirílico|Latino|Grego|Árabe
+3|Quantas letras tem o alfabeto da língua portuguesa desde o Acordo Ortográfico?|26|23|24|28
+3|Quais letras voltaram ao alfabeto português com o Acordo Ortográfico?|K, W e Y|Ç, Ñ e W|K, X e Z|Q, W e Y
+4|Qual língua é escrita da direita para a esquerda?|Árabe|Chinês|Russo|Grego
+4|Como se chamam os caracteres usados na escrita chinesa?|Ideogramas|Hieróglifos|Runas|Letras cirílicas
+4|Como se chamava a escrita do Egito antigo, com desenhos?|Hieróglifos|Runas|Cuneiforme|Ideogramas
+4|Qual pedra ajudou a decifrar os hieróglifos egípcios?|Pedra de Roseta|Pedra Filosofal|Pedra do Sol|Pedra de Ingá
+3|Qual sistema de escrita permite que pessoas cegas leiam com os dedos?|Braille|Morse|Libras|Estenografia
+3|Qual código usa pontos e traços para mandar mensagens?|Código Morse|Braille|Código binário|Código QR
+4|Em código Morse, qual é o pedido de socorro mais famoso?|SOS|SAS|HELP|MAYDAY
+3|O que significa a expressão em latim "carpe diem"?|Aproveite o dia|Penso, logo existo|Vim, vi, venci|Tudo passa
+4|Qual general romano teria dito "Vim, vi, venci"?|Júlio César|Augusto|Nero|Calígula
+4|Qual filósofo disse "Penso, logo existo"?|René Descartes|Sócrates|Platão|Immanuel Kant
+
+@tema culturas
+3|O quimono é a roupa tradicional de qual país?|Japão|China|Coreia do Sul|Vietnã
+3|O sári é uma vestimenta tradicional de qual país?|Índia|Egito|Tailândia|Indonésia
+3|O kilt, saia xadrez masculina, é tradicional de qual país?|Escócia|Irlanda|Países Baixos|País de Gales
+3|O flamenco é uma dança típica de qual país?|Espanha|Portugal|Argentina|México
+3|O fado é a música tradicional de qual país?|Portugal|Espanha|Cabo Verde|Itália|País do fado
+3|Qual país é famoso pela sesta, um cochilo depois do almoço?|Espanha|Alemanha|Suécia|Japão
+3|O chimarrão é uma bebida típica de qual região do Brasil?|Sul|Nordeste|Norte|Centro-Oeste
+3|O acarajé é uma comida típica de qual estado?|Bahia|Pará|Minas Gerais|Pernambuco
+3|O tacacá é uma comida típica de qual região do Brasil?|Norte|Sul|Sudeste|Centro-Oeste
+3|O pão de queijo é típico de qual estado?|Minas Gerais|Goiás|São Paulo|Bahia
+3|O churrasco gaúcho é a comida mais famosa de qual estado?|Rio Grande do Sul|Mato Grosso|Paraná|Goiás
+3|Qual é o prato típico brasileiro feito com feijão-preto e carnes de porco?|Feijoada|Moqueca|Vatapá|Baião de dois|Prato de feijão-preto com carnes
+3|A moqueca capixaba é típica de qual estado?|Espírito Santo|Bahia|Rio de Janeiro|Sergipe
+3|O baião de dois, feito com arroz e feijão, é típico de qual região?|Nordeste|Sul|Norte|Sudeste
+3|De qual país vem o sushi?|Japão|China|Coreia do Sul|Tailândia
+3|De qual país vem a paella?|Espanha|Itália|Portugal|México
+3|De qual país vem o croissant, como conhecemos hoje?|França|Bélgica|Suíça|Itália
+3|Qual é o prato mexicano feito com tortilha dobrada e recheada?|Taco|Paella|Pierogi|Falafel
+3|O haggis, feito com miúdos de carneiro, é típico de qual país?|Escócia|Irlanda|Noruega|Grécia
+3|Qual país é famoso pelo strogonoff, criado lá no século XIX?|Rússia|França|Alemanha|Hungria
+3|Qual país é famoso pelo goulash, um ensopado com páprica?|Hungria|Polônia|Áustria|República Tcheca
+3|Qual país é a terra natal da pizza?|Itália|Grécia|Estados Unidos|França
+3|De qual país vem o kimchi, conserva picante de acelga?|Coreia do Sul|Japão|China|Tailândia
+3|O falafel, bolinho de grão-de-bico, é típico de qual região?|Oriente Médio|Sudeste Asiático|Europa do Norte|América Central
+3|O Ano-Novo Chinês segue que tipo de calendário?|Lunissolar|Solar gregoriano|Maia|Juliano
+3|O Oktoberfest, festa da cerveja, acontece em qual cidade alemã?|Munique|Berlim|Hamburgo|Colônia
+3|Qual cidade brasileira tem uma das maiores Oktoberfest do mundo?|Blumenau|Gramado|Curitiba|Joinville
+3|Em qual cidade espanhola acontece a festa de São Firmino, com touros pelas ruas?|Pamplona|Madri|Sevilha|Barcelona
+2|Qual país tem o costume do chá das cinco?|Inglaterra|França|Japão|Índia
+3|Em que país acontece a festa La Tomatina, uma guerra de tomates?|Espanha|Itália|México|Portugal
+3|Qual animal é sagrado no hinduísmo e anda livre pelas ruas da Índia?|Vaca|Elefante|Macaco|Tigre
+3|O que se comemora no Dia de Ação de Graças, nos Estados Unidos?|A gratidão pela colheita|A independência|Os soldados mortos|O fim do inverno
+3|Qual é a cerimônia japonesa de preparar e servir chá?|Chanoyu|Ikebana|Origami|Haicai
+3|Qual é a arte japonesa de dobrar papel?|Origami|Ikebana|Bonsai|Kirigami|Arte de dobrar papel
+3|Qual é a arte japonesa de cultivar árvores em miniatura?|Bonsai|Ikebana|Origami|Sumi-ê|Arvorezinha japonesa
+3|Qual é a arte japonesa de arranjos de flores?|Ikebana|Bonsai|Origami|Kabuki
+3|Qual é o poema japonês curto, de três versos?|Haicai|Soneto|Trova|Cordel
+3|Qual é a literatura popular nordestina vendida em folhetos pendurados em barbantes?|Cordel|Haicai|Repente|Soneto|Folheto nordestino
+3|Como se chama o duelo de versos improvisados com viola, no Nordeste?|Repente|Cordel|Samba de roda|Frevo
+3|O maracatu é uma manifestação cultural típica de qual estado?|Pernambuco|Bahia|Minas Gerais|Pará
+4|Qual povo indígena vive na fronteira entre Brasil e Venezuela, em Roraima e no Amazonas?|Ianomâmi|Guarani|Tupinambá|Caiapó
+3|O povo maori é nativo de qual país?|Nova Zelândia|Austrália|Havaí|Fiji
+3|Os aborígenes são o povo nativo de qual país?|Austrália|Nova Zelândia|Canadá|Argentina
+3|Os inuítes vivem tradicionalmente em qual região?|Ártico|Saara|Amazônia|Andes
+3|Qual dança havaiana mexe os quadris ao som de ukulele?|Hula|Samba|Salsa|Tango
+3|Qual dança de salão nasceu em Cuba?|Salsa|Tango|Flamenco|Valsa
+3|A valsa ficou famosa em qual cidade europeia?|Viena|Paris|Madri|Roma
+
+@tema historia
+3|Quem proclamou a independência do Brasil em 1822?|Dom Pedro I|Dom Pedro II|Tiradentes|Deodoro da Fonseca
+3|Em que ano foi proclamada a República no Brasil?|1889|1822|1888|1930
+3|Quem proclamou a República no Brasil?|Marechal Deodoro da Fonseca|Dom Pedro II|Floriano Peixoto|Getúlio Vargas
+3|Qual princesa assinou a Lei Áurea, que aboliu a escravidão no Brasil?|Princesa Isabel|Princesa Leopoldina|Maria I|Carlota Joaquina
+3|Em que ano foi assinada a Lei Áurea?|1888|1822|1889|1850
+3|Qual foi a capital do Brasil antes de Brasília?|Rio de Janeiro|Salvador|São Paulo|Belo Horizonte
+3|Qual foi a primeira capital do Brasil?|Salvador|Recife|São Vicente|Olinda
+3|Em que ano Brasília foi inaugurada?|1960|1950|1964|1970
+3|Qual presidente mandou construir Brasília?|Juscelino Kubitschek|Getúlio Vargas|Jânio Quadros|João Goulart
+3|Qual foi o nome do movimento pelas eleições diretas para presidente, em 1984?|Diretas Já|Caras-Pintadas|Fora Collor|Tenentismo
+3|Tiradentes foi o líder de qual movimento?|Inconfidência Mineira|Revolta da Vacina|Guerra de Canudos|Revolução Farroupilha
+3|Qual era a profissão de Tiradentes, que deu origem ao apelido?|Dentista|Alfaiate|Ferreiro|Padeiro
+3|Zumbi foi o líder de qual quilombo?|Palmares|Canudos|Ouro Preto|Itatiaia
+3|Antônio Conselheiro liderou qual conflito no sertão da Bahia?|Guerra de Canudos|Guerra do Contestado|Cabanagem|Balaiada
+4|A Revolução Farroupilha aconteceu em qual região do Brasil?|Sul|Nordeste|Norte|Sudeste
+3|Qual navegador português chegou ao Brasil em 1500?|Pedro Álvares Cabral|Vasco da Gama|Cristóvão Colombo|Fernão de Magalhães
+3|Qual navegador chegou à América em 1492?|Cristóvão Colombo|Pedro Álvares Cabral|Américo Vespúcio|Vasco da Gama
+3|O nome "América" homenageia qual navegador?|Américo Vespúcio|Cristóvão Colombo|Fernão de Magalhães|Hernán Cortés
+4|Qual expedição fez a primeira volta ao mundo, iniciada em 1519?|A de Fernão de Magalhães|A de Vasco da Gama|A de Cristóvão Colombo|A de James Cook
+3|Qual navegador português chegou à Índia por mar em 1498?|Vasco da Gama|Pedro Álvares Cabral|Bartolomeu Dias|Fernão de Magalhães
+4|Qual tratado de 1494 dividiu as terras descobertas entre Portugal e Espanha?|Tratado de Tordesilhas|Tratado de Madri|Tratado de Versalhes|Tratado de Paris
+3|Qual era a principal riqueza explorada pelos portugueses logo no início, que deu nome ao Brasil?|Pau-brasil|Ouro|Café|Cana-de-açúcar
+3|Quem foi o primeiro presidente dos Estados Unidos?|George Washington|Abraham Lincoln|Thomas Jefferson|John Adams
+3|Qual presidente americano aboliu a escravidão e foi assassinado em 1865?|Abraham Lincoln|George Washington|John F. Kennedy|Theodore Roosevelt
+3|Quem lutou contra o apartheid e foi o primeiro presidente negro da África do Sul?|Nelson Mandela|Desmond Tutu|Kofi Annan|Steve Biko
+3|Qual líder indiano liderou a independência com a resistência sem violência?|Mahatma Gandhi|Jawaharlal Nehru|Indira Gandhi|Dalai-lama
+3|Qual pastor americano fez o discurso "Eu tenho um sonho"?|Martin Luther King Jr.|Malcolm X|Barack Obama|Jesse Jackson
+3|Quem foi o primeiro presidente negro dos Estados Unidos?|Barack Obama|Martin Luther King Jr.|Colin Powell|Kamala Harris
+3|Em que ano começou a Segunda Guerra Mundial?|1939|1914|1945|1941
+3|Em que ano terminou a Segunda Guerra Mundial?|1945|1944|1939|1950
+3|Em que ano começou a Primeira Guerra Mundial?|1914|1918|1939|1905
+3|Qual evento é considerado o estopim da Primeira Guerra Mundial?|O assassinato do arquiduque Francisco Ferdinando|A invasão da Polônia|O ataque a Pearl Harbor|A Revolução Russa
+3|Qual cidade japonesa foi atingida pela primeira bomba atômica, em 1945?|Hiroshima|Nagasaki|Tóquio|Osaka
+3|Qual ataque japonês fez os Estados Unidos entrarem na Segunda Guerra?|Pearl Harbor|Hiroshima|Normandia|Midway
+4|Como ficou conhecido o desembarque aliado na Normandia, em 6 de junho de 1944?|Dia D|Dia V|Operação Barbarossa|Blitzkrieg
+3|Qual é a muralha mais longa já construída?|Muralha da China|Muralha de Adriano|Muro de Berlim|Muralhas de Constantinopla
+3|A Revolução Francesa começou em 1789 com a tomada de qual prisão?|Bastilha|Torre de Londres|Alcatraz|Conciergerie
+3|Qual imperador francês foi derrotado em Waterloo?|Napoleão Bonaparte|Luís XIV|Carlos Magno|Luís XVI
+3|Qual rainha francesa teria dito "Que comam brioches"?|Maria Antonieta|Catarina de Médici|Josefina|Joana d'Arc
+3|Qual jovem francesa liderou tropas na Guerra dos Cem Anos e foi queimada em 1431?|Joana d'Arc|Maria Antonieta|Catarina de Médici|Leonor de Aquitânia
+3|Qual civilização construiu Machu Picchu?|Inca|Asteca|Maia|Olmeca
+3|Qual rainha egípcia se envolveu com Júlio César e Marco Antônio?|Cleópatra|Nefertiti|Hatshepsut|Ísis
+3|Qual faraó ficou famoso pela tumba quase intacta encontrada em 1922?|Tutancâmon|Ramsés II|Quéops|Akhenaton
+3|Qual cidade era o centro do Império Romano?|Roma|Atenas|Constantinopla|Alexandria
+4|Em que ano caiu o Império Romano do Ocidente?|476|1453|800|1066
+4|Em que ano os turcos tomaram Constantinopla, marco do fim da Idade Média?|1453|1492|1500|1066
+3|Qual era o nome dos guerreiros navegantes da Escandinávia medieval?|Vikings|Celtas|Godos|Hunos
+3|Qual muro separou Berlim de 1961 a 1989?|Muro de Berlim|Cortina de Ferro|Linha Maginot|Muralha de Adriano
+3|Como se chamou a disputa entre Estados Unidos e União Soviética depois da Segunda Guerra?|Guerra Fria|Guerra dos Cem Anos|Grande Guerra|Guerra do Golfo
+3|Em que ano o Brasil teve seu primeiro presidente eleito depois da ditadura militar, por voto direto?|1989|1985|1994|1979
+3|Quem foi a primeira mulher eleita presidente do Brasil?|Dilma Rousseff|Marina Silva|Benedita da Silva|Zélia Cardoso de Mello
+3|Em que ano as mulheres conquistaram o direito ao voto no Brasil?|1932|1889|1950|1964
+4|Qual país foi o primeiro a dar às mulheres o direito de voto nacional, em 1893?|Nova Zelândia|Reino Unido|Estados Unidos|França
+4|Qual foi o plano econômico que criou o real, em 1994?|Plano Real|Plano Cruzado|Plano Collor|Plano Verão
+
+@tema cidadania
+2|O que significa a sigla ONU?|Organização das Nações Unidas|Organização Nacional Unida|Ordem das Nações Universais|Organização dos Novos Unidos
+3|Quantos são os Poderes da República no Brasil?|3|2|4|5
+3|Quais são os três Poderes da República?|Executivo, Legislativo e Judiciário|Federal, Estadual e Municipal|Presidente, Senado e Câmara|Civil, Militar e Religioso
+3|Quantos anos dura o mandato de um senador no Brasil?|8|4|6|5
+3|Quantos anos dura o mandato do presidente do Brasil?|4|5|6|8
+3|Qual é a idade mínima para votar no Brasil?|16 anos|18 anos|14 anos|21 anos
+3|A partir de que idade o voto é obrigatório no Brasil?|18 anos|16 anos|21 anos|17 anos
+3|Quantos estados tem o Brasil, sem contar o Distrito Federal?|26|27|25|24
+4|Quantos deputados federais tem a Câmara dos Deputados?|513|81|594|300
+4|Quantos senadores tem o Senado Federal?|81|513|27|54
+4|Quantos senadores cada estado elege?|3|2|4|1
+3|Qual é o tribunal mais alto do Judiciário brasileiro?|Supremo Tribunal Federal|Superior Tribunal de Justiça|Tribunal Superior Eleitoral|Tribunal de Contas da União
+3|Qual é o nome da lei máxima do Brasil?|Constituição Federal|Código Civil|Código Penal|Lei Orgânica
+3|Em que ano foi promulgada a Constituição brasileira atual?|1988|1985|1946|1990
+3|O que significa SUS?|Sistema Único de Saúde|Serviço Unificado Social|Sistema Universal de Seguro|Saúde Unida do Sul
+3|O que significa PIB?|Produto Interno Bruto|Produção Industrial Básica|Patrimônio Interno do Brasil|Plano de Investimento Bruto
+3|Qual é a moeda do Brasil desde 1994?|Real|Cruzeiro|Cruzado|Mil-réis|Moeda brasileira
+3|Qual era a moeda do Brasil antes do real?|Cruzeiro real|Cruzado|Mil-réis|Peso
+3|Qual é o nome do imposto brasileiro sobre a renda das pessoas?|Imposto de Renda|IPTU|IPVA|ICMS
+3|O IPVA é um imposto sobre o quê?|Veículos|Imóveis|Renda|Serviços
+3|O IPTU é um imposto sobre o quê?|Imóveis urbanos|Veículos|Renda|Produtos importados
+3|Qual animal está na nota de 100 reais?|Garoupa|Onça-pintada|Mico-leão-dourado|Arara
+3|Qual animal está na nota de 20 reais?|Mico-leão-dourado|Onça-pintada|Garoupa|Tartaruga-marinha
+3|Qual animal está na nota de 200 reais, lançada em 2020?|Lobo-guará|Onça-pintada|Tamanduá|Jabuti
+3|Qual animal está na nota de 50 reais?|Onça-pintada|Garoupa|Arara|Lobo-guará

@@ -1,0 +1,323 @@
+# Perguntas escritas à mão: Ciência e Tecnologia (siglas, tecnologia e empresas, invenções, física, química, biologia, astronomia e matemática).
+# Formato: nota|pergunta|certa|errada|errada|errada|dica para cruzada (opcional)
+
+@tema siglas
+3|O que significa a sigla CPU, em computação?|Unidade Central de Processamento|Computador Pessoal Universal|Central de Programas Úteis|Controle de Processos Unificado
+3|O que significa RAM, a memória do computador?|Memória de Acesso Aleatório|Memória de Arquivos Móveis|Registro Automático de Memória|Memória Somente de Leitura
+4|O que significa ROM?|Memória Somente de Leitura|Memória de Rede Online|Registro de Operações Móveis|Memória de Acesso Aleatório
+3|O que significa "www" nos endereços da internet?|World Wide Web|World Web Wide|Web World Wide|Wide World Web
+3|O que significa a sigla PDF?|Portable Document Format|Printed Document File|Public Data Format|Personal Document Folder
+3|O que significa USB?|Universal Serial Bus|United System Board|Universal Storage Box|User Serial Base
+3|O que significa GPS?|Sistema de Posicionamento Global|Guia de Percurso por Satélite|Sistema Geral de Ponteiros|Satélite de Pesquisa Geográfica
+2|O que significa IA, no mundo da tecnologia?|Inteligência Artificial|Internet Avançada|Interface Automática|Informação Aberta
+4|O que significa HTML, a linguagem das páginas da web?|Linguagem de Marcação de Hipertexto|Linguagem de Máquina de Alto Nível|Hiperligação de Texto e Mídia|Hospedagem de Textos em Modo Livre
+4|O que significa HTTP?|Protocolo de Transferência de Hipertexto|Hospedagem de Texto Transferível|Página de Texto de Alta Tecnologia|Protocolo de Transmissão de Hardware
+4|O que significa DNA?|Ácido desoxirribonucleico|Ácido dinucleico ativo|Ácido desoxirribonitrogenado|Ácido dinâmico nuclear
+4|O que significa LED?|Diodo Emissor de Luz|Lâmpada Elétrica Digital|Luz de Energia Duradoura|Lente de Emissão Direta
+5|De onde vem a palavra "laser"?|Sigla em inglês para amplificação da luz por emissão estimulada de radiação|Nome do cientista que o inventou|Palavra grega para "luz forte"|Marca de uma empresa de lâmpadas
+4|O que significa NASA?|Administração Nacional da Aeronáutica e Espaço|Agência Nacional de Satélites Americanos|Associação Norte-Americana de Astronomia|Núcleo Americano de Sondas Avançadas
+3|O que significa SMS, a mensagem de texto do celular?|Serviço de Mensagens Curtas|Sistema de Mensagens por Satélite|Sinal Móvel Seguro|Serviço de Mídia Social
+4|Em telas, o que significa HD?|Alta Definição|Disco Rígido|Hiper Digital|Densidade Alta
+4|Em informática, de onde vem a palavra "bit"?|Dígito binário|Byte interno|Bloco de informação total|Base de instrução técnica
+3|Quantos bits tem um byte?|8|4|10|16
+4|O que significa "QR" em QR Code?|Resposta rápida|Registro de qualidade|Quadro rápido|Leitor de consultas
+3|O que significa UTI, num hospital?|Unidade de Terapia Intensiva|Unidade de Tratamento Imediato|Unidade Técnica de Internação|Unidade de Transplantes e Infecções
+3|O que significa a sigla AIDS?|Síndrome da Imunodeficiência Adquirida|Ataque Infeccioso de Doenças Sanguíneas|Anticorpo Imune Deficiente Severo|Antígeno de Infecção Desconhecida
+4|O que significa a sigla HIV?|Vírus da Imunodeficiência Humana|Hepatite Infecciosa Viral|Hemácia Imune Variável|Herpes Intestinal Virótico
+4|O que significa ONG?|Organização Não Governamental|Órgão Nacional de Gestão|Organização Nacional Geral|Ordem Nova de Governo
+4|O que significa Embrapa, a empresa brasileira de pesquisa?|Empresa Brasileira de Pesquisa Agropecuária|Empresa Brasileira de Pesquisa Aeroespacial|Escritório Brasileiro de Patentes|Empresa Brasileira de Produtos Agrícolas
+4|O que significa Inpe, que acompanha o desmatamento por satélite?|Instituto Nacional de Pesquisas Espaciais|Instituto Nacional de Proteção Ecológica|Inspetoria Nacional de Parques Estaduais|Instituto de Previsão Estatística
+4|O que significa a sigla SI, das unidades de medida?|Sistema Internacional de Unidades|Sistema Inglês|Sistema Industrial|Sistema Imperial
+3|Em tecnologia, o que significa "app"?|Aplicativo|Aparelho|Apresentação|Aprovação
+4|O que significa VPN?|Rede Privada Virtual|Vídeo em Primeiro Nível|Versão Pública Nova|Via de Pacotes Numerados
+4|O que significa a sigla 5G, nas redes de celular?|Quinta geração|Cinco gigabytes|Cinco antenas|Quinta galáxia
+
+@tema tecnologia
+2|Quem fundou a Microsoft ao lado de Paul Allen?|Bill Gates|Steve Jobs|Mark Zuckerberg|Larry Page
+2|Quem fundou a Apple ao lado de Steve Wozniak?|Steve Jobs|Bill Gates|Elon Musk|Jeff Bezos
+3|Quem criou o Facebook?|Mark Zuckerberg|Jack Dorsey|Larry Page|Evan Spiegel
+3|Quem fundou a Amazon?|Jeff Bezos|Elon Musk|Bill Gates|Larry Ellison
+3|Quem fundou o Google?|Larry Page e Sergey Brin|Bill Gates e Paul Allen|Steve Jobs e Steve Wozniak|Mark Zuckerberg e Eduardo Saverin
+4|Qual brasileiro foi um dos cofundadores do Facebook?|Eduardo Saverin|Jorge Paulo Lemann|David Vélez|Marcos Galperin
+3|Qual empresa fabrica o iPhone?|Apple|Samsung|Google|Microsoft
+3|Qual empresa desenvolve o sistema Android?|Google|Apple|Microsoft|Samsung
+3|Qual empresa sul-coreana fabrica os celulares Galaxy?|Samsung|LG|Sony|Huawei
+3|Qual empresa criou o Windows?|Microsoft|Apple|IBM|Intel
+3|De qual país é a Sony?|Japão|Coreia do Sul|China|Estados Unidos
+3|De qual país é a Nokia?|Finlândia|Suécia|Japão|Alemanha
+3|Qual empresa é dona do WhatsApp e do Instagram?|Meta|Google|Microsoft|Apple
+3|Qual empresa de Elon Musk fabrica carros elétricos?|Tesla|SpaceX|Neuralink|Rivian
+3|Qual empresa de Elon Musk lança foguetes?|SpaceX|Tesla|Blue Origin|Virgin Galactic
+3|Qual rede social tinha um passarinho azul como símbolo e hoje se chama X?|Twitter|Facebook|Threads|Bluesky
+3|Qual empresa criou o ChatGPT?|OpenAI|Google|Meta|Microsoft
+3|Qual empresa chinesa é dona do TikTok?|ByteDance|Tencent|Alibaba|Huawei
+3|Qual site de vídeos foi comprado pelo Google em 2006?|YouTube|Vimeo|Netflix|Twitch
+3|Qual empresa começou alugando DVDs pelo correio e virou um serviço de streaming?|Netflix|Amazon|Disney|Spotify
+3|Qual serviço de músicas por streaming nasceu na Suécia?|Spotify|Deezer|Apple Music|Tidal
+4|Qual empresa americana fabrica processadores e tem o nome que vem de "Integrated Electronics"?|Intel|AMD|Nvidia|Qualcomm
+4|Qual empresa brasileira fabrica aviões e é uma das maiores do mundo no setor?|Embraer|Petrobras|Vale|WEG
+4|Qual linguagem de programação tem o nome de uma cobra?|Python|Java|Ruby|C
+4|A linguagem de programação Lua foi criada em qual país?|Brasil|Japão|Estados Unidos|Portugal
+3|Qual matemático britânico ajudou a decifrar a máquina Enigma na Segunda Guerra?|Alan Turing|Charles Babbage|Isaac Newton|John Nash
+4|Quem é considerada a primeira programadora da história?|Ada Lovelace|Grace Hopper|Marie Curie|Hedy Lamarr
+3|O que é "hardware"?|A parte física do computador|Os programas|A internet|O antivírus
+3|O que é um navegador de internet?|Programa para abrir sites|Peça do processador|Tipo de vírus|Cabo de rede
+5|Qual foi o primeiro computador eletrônico de uso geral, de 1946?|ENIAC|Apple I|IBM PC|Colossus
+3|Em que ano foi lançado o primeiro iPhone?|2007|2004|2010|2001
+2|O que significa o "e" de "e-mail"?|Eletrônico|Enviado|Externo|Expresso
+4|Quem inventou a World Wide Web?|Tim Berners-Lee|Bill Gates|Vint Cerf|Steve Jobs
+3|Qual sistema operacional de código aberto foi criado por Linus Torvalds?|Linux|Windows|macOS|DOS
+3|O pinguim Tux é o mascote de qual sistema?|Linux|Windows|Android|macOS
+3|O que é um "vírus de computador"?|Um programa que se espalha e causa danos|Um defeito na tela|Uma peça queimada|Poeira no teclado
+3|O que é "phishing"?|Golpe que imita sites ou mensagens para roubar dados|Um tipo de jogo|Uma marca de roteador|Pescaria pela internet
+3|Qual unidade é maior: um gigabyte ou um megabyte?|Gigabyte|Megabyte|São iguais|Depende do computador
+3|Um terabyte tem cerca de quantos gigabytes?|1.000|100|10|1.000.000
+3|O que é a "nuvem", em tecnologia?|Servidores na internet que guardam dados|Uma rede sem fio|Um tipo de vírus|O céu visto do satélite
+3|Como se chama o endereço numérico de um aparelho na internet?|Endereço IP|CEP|URL|E-mail
+3|Qual tecla do teclado apaga o caractere à esquerda do cursor?|Backspace|Delete|Tab|Esc
+3|Qual é o atalho mais comum para copiar no computador?|Ctrl + C|Ctrl + V|Ctrl + X|Ctrl + Z
+3|Qual é o atalho mais comum para desfazer no computador?|Ctrl + Z|Ctrl + Y|Ctrl + D|Ctrl + U
+4|Qual empresa criou o jogo e o personagem Pac-Man?|Namco|Nintendo|Atari|Sega
+4|Qual foi o primeiro satélite artificial, lançado pela União Soviética em 1957?|Sputnik|Apollo|Vostok|Hubble
+
+@tema invencoes
+3|Quem é lembrado como inventor da lâmpada elétrica, em 1879?|Thomas Edison|Nikola Tesla|Benjamin Franklin|Alexander Graham Bell
+3|A quem se atribui a invenção do telefone?|Alexander Graham Bell|Thomas Edison|Guglielmo Marconi|Samuel Morse
+3|Qual brasileiro é considerado no Brasil o pai da aviação?|Santos Dumont|Bartolomeu de Gusmão|Carlos Chagas|Oswaldo Cruz
+3|Qual era o nome do avião de Santos Dumont que voou em Paris em 1906?|14-Bis|Demoiselle|Spirit of St. Louis|Flyer
+3|Quais irmãos americanos disputam com Santos Dumont o título de inventores do avião?|Irmãos Wright|Irmãos Lumière|Irmãos Grimm|Irmãos Marx
+3|Os irmãos Lumière são famosos por qual invenção?|Cinematógrafo (cinema)|Avião|Lâmpada|Fotografia colorida
+3|Quem inventou a prensa de tipos móveis na Europa, por volta de 1450?|Johannes Gutenberg|Leonardo da Vinci|Galileu Galilei|Martinho Lutero
+3|Quem descobriu a penicilina, o primeiro antibiótico?|Alexander Fleming|Louis Pasteur|Robert Koch|Edward Jenner
+3|Quem criou a primeira vacina, contra a varíola?|Edward Jenner|Louis Pasteur|Alexander Fleming|Oswaldo Cruz
+3|Qual cientista francês dá nome à pasteurização?|Louis Pasteur|Marie Curie|Antoine Lavoisier|René Descartes
+3|Qual médico liderou a vacinação obrigatória no Rio em 1904, que gerou a Revolta da Vacina?|Oswaldo Cruz|Carlos Chagas|Vital Brazil|Adolfo Lutz
+4|Qual cientista brasileiro descobriu a doença transmitida pelo barbeiro, que leva seu nome?|Carlos Chagas|Oswaldo Cruz|Vital Brazil|Adolfo Lutz
+4|Qual cientista brasileiro criou o soro contra picadas de cobra?|Vital Brazil|Carlos Chagas|Oswaldo Cruz|César Lattes
+4|Qual físico brasileiro ajudou a descobrir a partícula méson pi, em 1947?|César Lattes|Mário Schenberg|José Leite Lopes|Marcelo Gleiser
+3|Quem inventou o para-raios?|Benjamin Franklin|Thomas Edison|Nikola Tesla|Isaac Newton
+3|Quem inventou o rádio, segundo a versão mais conhecida?|Guglielmo Marconi|Thomas Edison|Alexander Graham Bell|Nikola Tesla
+4|Qual padre brasileiro fez demonstrações de um balão de ar quente em Lisboa, em 1709?|Bartolomeu de Gusmão|Padre Cícero|Padre Anchieta|Padre Landell de Moura
+4|Qual padre gaúcho fez experiências pioneiras de transmissão de voz sem fio no fim do século XIX?|Landell de Moura|Bartolomeu de Gusmão|Padre Cícero|José de Anchieta
+3|Qual povo antigo inventou o papel?|Chineses|Egípcios|Gregos|Romanos
+3|Qual povo antigo inventou a pólvora?|Chineses|Árabes|Gregos|Mongóis
+3|O que James Watt aperfeiçoou, impulsionando a Revolução Industrial?|Máquina a vapor|Tear mecânico|Locomotiva elétrica|Telégrafo
+4|Quem inventou o telégrafo elétrico e o código de pontos e traços?|Samuel Morse|Alexander Graham Bell|Guglielmo Marconi|Thomas Edison
+4|Quem inventou a dinamite e depois criou um prêmio famoso?|Alfred Nobel|Thomas Edison|Albert Einstein|Robert Oppenheimer
+3|O cientista Galileu Galilei é famoso por apontar qual instrumento para o céu?|Telescópio|Microscópio|Bússola|Barômetro
+3|Para que serve uma bússola?|Indicar o norte|Medir a temperatura|Medir o tempo|Pesar objetos
+3|O que é o "Velcro", inventado copiando uma planta?|Fecho de ganchos e laços|Um tipo de cola|Um tecido à prova d'água|Um plástico flexível
+
+@tema fisica
+3|Quem formulou a teoria da relatividade?|Albert Einstein|Isaac Newton|Niels Bohr|Stephen Hawking
+3|Qual cientista teria pensado na gravidade ao ver uma maçã cair?|Isaac Newton|Galileu Galilei|Albert Einstein|Johannes Kepler
+3|Qual é a velocidade aproximada da luz no vácuo?|300 mil km/s|30 mil km/s|3 mil km/s|3 milhões de km/s
+3|Qual é a fórmula mais famosa de Einstein?|E = mc²|F = ma|a² + b² = c²|PV = nRT
+3|Qual é a unidade de medida da força no Sistema Internacional?|Newton|Joule|Watt|Pascal
+3|Qual é a unidade de medida da potência?|Watt|Volt|Ohm|Newton
+3|Qual é a unidade de medida da resistência elétrica?|Ohm|Ampere|Volt|Watt
+3|Qual é a unidade de medida da corrente elétrica?|Ampere|Volt|Ohm|Coulomb
+3|Qual é a unidade de medida da energia no Sistema Internacional?|Joule|Watt|Newton|Caloria
+3|Qual é a unidade de medida da tensão elétrica?|Volt|Ampere|Watt|Ohm
+3|Qual é a unidade de medida da frequência?|Hertz|Decibel|Lúmen|Kelvin
+3|Qual unidade mede a intensidade do som?|Decibel|Hertz|Watt|Lux
+2|A que temperatura a água ferve ao nível do mar?|100 °C|90 °C|120 °C|80 °C
+2|A que temperatura a água congela?|0 °C|-10 °C|4 °C|10 °C
+4|Qual é a temperatura do zero absoluto, aproximadamente?|-273 °C|-100 °C|-459 °C|-200 °C
+3|Em qual meio o som viaja mais rápido?|Sólidos|Ar|Vácuo|Gases
+3|O som consegue se propagar no vácuo do espaço?|Não|Sim|Só de dia|Só perto do Sol
+3|O que mede um termômetro?|Temperatura|Pressão|Umidade|Velocidade
+3|O que mede um barômetro?|Pressão atmosférica|Temperatura|Altitude|Vento
+3|O que registra um sismógrafo?|Terremotos|Chuva|Ventos|Marés
+3|Qual é a escala mais conhecida para a magnitude dos terremotos?|Richter|Celsius|Beaufort|Mohs
+4|A escala de Mohs mede o quê nos minerais?|Dureza|Densidade|Brilho|Peso
+3|Qual é o mineral mais duro da natureza?|Diamante|Quartzo|Ferro|Granito
+3|Quais são as cores primárias da luz?|Vermelho, verde e azul|Vermelho, amarelo e azul|Ciano, magenta e amarelo|Branco, preto e cinza
+3|Qual fenômeno separa a luz branca em cores no arco-íris?|Refração da luz|Reflexão total|Evaporação|Absorção
+3|Por que o céu é azul durante o dia?|O ar espalha mais a luz azul do Sol|Reflete o azul dos oceanos|O Sol é azul|Há vapor azul no ar
+3|O que é um ano-luz?|Uma distância|Um tempo|Uma velocidade|Uma energia
+3|Que força mantém os planetas girando em volta do Sol?|Gravidade|Magnetismo|Atrito|Força elétrica
+3|Qual cientista estudou a queda dos corpos e dizia que a Terra gira em volta do Sol?|Galileu Galilei|Ptolomeu|Aristóteles|Tycho Brahe
+3|O que um ímã atrai?|Ferro|Plástico|Madeira|Vidro
+3|O que acontece com os polos iguais de dois ímãs?|Se repelem|Se atraem|Grudam|Esquentam
+4|Qual físico britânico, que usava cadeira de rodas, estudou os buracos negros?|Stephen Hawking|Isaac Newton|Paul Dirac|Peter Higgs
+4|Como se chama a partícula descoberta em 2012, conhecida como "partícula de Deus"?|Bóson de Higgs|Quark|Neutrino|Elétron
+3|Qual é a carga elétrica do elétron?|Negativa|Positiva|Neutra|Variável
+3|Qual partícula do átomo não tem carga elétrica?|Nêutron|Próton|Elétron|Íon
+3|O que é energia renovável?|A que vem de fontes que não se esgotam, como sol e vento|A que vem do petróleo|A que se guarda em pilhas|A que vem do carvão
+3|Que tipo de energia as placas solares produzem?|Elétrica|Nuclear|Química|Térmica de carvão
+4|Qual é a maior usina hidrelétrica do Brasil em produção de energia, na fronteira com o Paraguai?|Itaipu|Belo Monte|Tucuruí|Furnas
+
+@tema quimica
+2|Qual é a fórmula química da água?|H₂O|CO₂|O₂|H₂O₂
+3|Qual é a fórmula do gás carbônico?|CO₂|CO|H₂O|CH₄
+2|Qual gás precisamos respirar para viver?|Oxigênio|Nitrogênio|Gás carbônico|Hélio
+3|Qual gás é o mais abundante no ar?|Nitrogênio|Oxigênio|Gás carbônico|Argônio
+3|Qual gás deixa os balões de festa flutuando?|Hélio|Oxigênio|Nitrogênio|Gás carbônico
+3|Qual é o elemento químico mais abundante do universo?|Hidrogênio|Hélio|Oxigênio|Carbono
+3|Qual metal fica líquido na temperatura ambiente?|Mercúrio|Chumbo|Alumínio|Estanho
+3|O sal de cozinha é formado por sódio e qual outro elemento?|Cloro|Potássio|Iodo|Flúor
+3|Qual é o pH da água pura?|7|0|14|5
+3|Um pH abaixo de 7 indica uma substância...|Ácida|Básica|Neutra|Salgada
+3|Quem organizou a tabela periódica em 1869?|Dmitri Mendeleiev|Antoine Lavoisier|John Dalton|Marie Curie
+3|Quem disse "Na natureza nada se cria, nada se perde, tudo se transforma"?|Antoine Lavoisier|Isaac Newton|Charles Darwin|Albert Einstein
+3|Quem foi a primeira pessoa a ganhar dois prêmios Nobel?|Marie Curie|Albert Einstein|Linus Pauling|Niels Bohr
+4|De quais gases é feito principalmente o gás de cozinha (GLP)?|Propano e butano|Metano e etano|Hidrogênio e hélio|Oxigênio e nitrogênio
+3|O ozônio é formado por quantos átomos de oxigênio?|3|2|1|4
+3|O que é a ferrugem?|Óxido de ferro|Carbonato de ferro|Sal de cobre|Um fungo do metal
+3|Qual elemento é a base da vida na Terra, presente em todas as moléculas orgânicas?|Carbono|Silício|Ferro|Enxofre
+3|O diamante e o grafite do lápis são feitos de qual elemento?|Carbono|Silício|Chumbo|Ferro
+3|Qual metal é o melhor condutor de eletricidade?|Prata|Ouro|Cobre|Alumínio
+3|Qual metal é mais usado nos fios elétricos das casas?|Cobre|Prata|Ouro|Ferro
+3|O bronze é uma liga de cobre com qual metal?|Estanho|Zinco|Ferro|Prata
+3|O latão é uma liga de cobre com qual metal?|Zinco|Estanho|Ouro|Chumbo
+3|O aço é feito principalmente de ferro e qual elemento?|Carbono|Cobre|Alumínio|Estanho
+3|Qual é o estado físico da água no gelo?|Sólido|Líquido|Gasoso|Plasma
+3|Como se chama a passagem do estado sólido direto para o gasoso, como na naftalina?|Sublimação|Evaporação|Condensação|Fusão
+3|Como se chama a passagem da água do estado gasoso para o líquido?|Condensação|Evaporação|Solidificação|Sublimação
+3|O que é o gelo-seco?|Gás carbônico congelado|Água muito gelada|Nitrogênio sólido|Gelo sem sal
+3|Qual gás é o principal responsável pelo efeito estufa causado pelo ser humano?|Gás carbônico|Oxigênio|Hélio|Nitrogênio
+3|Qual camada da atmosfera protege a Terra dos raios ultravioleta?|Camada de ozônio|Troposfera|Ionosfera|Exosfera
+4|Qual é o símbolo químico do ouro?|Au|Ag|Or|Go
+4|Qual é o símbolo químico da prata?|Ag|Au|Pt|Pr
+4|Qual é o símbolo químico do sódio?|Na|So|Sd|S
+4|Qual é o símbolo químico do potássio?|K|P|Po|Pt
+4|Qual é o símbolo químico do ferro?|Fe|Fr|F|Ir
+
+@tema biologia
+3|Qual é o maior órgão do corpo humano?|Pele|Fígado|Intestino|Pulmão
+3|Quantos ossos tem o corpo humano adulto?|206|186|226|300
+3|Qual é o maior osso do corpo humano?|Fêmur|Tíbia|Úmero|Rádio|Osso da coxa
+3|Qual é o menor osso do corpo humano, que fica no ouvido?|Estribo|Fêmur|Falange|Rótula
+3|Quantos dentes tem um adulto, contando os sisos?|32|28|30|36
+2|Qual órgão bombeia o sangue pelo corpo?|Coração|Pulmão|Fígado|Rim
+3|Qual tipo sanguíneo é chamado de doador universal?|O negativo|AB positivo|A positivo|B negativo
+3|Qual tipo sanguíneo é chamado de receptor universal?|AB positivo|O negativo|A negativo|B positivo
+3|Qual órgão produz a bile?|Fígado|Vesícula biliar|Estômago|Pâncreas
+3|Qual órgão produz a insulina?|Pâncreas|Fígado|Rim|Tireoide
+3|Quantas cavidades (câmaras) tem o coração humano?|4|2|3|6
+3|Qual molécula guarda a informação genética?|DNA|ATP|Glicose|Hemoglobina
+3|Quem propôs a teoria da evolução pela seleção natural?|Charles Darwin|Gregor Mendel|Louis Pasteur|Jean-Baptiste Lamarck
+3|Quem é considerado o pai da genética, por estudar ervilhas?|Gregor Mendel|Charles Darwin|James Watson|Francis Crick
+3|Qual parte da célula é a "usina de energia"?|Mitocôndria|Núcleo|Ribossomo|Lisossomo
+3|Como as plantas produzem o próprio alimento usando a luz do Sol?|Fotossíntese|Respiração|Fermentação|Transpiração|Processo das plantas com luz
+3|Qual pigmento dá a cor verde às plantas?|Clorofila|Caroteno|Melanina|Hemoglobina|Pigmento verde das plantas
+3|Qual pigmento dá cor à pele humana?|Melanina|Clorofila|Hemoglobina|Queratina
+3|Qual proteína do sangue carrega o oxigênio?|Hemoglobina|Insulina|Queratina|Colágeno
+3|Quantos cromossomos tem uma célula humana comum?|46|23|48|64
+3|Qual órgão do corpo filtra o sangue e produz a urina?|Rim|Fígado|Bexiga|Baço
+3|Em qual parte do corpo fica o cerebelo?|Cabeça|Peito|Barriga|Pescoço
+3|Qual destes é um sentido do corpo humano?|Olfato|Equilíbrio de ácidos|Digestão|Circulação
+3|O que é um vírus?|Um agente infeccioso que só se multiplica dentro de células|Um tipo de bactéria grande|Um fungo microscópico|Uma célula sem núcleo
+3|Antibióticos combatem o quê?|Bactérias|Vírus|Alergias|Dores de cabeça
+3|Qual é o maior animal do mundo?|Baleia-azul|Elefante-africano|Tubarão-baleia|Girafa
+3|Qual é o maior peixe do mundo?|Tubarão-baleia|Baleia-azul|Tubarão-branco|Pirarucu
+3|Qual é o animal terrestre mais rápido?|Guepardo|Leão|Antílope|Cavalo
+3|Qual é a ave mais rápida do mundo, em mergulho?|Falcão-peregrino|Águia-real|Andorinhão|Avestruz
+3|Qual é a maior ave do mundo?|Avestruz|Ema|Condor|Albatroz
+3|O morcego é que tipo de animal?|Mamífero|Ave|Réptil|Inseto
+3|A baleia é que tipo de animal?|Mamífero|Peixe|Réptil|Anfíbio
+3|O sapo é que tipo de animal?|Anfíbio|Réptil|Mamífero|Peixe
+3|O jacaré é que tipo de animal?|Réptil|Anfíbio|Mamífero|Peixe
+3|Quantas patas tem uma aranha?|8|6|10|4
+3|Quantas patas tem um inseto?|6|8|4|10
+3|A aranha é um inseto?|Não, é um aracnídeo|Sim|Só as pequenas|Só as venenosas
+3|Qual é o único mamífero que voa de verdade?|Morcego|Esquilo-voador|Colugo|Pinguim
+3|O ornitorrinco é um mamífero que...|Bota ovos|Voa|Vive só no mar|Tem penas
+3|Qual destes animais é um marsupial?|Canguru|Urso-panda|Preguiça|Tatu
+3|Qual marsupial é comum no Brasil e às vezes aparece nos quintais?|Gambá|Tatu|Quati|Ouriço
+3|O que o urso-panda come principalmente?|Bambu|Peixe|Mel|Frutas
+3|Qual é o maior felino do mundo?|Tigre|Leão|Onça-pintada|Leopardo
+3|Qual é o maior felino das Américas?|Onça-pintada|Puma|Jaguatirica|Lince
+3|Qual é o maior roedor do mundo, comum no Brasil?|Capivara|Paca|Cutia|Castor|Maior roedor do mundo
+3|Qual é o nome da transformação da lagarta em borboleta?|Metamorfose|Mitose|Mutação|Fotossíntese|Mudança da lagarta em borboleta
+3|O girino é a fase jovem de qual animal?|Sapo|Peixe|Lagarto|Libélula
+3|Qual vitamina o corpo produz com a luz do Sol?|Vitamina D|Vitamina C|Vitamina A|Vitamina B12
+3|A falta de qual vitamina causa o escorbuto?|Vitamina C|Vitamina D|Vitamina A|Vitamina K
+3|O que as abelhas produzem com o néctar das flores?|Mel|Cera|Pólen|Geleia real
+3|Qual animal brasileiro, símbolo da preservação, tem pelo cor de laranja?|Mico-leão-dourado|Onça-pintada|Arara-azul|Lobo-guará
+3|Qual é a maior serpente do Brasil?|Sucuri|Jiboia|Cascavel|Jararaca
+3|Qual cobra brasileira tem um chocalho na ponta da cauda?|Cascavel|Jararaca|Coral|Sucuri|Cobra do chocalho
+3|Qual é o maior peixe de água doce do Brasil, da Amazônia?|Pirarucu|Tucunaré|Dourado|Tambaqui|Peixe gigante da Amazônia
+3|Qual animal é o tamanduá-bandeira?|Mamífero que come formigas|Ave do cerrado|Réptil do pantanal|Peixe de rio
+3|Qual animal muda de cor para se camuflar?|Camaleão|Iguana|Tartaruga|Lagartixa|Lagarto que muda de cor
+3|Qual animal é conhecido por "chorar" quando come, segundo o ditado?|Crocodilo|Elefante|Hiena|Leão
+3|Quantos estômagos (compartimentos) tem o estômago de uma vaca?|4|1|2|3
+3|O que é um animal herbívoro?|Que come plantas|Que come carne|Que come de tudo|Que come insetos
+3|O que é um animal onívoro?|Que come plantas e animais|Que só come plantas|Que só come carne|Que come insetos
+3|As tartarugas marinhas botam ovos onde?|Na areia da praia|No fundo do mar|Em ninhos nas árvores|Em cavernas
+4|Qual projeto brasileiro protege as tartarugas marinhas?|Tamar|Mamirauá|Arara Azul|Peixe-Boi
+3|Qual é a árvore símbolo do Brasil?|Pau-brasil|Ipê-amarelo|Jequitibá|Araucária
+3|Qual árvore do Sul do Brasil tem o pinhão como semente?|Araucária|Ipê|Jacarandá|Seringueira
+3|De qual árvore se extrai o látex usado na borracha natural?|Seringueira|Pau-brasil|Mogno|Castanheira
+3|Qual fruta amazônica, muito energética, é servida na tigela no Brasil todo?|Açaí|Cupuaçu|Bacuri|Graviola
+
+@tema astronomia
+3|Qual é o planeta mais próximo do Sol?|Mercúrio|Vênus|Terra|Marte|Planeta mais perto do Sol
+3|Qual é o maior planeta do Sistema Solar?|Júpiter|Saturno|Netuno|Urano|Maior planeta
+3|Qual planeta é conhecido como "Planeta Vermelho"?|Marte|Vênus|Júpiter|Mercúrio|Planeta vermelho
+3|Qual planeta tem os anéis mais visíveis?|Saturno|Júpiter|Urano|Netuno|Planeta dos anéis
+3|Quantos planetas tem o Sistema Solar?|8|9|7|10
+3|Qual astro deixou de ser considerado planeta em 2006?|Plutão|Ceres|Éris|Netuno
+3|Qual é o planeta mais quente do Sistema Solar?|Vênus|Mercúrio|Marte|Júpiter
+3|Qual é a estrela mais próxima da Terra?|O Sol|Proxima Centauri|Sirius|Alfa Centauri
+3|Qual é o nome da nossa galáxia?|Via Láctea|Andrômeda|Triângulo|Grande Nuvem de Magalhães
+3|Quanto tempo a luz do Sol leva para chegar à Terra, aproximadamente?|8 minutos|8 segundos|1 hora|1 dia
+3|Quem foi o primeiro ser humano a ir ao espaço, em 1961?|Iuri Gagarin|Neil Armstrong|Buzz Aldrin|John Glenn
+3|Qual frase Iuri Gagarin teria dito ao ver a Terra do espaço?|A Terra é azul|Houston, temos um problema|Um pequeno passo para o homem|Eu vim em paz
+3|Quem foi o primeiro homem a pisar na Lua?|Neil Armstrong|Buzz Aldrin|Iuri Gagarin|Michael Collins
+3|Em que ano o homem pisou na Lua pela primeira vez?|1969|1959|1972|1965
+3|Qual foi a missão que levou os primeiros homens à Lua?|Apollo 11|Apollo 13|Gemini 4|Vostok 1
+3|Quem foi a primeira mulher a ir ao espaço?|Valentina Tereshkova|Sally Ride|Mae Jemison|Christa McAuliffe
+3|Quem foi o primeiro astronauta brasileiro, em 2006?|Marcos Pontes|César Lattes|Santos Dumont|Oswaldo Cruz
+3|Qual telescópio espacial, lançado em 2021, sucedeu o Hubble?|James Webb|Kepler|Spitzer|Chandra
+3|Quanto tempo a Terra leva para dar uma volta em torno do Sol?|Cerca de 365 dias|24 horas|30 dias|10 anos
+3|Como se chama o giro da Terra em torno do próprio eixo, que faz o dia e a noite?|Rotação|Translação|Precessão|Órbita
+3|Como se chama o movimento da Terra em volta do Sol?|Translação|Rotação|Nutação|Eclipse
+3|O que causa as marés nos oceanos?|A atração da Lua e do Sol|O vento|Os terremotos|O calor do Sol
+3|O que acontece num eclipse solar?|A Lua passa na frente do Sol|A Terra passa na frente do Sol|O Sol se apaga|A Lua some
+3|O que acontece num eclipse lunar?|A sombra da Terra cobre a Lua|A Lua passa na frente do Sol|O Sol cobre a Lua|A Lua fica nova
+3|Como se chama a Lua quando está toda iluminada?|Lua cheia|Lua nova|Quarto crescente|Quarto minguante
+3|Qual planeta gira "deitado", com o eixo quase paralelo à órbita?|Urano|Netuno|Saturno|Marte
+3|Qual planeta tem uma enorme tempestade chamada Grande Mancha Vermelha?|Júpiter|Marte|Saturno|Netuno
+3|Qual é o planeta mais distante do Sol?|Netuno|Urano|Plutão|Saturno
+3|Qual é o nome do cinturão de asteroides entre Marte e Júpiter?|Cinturão principal de asteroides|Cinturão de Kuiper|Nuvem de Oort|Anel de Saturno
+3|O que é uma estrela cadente?|Um meteoro queimando na atmosfera|Uma estrela caindo na Terra|Um planeta passando|Um satélite apagando
+3|O que é um cometa?|Um corpo de gelo e poeira que forma cauda perto do Sol|Uma estrela morta|Um planeta anão|Um tipo de galáxia
+4|Qual cometa famoso passa perto da Terra a cada 75 ou 76 anos?|Cometa Halley|Cometa Hale-Bopp|Cometa Shoemaker-Levy|Cometa Encke
+3|Qual constelação é muito usada no hemisfério Sul para achar o Sul?|Cruzeiro do Sul|Ursa Maior|Órion|Escorpião
+3|Qual planeta é chamado de "estrela-d'alva" por brilhar ao amanhecer?|Vênus|Marte|Júpiter|Mercúrio
+4|Qual robô da NASA está explorando Marte desde 2021?|Perseverance|Curiosity|Spirit|Sojourner
+3|Qual estação espacial está em órbita desde 1998, com astronautas de vários países?|Estação Espacial Internacional (ISS)|Mir|Skylab|Salyut 1
+3|Como se chama um buraco no espaço com gravidade tão forte que nem a luz escapa?|Buraco negro|Nebulosa|Quasar|Pulsar
+
+@tema matematica
+2|Quanto vale aproximadamente o número pi?|3,14|2,71|1,61|3,41
+2|Quantos lados tem um hexágono?|6|5|7|8
+2|Quantos lados tem um pentágono?|5|6|4|8
+3|Quantos lados tem um octógono?|8|6|10|12
+3|Quanto é a soma dos ângulos internos de um triângulo?|180 graus|360 graus|90 graus|270 graus
+3|Quanto mede um ângulo reto?|90 graus|180 graus|45 graus|60 graus
+3|Qual é a raiz quadrada de 144?|12|14|11|16
+3|Qual destes é um número primo?|17|21|27|33
+3|Qual é o único número primo par?|2|4|0|6
+3|Quem é famoso pelo teorema do triângulo retângulo: a² + b² = c²?|Pitágoras|Euclides|Tales|Arquimedes
+3|Qual cientista grego gritou "Eureka!" na banheira?|Arquimedes|Pitágoras|Euclides|Aristóteles
+3|Quantos zeros tem um milhão?|6|5|7|9
+3|Quantos zeros tem um bilhão?|9|6|12|8
+3|Em algarismos romanos, que número é o "X"?|10|5|50|100
+4|Em algarismos romanos, que número é o "L"?|50|100|500|1000
+4|Em algarismos romanos, que número é o "M"?|1000|500|100|1.000.000
+4|Em algarismos romanos, como se escreve 9?|IX|VIIII|XI|IIX
+3|Qual é o resultado de 7 × 8?|56|54|48|64
+3|Quanto é 15% de 200?|30|15|20|45
+3|Quanto é 2 elevado a 10?|1.024|1.000|512|2.048
+3|Qual figura tem todos os pontos à mesma distância do centro?|Círculo|Quadrado|Triângulo|Hexágono
+3|Como se chama um triângulo com os três lados iguais?|Equilátero|Isósceles|Escaleno|Retângulo
+3|Quantas faces tem um cubo?|6|4|8|12
+3|Quantas arestas tem um cubo?|12|8|6|10
+4|Qual é a sequência em que cada número é a soma dos dois anteriores (1, 1, 2, 3, 5, 8...)?|Fibonacci|Pascal|Euler|Gauss
+4|Quem criou o plano cartesiano, com os eixos x e y?|René Descartes|Isaac Newton|Blaise Pascal|Pierre de Fermat
+3|Qual é o número que, multiplicado por qualquer outro, dá o próprio outro número?|1|0|10|2
+3|Qual é o resultado de qualquer número multiplicado por zero?|0|1|O próprio número|Não existe
+4|Os algarismos que usamos (0 a 9) são chamados de quê?|Indo-arábicos|Romanos|Gregos|Maias

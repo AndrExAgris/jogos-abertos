@@ -2,7 +2,8 @@
   import { onDestroy, onMount } from 'svelte';
   import { Icone } from '@ja/ui';
   import { sementeNova } from '@ja/contrato';
-  import { CATEGORIAS, aleatorioDaRodada, sortearPergunta, type Pergunta } from '@ja/nucleo-trivia/perguntas';
+  import { CATEGORIAS, aleatorioDaRodada, chave, sortearPergunta, type Pergunta } from '@ja/nucleo-trivia/perguntas';
+  import ImagemPergunta from './ImagemPergunta.svelte';
   import Casca from '../../lib/jogo/Casca.svelte';
   import Jogadores from '../../lib/jogo/Jogadores.svelte';
   import { Sessao } from '../../lib/jogo/sessao.svelte.ts';
@@ -30,7 +31,7 @@
   const COMO = [
     'Escolha uma categoria e responda. Cada acerto vale 1 ponto. Com três erros, o jogo acaba.',
     'Com dois ou mais jogadores, cada um joga na sua vez, passando o aparelho. Quem erra três vezes sai; quando todos saem, ganha quem fez mais pontos.',
-    'As perguntas são montadas a partir do Wikidata.',
+    'As perguntas misturam modelos com dados do Wikidata e um banco escrito à mão, com temas variados; algumas mostram uma bandeira ou o contorno de um país. Variedades também traz perguntas fáceis das outras categorias.',
   ];
   const ICONES: Record<string, string> = {
     Mundo: 'world', 'Artes e Entretenimento': 'movie', Sociedade: 'users', 'Ciência e Tecnologia': 'flask', 'Esporte e Lazer': 'ball-football', Variedades: 'sparkles',
@@ -49,7 +50,7 @@
     if (!s.estado || !s.quebra) return;
     const q = sortearPergunta(c, s.estado.usadas, aleatorioDaRodada(s.quebra.semente, s.estado.usadas.length));
     if (!q) { avisar('As perguntas dessa categoria acabaram. Escolha outra.'); return; }
-    s.mudar({ ...s.estado, categoria: c, pergunta: q, usadas: [...s.estado.usadas, q.p] }, false);
+    s.mudar({ ...s.estado, categoria: c, pergunta: q, usadas: [...s.estado.usadas, chave(q)] }, false);
   }
   function responder(op: string) {
     if (!s.estado || !s.estado.pergunta || s.estado.resposta) return;
@@ -100,6 +101,7 @@
       <div class="ja-pergunta">
         <span class="etiqueta" data-cor="secundaria">{e.categoria}</span>
         <p class="ja-pergunta-texto">{e.pergunta.p}</p>
+        {#if e.pergunta.img}<ImagemPergunta tipo={e.pergunta.img.tipo} pais={e.pergunta.img.pais} />{/if}
       </div>
       <div class="ja-opcoes-quiz">
         {#each e.pergunta.opcoes as op (op)}

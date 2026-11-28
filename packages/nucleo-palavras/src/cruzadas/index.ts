@@ -1,12 +1,28 @@
 /*
  * Palavras Cruzadas em layout livre: a primeira palavra fica no meio e cada
  * nova palavra cruza uma letra de outra já posta, sem encostar de lado em
- * nenhuma. Dicas do Wikcionário (CC BY-SA). Respostas sem acento nem cedilha.
+ * nenhuma. Dicas do Wikcionário (CC BY-SA) e do banco de perguntas. Respostas sem acento nem cedilha.
  */
 import { criarAleatorio } from '@ja/contrato';
 import dados from '../../../../data/palavras/dicas-cc-by-sa.json';
+import conhecimento from '../../../../data/conhecimento/dicas-conhecimento.json';
 
-const LISTA = dados as [string, string][];
+/**
+ * Palavras comuns (ordem de frequência) com uma dica de conhecimento a cada quatro posições:
+ * capitais, planetas, personagens e afins entram já entre as primeiras e aparecem em toda grade.
+ */
+function misturar(comuns: [string, string][], extras: [string, string][]): [string, string][] {
+  const vistas = new Set(extras.map(([p]) => p));
+  const base = comuns.filter(([p]) => !vistas.has(p));
+  const r: [string, string][] = [];
+  let k = 0;
+  for (let i = 0; i < base.length; i++) {
+    r.push(base[i]);
+    if (i % 3 === 2 && k < extras.length) r.push(extras[k++]);
+  }
+  return r.concat(extras.slice(k));
+}
+const LISTA = misturar(dados as [string, string][], conhecimento as [string, string][]);
 
 export interface Entrada { palavra: string; dica: string; x: number; y: number; horizontal: boolean; numero: number }
 export interface Cruzada { largura: number; altura: number; entradas: Entrada[]; densa?: boolean }

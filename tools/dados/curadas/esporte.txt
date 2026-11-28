@@ -1,0 +1,186 @@
+# Perguntas escritas à mão: Esporte e Lazer (Copas, recordes, medalhistas, regras, clubes e jogos de mesa).
+# Formato: nota|pergunta|certa|errada|errada|errada|dica para cruzada (opcional)
+# Contagens de títulos que podem mudar vêm com "até 2022" (o banco não sabe o resultado da Copa de 2026).
+
+@tema copas
+2|Até a Copa de 2022, qual seleção tinha mais títulos da Copa do Mundo masculina?|Brasil|Alemanha|Itália|Argentina
+3|Até 2022, quantas Copas do Mundo o Brasil tinha ganhado?|5|4|6|3
+3|Até 2022, quantas Copas do Mundo a Argentina tinha ganhado?|3|2|4|1
+3|Até 2022, quantas Copas do Mundo a Alemanha tinha ganhado?|4|3|5|2
+3|Até 2022, quantas Copas do Mundo a Itália tinha ganhado?|4|3|2|5
+3|Até 2022, quantas Copas do Mundo a França tinha ganhado?|2|1|3|4
+4|Até 2022, quantas Copas do Mundo o Uruguai tinha ganhado?|2|1|3|0
+4|Qual destas seleções já foi campeã da Copa do Mundo?|Espanha|Holanda|Portugal|Croácia
+4|Qual destas seleções já perdeu três finais de Copa do Mundo e nunca ganhou?|Holanda|Portugal|Croácia|Bélgica
+3|Qual seleção ganhou a Copa do Mundo de 2022?|Argentina|França|Croácia|Marrocos
+3|Em qual país foi a Copa do Mundo de 2022?|Catar|Rússia|Emirados Árabes Unidos|Arábia Saudita
+3|Quais países sediaram juntos a Copa do Mundo de 2026?|Estados Unidos, Canadá e México|Espanha, Portugal e Marrocos|Argentina, Uruguai e Paraguai|Austrália e Nova Zelândia
+4|Quais países vão sediar juntos a Copa do Mundo de 2030 (além de jogos na América do Sul)?|Espanha, Portugal e Marrocos|Estados Unidos e Canadá|Arábia Saudita e Catar|Inglaterra e Escócia
+3|Em que ano o Brasil ganhou sua primeira Copa do Mundo?|1958|1962|1950|1970
+3|Em que ano o Brasil ganhou o tetracampeonato mundial?|1994|1998|1990|2002
+3|Em que ano o Brasil ganhou o pentacampeonato mundial?|2002|1994|2006|1998
+3|Quais países sediaram juntos a Copa do Mundo de 2002?|Coreia do Sul e Japão|Alemanha e Áustria|Estados Unidos e México|França e Bélgica
+3|Qual foi o placar da semifinal Brasil x Alemanha na Copa de 2014?|7 a 1 para a Alemanha|3 a 0 para a Alemanha|2 a 1 para o Brasil|5 a 0 para a Alemanha
+3|Em que ano o Brasil sediou a Copa do Mundo pela segunda vez?|2014|2010|1950|2018
+3|Como ficou conhecida a derrota do Brasil para o Uruguai na final da Copa de 1950, no Maracanã?|Maracanaço|Mineiraço|Tragédia do Sarriá|Jogo da Vergonha
+4|Até 2022, qual jogador era o maior artilheiro da história das Copas, com 16 gols?|Miroslav Klose|Ronaldo|Pelé|Gerd Müller
+4|Qual jogador francês fez 13 gols numa só Copa, em 1958, um recorde?|Just Fontaine|Michel Platini|Thierry Henry|Zinedine Zidane
+3|Qual jogador brasileiro é conhecido como "Rei do Futebol"?|Pelé|Garrincha|Zico|Ronaldo|Rei do futebol
+3|Quantas Copas do Mundo Pelé ganhou como jogador?|3|2|4|1
+3|Qual jogador brasileiro foi artilheiro da Copa de 2002 com 8 gols?|Ronaldo|Rivaldo|Ronaldinho|Romário
+3|Qual jogador brasileiro foi eleito o melhor da Copa de 1994?|Romário|Bebeto|Dunga|Ronaldo
+3|Quem era o capitão do Brasil no pentacampeonato de 2002?|Cafu|Ronaldo|Roberto Carlos|Rivaldo
+3|Qual jogador argentino é ídolo pelo "gol de mão" na Copa de 1986?|Diego Maradona|Lionel Messi|Gabriel Batistuta|Mario Kempes
+3|Qual jogador ganhou mais Bolas de Ouro?|Lionel Messi|Cristiano Ronaldo|Michel Platini|Johan Cruyff
+3|Qual jogador português é o maior artilheiro da história das seleções?|Cristiano Ronaldo|Eusébio|Luís Figo|Pauleta
+3|Qual brasileira foi eleita seis vezes a melhor jogadora do mundo pela FIFA?|Marta|Formiga|Cristiane|Sissi
+4|Qual país tem mais títulos da Copa do Mundo de futebol feminino?|Estados Unidos|Alemanha|Noruega|Japão
+4|Qual seleção ganhou a Copa do Mundo feminina de 2023?|Espanha|Inglaterra|Estados Unidos|Suécia
+3|Qual é o troféu dado ao campeão da Copa do Mundo masculina?|Taça FIFA|Taça Jules Rimet|Taça Libertadores|Bola de Ouro
+4|Qual taça o Brasil ganhou para sempre ao conquistar o tri, em 1970?|Taça Jules Rimet|Taça FIFA|Copa América|Taça Libertadores
+
+@tema futebol
+3|Quantos jogadores cada time tem em campo no futebol?|11|10|12|9
+3|Quanto tempo dura uma partida de futebol, sem acréscimos?|90 minutos|80 minutos|100 minutos|60 minutos
+3|O que significa o cartão vermelho no futebol?|Expulsão|Advertência|Pênalti|Fim do jogo
+3|Quantos cartões amarelos na mesma partida levam à expulsão?|2|3|1|4
+3|De que distância se cobra um pênalti?|11 metros|9 metros|16 metros|7 metros
+3|Qual tecnologia de vídeo ajuda o árbitro de futebol a revisar lances?|VAR|GPS|Olho de Falcão|TMO
+3|Qual clube brasileiro é conhecido como "Timão"?|Corinthians|Palmeiras|Santos|São Paulo
+3|Qual clube brasileiro tem o urubu como mascote?|Flamengo|Vasco|Botafogo|Fluminense
+3|Qual clube brasileiro é chamado de "Verdão"?|Palmeiras|Goiás|Coritiba|Chapecoense
+3|Qual clube gaúcho é conhecido como "Imortal Tricolor"?|Grêmio|Internacional|Juventude|Caxias
+3|Qual é o maior clássico de Minas Gerais?|Atlético-MG x Cruzeiro|América-MG x Cruzeiro|Atlético-MG x Villa Nova|Cruzeiro x Tupi
+3|Qual é o clássico entre Grêmio e Internacional?|Grenal|Fla-Flu|Ba-Vi|Majestoso
+3|Qual é o clássico entre Bahia e Vitória?|Ba-Vi|Grenal|Re-Pa|Clássico-Rei
+3|O Fla-Flu é o clássico entre Flamengo e qual time?|Fluminense|Vasco|Botafogo|Bangu
+4|O Re-Pa é o clássico de qual cidade?|Belém|Recife|Manaus|São Luís
+3|Qual é o principal torneio de clubes da América do Sul?|Copa Libertadores|Copa Sul-Americana|Copa América|Recopa
+3|Qual é o principal torneio de clubes da Europa?|Liga dos Campeões|Liga Europa|Eurocopa|Copa do Rei
+3|Qual clube tem mais títulos da Liga dos Campeões da Europa?|Real Madrid|Milan|Bayern de Munique|Barcelona
+3|Qual clube argentino tem mais títulos da Libertadores?|Independiente|Boca Juniors|River Plate|Estudiantes
+3|Em qual clube Pelé jogou a maior parte da carreira?|Santos|Botafogo|Flamengo|São Paulo
+3|Em qual clube americano Pelé jogou no fim da carreira?|New York Cosmos|LA Galaxy|Inter Miami|Chicago Fire
+3|Em qual clube Messi jogou a maior parte da carreira?|Barcelona|Paris Saint-Germain|Inter Miami|Newell's Old Boys
+3|Qual é o estádio de futebol mais famoso do Rio de Janeiro?|Maracanã|Morumbi|Mineirão|Pacaembu|Estádio carioca famoso
+3|Qual é o nome oficial do estádio do Morumbi, do São Paulo?|Estádio Cícero Pompeu de Toledo|Estádio Paulo Machado de Carvalho|Arena Corinthians|Allianz Parque
+3|Qual seleção é chamada de "Albiceleste"?|Argentina|Uruguai|Itália|Grécia
+3|Qual seleção é chamada de "Celeste Olímpica"?|Uruguai|Argentina|Itália|Grécia
+3|Qual seleção é chamada de "Azzurra"?|Itália|França|Japão|Escócia
+3|Qual seleção é chamada de "Les Bleus"?|França|Itália|Bélgica|Japão
+3|Qual seleção é chamada de "Laranja Mecânica"?|Holanda|Costa do Marfim|Bélgica|Gana
+3|Qual é o apelido da seleção brasileira por causa da cor da camisa?|Canarinho|Verdão|Tricolor|Celeste
+4|Qual técnico comandou o Brasil no tetracampeonato, em 1994?|Carlos Alberto Parreira|Luiz Felipe Scolari|Zagallo|Telê Santana
+4|Qual técnico comandou o Brasil no pentacampeonato, em 2002?|Luiz Felipe Scolari|Carlos Alberto Parreira|Tite|Vanderlei Luxemburgo
+4|Qual jogador foi campeão mundial como jogador e como técnico do Brasil?|Zagallo|Pelé|Dunga|Parreira
+
+@tema olimpiadas-e-recordes
+3|De quantos em quantos anos acontecem os Jogos Olímpicos de Verão?|4|2|3|5
+3|Quantos anéis tem o símbolo olímpico?|5|4|6|7
+3|Em qual país surgiram os Jogos Olímpicos antigos?|Grécia|Itália|Egito|Turquia
+3|Quem é o recordista de medalhas olímpicas de todos os tempos?|Michael Phelps|Usain Bolt|Larisa Latynina|Carl Lewis
+3|Quantas medalhas de ouro olímpicas Michael Phelps ganhou?|23|18|28|15
+3|Qual atleta jamaicano tem o recorde mundial dos 100 metros rasos?|Usain Bolt|Asafa Powell|Yohan Blake|Carl Lewis
+4|Qual é o recorde mundial dos 100 metros rasos masculino?|9,58 segundos|9,69 segundos|9,79 segundos|10,02 segundos
+3|Qual ginasta americana é uma das maiores da história, com várias medalhas olímpicas de ouro?|Simone Biles|Nadia Comăneci|Rebeca Andrade|Shawn Johnson
+3|Qual ginasta romena tirou a primeira nota 10 da história olímpica, em 1976?|Nadia Comăneci|Simone Biles|Olga Korbut|Larisa Latynina
+3|Qual brasileira é a maior medalhista olímpica do país, com 6 medalhas?|Rebeca Andrade|Daiane dos Santos|Rayssa Leal|Mayra Aguiar
+3|Qual skatista brasileira ganhou medalha olímpica aos 13 anos, em Tóquio?|Rayssa Leal|Letícia Bufoni|Pâmela Rosa|Rebeca Andrade
+4|Qual país lidera o quadro de medalhas olímpicas de todos os tempos?|Estados Unidos|Rússia|China|Alemanha
+4|Qual país domina o tênis de mesa olímpico?|China|Japão|Coreia do Sul|Alemanha
+4|Qual país africano é famoso pelos campeões de maratona e corridas longas?|Quênia|Marrocos|Nigéria|Angola
+3|Qual cidade sediou os Jogos Olímpicos de 2024?|Paris|Los Angeles|Tóquio|Londres
+3|Qual cidade vai sediar os Jogos Olímpicos de 2028?|Los Angeles|Brisbane|Paris|Madri
+4|Qual cidade vai sediar os Jogos Olímpicos de 2032?|Brisbane|Los Angeles|Doha|Nova Délhi
+3|Quantos quilômetros tem uma maratona?|42,195 km|40 km|21 km|50 km
+4|A maratona homenageia um soldado grego que correu de Maratona até qual cidade?|Atenas|Esparta|Troia|Corinto
+4|Qual brasileiro ganhou dois ouros olímpicos seguidos no salto triplo, em 1952 e 1956?|Adhemar Ferreira da Silva|João do Pulo|Joaquim Cruz|Nelson Prudêncio
+4|Qual corredor brasileiro ganhou o ouro nos 800 metros em Los Angeles 1984?|Joaquim Cruz|Robson Caetano|Vanderlei Cordeiro de Lima|Claudinei Quirino
+4|Qual maratonista brasileiro foi agarrado por um espectador quando liderava, em Atenas 2004?|Vanderlei Cordeiro de Lima|Marílson Gomes|Joaquim Cruz|Ronaldo da Costa
+3|Qual nadador brasileiro foi campeão olímpico nos 50 metros livre em Pequim 2008?|César Cielo|Gustavo Borges|Thiago Pereira|Bruno Fratus
+4|Quais velejadores brasileiros têm cinco medalhas olímpicas cada um?|Robert Scheidt e Torben Grael|Lars Grael e Marcelo Ferreira|Martine Grael e Kahena Kunze|Isaquias Queiroz e Erlon Souza
+4|Qual canoísta brasileiro ganhou o ouro olímpico em Tóquio 2020?|Isaquias Queiroz|Erlon Souza|Ana Sátila|Pepê Gonçalves
+3|Qual judoca brasileira ganhou o primeiro ouro feminino do país no judô, em Londres 2012?|Sarah Menezes|Rafaela Silva|Mayra Aguiar|Ketleyn Quadros
+3|Qual judoca brasileira, criada na Cidade de Deus, ganhou o ouro no Rio 2016?|Rafaela Silva|Sarah Menezes|Mayra Aguiar|Bia Souza
+3|Qual surfista brasileiro ganhou o primeiro ouro olímpico do surfe, em Tóquio 2020?|Ítalo Ferreira|Gabriel Medina|Filipe Toledo|Adriano de Souza
+3|Qual seleção feminina de vôlei ganhou o ouro olímpico em 2008 e 2012?|Brasil|Estados Unidos|China|Itália
+3|Qual país ganhou o ouro no futebol masculino nos Jogos do Rio 2016?|Brasil|Alemanha|Argentina|Nigéria
+3|Qual é o metal da medalha de terceiro lugar?|Bronze|Prata|Cobre|Ferro
+
+@tema outros-esportes
+3|Quantos jogadores cada time tem em quadra no vôlei?|6|5|7|4
+3|Quantos jogadores cada time tem em quadra no basquete?|5|6|7|4
+3|Quantos jogadores tem um time de futsal em quadra?|5|6|7|4
+3|Quantos jogadores tem um time de handebol em quadra?|7|6|5|11
+3|Quantos pontos vale um lance livre no basquete?|1|2|3|0
+3|Qual altura tem o aro da cesta de basquete?|3,05 metros|2,50 metros|3,50 metros|2,75 metros
+3|Em qual esporte se usa o termo "xeque-mate"?|Xadrez|Damas|Gamão|Pôquer
+3|Quantos sets um tenista homem precisa vencer num jogo de Grand Slam?|3|2|4|5
+3|Qual torneio de tênis é jogado na grama, em Londres?|Wimbledon|Roland Garros|US Open|Australian Open
+3|O torneio de Roland Garros é disputado em qual tipo de piso?|Saibro|Grama|Quadra dura|Carpete|Piso de Roland Garros
+3|Qual tenista brasileiro foi número 1 do mundo e tricampeão de Roland Garros?|Gustavo Kuerten (Guga)|Fernando Meligeni|Thomaz Bellucci|João Fonseca
+4|Qual tenista brasileira ganhou Wimbledon e outros Grand Slams nos anos 1950 e 60?|Maria Esther Bueno|Beatriz Haddad Maia|Teliana Pereira|Niège Dias
+3|Qual tenista tem mais títulos de Grand Slam no masculino?|Novak Djokovic|Rafael Nadal|Roger Federer|Pete Sampras
+3|Qual tenista é o "Rei do Saibro", com 14 títulos de Roland Garros?|Rafael Nadal|Novak Djokovic|Roger Federer|Björn Borg
+3|Qual piloto brasileiro foi três vezes campeão mundial de Fórmula 1 e morreu em 1994?|Ayrton Senna|Nelson Piquet|Emerson Fittipaldi|Rubens Barrichello
+3|Quais pilotos dividem o recorde de 7 títulos mundiais de Fórmula 1?|Michael Schumacher e Lewis Hamilton|Ayrton Senna e Alain Prost|Max Verstappen e Sebastian Vettel|Juan Manuel Fangio e Niki Lauda
+3|Qual foi o primeiro brasileiro campeão mundial de Fórmula 1?|Emerson Fittipaldi|Nelson Piquet|Ayrton Senna|Rubens Barrichello
+3|Em qual autódromo acontece o Grande Prêmio de São Paulo de Fórmula 1?|Interlagos|Jacarepaguá|Nelson Piquet|Velocitta|Autódromo paulistano
+3|Qual escuderia de Fórmula 1 é italiana e vermelha?|Ferrari|McLaren|Williams|Red Bull
+3|Em qual cidade acontece o GP de Fórmula 1 pelas ruas, perto do cassino?|Mônaco|Las Vegas|Cingapura|Baku
+3|Qual país criou o judô?|Japão|China|Coreia do Sul|Brasil
+3|O taekwondo é uma arte marcial de qual país?|Coreia do Sul|Japão|China|Tailândia
+3|A capoeira nasceu em qual país?|Brasil|Angola|Portugal|Cuba
+3|Qual família brasileira espalhou o jiu-jítsu pelo mundo?|Gracie|Machida|Nogueira|Belfort
+3|Qual esporte é muito popular na Índia, jogado com taco e bola?|Críquete|Beisebol|Hóquei|Golfe
+4|O basquete foi inventado em qual país?|Estados Unidos|Canadá|Inglaterra|França
+3|O vôlei foi inventado em qual país?|Estados Unidos|Brasil|Japão|Itália
+3|Qual esporte usa raquete e peteca?|Badminton|Tênis|Squash|Tênis de mesa
+3|Qual é o esporte de Gabriel Medina?|Surfe|Skate|Natação|Vela
+3|Qual surfista brasileiro foi tricampeão mundial?|Gabriel Medina|Ítalo Ferreira|Filipe Toledo|Adriano de Souza
+3|Qual corrida de rua acontece em São Paulo no último dia do ano?|Corrida de São Silvestre|Maratona do Rio|Volta da Pampulha|Maratona de São Paulo
+4|Qual lutador brasileiro ficou famoso no UFC pelo apelido "Spider"?|Anderson Silva|José Aldo|Vitor Belfort|Junior Cigano
+3|Qual boxeador dizia "Voe como uma borboleta, ferroe como uma abelha"?|Muhammad Ali|Mike Tyson|George Foreman|Joe Frazier
+3|Qual time da NBA teve Michael Jordan como maior estrela?|Chicago Bulls|Los Angeles Lakers|Boston Celtics|Miami Heat
+4|Qual jogador de basquete brasileiro é o maior cestinha da história em jogos oficiais?|Oscar Schmidt|Hortência|Nenê|Leandrinho
+3|Qual é a maior corrida de ciclismo do mundo, na França?|Tour de France|Giro d'Italia|Vuelta|Paris-Roubaix
+3|Quantos buracos tem um campo de golfe padrão?|18|9|12|24
+3|Em qual esporte se faz um "home run"?|Beisebol|Críquete|Golfe|Rúgbi
+3|Em qual esporte se marca um "try" levando a bola oval até o fim do campo?|Rúgbi|Futebol americano|Handebol|Polo aquático
+3|Qual esporte é disputado num ringue com luvas?|Boxe|Judô|Esgrima|Luta greco-romana
+3|Em qual esporte se usa um florete, uma espada ou um sabre?|Esgrima|Tiro com arco|Pentatlo|Kendo
+3|Qual esporte de inverno desce montanhas de neve com duas pranchas nos pés?|Esqui|Snowboard|Patinação|Curling
+3|Qual esporte de gelo usa pedras de granito e vassouras?|Curling|Hóquei no gelo|Bobsled|Patinação
+3|Qual é o nome do disco de borracha usado no hóquei no gelo?|Puck|Peteca|Disco de ouro|Bola oval
+3|Em qual esporte brasileiro de praia se joga com os pés numa rede, como vôlei?|Futevôlei|Frescobol|Beach tennis|Altinha
+
+@tema jogos-de-mesa
+3|Quantas casas tem um tabuleiro de xadrez?|64|81|100|49
+3|Qual peça do xadrez só anda na diagonal?|Bispo|Torre|Cavalo|Rei
+3|Qual peça do xadrez anda em "L"?|Cavalo|Bispo|Torre|Dama
+3|Qual é a peça mais poderosa do xadrez?|Dama (rainha)|Rei|Torre|Cavalo
+3|Quantas peças cada jogador tem no começo de uma partida de xadrez?|16|12|20|8
+3|Quantos peões cada jogador tem no xadrez?|8|6|10|16
+4|Qual jogada do xadrez move o rei e a torre ao mesmo tempo?|Roque|En passant|Promoção|Xeque
+4|Qual enxadrista americano venceu o soviético Boris Spassky em 1972, em plena Guerra Fria?|Bobby Fischer|Garry Kasparov|Magnus Carlsen|Anatoly Karpov
+4|Qual campeão mundial de xadrez perdeu um match para o computador Deep Blue, em 1997?|Garry Kasparov|Anatoly Karpov|Bobby Fischer|Magnus Carlsen
+4|Qual enxadrista norueguês foi campeão mundial de 2013 a 2023?|Magnus Carlsen|Viswanathan Anand|Fabiano Caruana|Hikaru Nakamura
+3|Quantas cartas tem um baralho comum, sem coringas?|52|54|48|56
+3|Quantos naipes tem um baralho?|4|3|5|6
+3|Qual é o naipe representado por um coração?|Copas|Ouros|Espadas|Paus
+3|Qual é o naipe representado por um losango?|Ouros|Copas|Espadas|Paus
+3|Quantas peças tem um jogo de dominó tradicional?|28|24|32|36
+3|Quanto dá a soma das faces opostas de um dado comum?|7|6|8|12
+3|Quantas casas tem um tabuleiro de damas?|64|100|81|49
+3|O cubo mágico também é chamado pelo nome do seu inventor húngaro. Qual?|Rubik|Tetris|Lego|Sudoku|Sobrenome do inventor do cubo mágico
+3|De qual país é o brinquedo LEGO?|Dinamarca|Suécia|Alemanha|Estados Unidos
+3|Em qual jogo de cartas o objetivo é somar 21 pontos?|Vinte e Um (Blackjack)|Truco|Pôquer|Buraco
+3|Qual jogo de tabuleiro envolve comprar propriedades e cobrar aluguel?|Banco Imobiliário|War|Detetive|Jogo da Vida
+3|Em qual jogo de cartas aparecem o "zap", a "espadilha" e o "sete copas"?|Truco|Buraco|Pife|Canastra
+3|Qual jogo tem o objetivo de conquistar territórios no mapa-múndi?|War|Banco Imobiliário|Detetive|Ludo
+3|Em qual jogo de tabuleiro se descobre o culpado, a arma e o lugar do crime?|Detetive|War|Jogo da Vida|Banco Imobiliário
+3|Em qual jogo se forma uma linha de três símbolos (X ou O) numa grade 3 × 3?|Jogo da velha|Batalha naval|Damas|Resta um
+3|Qual jogo de mesa com 15 peças de cada lado e dados é um dos mais antigos do mundo?|Gamão|Xadrez|Dominó|Ludo
+3|Qual quebra-cabeça de números, popularizado no Japão, exige preencher uma grade 9 × 9 sem repetir algarismos?|Sudoku|Kakuro|Go|Mahjong
+3|Qual jogo de tabuleiro asiático usa pedras pretas e brancas para cercar território?|Go|Xadrez chinês|Mahjong|Damas
+3|Qual jogo de peças com bambus, caracteres e dragões é tradicional da China?|Mahjong|Go|Dominó|Xadrez chinês
